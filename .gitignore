@@ -1,0 +1,13 @@
+Cryptopunk/.vs/Cryptopunk/v15/
+*.meta
+Cryptopunk/Library/metadata/
+Cryptopunk/Library/PackageCache/
+Cryptopunk/Temp/
+Cryptopunk/Logs/
+Cryptopunk/obj/Debug/
+Cryptopunk/Library/ShaderCache/
+.~lock.GDD Cryptopunk.odt#
+.~lock.Cryptopunk task tracker.ods#
+Cryptopunk/Library/APIUpdater/project-dependencies.graph
+Cryptopunk/Library/ScriptAssemblies/
+Cryptopunk/Library/StateCache/
