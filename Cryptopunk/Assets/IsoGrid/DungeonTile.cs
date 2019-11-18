@@ -25,7 +25,7 @@ public class DungeonTile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isExplored)
+        if (!isExplored)
         {
             myMeshRenderer.enabled = true;
             myMeshRenderer.material = unexplored;
@@ -33,7 +33,7 @@ public class DungeonTile : MonoBehaviour
         else
         {
             myMeshRenderer.enabled = hasTile;
-            if(visible)
+            if (visible)
             {
                 myMeshRenderer.material = visible;
             }
@@ -41,8 +41,12 @@ public class DungeonTile : MonoBehaviour
             {
                 myMeshRenderer.material = fog;
             }
-           
+
         }
+    }
+    private void OnMouseDown()
+    {
+        DungeonManager.instance.SelectTile(this);
     }
     internal int GetHeight()
     {

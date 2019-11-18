@@ -1,25 +1,34 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
+    internal enum Mode
+    {
+        Deploy,
+        Move,
+        Attack,
+        Breach,
+        Wait
+    }
+    internal Mode mode = Mode.Deploy;
+    public static DungeonManager instance;
+
     [SerializeField] Program[] playerPrograms;
     [SerializeField] Program[] enemyPrograms;
-    private bool isPlayerTurn = true;
+    public bool isPlayerTurn = true;
+    public bool isDeployment= true;
     // Start is called before the first frame update
     void Start()
     {
         DungeonGrid grid = FindObjectOfType<DungeonGrid>();
         int[][] gridPlan = GridGenerator.GenerateGrid(3);
         grid.GenerateGrid(gridPlan);
+        instance = this;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     void EndTurn()
     {
@@ -47,6 +56,17 @@ public class DungeonManager : MonoBehaviour
         if(isPlayerTurn)
         {
             EndTurn();
+        }
+    }
+
+    internal void SelectTile(DungeonTile dungeonTile)
+    {
+        if(mode==Mode.Deploy)
+        {
+            //TODO: Get program from deployement queue
+            //assign to selected tile
+            //remove from deployment queue
+            //if deployment queue is empty, switch mode to move
         }
     }
 }

@@ -5,8 +5,10 @@ using UnityEngine;
 public class Program : MonoBehaviour
 {
     public static bool isAnimating = false;
+    public static bool isTargeting = false;
     public static float animationSpeed = 2f;
     public static Program selectedProgram;
+    public static Program target;
     [SerializeField] internal int size;
     internal int maxSize;
     [SerializeField] internal int power;
@@ -60,6 +62,13 @@ public class Program : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        selectedProgram = this;
+        if (isTargeting)
+        {
+            target = this;
+        }
+        else
+        {
+            selectedProgram = this;
+        }
     }
 }
