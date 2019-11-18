@@ -30,11 +30,11 @@ public class CameraContol : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Q))
         {
-            gameObject.transform.Rotate(new Vector3(0f,rotateSpeed*Time.deltaTime,0f));
+            gameObject.transform.Rotate(new Vector3(0f,-1*rotateSpeed*Time.deltaTime,0f));
         }
         else if(Input.GetKey(KeyCode.E))
         {
-            gameObject.transform.Rotate(new Vector3(0f,-1f*rotateSpeed * Time.deltaTime, 0f));
+            gameObject.transform.Rotate(new Vector3(0f,rotateSpeed * Time.deltaTime, 0f));
         }
     }
 
