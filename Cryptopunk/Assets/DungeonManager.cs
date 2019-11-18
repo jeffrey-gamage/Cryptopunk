@@ -10,7 +10,9 @@ public class DungeonManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        DungeonGrid grid = FindObjectOfType<DungeonGrid>();
+        int[][] gridPlan = GridGenerator.GenerateGrid(3);
+        grid.GenerateGrid(gridPlan);
     }
 
     // Update is called once per frame

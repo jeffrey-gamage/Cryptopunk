@@ -68,6 +68,7 @@
     <Compile Include="Assets\IsoGrid\DungeonTile.cs" />
     <Compile Include="Assets\IsoGrid\GridGenerator.cs" />
     <Compile Include="Assets\Programs\Program.cs" />
+    <Compile Include="Assets\UI\ProgramDisplay.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

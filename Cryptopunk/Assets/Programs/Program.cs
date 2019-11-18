@@ -8,6 +8,7 @@ public class Program : MonoBehaviour
     public static float animationSpeed = 2f;
     public static Program selectedProgram;
     [SerializeField] internal int size;
+    internal int maxSize;
     [SerializeField] internal int power;
     [SerializeField] internal int speed;
     [SerializeField] internal int range;
@@ -15,8 +16,8 @@ public class Program : MonoBehaviour
     [SerializeField] internal int breach;
     [SerializeField] internal string[] keywords;
     internal DungeonTile myTile;
-    private int movesLeft;
-    private bool hasAttacked;
+    internal int movesLeft;
+    internal bool hasAttacked;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,5 +57,9 @@ public class Program : MonoBehaviour
     {
         myTile = destination;
         isAnimating = true;
+    }
+    private void OnMouseDown()
+    {
+        selectedProgram = this;
     }
 }

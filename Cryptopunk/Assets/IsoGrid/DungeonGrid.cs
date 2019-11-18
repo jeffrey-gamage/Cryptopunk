@@ -14,8 +14,6 @@ public class DungeonGrid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int[][] gridPlan = GridGenerator.GenerateGrid(numSegments);
-        GenerateGrid(gridPlan);
     }
 
     // Update is called once per frame
@@ -24,7 +22,7 @@ public class DungeonGrid : MonoBehaviour
         
     }
 
-    private void GenerateGrid(int[][] gridHeights)
+    internal void GenerateGrid(int[][] gridHeights)
     {
         grid = new DungeonTile[gridHeights.Length][];
         for(int i=0; i<gridHeights.Length;i++)
