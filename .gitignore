@@ -11,3 +11,4 @@ Cryptopunk/Library/ShaderCache/
 Cryptopunk/Library/APIUpdater/project-dependencies.graph
 Cryptopunk/Library/ScriptAssemblies/
 Cryptopunk/Library/StateCache/
+*.log
