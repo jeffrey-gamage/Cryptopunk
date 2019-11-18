@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8847390588398665581}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -105,10 +105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad49cb11c4991f94f94054e97ccf9300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 5
+  maxSize: 5
   power: 3
   speed: 3
   range: 1
   sight: 5
   breach: 1
   keywords: []
+  myTile: {fileID: 0}

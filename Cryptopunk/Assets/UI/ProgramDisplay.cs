@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ProgramDisplay : MonoBehaviour
 {
+    [SerializeField] Text nameDisplay;
     [SerializeField] Text sizeDisplay;
     [SerializeField] Text speedDisplay;
     [SerializeField] Text powerDisplay;
@@ -23,6 +24,7 @@ public class ProgramDisplay : MonoBehaviour
     {
         if(Program.selectedProgram)
         {
+            nameDisplay.text = Program.selectedProgram.name;
             sizeDisplay.text = Program.selectedProgram.size.ToString() + " / " + Program.selectedProgram.maxSize.ToString();
             speedDisplay.text = Program.selectedProgram.movesLeft.ToString() + " / " + Program.selectedProgram.speed.ToString();
             powerDisplay.text = Program.selectedProgram.power.ToString();

@@ -19,7 +19,6 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] Program[] playerPrograms;
     [SerializeField] Program[] enemyPrograms;
     public bool isPlayerTurn = true;
-    public bool isDeployment= true;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,8 +26,21 @@ public class DungeonManager : MonoBehaviour
         int[][] gridPlan = GridGenerator.GenerateGrid(3);
         grid.GenerateGrid(gridPlan);
         instance = this;
+        PrepareDeployment();
     }
-    
+
+    private void PrepareDeployment()
+    {
+        Program toDeploy = null;
+        foreach(Program program in playerPrograms)
+        {
+            if(!program.myTile)
+            {
+                toDeploy = program;
+            }
+        }
+        Program.selectedProgram = toDeploy;
+    }
 
     void EndTurn()
     {
@@ -63,10 +75,14 @@ public class DungeonManager : MonoBehaviour
     {
         if(mode==Mode.Deploy)
         {
-            //TODO: Get program from deployement queue
-            //assign to selected tile
-            //remove from deployment queue
-            //if deployment queue is empty, switch mode to move
+            Program.selectedProgram.myTile = dungeonTile;
+            Program.selectedProgram.transform.position = dungeonTile.transform.position;
+            Program.selectedProgram.gameObject.GetComponent<MeshRenderer>().enabled = true;
+            PrepareDeployment();
+            if(!Program.selectedProgram)
+            {
+                mode = Mode.Move;
+            }
         }
     }
 }

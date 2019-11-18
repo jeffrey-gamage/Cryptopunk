@@ -12,14 +12,18 @@ public class DungeonTile : MonoBehaviour
     internal bool isExplored = false;
     internal bool isVisible = false;
 
+    private Collider myCollider;
     private MeshRenderer myMeshRenderer;
     [SerializeField] Material unexplored;
     [SerializeField] Material fog;
     [SerializeField] Material visible;
+
+    internal Program occupyingProgram = null;
     // Start is called before the first frame update
     void Start()
     {
         myMeshRenderer = GetComponent<MeshRenderer>();
+        myCollider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -43,6 +47,7 @@ public class DungeonTile : MonoBehaviour
             }
 
         }
+        myCollider.enabled = !isBlocked;
     }
     private void OnMouseDown()
     {

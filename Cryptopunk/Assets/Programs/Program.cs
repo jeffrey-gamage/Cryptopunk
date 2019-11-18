@@ -9,21 +9,21 @@ public class Program : MonoBehaviour
     public static float animationSpeed = 2f;
     public static Program selectedProgram;
     public static Program target;
-    [SerializeField] internal int size;
-    internal int maxSize;
+    [SerializeField] internal int maxSize;
     [SerializeField] internal int power;
     [SerializeField] internal int speed;
     [SerializeField] internal int range;
     [SerializeField] internal int sight;
     [SerializeField] internal int breach;
     [SerializeField] internal string[] keywords;
-    internal DungeonTile myTile;
+    [SerializeField]internal DungeonTile myTile;
+    internal int size;
     internal int movesLeft;
     internal bool hasAttacked;
     // Start is called before the first frame update
     void Start()
     {
-        
+        size = maxSize;
     }
 
     // Update is called once per frame
