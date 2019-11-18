@@ -15,6 +15,7 @@ public class DungeonManager : MonoBehaviour
     }
     internal Mode mode = Mode.Deploy;
     public static DungeonManager instance;
+    private DungeonGrid grid;
 
     [SerializeField] Program[] playerPrograms;
     [SerializeField] Program[] enemyPrograms;
@@ -22,7 +23,7 @@ public class DungeonManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DungeonGrid grid = FindObjectOfType<DungeonGrid>();
+        grid = FindObjectOfType<DungeonGrid>();
         int[][] gridPlan = GridGenerator.GenerateGrid(3);
         grid.GenerateGrid(gridPlan);
         instance = this;
@@ -83,6 +84,10 @@ public class DungeonManager : MonoBehaviour
             {
                 mode = Mode.Move;
             }
+        }
+        if(mode==Mode.Move)
+        {
+            Program.selectedProgram.AttemptMove(dungeonTile);
         }
     }
 }

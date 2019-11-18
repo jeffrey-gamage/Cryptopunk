@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DungeonTile : MonoBehaviour
 {
-    private int xCoord;
-    private int zCoord;
+    internal int xCoord;
+    internal int zCoord;
     private bool isBlocked = false;
     [SerializeField] private int height;
     [SerializeField] private bool hasTile = true;

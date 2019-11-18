@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ public class Program : MonoBehaviour
     internal int size;
     internal int movesLeft;
     internal bool hasAttacked;
+    private List<DungeonTile> movePath;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,5 +72,10 @@ public class Program : MonoBehaviour
         {
             selectedProgram = this;
         }
+    }
+
+    internal void AttemptMove(DungeonTile target, DungeonGrid grid)
+    {
+        movePath = grid.FindPath(myTile, target, movesLeft, false);
     }
 }
