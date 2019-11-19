@@ -47,9 +47,9 @@ MonoBehaviour:
   maxPan: 12
   rotateSpeed: 90
   panSpeed: 4
-  zoomSpeed: 0.5
+  zoomSpeed: 1.25
   zoomMax: 3
-  zoomMin: 0.4
+  zoomMin: 1
 --- !u!1 &7079416604308530533
 GameObject:
   m_ObjectHideFlags: 0

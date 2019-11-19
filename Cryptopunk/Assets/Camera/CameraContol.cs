@@ -41,12 +41,12 @@ public class CameraContol : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Z))
         {
-            float zoom = Mathf.Clamp(gameObject.transform.localScale.x - zoomSpeed, zoomMin, zoomMax);
+            float zoom = Mathf.Clamp(gameObject.transform.localScale.x - zoomSpeed*Time.deltaTime, zoomMin, zoomMax);
             gameObject.transform.localScale = new Vector3(zoom, zoom, zoom);
         }
         else if (Input.GetKey(KeyCode.X))
         {
-            float zoom = Mathf.Clamp(gameObject.transform.localScale.x + zoomSpeed, zoomMin, zoomMax);
+            float zoom = Mathf.Clamp(gameObject.transform.localScale.x + zoomSpeed*Time.deltaTime, zoomMin, zoomMax);
             gameObject.transform.localScale = new Vector3(zoom, zoom, zoom);
         }
     }
