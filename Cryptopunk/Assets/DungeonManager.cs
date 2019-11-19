@@ -11,9 +11,10 @@ public class DungeonManager : MonoBehaviour
         Move,
         Attack,
         Breach,
-        Wait
+        Wait,
     }
     internal Mode mode = Mode.Deploy;
+    internal Mode waitingTo;
     public static DungeonManager instance;
     private DungeonGrid grid;
 
@@ -25,12 +26,13 @@ public class DungeonManager : MonoBehaviour
     {
         grid = FindObjectOfType<DungeonGrid>();
         int[][] gridPlan = GridGenerator.GenerateGrid(3);
+        FindObjectOfType<CameraContol>().transform.position = new Vector3(gridPlan.Length / 2, 0, gridPlan.Length / 2);
         grid.GenerateGrid(gridPlan);
         instance = this;
-        PrepareDeployment();
+        PrepareNextDeployment();
     }
 
-    private void PrepareDeployment()
+    private void PrepareNextDeployment()
     {
         Program toDeploy = null;
         foreach(Program program in playerPrograms)
@@ -76,18 +78,47 @@ public class DungeonManager : MonoBehaviour
     {
         if(mode==Mode.Deploy)
         {
-            Program.selectedProgram.myTile = dungeonTile;
-            Program.selectedProgram.transform.position = dungeonTile.transform.position;
-            Program.selectedProgram.gameObject.GetComponent<MeshRenderer>().enabled = true;
-            PrepareDeployment();
-            if(!Program.selectedProgram)
+            DeploySelected(dungeonTile);
+            PrepareNextDeployment();
+            if (!Program.selectedProgram)
             {
                 mode = Mode.Move;
+                foreach (Program program in playerPrograms)
+                {
+                    program.OnStartTurn();
+                }
             }
         }
-        if(mode==Mode.Move)
+        else if (mode==Mode.Move)
         {
-            Program.selectedProgram.AttemptMove(dungeonTile);
+            if (Program.selectedProgram)
+            {
+                Program.selectedProgram.AttemptMove(dungeonTile, grid);
+            }
+        }
+    }
+
+    private static void DeploySelected(DungeonTile dungeonTile)
+    {
+        Program.selectedProgram.myTile = dungeonTile;
+        Program.selectedProgram.transform.position = dungeonTile.transform.position;
+        Program.selectedProgram.gameObject.GetComponent<MeshRenderer>().enabled = true;
+    }
+
+    internal void Wait()
+    {
+        waitingTo = mode;
+        mode = Mode.Wait;
+    }
+    internal void Resume()
+    {
+        if (mode == Mode.Wait)
+        {
+            mode = waitingTo;
+        }
+        else
+        {
+            Debug.LogWarning("Tried to resume while not waiting on animation");
         }
     }
 }

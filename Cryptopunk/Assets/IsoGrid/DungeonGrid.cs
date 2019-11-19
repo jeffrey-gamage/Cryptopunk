@@ -68,11 +68,8 @@ public class DungeonGrid : MonoBehaviour
     internal List<DungeonTile> FindPath(DungeonTile start, DungeonTile end, int pathLength, bool isFlyingPath)
     {
         List<DungeonTile> path = new List<DungeonTile>();
-        if(start == end)
-        {
-            return path;
-        }
-        while(path.Count<pathLength&&(path.Count==0||path[path.Count-1]!=end))
+        path.Add(start);
+        while(path.Count<=pathLength&&(path.Count==0||path[path.Count-1]!=end))
         {
             if(end.xCoord>path[path.Count-1].xCoord&&IsValidPath(path[path.Count - 1].xCoord + 1,path[path.Count - 1].zCoord))
             {

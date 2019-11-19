@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Program : MonoBehaviour
 {
-    public static bool isAnimating = false;
+    public bool isAnimating = false;
     public static bool isTargeting = false;
     public static float animationSpeed = 2f;
     public static Program selectedProgram;
@@ -39,10 +39,19 @@ public class Program : MonoBehaviour
         if (isAnimating)
         {
             Vector3 motion = (myTile.transform.position - gameObject.transform.position).normalized * animationSpeed * Time.deltaTime;
-            if (motion.magnitude > (myTile.transform.position - gameObject.transform.position).magnitude)
+            if (motion==Vector3.zero||motion.magnitude > (myTile.transform.position - gameObject.transform.position).magnitude)
             {
                 gameObject.transform.position = myTile.transform.position;
-                isAnimating = false;
+                if (movePath.Count == 0)
+                {
+                    isAnimating = false;
+                    DungeonManager.instance.Resume();
+                }
+                else
+                {
+                    myTile = movePath[0];
+                    movePath.Remove(myTile);
+                }
             }
             else
             {
@@ -57,11 +66,6 @@ public class Program : MonoBehaviour
         movesLeft = speed;
     }
 
-    public void Move(DungeonTile destination)
-    {
-        myTile = destination;
-        isAnimating = true;
-    }
     private void OnMouseDown()
     {
         if (isTargeting)
@@ -76,6 +80,22 @@ public class Program : MonoBehaviour
 
     internal void AttemptMove(DungeonTile target, DungeonGrid grid)
     {
-        movePath = grid.FindPath(myTile, target, movesLeft, false);
+        List<DungeonTile> tempPath = grid.FindPath(myTile, target, movesLeft, false);
+        if(tempPath[tempPath.Count-1]==target)
+        {
+            Debug.Log("Found path, animating movement");
+            movePath = tempPath;
+            movesLeft -= (movePath.Count-1);
+            DungeonManager.instance.Wait();
+            isAnimating = true;
+        }
+        else
+        {
+            Debug.Log("no path found.");
+            foreach(DungeonTile tile in tempPath)
+            {
+                Debug.Log(tile.xCoord.ToString() + " " + tile.zCoord.ToString());
+            }
+        }
     }
 }
