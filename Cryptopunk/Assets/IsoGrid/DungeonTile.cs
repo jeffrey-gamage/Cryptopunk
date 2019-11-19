@@ -37,7 +37,7 @@ public class DungeonTile : MonoBehaviour
         else
         {
             myMeshRenderer.enabled = hasTile;
-            if (visible)
+            if (isVisible)
             {
                 myMeshRenderer.material = visible;
             }
@@ -56,5 +56,14 @@ public class DungeonTile : MonoBehaviour
     internal int GetHeight()
     {
         return height;
+    }
+    internal void Reveal()
+    {
+        isExplored = true;
+        isVisible = true;
+    }
+    internal void Fog()
+    {
+        isVisible = false;
     }
 }

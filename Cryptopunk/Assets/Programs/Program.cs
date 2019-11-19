@@ -51,6 +51,7 @@ public class Program : MonoBehaviour
                 {
                     myTile = movePath[0];
                     movePath.Remove(myTile);
+                    DungeonManager.instance.UpdateVisibility();
                 }
             }
             else

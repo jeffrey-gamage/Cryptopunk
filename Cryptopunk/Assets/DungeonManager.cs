@@ -74,6 +74,11 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
+    internal void UpdateVisibility()
+    {
+        grid.FogOfWarRender(playerPrograms);
+    }
+
     internal void SelectTile(DungeonTile dungeonTile)
     {
         if(mode==Mode.Deploy)
@@ -82,11 +87,7 @@ public class DungeonManager : MonoBehaviour
             PrepareNextDeployment();
             if (!Program.selectedProgram)
             {
-                mode = Mode.Move;
-                foreach (Program program in playerPrograms)
-                {
-                    program.OnStartTurn();
-                }
+                BeginRun();
             }
         }
         else if (mode==Mode.Move)
@@ -95,6 +96,16 @@ public class DungeonManager : MonoBehaviour
             {
                 Program.selectedProgram.AttemptMove(dungeonTile, grid);
             }
+        }
+    }
+
+    private void BeginRun()
+    {
+        UpdateVisibility();
+        mode = Mode.Move;
+        foreach (Program program in playerPrograms)
+        {
+            program.OnStartTurn();
         }
     }
 

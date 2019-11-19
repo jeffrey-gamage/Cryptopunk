@@ -65,6 +65,39 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    internal void FogOfWarRender(Program[] playerPrograms)
+    {
+        foreach(DungeonTile[] row in tileGrid)
+        {
+            foreach(DungeonTile tile in row)
+            {
+                if(IsSeenByPlayer(tile,playerPrograms))
+                {
+                    tile.Reveal();
+                }
+                else
+                {
+                    tile.Fog();
+                }
+            }
+        }
+    }
+
+    private bool IsSeenByPlayer(DungeonTile tile, Program[] playerPrograms)
+    {
+        bool isSeen = false;
+        foreach(Program program in playerPrograms)
+        {
+            isSeen = isSeen || TileDistance(tile, program.myTile) <= program.sight;
+        }
+        return isSeen;
+    }
+
+    private int TileDistance(DungeonTile tile, DungeonTile myTile)
+    {
+        return Math.Abs(tile.xCoord - myTile.xCoord) + Math.Abs(tile.zCoord - myTile.zCoord);
+    }
+
     internal List<DungeonTile> FindPath(DungeonTile start, DungeonTile end, int pathLength, bool isFlyingPath)
     {
         List<DungeonTile> path = new List<DungeonTile>();
