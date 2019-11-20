@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class DungeonGrid : MonoBehaviour
 {
-    [SerializeField] GameObject chasm;
-    [SerializeField] GameObject grid0;
-    [SerializeField] GameObject grid1;
-    [SerializeField] GameObject grid2;
-    [SerializeField] GameObject grid3;
+    [SerializeField] GameObject gridTile;
+    [SerializeField] GameObject ramp;
     private DungeonTile[][] tileGrid;
     [SerializeField] int numSegments = 3;
     // Start is called before the first frame update
@@ -31,12 +28,31 @@ public class DungeonGrid : MonoBehaviour
             tileGrid[i] = new DungeonTile[gridHeights[i].Length];
             for (int j = 0; j < gridHeights[i].Length; j++)
             {
-                tileGrid[i][j] = Instantiate(grid0, Vector3.right * i + Vector3.forward * j, Quaternion.identity).GetComponent<DungeonTile>();
+                tileGrid[i][j] = Instantiate(gridTile, Vector3.right * i + Vector3.forward * j, Quaternion.identity).GetComponent<DungeonTile>();
                 tileGrid[i][j].SetHeight(gridHeights[i][j]);
                 tileGrid[i][j].xCoord = i;
                 tileGrid[i][j].zCoord = j;
             }
         }
+    }
+
+    internal void GenerateRamps()
+    {
+        Ramp newRamp = Instantiate(ramp).GetComponent<Ramp>();
+        newRamp.SetDirection(Ramp.Direction.Back);
+        tileGrid[4][1].SetRamp(newRamp);
+
+        newRamp = Instantiate(ramp).GetComponent<Ramp>();
+        newRamp.SetDirection(Ramp.Direction.Left);
+        tileGrid[1][4].SetRamp(newRamp);
+
+        newRamp = Instantiate(ramp).GetComponent<Ramp>();
+        newRamp.SetDirection(Ramp.Direction.Forward);
+        tileGrid[3][6].SetRamp(newRamp);
+
+        newRamp = Instantiate(ramp).GetComponent<Ramp>();
+        newRamp.SetDirection(Ramp.Direction.Right);
+        tileGrid[6][3].SetRamp(newRamp);
     }
 
     internal void FogOfWarRender(Program[] playerPrograms)

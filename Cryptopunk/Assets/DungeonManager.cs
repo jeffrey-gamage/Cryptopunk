@@ -28,6 +28,7 @@ public class DungeonManager : MonoBehaviour
         int[][] gridPlan = GridGenerator.GenerateGrid(3);
         FindObjectOfType<CameraContol>().transform.position = new Vector3(gridPlan.Length / 2, 0, gridPlan.Length / 2);
         grid.GenerateGrid(gridPlan);
+        grid.GenerateRamps();
         instance = this;
         PrepareNextDeployment();
     }

@@ -67,6 +67,7 @@
     <Compile Include="Assets\IsoGrid\DungeonGrid.cs" />
     <Compile Include="Assets\IsoGrid\DungeonTile.cs" />
     <Compile Include="Assets\IsoGrid\GridGenerator.cs" />
+    <Compile Include="Assets\IsoGrid\Ramp.cs" />
     <Compile Include="Assets\Programs\Program.cs" />
     <Compile Include="Assets\UI\ProgramDisplay.cs" />
     <Reference Include="Unity.Timeline.Editor">

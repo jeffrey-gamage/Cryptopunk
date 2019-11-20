@@ -13,7 +13,7 @@ public static class GridGenerator
             grid[i] = new int[8];
             for(int j=0;j<grid[i].Length;j++)
             {
-                if(i==0||j==0)
+                if(i==0||j==0||i==7||j==7)
                 {
                     grid[i][j] = 1;
                 }

@@ -464,11 +464,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643b5045fe3b0df4a8a2fb9c09aeb1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chasm: {fileID: 0}
-  grid0: {fileID: 4291032839040103493, guid: 3a50d53613f53d044bf7950bfa1b6938, type: 3}
-  grid1: {fileID: 0}
-  grid2: {fileID: 0}
-  grid3: {fileID: 0}
+  gridTile: {fileID: 4291032839040103493, guid: 3a50d53613f53d044bf7950bfa1b6938,
+    type: 3}
+  ramp: {fileID: 1212212368378406168, guid: 2da76353be6dab840a31a2f2ce557cce, type: 3}
   numSegments: 3
 --- !u!4 &1479125997
 Transform:
