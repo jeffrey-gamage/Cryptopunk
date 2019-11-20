@@ -13,7 +13,6 @@ public class DungeonTile : MonoBehaviour
     internal int zCoord;
     internal bool isBlocked = false;
     [SerializeField] private int height;
-    [SerializeField] private bool hasTile = true;
     internal bool isExplored = false;
     internal bool isVisible = false;
 
@@ -42,7 +41,7 @@ public class DungeonTile : MonoBehaviour
         }
         else
         {
-            myMeshRenderer.enabled = hasTile;
+            myMeshRenderer.enabled = height>=0;
             if (isVisible)
             {
                 myMeshRenderer.material = visible;
@@ -51,9 +50,7 @@ public class DungeonTile : MonoBehaviour
             {
                 myMeshRenderer.material = fog;
             }
-
         }
-        myCollider.enabled = !isBlocked;
     }
 
     internal void SetRamp(Ramp newRamp)
@@ -142,9 +139,9 @@ public class DungeonTile : MonoBehaviour
                 ramp.GetComponent<Collider>().enabled = true;
                 ramp.GetComponent<MeshRenderer>().enabled = true;
             }
-            else if(height<0)
+            if(height<0)
             {
-                GetComponent<MeshRenderer>().enabled = false;
+                isBlocked = true;
             }
         }
         isExplored = true;

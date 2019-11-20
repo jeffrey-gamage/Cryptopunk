@@ -17,8 +17,12 @@ public static class GridGenerator
                 {
                     grid[i][j] = 1;
                 }
-                else
+                else if(i<5&&i>2&&j<5&&j>2)
                 { 
+                    grid[i][j] = -1;
+                }
+                else
+                {
                     grid[i][j] = 0;
                 }
             }
