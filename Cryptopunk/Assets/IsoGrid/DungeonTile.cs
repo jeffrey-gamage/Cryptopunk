@@ -59,6 +59,7 @@ public class DungeonTile : MonoBehaviour
     internal void SetRamp(Ramp newRamp)
     {
         ramp = newRamp;
+        ramp.tile = this;
         ramp.transform.position = GetRampCoordinates(ramp.myDirection);
         ramp.transform.Rotate(new Vector3(0f, 90f * (int)ramp.GetDirection(), 0f));
         ramp.transform.Rotate(new Vector3(0f, 0f, rampSlope));
@@ -119,7 +120,12 @@ public class DungeonTile : MonoBehaviour
         }
         else
         {
-
+            if(ramp)
+            {
+                return (new Vector3(gameObject.transform.position.x,
+                    ((float)height+0.5f) * unitHeight,
+                    gameObject.transform.position.z));
+            }
             return (new Vector3(gameObject.transform.position.x,
                                 (float)height*unitHeight,
                                 gameObject.transform.position.z));

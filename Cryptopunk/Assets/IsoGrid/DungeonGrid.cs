@@ -189,62 +189,49 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
-    private void TryPathZ(DungeonTile end, bool isFlyingPath, List<DungeonTile> path, ref bool blockedX, ref bool blockedY)
-    {
-        if (end.zCoord > path[path.Count - 1].zCoord && IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord + 1))
-        {
-            if (!isFlyingPath && !IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord+1]))
-            {
-                blockedX = true;
-            }
-            else
-            {
-                path.Add(tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1]);
-            }
-        }
-        else if (end.zCoord < path[path.Count - 1].zCoord && IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord - 1))
-        {
-            if (!isFlyingPath && !IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1]))
-            {
-                blockedY = true;
-            }
-            else
-            {
-                path.Add(tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1]);
-            }
-        }
-    }
-
-    private void TryPathX(DungeonTile end, bool isFlyingPath, List<DungeonTile> path, ref bool blockedX, ref bool blockedY)
-    {
-        if (end.xCoord > path[path.Count - 1].xCoord && IsValidCoordinates(path[path.Count - 1].xCoord + 1, path[path.Count - 1].zCoord))
-        {
-            if (!isFlyingPath && !IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord]))
-            {
-                blockedX = true;
-            }
-            else
-            {
-                path.Add(tileGrid[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord]);
-            }
-        }
-        else if (end.xCoord < path[path.Count - 1].xCoord && IsValidCoordinates(path[path.Count - 1].xCoord - 1, path[path.Count - 1].zCoord))
-        {
-            if (!isFlyingPath && !IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1]))
-            {
-                blockedY = true;
-            }
-            else
-            {
-                path.Add(tileGrid[path[path.Count - 1].xCoord - 1][path[path.Count - 1].zCoord]);
-            }
-        }
-    }
-
     private bool IsPassable(DungeonTile dungeonTile1, DungeonTile dungeonTile2)
         //determines if a transition is possible from tile1 to tile2
     {
-        return (!dungeonTile2.isBlocked) && dungeonTile2.GetHeight() == dungeonTile1.GetHeight();
+        return (!dungeonTile2.isBlocked) && HeightsAreCompatible(dungeonTile1,dungeonTile2);
+    }
+
+    private bool HeightsAreCompatible(DungeonTile dungeonTile1, DungeonTile dungeonTile2)
+    {
+        if(dungeonTile1.ramp)
+        {
+            if(dungeonTile1.ramp.myDirection==Ramp.Direction.Forward||dungeonTile1.ramp.myDirection==Ramp.Direction.Back)
+            {
+                if(dungeonTile2.xCoord!=dungeonTile1.xCoord)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (dungeonTile2.zCoord != dungeonTile1.zCoord)
+                {
+                    return false;
+                }
+            }
+        }
+        if (dungeonTile2.ramp)
+        {
+            if (dungeonTile2.ramp.myDirection == Ramp.Direction.Forward || dungeonTile2.ramp.myDirection == Ramp.Direction.Back)
+            {
+                if (dungeonTile2.xCoord != dungeonTile1.xCoord)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (dungeonTile2.zCoord != dungeonTile1.zCoord)
+                {
+                    return false;
+                }
+            }
+        }
+        return (dungeonTile1.GetHeight() == dungeonTile2.GetHeight() || dungeonTile1.ramp || dungeonTile2.ramp);
     }
 
     private bool IsValidCoordinates(int xCoord, int zCoord)
