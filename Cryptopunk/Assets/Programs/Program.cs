@@ -16,7 +16,7 @@ public class Program : MonoBehaviour
     [SerializeField] internal int range;
     [SerializeField] internal int sight;
     [SerializeField] internal int breach;
-    [SerializeField] internal string[] keywords;
+    [SerializeField] internal List<string> keywords;
     [SerializeField]internal DungeonTile myTile;
     internal int size;
     internal int movesLeft;
@@ -38,10 +38,10 @@ public class Program : MonoBehaviour
     {
         if (isAnimating)
         {
-            Vector3 motion = (myTile.transform.position - gameObject.transform.position).normalized * animationSpeed * Time.deltaTime;
-            if (motion==Vector3.zero||motion.magnitude > (myTile.transform.position - gameObject.transform.position).magnitude)
+            Vector3 motion = (myTile.GetOccupyingCoordinates(IsFlying()) - gameObject.transform.position).normalized * animationSpeed * Time.deltaTime;
+            if (motion==Vector3.zero||motion.magnitude > (myTile.GetOccupyingCoordinates(IsFlying()) - gameObject.transform.position).magnitude)
             {
-                gameObject.transform.position = myTile.transform.position;
+                gameObject.transform.position = myTile.GetOccupyingCoordinates(IsFlying());
                 if (movePath.Count == 0)
                 {
                     isAnimating = false;
@@ -59,6 +59,11 @@ public class Program : MonoBehaviour
                 gameObject.transform.position += motion;
             }
         }
+    }
+
+    internal bool IsFlying()
+    {
+        return keywords.Contains("Flying");
     }
 
     internal virtual void OnStartTurn()

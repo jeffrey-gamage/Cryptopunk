@@ -112,7 +112,7 @@ public class DungeonManager : MonoBehaviour
     private static void DeploySelected(DungeonTile dungeonTile)
     {
         Program.selectedProgram.myTile = dungeonTile;
-        Program.selectedProgram.transform.position = dungeonTile.transform.position;
+        Program.selectedProgram.transform.position = dungeonTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying());
         Program.selectedProgram.gameObject.GetComponent<MeshRenderer>().enabled = true;
     }
 
