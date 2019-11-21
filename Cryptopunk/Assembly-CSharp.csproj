@@ -74,6 +74,7 @@
     <Compile Include="Assets\Programs\Corp\Hackable.cs" />
     <Compile Include="Assets\Programs\Program.cs" />
     <Compile Include="Assets\UI\ProgramDisplay.cs" />
+    <Compile Include="Assets\UI\TurnPanel.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

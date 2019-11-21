@@ -16,6 +16,7 @@ public class DungeonManager : MonoBehaviour
     internal Mode mode = Mode.Deploy;
     internal Mode waitingTo;
     public static DungeonManager instance;
+    [SerializeField] internal int turnsLeft = 10;
     internal DungeonGrid grid;
 
     [SerializeField] List<Program> playerPrograms;
@@ -32,6 +33,26 @@ public class DungeonManager : MonoBehaviour
         grid.GenerateEnemies();
         instance = this;
         PrepareNextDeployment();
+    }
+
+    internal bool HasActionsLeft()
+    {
+        bool hasActionsLeft = false;
+        foreach(Program program in playerPrograms)
+        {
+            if(program.movesLeft>0)
+            {
+                hasActionsLeft = true;
+            }
+        }
+        foreach(Program program in enemyPrograms)
+        {
+            if(program.movesLeft>0&&program.IsControlled())
+            {
+                hasActionsLeft = true;
+            }
+        }
+        return hasActionsLeft;
     }
 
     private void PrepareNextDeployment()
@@ -52,9 +73,18 @@ public class DungeonManager : MonoBehaviour
         isPlayerTurn = !isPlayerTurn;
         if(isPlayerTurn)
         {
+            turnsLeft--;
             foreach(Program program in playerPrograms)
             {
                 program.OnStartTurn();
+            }
+            foreach (Program program in enemyPrograms)
+            {
+                if (program.IsControlled())
+                {
+                    program.OnStartTurn();
+                }
+                //TODO program.executeAITurn;
             }
         }
         else

@@ -16,9 +16,13 @@ public class ProgramDisplay : MonoBehaviour
     [SerializeField] Text keywordDisplay;
     [SerializeField] Button attackButton;
     [SerializeField] Button breachButton;
+    Text attackButtonText;
+    Text breachButtonText;
     // Start is called before the first frame update
     void Start()
     {
+        attackButtonText = attackButton.GetComponentInChildren<Text>();
+        breachButtonText = breachButton.GetComponentInChildren<Text>();
     }
 
     // Update is called once per frame
@@ -70,15 +74,51 @@ public class ProgramDisplay : MonoBehaviour
             breachButton.enabled = false;
 
         }
+        if(DungeonManager.instance.mode==DungeonManager.Mode.Attack)
+        {
+            attackButtonText.text = "Cancel Attack";
+        }
+        else
+        {
+            attackButtonText.text = "Attack";
+        }
+        if (DungeonManager.instance.mode == DungeonManager.Mode.Breach)
+        {
+            breachButtonText.text = "Cancel Breach";
+        }
+        else
+        {
+            breachButtonText.text = "Breach";
+        }
     }
     public void Target()
     {
-        Program.isTargetingAttack = true;
-        DungeonManager.instance.mode = DungeonManager.Mode.Attack;
+        if (DungeonManager.instance.mode == DungeonManager.Mode.Attack)
+        {
+            CancelTargeting();
+        }
+        else
+        {
+            Program.isTargetingAttack = true;
+            DungeonManager.instance.mode = DungeonManager.Mode.Attack;
+        }
     }
     public void TargetBreach()
     {
-        Program.isTargetingBreach = true;
-        DungeonManager.instance.mode = DungeonManager.Mode.Attack;
+        if (DungeonManager.instance.mode == DungeonManager.Mode.Breach)
+        {
+            CancelTargeting();
+        }
+        else
+        {
+            Program.isTargetingBreach = true;
+            DungeonManager.instance.mode = DungeonManager.Mode.Breach;
+        }
+    }
+    private void CancelTargeting()
+    {
+        Program.isTargetingAttack = false;
+        Program.isTargetingBreach = false;
+        DungeonManager.instance.mode = DungeonManager.Mode.Move;
     }
 }
