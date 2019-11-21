@@ -39,4 +39,8 @@ public class ProgramDisplay : MonoBehaviour
             keywordDisplay.text = keywords;
         }
     }
+    public void Target()
+    {
+        Program.isTargeting = true;
+    }
 }

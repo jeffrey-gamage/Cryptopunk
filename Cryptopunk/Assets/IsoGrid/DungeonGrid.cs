@@ -7,6 +7,7 @@ public class DungeonGrid : MonoBehaviour
 {
     [SerializeField] GameObject gridTile;
     [SerializeField] GameObject ramp;
+    [SerializeField] GameObject[] enemyPrefabs;
     private DungeonTile[][] tileGrid;
     [SerializeField] int numSegments = 3;
     // Start is called before the first frame update
@@ -34,6 +35,11 @@ public class DungeonGrid : MonoBehaviour
                 tileGrid[i][j].zCoord = j;
             }
         }
+    }
+    internal void GenerateEnemies()
+    {
+        EnemyProgram newProgram = Instantiate(enemyPrefabs[0]).GetComponent<EnemyProgram>();
+        DungeonManager.DeploySecurity(newProgram, tileGrid[1][1]);
     }
 
     internal void GenerateRamps()
@@ -83,7 +89,7 @@ public class DungeonGrid : MonoBehaviour
         return isSeen;
     }
 
-    private int TileDistance(DungeonTile tile, DungeonTile myTile)
+    internal int TileDistance(DungeonTile tile, DungeonTile myTile)
     {
         return Math.Abs(tile.xCoord - myTile.xCoord) + Math.Abs(tile.zCoord - myTile.zCoord);
     }

@@ -16,10 +16,10 @@ public class DungeonManager : MonoBehaviour
     internal Mode mode = Mode.Deploy;
     internal Mode waitingTo;
     public static DungeonManager instance;
-    private DungeonGrid grid;
+    internal DungeonGrid grid;
 
-    [SerializeField] Program[] playerPrograms;
-    [SerializeField] Program[] enemyPrograms;
+    [SerializeField] List<Program> playerPrograms;
+    [SerializeField] List<Program> enemyPrograms;
     public bool isPlayerTurn = true;
     // Start is called before the first frame update
     void Start()
@@ -29,6 +29,7 @@ public class DungeonManager : MonoBehaviour
         FindObjectOfType<CameraContol>().transform.position = new Vector3(gridPlan.Length / 2, 0, gridPlan.Length / 2);
         grid.GenerateGrid(gridPlan);
         grid.GenerateRamps();
+        grid.GenerateEnemies();
         instance = this;
         PrepareNextDeployment();
     }
@@ -77,7 +78,7 @@ public class DungeonManager : MonoBehaviour
 
     internal void UpdateVisibility()
     {
-        grid.FogOfWarRender(playerPrograms);
+        grid.FogOfWarRender(playerPrograms.ToArray());
     }
 
     internal void SelectTile(DungeonTile dungeonTile)
@@ -95,7 +96,7 @@ public class DungeonManager : MonoBehaviour
         {
             if (Program.selectedProgram)
             {
-                Program.selectedProgram.AttemptMove(dungeonTile, grid);
+                Program.selectedProgram.AttemptMove(dungeonTile);
             }
         }
     }
@@ -110,12 +111,19 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-    private static void DeploySelected(DungeonTile dungeonTile)
+    internal static void DeploySelected(DungeonTile dungeonTile)
     {
         Program.selectedProgram.myTile = dungeonTile;
         Program.selectedProgram.transform.position = dungeonTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying());
         Program.selectedProgram.gameObject.GetComponent<MeshRenderer>().enabled = true;
     }
+
+    internal static void DeploySecurity(EnemyProgram enemy, DungeonTile dungeonTile)
+    {
+        enemy.myTile = dungeonTile;
+        enemy.transform.position = dungeonTile.GetOccupyingCoordinates(enemy.IsFlying());
+    }
+
 
     internal void Wait()
     {
@@ -132,5 +140,16 @@ public class DungeonManager : MonoBehaviour
         {
             Debug.LogWarning("Tried to resume while not waiting on animation");
         }
+    }
+
+    internal bool IsPlayers(Program program)
+    {
+        return playerPrograms.Contains(program);
+    }
+
+    internal void RemoveProgram(Program program)
+    {
+        playerPrograms.Remove(program);
+        enemyPrograms.Remove(program);
     }
 }

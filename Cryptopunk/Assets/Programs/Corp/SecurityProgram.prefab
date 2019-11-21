@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3672195777505167934}
   - component: {fileID: 1959233367652890180}
   - component: {fileID: 1110286489082683140}
-  - component: {fileID: 8889500540644206685}
+  - component: {fileID: 7285652274544824615}
+  - component: {fileID: 8181304386263870204}
   m_Layer: 0
-  m_Name: PlayerProgram
+  m_Name: SecurityProgram
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8847390588398665581}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -59,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8db67f439a290984c82c9c81c28dd92a, type: 2}
+  - {fileID: 2100000, guid: 80aceb78d6f4bbf458f1fb04b5f422c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &8889500540644206685
+--- !u!114 &7285652274544824615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,14 +103,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 8847390588398665581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad49cb11c4991f94f94054e97ccf9300, type: 3}
+  m_Script: {fileID: 11500000, guid: 83ac0ba0886f36b4db03767e650a2a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSize: 5
+  maxIntegrity: 5
+  rebootTime: 3
+--- !u!114 &8181304386263870204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8847390588398665581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa8f187c5f9fe644abba7050276f604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAnimating: 0
+  maxSize: 4
   power: 3
-  speed: 3
+  speed: 4
   range: 1
-  sight: 5
-  breach: 1
+  sight: 3
+  breach: 0
   keywords: []
-  myTile: {fileID: 0}
+  myAttack: {fileID: 3597810718955383176, guid: cc3c61cad8810464a84f25d7f638064b,
+    type: 3}

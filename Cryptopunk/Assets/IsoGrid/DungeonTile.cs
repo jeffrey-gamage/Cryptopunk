@@ -133,7 +133,10 @@ public class DungeonTile : MonoBehaviour
         if(!isExplored)
         {
             gameObject.transform.position += Vector3.up * height*unitHeight / 2f;
-            gameObject.transform.localScale += Vector3.up * height*unitHeight;
+            if (height >= 0)
+            {
+                gameObject.transform.localScale += Vector3.up * height * unitHeight;
+            }
             if(ramp)
             {
                 ramp.GetComponent<Collider>().enabled = true;
