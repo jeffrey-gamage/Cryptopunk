@@ -94,24 +94,6 @@ public class DungeonGrid : MonoBehaviour
         return Math.Abs(tile.xCoord - myTile.xCoord) + Math.Abs(tile.zCoord - myTile.zCoord);
     }
 
-    //internal List<DungeonTile> FindPath(DungeonTile start, DungeonTile end, int pathLength, bool isFlyingPath)
-    //{
-    //    List<DungeonTile> path = new List<DungeonTile>();
-    //    path.Add(start);
-    //    while(path.Count<=pathLength&&(path.Count==0||path[path.Count-1]!=end))
-    //    {
-    //        bool blockedX = false;
-    //        bool blockedZ = false;
-    //        TryPathX(end, isFlyingPath, path, ref blockedX, ref blockedZ);
-    //        TryPathZ(end, isFlyingPath, path, ref blockedX, ref blockedZ);
-    //        if (blockedX && blockedZ)
-    //        {
-    //            //TODO: pathfind around obstacles
-    //        }
-    //    }
-    //    return path;
-    //}
-
     internal List<DungeonTile> FindPath(DungeonTile start, DungeonTile end, int pathLength, bool isFlying)
     {
         int[][] distances = new int[tileGrid.Length][];
@@ -131,38 +113,27 @@ public class DungeonGrid : MonoBehaviour
         {
             while(path.Count<=pathLength&&path[path.Count-1]!=end)
             {
-                int minDistance =63;
-                DungeonTile nextTile=null;
-                if(IsValidCoordinates(path[path.Count-1].xCoord+1,path[path.Count-1].zCoord))
+                int currentDistance = distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord];
+                if(IsValidCoordinates(path[path.Count-1].xCoord+1,path[path.Count-1].zCoord)&&
+                    distances[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord]==currentDistance-1)
                 {
-                    nextTile = tileGrid[path[path.Count - 1].xCoord+1][path[path.Count - 1].zCoord];
-                    minDistance = distances[path[path.Count - 1].xCoord+1][path[path.Count - 1].zCoord];
+                    path.Add(tileGrid[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord]);
                 }
-                if (IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord+1))
+                else if (IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord+1) &&
+                    distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord+1] == currentDistance - 1)
                 {
-                    if (distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1] < minDistance)
-                    {
-                        nextTile = tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1];
-                        minDistance = distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1];
-                    }
+                     path.Add(tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1]);
                 }
-                if (IsValidCoordinates(path[path.Count - 1].xCoord - 1, path[path.Count - 1].zCoord))
+                else if (IsValidCoordinates(path[path.Count - 1].xCoord - 1, path[path.Count - 1].zCoord) &&
+                    distances[path[path.Count - 1].xCoord-1][path[path.Count - 1].zCoord] == currentDistance - 1)
                 {
-                    if (distances[path[path.Count - 1].xCoord - 1][path[path.Count - 1].zCoord]< minDistance)
-                    {
-                        nextTile = tileGrid[path[path.Count - 1].xCoord - 1][path[path.Count - 1].zCoord];
-                        minDistance = distances[path[path.Count - 1].xCoord - 1][path[path.Count - 1].zCoord];
-                    }
+                     path.Add(tileGrid[path[path.Count - 1].xCoord - 1][path[path.Count - 1].zCoord]);
                 }
-                if (IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord - 1))
+               else if (IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord - 1) &&
+                    distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1] == currentDistance - 1)
                 {
-                    if (distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1] < minDistance)
-                    {
-                        nextTile = tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1];
-                        minDistance = distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1];
-                    }
+                    path.Add(tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1]);
                 }
-                path.Add(nextTile);
             }
         }
 
