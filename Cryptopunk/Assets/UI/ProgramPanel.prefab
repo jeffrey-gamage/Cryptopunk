@@ -1233,9 +1233,12 @@ MonoBehaviour:
   speedDisplay: {fileID: 7192669926234174154}
   powerDisplay: {fileID: 7192669927087908269}
   rangeDisplay: {fileID: 7192669927102223726}
+  breachLabel: {fileID: 7192669928177627080}
   breachDisplay: {fileID: 7192669927730646898}
   sightDisplay: {fileID: 7192669926852171429}
   keywordDisplay: {fileID: 7192669926624879939}
+  attackButton: {fileID: 7192669928166076541}
+  breachButton: {fileID: 7192669927014972736}
 --- !u!1 &7192669927859963937
 GameObject:
   m_ObjectHideFlags: 0

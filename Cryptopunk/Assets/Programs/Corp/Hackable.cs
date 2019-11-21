@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Hackable : MonoBehaviour
 {
-    [SerializeField] int maxIntegrity;
+    [SerializeField] internal int maxIntegrity;
     [SerializeField] int rebootTime = 3;
     internal int currentIntegrity;
     private Program hacker;
