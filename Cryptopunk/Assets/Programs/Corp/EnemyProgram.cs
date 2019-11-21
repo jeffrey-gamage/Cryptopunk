@@ -5,10 +5,12 @@ using UnityEngine;
 public class EnemyProgram : Program
 {
     private MeshRenderer myRenderer;
+    private Hackable hackable;
     override internal void Start()
     {
         base.Start();
         myRenderer = GetComponent<MeshRenderer>();
+        hackable = GetComponent<Hackable>();
     }
     // Update is called once per frame
     override internal void Update()
@@ -17,6 +19,7 @@ public class EnemyProgram : Program
         if(myTile)
         {
             myRenderer.enabled = myTile.isVisible;
+            hackable.myTile = myTile;
         }
     }
     internal override void OnStartTurn()

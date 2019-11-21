@@ -94,7 +94,7 @@ public class DungeonManager : MonoBehaviour
         }
         else if (mode==Mode.Move)
         {
-            if (Program.selectedProgram)
+            if (Program.selectedProgram&&Program.selectedProgram.IsControlled())
             {
                 Program.selectedProgram.AttemptMove(dungeonTile);
             }

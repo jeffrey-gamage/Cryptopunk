@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class Breach : MonoBehaviour
 {
-    internal Program target;
-    internal int damage;
+    internal Program hacker;
+    internal Hackable target;
+    internal int power;
     internal List<DungeonTile> movePath;
     private DungeonTile myTile;
     [SerializeField] float animationSpeed = 3f;
@@ -27,7 +28,7 @@ public class Attack : MonoBehaviour
             gameObject.transform.position = myTile.GetOccupyingCoordinates(false);
             if (movePath.Count == 0)
             {
-                target.Damage(damage);
+                target.Breach(power,hacker);
                 DungeonManager.instance.mode = DungeonManager.Mode.Move;
                 Destroy(gameObject);
             }
@@ -43,7 +44,7 @@ public class Attack : MonoBehaviour
             gameObject.transform.localScale = new Vector3(Mathf.Clamp(motion.x, 0.1f, 0.6f), Mathf.Clamp(motion.y, 0.1f, 0.6f), 0.1f);
         }
     }
-    internal void SetCourse(List<DungeonTile> path, Program target)
+    internal void SetCourse(List<DungeonTile> path, Hackable target, Program hacker)
     {
         myTile = path[0];
         this.target = target;

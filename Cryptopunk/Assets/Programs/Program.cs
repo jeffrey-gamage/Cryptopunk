@@ -6,10 +6,10 @@ using UnityEngine;
 public class Program : MonoBehaviour
 {
     public bool isAnimating = false;
-    public static bool isTargeting = false;
+    public static bool isTargetingAttack = false;
+    public static bool isTargetingBreach = false;
     public static float animationSpeed = 2f;
     public static Program selectedProgram;
-    public static Program target;
     [SerializeField] internal int maxSize;
     [SerializeField] internal int power;
     [SerializeField] internal int speed;
@@ -18,6 +18,7 @@ public class Program : MonoBehaviour
     [SerializeField] internal int breach;
     [SerializeField] internal List<string> keywords;
     [SerializeField] GameObject myAttack;
+    [SerializeField] GameObject myBreach;
     internal DungeonTile myTile;
     internal int size;
     internal int movesLeft;
@@ -75,13 +76,25 @@ public class Program : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isTargeting&&!DungeonManager.instance.IsPlayers(this))
+        if (isTargetingAttack && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlled())
         {
             Program.selectedProgram.AttemptAttack(this);
         }
         else
         {
             selectedProgram = this;
+        }
+    }
+
+    internal bool IsControlled()
+    {
+        if(DungeonManager.instance.isPlayerTurn)
+        {
+            return DungeonManager.instance.IsPlayers(this) || (GetComponent<Hackable>() && GetComponent<Hackable>().IsHacked());
+        }
+        else
+        {
+            return !DungeonManager.instance.IsPlayers(this);
         }
     }
 
@@ -116,7 +129,7 @@ public class Program : MonoBehaviour
                 Attack newAttack = Instantiate(myAttack, gameObject.transform.position, Quaternion.identity).GetComponent<Attack>();
                 newAttack.damage = power;
                 newAttack.SetCourse(tempPath,target);
-                Program.isTargeting = false;
+                Program.isTargetingAttack = false;
                 movesLeft = 0;//TODO: Make exception for hit and run programs
                 hasAttacked = true;
             }
@@ -124,6 +137,23 @@ public class Program : MonoBehaviour
         else
         {
             Debug.Log(gameObject.name + " should not be able to attack");
+        }
+    }
+
+    internal void AttemptBreach(Hackable toHack)
+    {
+        if (!hasAttacked && breach > 0)
+        {
+            List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, toHack.myTile, range, true);
+            if (tempPath[tempPath.Count - 1] == toHack.myTile)
+            {
+                Breach newBreach = Instantiate(myBreach, gameObject.transform.position, Quaternion.identity).GetComponent<Breach>();
+                newBreach.power = breach;
+                newBreach.SetCourse(tempPath, toHack,this);
+                Program.isTargetingBreach = false;
+                movesLeft = 0;
+                hasAttacked = true;
+            }
         }
     }
 

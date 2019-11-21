@@ -69,6 +69,7 @@
     <Compile Include="Assets\IsoGrid\GridGenerator.cs" />
     <Compile Include="Assets\IsoGrid\Ramp.cs" />
     <Compile Include="Assets\Programs\Attack.cs" />
+    <Compile Include="Assets\Programs\Breach.cs" />
     <Compile Include="Assets\Programs\Corp\EnemyProgram.cs" />
     <Compile Include="Assets\Programs\Corp\Hackable.cs" />
     <Compile Include="Assets\Programs\Program.cs" />

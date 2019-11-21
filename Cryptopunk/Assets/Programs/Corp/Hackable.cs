@@ -8,19 +8,20 @@ public class Hackable : MonoBehaviour
     [SerializeField] internal int maxIntegrity;
     [SerializeField] int rebootTime = 3;
     internal int currentIntegrity;
-    private Program hacker;
+    internal DungeonTile myTile;
+    private bool isHacked;
     internal int rebootCountdown=0;
 
     internal void OnStartTurn()
     {
-        if(hacker)
+        if(isHacked)
         {
             rebootCountdown--;
             if(rebootCountdown<=0)
             {
                 rebootCountdown = rebootTime;
                 currentIntegrity = maxIntegrity;
-                hacker = null;
+                isHacked = false;
             }
         }
     }
@@ -30,7 +31,13 @@ public class Hackable : MonoBehaviour
     {
         currentIntegrity = maxIntegrity;
     }
-
+    private void OnMouseDown()
+    {
+        if(Program.isTargetingBreach&&Program.selectedProgram.IsControlled())
+        {
+            Program.selectedProgram.AttemptBreach(this);
+        }
+    }
     internal void Disrupt(int damageAmount)
     {
         currentIntegrity = Mathf.Clamp(currentIntegrity - damageAmount, 1, maxIntegrity);
@@ -38,11 +45,22 @@ public class Hackable : MonoBehaviour
 
     internal void Breach(int breachAmount, Program hacker)
     {
-        currentIntegrity = Mathf.Clamp(currentIntegrity - breachAmount, 0, maxIntegrity);
+        currentIntegrity -= breachAmount;
         if(currentIntegrity<=0)
         {
-            this.hacker = hacker;
             rebootCountdown = rebootTime;
+            if (GetComponent<EnemyProgram>())
+            {
+                GetComponent<EnemyProgram>().OnStartTurn();
+                rebootCountdown++;
+                currentIntegrity = 0;
+            }
+            this.isHacked = true;
         }
+    }
+
+    internal bool IsHacked()
+    {
+        return isHacked;
     }
 }

@@ -49,10 +49,10 @@ public class ProgramDisplay : MonoBehaviour
             }
             keywordDisplay.text = keywords;
 
-            attackButton.enabled = DungeonManager.instance.IsPlayers(Program.selectedProgram) &&
+            attackButton.enabled = Program.selectedProgram.IsControlled() &&
                 Program.selectedProgram.power > 0 &&
                 !Program.selectedProgram.hasAttacked;
-            breachButton.enabled= DungeonManager.instance.IsPlayers(Program.selectedProgram) &&
+            breachButton.enabled= Program.selectedProgram.IsControlled() &&
                 Program.selectedProgram.breach > 0 &&
                 !Program.selectedProgram.hasAttacked;
         }
@@ -73,6 +73,12 @@ public class ProgramDisplay : MonoBehaviour
     }
     public void Target()
     {
-        Program.isTargeting = true;
+        Program.isTargetingAttack = true;
+        DungeonManager.instance.mode = DungeonManager.Mode.Attack;
+    }
+    public void TargetBreach()
+    {
+        Program.isTargetingBreach = true;
+        DungeonManager.instance.mode = DungeonManager.Mode.Attack;
     }
 }
