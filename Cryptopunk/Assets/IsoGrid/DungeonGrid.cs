@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DungeonGrid : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class DungeonGrid : MonoBehaviour
     [SerializeField] GameObject[] enemyPrefabs;
     private DungeonTile[][] tileGrid;
     [SerializeField] int numSegments = 3;
+    [SerializeField] int searchSize = 8;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +61,44 @@ public class DungeonGrid : MonoBehaviour
         newRamp = Instantiate(ramp).GetComponent<Ramp>();
         newRamp.SetDirection(Ramp.Direction.Right);
         tileGrid[6][3].SetRamp(newRamp);
+    }
+
+    internal DungeonTile GetNewSearchLocation(DungeonTile searcherTile)
+    {
+        DungeonTile newSearchLocation;
+        do
+        {
+            newSearchLocation = tileGrid[Random.Range(Math.Max(0,searcherTile.xCoord-searchSize), Math.Min(tileGrid.Length,searcherTile.xCoord+searchSize))]
+                [Random.Range(Math.Max(0, searcherTile.zCoord - searchSize), Math.Min(tileGrid.Length, searcherTile.zCoord + searchSize))];
+        }
+        while (newSearchLocation.GetHeight() >=0);
+        return newSearchLocation;
+    }
+
+    internal DungeonTile GetNearestTileInRange(Program attacker, DungeonTile targetTile, int range, int movesLeft)
+    {
+        int[][] distances = new int[tileGrid.Length][];
+        for (int i = 0; i < distances.Length; i++)
+        {
+            distances[i] = new int[tileGrid[i].Length];
+            for (int j = 0; j < tileGrid[i].Length; j++)
+            {
+                distances[i][j] = 63;
+            }
+        }
+        SetDistanceRecursive(ref distances, 0, targetTile, searchSize*2, attacker.IsFlying());
+        DungeonTile destination= null;
+        for(int i=0;i<distances.Length;i++)
+        {
+            for(int j=0;j<distances[i].Length;j++)
+            {
+                if(TileDistance(tileGrid[i][j],targetTile)<=range&&(!destination||distances[i][j]<distances[destination.xCoord][destination.zCoord]))
+                {
+                    destination = tileGrid[i][j];
+                }
+            }
+        }
+        return destination;
     }
 
     internal void FogOfWarRender(Program[] playerPrograms)
@@ -115,22 +155,26 @@ public class DungeonGrid : MonoBehaviour
             {
                 int currentDistance = distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord];
                 if(IsValidCoordinates(path[path.Count-1].xCoord+1,path[path.Count-1].zCoord)&&
-                    distances[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord]==currentDistance-1)
+                    distances[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord]==currentDistance-1&&
+                    IsPassable(path[path.Count-1],tileGrid[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord]))
                 {
                     path.Add(tileGrid[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord]);
                 }
                 else if (IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord+1) &&
-                    distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord+1] == currentDistance - 1)
+                    distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord+1] == currentDistance - 1&&
+                    IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1]))
                 {
                      path.Add(tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1]);
                 }
                 else if (IsValidCoordinates(path[path.Count - 1].xCoord - 1, path[path.Count - 1].zCoord) &&
-                    distances[path[path.Count - 1].xCoord-1][path[path.Count - 1].zCoord] == currentDistance - 1)
+                    distances[path[path.Count - 1].xCoord-1][path[path.Count - 1].zCoord] == currentDistance - 1&&
+                    IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord - 1][path[path.Count - 1].zCoord]))
                 {
                      path.Add(tileGrid[path[path.Count - 1].xCoord - 1][path[path.Count - 1].zCoord]);
                 }
                else if (IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord - 1) &&
-                    distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1] == currentDistance - 1)
+                    distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1] == currentDistance - 1&&
+                    IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1]))
                 {
                     path.Add(tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1]);
                 }

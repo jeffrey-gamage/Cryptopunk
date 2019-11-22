@@ -94,7 +94,7 @@ public class Program : MonoBehaviour
         }
         else
         {
-            return !DungeonManager.instance.IsPlayers(this);
+            return !DungeonManager.instance.IsPlayers(this) && !GetComponent<Hackable>() && GetComponent<Hackable>().IsHacked();
         }
     }
 

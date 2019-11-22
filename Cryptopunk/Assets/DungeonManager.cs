@@ -35,6 +35,27 @@ public class DungeonManager : MonoBehaviour
         PrepareNextDeployment();
     }
 
+    internal List<Program> GetControlledPrograms(bool getOpponentsPrograms)
+        //return a list of all programs currently controlled by the chosen player
+    {
+        List<Program> controlledPrograms = new List<Program>();
+        foreach(Program program in playerPrograms)
+        {
+            if(program.IsControlled())
+            {
+                controlledPrograms.Add(program);
+            }
+        }
+        foreach (Program program in enemyPrograms)
+        {
+            if (program.IsControlled())
+            {
+                controlledPrograms.Add(program);
+            }
+        }
+        return controlledPrograms;
+    }
+
     internal bool HasActionsLeft()
     {
         bool hasActionsLeft = false;
@@ -89,10 +110,10 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
-            foreach(Program program in enemyPrograms)
+            foreach(EnemyProgram program in enemyPrograms)
             {
                 program.OnStartTurn();
-                //TODO program.executeAITurn;
+                program.ExecuteAIBehaviour();
             }
             EndTurn();
         }
