@@ -88,7 +88,7 @@ public class EnemyProgram : Program
         if(target)
         {
             Debug.Log("Moving to close with target");
-            AttemptMove(DungeonManager.instance.grid.GetNearestTileInRange(this, target.myTile, range, movesLeft));
+            NavigateTowards(DungeonManager.instance.grid.GetNearestTileInRange(this, target.myTile, range, movesLeft));
         }
     }
 
@@ -96,8 +96,9 @@ public class EnemyProgram : Program
     {
         if(myTile==waypoints[0])
         {
-            Debug.Log("Choosing new search location");
+            Debug.Log("Choosing new search location:");
             waypoints[0] = DungeonManager.instance.grid.GetNewSearchLocation(myTile);
+            Debug.Log(waypoints[0].xCoord.ToString() +", "+ waypoints[0].zCoord.ToString());
         }
         NavigateTowards(waypoints[0]);
     }

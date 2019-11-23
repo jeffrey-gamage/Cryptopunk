@@ -76,7 +76,8 @@ public class DungeonGrid : MonoBehaviour
             newSearchLocation = tileGrid[Random.Range(Math.Max(0,searcherTile.xCoord-searchSize), Math.Min(tileGrid.Length,searcherTile.xCoord+searchSize))]
                 [Random.Range(Math.Max(0, searcherTile.zCoord - searchSize), Math.Min(tileGrid.Length, searcherTile.zCoord + searchSize))];
         }
-        while (newSearchLocation.GetHeight() >=0);
+        while (newSearchLocation.GetHeight() <0);
+        Debug.Log(newSearchLocation.GetHeight());
         return newSearchLocation;
     }
 
@@ -91,7 +92,7 @@ public class DungeonGrid : MonoBehaviour
                 distances[i][j] = 63;
             }
         }
-        SetDistanceRecursive(ref distances, 0, targetTile, searchSize*2, attacker.IsFlying());
+        SetDistanceRecursive(ref distances, 0, attacker.myTile, searchSize*2, attacker.IsFlying());
         DungeonTile destination= null;
         for(int i=0;i<distances.Length;i++)
         {
