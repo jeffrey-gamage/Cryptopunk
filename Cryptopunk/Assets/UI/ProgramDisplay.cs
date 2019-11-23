@@ -53,10 +53,10 @@ public class ProgramDisplay : MonoBehaviour
             }
             keywordDisplay.text = keywords;
 
-            attackButton.enabled = Program.selectedProgram.IsControlled() &&
+            attackButton.enabled = Program.selectedProgram.IsControlledByActivePlayer() &&
                 Program.selectedProgram.power > 0 &&
                 !Program.selectedProgram.hasAttacked;
-            breachButton.enabled= Program.selectedProgram.IsControlled() &&
+            breachButton.enabled= Program.selectedProgram.IsControlledByActivePlayer() &&
                 Program.selectedProgram.breach > 0 &&
                 !Program.selectedProgram.hasAttacked;
         }

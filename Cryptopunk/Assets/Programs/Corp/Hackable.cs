@@ -33,7 +33,7 @@ public class Hackable : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if(Program.isTargetingBreach&&Program.selectedProgram.IsControlled())
+        if(Program.isTargetingBreach&&Program.selectedProgram.IsControlledByActivePlayer())
         {
             Program.selectedProgram.AttemptBreach(this);
         }

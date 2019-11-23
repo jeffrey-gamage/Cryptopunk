@@ -41,14 +41,14 @@ public class DungeonManager : MonoBehaviour
         List<Program> controlledPrograms = new List<Program>();
         foreach(Program program in playerPrograms)
         {
-            if(program.IsControlled())
+            if(program.IsControlledByActivePlayer()!=getOpponentsPrograms)
             {
                 controlledPrograms.Add(program);
             }
         }
         foreach (Program program in enemyPrograms)
         {
-            if (program.IsControlled())
+            if (program.IsControlledByActivePlayer()!=getOpponentsPrograms)
             {
                 controlledPrograms.Add(program);
             }
@@ -68,7 +68,7 @@ public class DungeonManager : MonoBehaviour
         }
         foreach(Program program in enemyPrograms)
         {
-            if(program.movesLeft>0&&program.IsControlled())
+            if(program.movesLeft>0&&program.IsControlledByActivePlayer())
             {
                 hasActionsLeft = true;
             }
@@ -101,7 +101,7 @@ public class DungeonManager : MonoBehaviour
             }
             foreach (EnemyProgram program in enemyPrograms)
             {
-                if (program.IsControlled())
+                if (program.IsControlledByActivePlayer())
                 {
                     program.OnStartTurn();
                 }
@@ -128,7 +128,7 @@ public class DungeonManager : MonoBehaviour
 
     internal void UpdateVisibility()
     {
-        grid.FogOfWarRender(playerPrograms.ToArray());
+        grid.FogOfWarRender(GetControlledPrograms(false).ToArray());
     }
 
     internal void SelectTile(DungeonTile dungeonTile)
@@ -144,7 +144,7 @@ public class DungeonManager : MonoBehaviour
         }
         else if (mode==Mode.Move)
         {
-            if (Program.selectedProgram&&Program.selectedProgram.IsControlled())
+            if (Program.selectedProgram&&Program.selectedProgram.IsControlledByActivePlayer())
             {
                 Program.selectedProgram.AttemptMove(dungeonTile);
             }

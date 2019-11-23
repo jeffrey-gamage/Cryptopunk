@@ -124,7 +124,7 @@ MonoBehaviour:
   maxSize: 4
   power: 3
   speed: 4
-  range: 1
+  range: 2
   sight: 3
   breach: 0
   keywords: []
