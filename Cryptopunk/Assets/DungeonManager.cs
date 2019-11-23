@@ -35,20 +35,17 @@ public class DungeonManager : MonoBehaviour
         PrepareNextDeployment();
     }
 
-    internal List<Program> GetControlledPrograms(bool getOpponentsPrograms)
+    internal List<Program> GetPlayerControlledPrograms()
         //return a list of all programs currently controlled by the chosen player
     {
         List<Program> controlledPrograms = new List<Program>();
         foreach(Program program in playerPrograms)
         {
-            if(program.IsControlledByActivePlayer()!=getOpponentsPrograms)
-            {
                 controlledPrograms.Add(program);
-            }
         }
         foreach (Program program in enemyPrograms)
         {
-            if (program.IsControlledByActivePlayer()!=getOpponentsPrograms)
+            if (program.IsControlledByPlayer())
             {
                 controlledPrograms.Add(program);
             }
@@ -56,6 +53,18 @@ public class DungeonManager : MonoBehaviour
         return controlledPrograms;
     }
 
+    internal List<Program> GetAICotrolledPrograms()
+    {
+        List<Program> controlledPrograms = new List<Program>();
+        foreach (Program program in enemyPrograms)
+        {
+            if (!program.IsControlledByPlayer())
+            {
+                controlledPrograms.Add(program);
+            }
+        }
+        return controlledPrograms;
+    }
     internal bool HasActionsLeft()
     {
         bool hasActionsLeft = false;
@@ -68,7 +77,7 @@ public class DungeonManager : MonoBehaviour
         }
         foreach(Program program in enemyPrograms)
         {
-            if(program.movesLeft>0&&program.IsControlledByActivePlayer())
+            if(program.movesLeft>0&&program.IsControlledByPlayer())
             {
                 hasActionsLeft = true;
             }
@@ -95,21 +104,14 @@ public class DungeonManager : MonoBehaviour
         if(isPlayerTurn)
         {
             turnsLeft--;
-            foreach(Program program in playerPrograms)
+            foreach(Program program in GetPlayerControlledPrograms())
             {
                 program.OnStartTurn();
-            }
-            foreach (EnemyProgram program in enemyPrograms)
-            {
-                if (program.IsControlledByActivePlayer())
-                {
-                    program.OnStartTurn();
-                }
             }
         }
         else
         {
-            foreach(EnemyProgram program in enemyPrograms)
+            foreach(EnemyProgram program in GetAICotrolledPrograms())
             {
                 program.OnStartTurn();
             }
@@ -121,7 +123,7 @@ public class DungeonManager : MonoBehaviour
         //Does the next available AI action, or if none remain, passes turn to the player. Each AI calls this at the conclusion of each of its actions.
     {
         bool allActionsComplete = true;
-        foreach(EnemyProgram program in enemyPrograms)
+        foreach(EnemyProgram program in GetAICotrolledPrograms())
         {
             if(!program.hasMoved)
             {
@@ -152,7 +154,7 @@ public class DungeonManager : MonoBehaviour
 
     internal void UpdateVisibility()
     {
-        grid.FogOfWarRender(GetControlledPrograms(false).ToArray());
+        grid.FogOfWarRender(GetPlayerControlledPrograms().ToArray());
     }
 
     internal void SelectTile(DungeonTile dungeonTile)
@@ -168,7 +170,7 @@ public class DungeonManager : MonoBehaviour
         }
         else if (mode==Mode.Move)
         {
-            if (Program.selectedProgram&&Program.selectedProgram.IsControlledByActivePlayer())
+            if (Program.selectedProgram&&Program.selectedProgram.IsControlledByPlayer())
             {
                 Program.selectedProgram.AttemptMove(dungeonTile);
             }

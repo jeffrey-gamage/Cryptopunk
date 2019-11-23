@@ -50,7 +50,7 @@ public class EnemyProgram : Program
             nextWaypointIndex = 0;
             waypoints[0] = myTile;
         }
-        foreach(Program program in DungeonManager.instance.GetControlledPrograms(true))
+        foreach(Program program in DungeonManager.instance.GetPlayerControlledPrograms())
         {
             if(DungeonManager.instance.grid.TileDistance(myTile,program.myTile)<=sight)
             {
@@ -85,9 +85,9 @@ public class EnemyProgram : Program
 
     private void MoveIntoRange()
     {
-        List<Program> enemyPrograms = DungeonManager.instance.GetControlledPrograms(true);
+        List<Program> hostilePrograms = DungeonManager.instance.GetPlayerControlledPrograms();
         Program target=null;
-        foreach(Program program in enemyPrograms)
+        foreach(Program program in hostilePrograms)
         {
             if(!target||(DungeonManager.instance.grid.TileDistance(program.myTile,myTile)< DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
             {
@@ -146,9 +146,9 @@ public class EnemyProgram : Program
     internal void ExecuteAIAttack()
     {
         isActiveAI=true;
-        List<Program> enemyPrograms = DungeonManager.instance.GetControlledPrograms(true);
+        List<Program> hostilePrograms = DungeonManager.instance.GetPlayerControlledPrograms();
         Program target = null;
-        foreach (Program program in enemyPrograms)
+        foreach (Program program in hostilePrograms)
         {
             if (!target || (DungeonManager.instance.grid.TileDistance(program.myTile, myTile) < DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
             {

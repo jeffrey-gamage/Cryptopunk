@@ -76,7 +76,7 @@ public class Program : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isTargetingAttack && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByActivePlayer())
+        if (isTargetingAttack && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByPlayer())
         {
             Program.selectedProgram.AttemptAttack(this);
         }
@@ -86,16 +86,9 @@ public class Program : MonoBehaviour
         }
     }
 
-    internal bool IsControlledByActivePlayer()
+    internal bool IsControlledByPlayer()
     {
-        if(DungeonManager.instance.isPlayerTurn)
-        {
             return DungeonManager.instance.IsPlayers(this) || (GetComponent<Hackable>() && GetComponent<Hackable>().IsHacked());
-        }
-        else
-        {
-            return !DungeonManager.instance.IsPlayers(this) && GetComponent<Hackable>() && !GetComponent<Hackable>().IsHacked();
-        }
     }
 
     internal void AttemptMove(DungeonTile target)
