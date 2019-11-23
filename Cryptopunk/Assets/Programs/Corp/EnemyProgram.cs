@@ -16,6 +16,8 @@ public class EnemyProgram : Program
     internal List<DungeonTile> waypoints;
     private MeshRenderer myRenderer;
     private Hackable hackable;
+    internal bool hasMoved = false;
+    private bool isActiveAI = false;
     override internal void Start()
     {
         base.Start();
@@ -31,9 +33,15 @@ public class EnemyProgram : Program
             myRenderer.enabled = myTile.isVisible;
             hackable.myTile = myTile;
         }
+        if (DungeonManager.instance.mode!=DungeonManager.Mode.Wait&&hasMoved&&isActiveAI&& base.movePath.Count == 0)
+        {
+            isActiveAI = false;
+            DungeonManager.instance.TakeNextAIAction();
+        }
     }
     internal override void OnStartTurn()
     {
+        hasMoved = false;
         base.OnStartTurn();
         GetComponent<Hackable>().OnStartTurn();
         if(myState == State.Attack)
@@ -56,8 +64,9 @@ public class EnemyProgram : Program
         base.Damage(damageAmount);
     }
 
-    internal void ExecuteAIBehaviour()
+    internal void ExecuteAIMovement()
     {
+        isActiveAI = true;
         if(myState==State.Patrol)
         {
             Patrol();
@@ -71,6 +80,7 @@ public class EnemyProgram : Program
             MoveIntoRange();
         }
         Debug.Log("State= " + myState.ToString());
+        hasMoved = true;
     }
 
     private void MoveIntoRange()
@@ -82,7 +92,7 @@ public class EnemyProgram : Program
             if(!target||(DungeonManager.instance.grid.TileDistance(program.myTile,myTile)< DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
             {
                 target = program;
-                Debug.Log("New Target selectd");
+                Debug.Log("New Target selected");
             }
         }
         if(target)
@@ -130,6 +140,26 @@ public class EnemyProgram : Program
         {
             myState = State.Search;
             waypoints[0] = myTile;
+        }
+    }
+
+    internal void ExecuteAIAttack()
+    {
+        isActiveAI=true;
+        List<Program> enemyPrograms = DungeonManager.instance.GetControlledPrograms(true);
+        Program target = null;
+        foreach (Program program in enemyPrograms)
+        {
+            if (!target || (DungeonManager.instance.grid.TileDistance(program.myTile, myTile) < DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
+            {
+                target = program;
+                Debug.Log("New Target selected");
+            }
+        }
+        if (target)
+        {
+            AttemptAttack(target);
+            hasAttacked = true;
         }
     }
 }

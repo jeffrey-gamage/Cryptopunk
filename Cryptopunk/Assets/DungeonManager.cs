@@ -20,7 +20,7 @@ public class DungeonManager : MonoBehaviour
     internal DungeonGrid grid;
 
     [SerializeField] List<Program> playerPrograms;
-    [SerializeField] List<Program> enemyPrograms;
+    [SerializeField] List<EnemyProgram> enemyPrograms;
     public bool isPlayerTurn = true;
     // Start is called before the first frame update
     void Start()
@@ -112,8 +112,32 @@ public class DungeonManager : MonoBehaviour
             foreach(EnemyProgram program in enemyPrograms)
             {
                 program.OnStartTurn();
-                program.ExecuteAIBehaviour();
             }
+            TakeNextAIAction();
+        }
+    }
+
+    internal void TakeNextAIAction()
+        //Does the next available AI action, or if none remain, passes turn to the player. Each AI calls this at the conclusion of each of its actions.
+    {
+        bool allActionsComplete = true;
+        foreach(EnemyProgram program in enemyPrograms)
+        {
+            if(!program.hasMoved)
+            {
+                program.ExecuteAIMovement();
+                allActionsComplete = false;
+                break;
+            }
+            else if(!program.hasAttacked)
+            {
+                program.ExecuteAIAttack();
+                allActionsComplete = false;
+                break;
+            }
+        }
+        if(allActionsComplete)
+        {
             EndTurn();
         }
     }
@@ -200,7 +224,13 @@ public class DungeonManager : MonoBehaviour
 
     internal void RemoveProgram(Program program)
     {
-        playerPrograms.Remove(program);
-        enemyPrograms.Remove(program);
+        if (playerPrograms.Contains(program))
+        {
+            playerPrograms.Remove(program);
+        }
+        else 
+        {
+            enemyPrograms.Remove((EnemyProgram)program);
+        }
     }
 }

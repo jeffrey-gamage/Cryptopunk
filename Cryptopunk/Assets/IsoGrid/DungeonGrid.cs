@@ -47,6 +47,14 @@ public class DungeonGrid : MonoBehaviour
         newProgram.waypoints.Add(tileGrid[1][6]);
         newProgram.waypoints.Add(tileGrid[6][6]);
         newProgram.waypoints.Add(tileGrid[6][1]);
+
+        newProgram = Instantiate(enemyPrefabs[0]).GetComponent<EnemyProgram>();
+        DungeonManager.instance.DeploySecurity(newProgram, tileGrid[6][6]);
+        newProgram.waypoints = new List<DungeonTile>();
+        newProgram.waypoints.Add(tileGrid[6][6]);
+        newProgram.waypoints.Add(tileGrid[6][1]);
+        newProgram.waypoints.Add(tileGrid[1][1]);
+        newProgram.waypoints.Add(tileGrid[1][6]);
     }
 
     internal void GenerateRamps()

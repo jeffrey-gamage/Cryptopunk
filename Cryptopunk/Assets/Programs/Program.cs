@@ -23,7 +23,7 @@ public class Program : MonoBehaviour
     internal int size;
     internal int movesLeft;
     internal bool hasAttacked;
-    private List<DungeonTile> movePath;
+    internal List<DungeonTile> movePath;
     // Start is called before the first frame update
     internal virtual void Start()
     {
