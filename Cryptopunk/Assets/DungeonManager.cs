@@ -25,13 +25,13 @@ public class DungeonManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         grid = FindObjectOfType<DungeonGrid>();
         int[][] gridPlan = GridGenerator.GenerateGrid(3);
         FindObjectOfType<CameraContol>().transform.position = new Vector3(gridPlan.Length / 2, 0, gridPlan.Length / 2);
         grid.GenerateGrid(gridPlan);
         grid.GenerateRamps();
         grid.GenerateEnemies();
-        instance = this;
         PrepareNextDeployment();
     }
 
@@ -99,13 +99,12 @@ public class DungeonManager : MonoBehaviour
             {
                 program.OnStartTurn();
             }
-            foreach (Program program in enemyPrograms)
+            foreach (EnemyProgram program in enemyPrograms)
             {
                 if (program.IsControlled())
                 {
                     program.OnStartTurn();
                 }
-                //TODO program.executeAITurn;
             }
         }
         else
@@ -169,10 +168,11 @@ public class DungeonManager : MonoBehaviour
         Program.selectedProgram.gameObject.GetComponent<MeshRenderer>().enabled = true;
     }
 
-    internal static void DeploySecurity(EnemyProgram enemy, DungeonTile dungeonTile)
+    internal void DeploySecurity(EnemyProgram enemy, DungeonTile dungeonTile)
     {
         enemy.myTile = dungeonTile;
         enemy.transform.position = dungeonTile.GetOccupyingCoordinates(enemy.IsFlying());
+        enemyPrograms.Add(enemy);
     }
 
 

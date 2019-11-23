@@ -70,6 +70,7 @@ public class EnemyProgram : Program
         {
             MoveIntoRange();
         }
+        Debug.Log("State= " + myState.ToString());
     }
 
     private void MoveIntoRange()
@@ -81,11 +82,13 @@ public class EnemyProgram : Program
             if(!target||(DungeonManager.instance.grid.TileDistance(program.myTile,myTile)< DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
             {
                 target = program;
+                Debug.Log("New Target selectd");
             }
         }
         if(target)
         {
-            AttemptMove(DungeonManager.instance.grid.GetNearestTileInRange(myTile, target.myTile, range, movesLeft));
+            Debug.Log("Moving to close with target");
+            AttemptMove(DungeonManager.instance.grid.GetNearestTileInRange(this, target.myTile, range, movesLeft));
         }
     }
 
@@ -93,6 +96,7 @@ public class EnemyProgram : Program
     {
         if(myTile==waypoints[0])
         {
+            Debug.Log("Choosing new search location");
             waypoints[0] = DungeonManager.instance.grid.GetNewSearchLocation(myTile);
         }
         NavigateTowards(waypoints[0]);

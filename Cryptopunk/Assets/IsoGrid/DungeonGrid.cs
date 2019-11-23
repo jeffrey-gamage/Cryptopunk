@@ -41,7 +41,12 @@ public class DungeonGrid : MonoBehaviour
     internal void GenerateEnemies()
     {
         EnemyProgram newProgram = Instantiate(enemyPrefabs[0]).GetComponent<EnemyProgram>();
-        DungeonManager.DeploySecurity(newProgram, tileGrid[1][1]);
+        DungeonManager.instance.DeploySecurity(newProgram, tileGrid[1][1]);
+        newProgram.waypoints = new List<DungeonTile>();
+        newProgram.waypoints.Add(tileGrid[1][1]);
+        newProgram.waypoints.Add(tileGrid[1][6]);
+        newProgram.waypoints.Add(tileGrid[6][6]);
+        newProgram.waypoints.Add(tileGrid[6][1]);
     }
 
     internal void GenerateRamps()
@@ -139,7 +144,7 @@ public class DungeonGrid : MonoBehaviour
         int[][] distances = new int[tileGrid.Length][];
         for(int i=0;i<distances.Length;i++)
         {
-            distances[i] = new int[tileGrid[i].Length];
+            distances[i] = new int[tileGrid.Length];
             for(int j=0;j<tileGrid[i].Length;j++)
             {
                 distances[i][j] = 63;
@@ -174,9 +179,18 @@ public class DungeonGrid : MonoBehaviour
                 }
                else if (IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord - 1) &&
                     distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1] == currentDistance - 1&&
-                    IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1]))
+                    IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1]))
                 {
                     path.Add(tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1]);
+                }
+                else
+                {
+                    Debug.Log("Rejected all path options");
+                    foreach(DungeonTile tile in path)
+                    {
+                        Debug.Log(tile.xCoord.ToString() + ", " + tile.zCoord.ToString());
+                    }
+                    break;
                 }
             }
         }
