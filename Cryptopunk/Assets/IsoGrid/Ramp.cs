@@ -10,17 +10,13 @@ public class Ramp : MonoBehaviour
     }
     internal Direction myDirection;
     internal DungeonTile tile;
+    internal MeshRenderer myRenderer;
     // Start is called before the first frame update
     void Start()
     {
-        
+        myRenderer = GetComponent<MeshRenderer>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     internal void SetDirection(Direction direction)
     {
         myDirection = direction;

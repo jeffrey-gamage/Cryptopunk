@@ -49,6 +49,10 @@ public class DungeonTile : MonoBehaviour
                 myMeshRenderer.material = fog;
             }
         }
+        if (ramp)
+        {
+            ramp.myRenderer.material = myMeshRenderer.material;
+        }
     }
 
     internal void SetRamp(Ramp newRamp)
@@ -107,25 +111,19 @@ public class DungeonTile : MonoBehaviour
     internal Vector3 GetOccupyingCoordinates(bool isFlying)
         //returns the world coordinates a program should navigate to in order to occupy this tile
     {
-        if(isFlying)
+        Vector3 occupyCoordinates = new Vector3(gameObject.transform.position.x,
+                                Mathf.Max((float)height * unitHeight,0f),
+                                gameObject.transform.position.z);
+        if (isFlying)
         {
-            return (new Vector3(gameObject.transform.position.x,
-                                (float)height*unitHeight + flyingHeight,
-                                gameObject.transform.position.z));
+            occupyCoordinates += Vector3.up * flyingHeight;
         }
-        else
+        if(ramp)
         {
-            if(ramp)
-            {
-                return (new Vector3(gameObject.transform.position.x,
-                    ((float)height+0.5f) * unitHeight,
-                    gameObject.transform.position.z));
-            }
-            return (new Vector3(gameObject.transform.position.x,
-                                (float)height*unitHeight,
-                                gameObject.transform.position.z));
+            occupyCoordinates += Vector3.up * 0.5f;
         }
-    }
+        return occupyCoordinates;
+}
     internal void Reveal()
     {
         if(!isExplored)
