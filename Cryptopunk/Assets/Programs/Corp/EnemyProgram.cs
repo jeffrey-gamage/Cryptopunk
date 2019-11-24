@@ -52,12 +52,22 @@ public class EnemyProgram : Program
         }
         foreach(Program program in DungeonManager.instance.GetPlayerControlledPrograms())
         {
-            if(DungeonManager.instance.grid.TileDistance(myTile,program.myTile)<=sight)
+            if (CanSee(program))
             {
                 myState = State.Attack;
             }
         }
     }
+
+    private bool CanSee(Program program)
+    {
+        if(program.IsStealthed())
+        {
+            return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= 1;
+        }
+        return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= sight;
+    }
+
     override internal void Damage(int damageAmount)
     {
         GetComponent<Hackable>().Disrupt(damageAmount);
@@ -89,10 +99,13 @@ public class EnemyProgram : Program
         Program target=null;
         foreach(Program program in hostilePrograms)
         {
-            if(!target||(DungeonManager.instance.grid.TileDistance(program.myTile,myTile)< DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
+            if (CanSee(program))
             {
-                target = program;
-                Debug.Log("New Target selected");
+                if (!target || (DungeonManager.instance.grid.TileDistance(program.myTile, myTile) < DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
+                {
+                    target = program;
+                    Debug.Log("New Target selected");
+                }
             }
         }
         if(target)
@@ -150,16 +163,25 @@ public class EnemyProgram : Program
         Program target = null;
         foreach (Program program in hostilePrograms)
         {
-            if (!target || (DungeonManager.instance.grid.TileDistance(program.myTile, myTile) < DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
+            if (CanSee(program))
             {
-                target = program;
-                Debug.Log("New Target selected");
+                if (!target || (DungeonManager.instance.grid.TileDistance(program.myTile, myTile) < DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
+                {
+                    target = program;
+                    Debug.Log("New Target selected");
+                }
             }
         }
         if (target)
         {
             AttemptAttack(target);
+
+        }
+        if (!hasAttacked)
+        {
             hasAttacked = true;
+            isActiveAI = false;
+            DungeonManager.instance.TakeNextAIAction();
         }
     }
 }

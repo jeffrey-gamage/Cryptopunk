@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1110286489082683140}
   - component: {fileID: 8889500540644206685}
   m_Layer: 0
-  m_Name: PlayerProgram
+  m_Name: BruteForce
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

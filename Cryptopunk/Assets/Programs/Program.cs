@@ -63,6 +63,11 @@ public class Program : MonoBehaviour
         }
     }
 
+    internal bool IsStealthed()
+    {
+        return keywords.Contains("Ghost") && !hasAttacked;
+    }
+
     internal bool IsFlying()
     {
         return keywords.Contains("Flying");
@@ -137,7 +142,12 @@ public class Program : MonoBehaviour
     {
         if (!hasAttacked && breach > 0)
         {
-            List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, toHack.myTile, range, true);
+            int breachRange = 1;
+            if(keywords.Contains("Remote"))
+            {
+                breachRange = range;
+            }
+            List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, toHack.myTile, breachRange, true);
             if (tempPath[tempPath.Count - 1] == toHack.myTile)
             {
                 Breach newBreach = Instantiate(myBreach, gameObject.transform.position, Quaternion.identity).GetComponent<Breach>();
