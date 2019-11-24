@@ -106,7 +106,7 @@ public class Program : MonoBehaviour
 
     internal void AttemptMove(DungeonTile target)
     {
-        List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, target, movesLeft, false);
+        List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, target, movesLeft, IsFlying());
         if(tempPath[tempPath.Count-1]==target)
         {
             Debug.Log("Found path, animating movement");
