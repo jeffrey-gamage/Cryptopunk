@@ -168,34 +168,26 @@ public class DungeonGrid : MonoBehaviour
             while(path.Count<=pathLength&&path[path.Count-1]!=end)
             {
                 int currentDistance = distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord];
-                if(IsValidCoordinates(path[path.Count-1].xCoord+1,path[path.Count-1].zCoord)&&
-                    distances[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord]==currentDistance-1&&
-                    (isFlying||IsPassable(path[path.Count-1],tileGrid[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord])))
+                if (CanMoveToLocation(isFlying, distances, path, 1, 0, currentDistance))
                 {
                     path.Add(tileGrid[path[path.Count - 1].xCoord + 1][path[path.Count - 1].zCoord]);
                 }
-                else if (IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord+1) &&
-                    distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord+1] == currentDistance - 1&&
-                    (isFlying||IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1])))
+                else if (CanMoveToLocation(isFlying, distances, path, 0, 1, currentDistance))
                 {
-                     path.Add(tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1]);
+                    path.Add(tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord + 1]);
                 }
-                else if (IsValidCoordinates(path[path.Count - 1].xCoord - 1, path[path.Count - 1].zCoord) &&
-                    distances[path[path.Count - 1].xCoord-1][path[path.Count - 1].zCoord] == currentDistance - 1&&
-                   (isFlying||IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord - 1][path[path.Count - 1].zCoord])))
+                else if (CanMoveToLocation(isFlying,distances,path,-1,0,currentDistance))
                 {
-                     path.Add(tileGrid[path[path.Count - 1].xCoord - 1][path[path.Count - 1].zCoord]);
+                    path.Add(tileGrid[path[path.Count - 1].xCoord - 1][path[path.Count - 1].zCoord]);
                 }
-               else if (IsValidCoordinates(path[path.Count - 1].xCoord, path[path.Count - 1].zCoord - 1) &&
-                    distances[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1] == currentDistance - 1&&
-                    (isFlying||IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1])))
+                else if (CanMoveToLocation(isFlying,distances,path,0,-1,currentDistance))
                 {
                     path.Add(tileGrid[path[path.Count - 1].xCoord][path[path.Count - 1].zCoord - 1]);
                 }
                 else
                 {
                     Debug.Log("Rejected all path options");
-                    foreach(DungeonTile tile in path)
+                    foreach (DungeonTile tile in path)
                     {
                         Debug.Log(tile.xCoord.ToString() + ", " + tile.zCoord.ToString());
                     }
@@ -206,6 +198,14 @@ public class DungeonGrid : MonoBehaviour
 
         return path;
     }
+
+    private bool CanMoveToLocation(bool isFlying, int[][] distances, List<DungeonTile> path,int deltaX,int deltaZ, int currentDistance)
+    {
+        return IsValidCoordinates(path[path.Count - 1].xCoord+ deltaX, path[path.Count - 1].zCoord+deltaZ) &&
+                            distances[path[path.Count - 1].xCoord + deltaX][path[path.Count - 1].zCoord+deltaZ] == currentDistance - 1 &&
+                            (isFlying || IsPassable(path[path.Count - 1], tileGrid[path[path.Count - 1].xCoord+ deltaX][path[path.Count - 1].zCoord+deltaZ]));
+    }
+
     private void SetDistanceRecursive(ref int[][] distances, int currentDistance,DungeonTile tile,int maxDistance,bool isFlying)
     {
         if (distances[tile.xCoord][tile.zCoord] > currentDistance)
