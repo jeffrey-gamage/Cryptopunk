@@ -14,14 +14,12 @@ public class EnemyProgram : Program
     private State myState;
     private int nextWaypointIndex = 0;
     internal List<DungeonTile> waypoints;
-    private MeshRenderer myRenderer;
     private Hackable hackable;
     internal bool hasMoved = false;
     private bool isActiveAI = false;
     override internal void Start()
     {
         base.Start();
-        myRenderer = GetComponent<MeshRenderer>();
         hackable = GetComponent<Hackable>();
     }
     // Update is called once per frame

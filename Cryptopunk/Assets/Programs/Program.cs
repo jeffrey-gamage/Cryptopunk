@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Program : MonoBehaviour
 {
+    protected MeshRenderer myRenderer;
+    private SpriteRenderer myIcon;
     public bool isAnimating = false;
     public static bool isTargetingAttack = false;
     public static bool isTargetingBreach = false;
@@ -28,12 +30,18 @@ public class Program : MonoBehaviour
     internal virtual void Start()
     {
         size = maxSize;
+        myIcon = GetComponentInChildren<SpriteRenderer>();
+        myRenderer = GetComponent<MeshRenderer>();
     }
 
     // Update is called once per frame
     internal virtual void Update()
     {
         AnimateMovement();
+        if (myIcon)
+        {
+            myIcon.enabled = myRenderer.enabled;
+        }
     }
 
     private void AnimateMovement()
