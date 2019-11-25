@@ -199,3 +199,5 @@ MonoBehaviour:
     type: 3}
   myBreach: {fileID: 3597810718955383176, guid: 4def78b6c75265e4487b62f9f71161bf,
     type: 3}
+  stealthMaterial: {fileID: 2100000, guid: 89c57764d8b98e54fb170b00df2e38e1, type: 2}
+  iconStealthAlpha: 0.3

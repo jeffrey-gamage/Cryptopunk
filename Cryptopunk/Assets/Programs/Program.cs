@@ -25,22 +25,49 @@ public class Program : MonoBehaviour
     internal int size;
     internal int movesLeft;
     internal bool hasAttacked;
+    internal bool hasBeenSpotted;
     internal List<DungeonTile> movePath;
+
+    private Material standardMaterial;
+    [SerializeField] Material stealthMaterial;
+    [SerializeField] float iconStealthAlpha = 0.3f;
     // Start is called before the first frame update
     internal virtual void Start()
     {
         size = maxSize;
         myIcon = GetComponentInChildren<SpriteRenderer>();
         myRenderer = GetComponent<MeshRenderer>();
+        standardMaterial = myRenderer.material;
     }
 
     // Update is called once per frame
     internal virtual void Update()
     {
         AnimateMovement();
+        ShowStealthVisuals();
+    }
+
+    private void ShowStealthVisuals()
+    {
         if (myIcon)
         {
             myIcon.enabled = myRenderer.enabled;
+            if (IsStealthed())
+            {
+                myIcon.color = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, iconStealthAlpha);
+            }
+            else
+            {
+                myIcon.color = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, 1);
+            }
+        }
+        if (IsStealthed())
+        {
+            myRenderer.material = stealthMaterial;
+        }
+        else
+        {
+            myRenderer.material = standardMaterial;
         }
     }
 
@@ -63,6 +90,7 @@ public class Program : MonoBehaviour
                     movePath.Remove(myTile);
                     DungeonManager.instance.UpdateVisibility();
                 }
+                CheckStealth();
             }
             else
             {
@@ -71,9 +99,43 @@ public class Program : MonoBehaviour
         }
     }
 
+    private void CheckStealth()
+    {
+        List<Program> hostilePrograms;
+        if(this.IsControlledByPlayer())
+        {
+            hostilePrograms = DungeonManager.instance.GetAICotrolledPrograms();
+        }
+        else
+        {
+            hostilePrograms = DungeonManager.instance.GetPlayerControlledPrograms();
+        }
+        foreach(Program program in hostilePrograms)
+        {
+            if(program.IsStealthed()&&this.CanSee(program))
+            {
+                program.hasBeenSpotted = true;
+            }
+            if(this.IsStealthed()&&program.CanSee(this))
+            {
+                this.hasBeenSpotted = true;
+            }
+        
+        }
+
+    }
+    protected bool CanSee(Program program)
+    {
+        if (program.IsStealthed()&&!keywords.Contains("Sensor"))
+        {
+            return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= 1;
+        }
+        return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= sight;
+    }
+
     internal bool IsStealthed()
     {
-        return keywords.Contains("Ghost") && !hasAttacked;
+        return keywords.Contains("Ghost") && !hasAttacked &&!hasBeenSpotted;
     }
 
     internal bool IsFlying()
@@ -84,6 +146,7 @@ public class Program : MonoBehaviour
     internal virtual void OnStartTurn()
     {
         hasAttacked = false;
+        hasBeenSpotted = false;
         movesLeft = speed;
     }
 

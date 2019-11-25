@@ -57,14 +57,6 @@ public class EnemyProgram : Program
         }
     }
 
-    private bool CanSee(Program program)
-    {
-        if(program.IsStealthed())
-        {
-            return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= 1;
-        }
-        return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= sight;
-    }
 
     override internal void Damage(int damageAmount)
     {
