@@ -192,6 +192,7 @@ public class DungeonManager : MonoBehaviour
         Program.selectedProgram.myTile = dungeonTile;
         Program.selectedProgram.transform.position = dungeonTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying());
         Program.selectedProgram.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        dungeonTile.Occupy(Program.selectedProgram);
     }
 
     internal void DeploySecurity(EnemyProgram enemy, DungeonTile dungeonTile)
@@ -199,6 +200,7 @@ public class DungeonManager : MonoBehaviour
         enemy.myTile = dungeonTile;
         enemy.transform.position = dungeonTile.GetOccupyingCoordinates(enemy.IsFlying());
         enemyPrograms.Add(enemy);
+        dungeonTile.Occupy(enemy);
     }
 
 

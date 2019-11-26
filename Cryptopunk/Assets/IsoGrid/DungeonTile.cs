@@ -12,21 +12,23 @@ public class DungeonTile : MonoBehaviour
     internal int xCoord;
     internal int zCoord;
     internal bool isBlocked = false;
+    internal bool isOccupied = false;
     [SerializeField] private int height;
     internal bool isExplored = false;
     internal bool isVisible = false;
     
     private MeshRenderer myMeshRenderer;
+    private Collider myCollider;
     internal Ramp ramp;
     [SerializeField] Material unexplored;
     [SerializeField] Material fog;
     [SerializeField] Material visible;
-
-    internal Program occupyingProgram = null;
+    
     // Start is called before the first frame update
     void Start()
     {
         myMeshRenderer = GetComponent<MeshRenderer>();
+        myCollider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -95,6 +97,18 @@ public class DungeonTile : MonoBehaviour
         }
     }
 
+    internal void Occupy(Program program)
+    {
+        isBlocked = !program.IsFlying();
+        isOccupied = true;
+    }
+
+    internal void Vacate(Program program)
+    {
+        isBlocked = false;
+        isOccupied = false;
+    }
+
     internal void SetHeight(int newHeight)
     {
         this.height = newHeight;
@@ -137,10 +151,6 @@ public class DungeonTile : MonoBehaviour
             {
                 ramp.GetComponent<Collider>().enabled = true;
                 ramp.GetComponent<MeshRenderer>().enabled = true;
-            }
-            if(height<0)
-            {
-                isBlocked = true;
             }
         }
         isExplored = true;
