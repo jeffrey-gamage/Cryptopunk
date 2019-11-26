@@ -161,6 +161,13 @@ public class Program : MonoBehaviour
             selectedProgram = this;
         }
     }
+    private void OnMouseOver()
+    {
+        if (isTargetingAttack && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByPlayer())
+        {
+            DungeonManager.instance.PreviewTile(this.myTile);
+        }
+    }
 
     internal bool IsControlledByPlayer()
     {

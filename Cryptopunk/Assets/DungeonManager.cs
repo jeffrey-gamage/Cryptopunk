@@ -150,7 +150,7 @@ public class DungeonManager : MonoBehaviour
 
     internal void PreviewTile(DungeonTile dungeonTile)
     {
-        if(Program.selectedProgram&&mode!=Mode.Deploy&&mode!=Mode.Wait)
+        if(Program.selectedProgram&&mode!=Mode.Deploy)
         {
             PathPreview.instance.DisplayPreview(grid.FindPath(Program.selectedProgram.myTile, dungeonTile, Program.selectedProgram.movesLeft, Program.selectedProgram.IsFlying()));
             if(Program.isTargetingAttack)

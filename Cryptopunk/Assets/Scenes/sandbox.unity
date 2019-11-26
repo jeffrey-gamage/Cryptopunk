@@ -150,11 +150,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathTrace: []
-  pathPreviewOffset: {x: 0, y: 0.2, z: 0}
-  endpoint: {fileID: 21300000, guid: dfd4203f463b9e642b525c4e9443797e, type: 3}
-  straight: {fileID: 21300000, guid: 902315f2f57aabb409b50a6ebac787a7, type: 3}
-  corner: {fileID: 21300000, guid: abf3fa8985bfff64ea7edb1810aeb075, type: 3}
-  pathPoint: {fileID: 7081362655246423465, guid: 02a4981f0ebdde3418bb4c19081cf372,
+  pathPreviewOffset: 0.11
+  pathAlpha: 0.3
+  pathSegment: {fileID: 6032789004985220605, guid: 261d29a2e14722345afb2c176979709f,
     type: 3}
 --- !u!4 &410829715
 Transform:

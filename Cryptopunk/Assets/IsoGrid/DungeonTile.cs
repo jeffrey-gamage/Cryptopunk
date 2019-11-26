@@ -57,6 +57,17 @@ public class DungeonTile : MonoBehaviour
         }
     }
 
+    internal Quaternion getOccupantRotation()
+    {
+        Quaternion occupantRotation = Quaternion.identity;
+        if(ramp)
+        {
+            occupantRotation*= ramp.transform.rotation;
+        }
+        occupantRotation *= Quaternion.AngleAxis(90f, Vector3.right);
+        return occupantRotation;
+    }
+
     internal void SetRamp(Ramp newRamp)
     {
         ramp = newRamp;
@@ -120,7 +131,10 @@ public class DungeonTile : MonoBehaviour
     }
     private void OnMouseOver()
     {
-        DungeonManager.instance.PreviewTile(this);
+        if (DungeonManager.instance.mode == DungeonManager.Mode.Move)
+        {
+            DungeonManager.instance.PreviewTile(this);
+        }
     }
     internal int GetHeight()
     {

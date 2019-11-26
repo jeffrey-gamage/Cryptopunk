@@ -8,11 +8,9 @@ public class PathPreview : MonoBehaviour
     public static PathPreview instance;
     public List<SpriteRenderer> pathTrace;
     private Color pathColor;
-    [SerializeField] Vector3 pathPreviewOffset = new Vector3(0f, 0.2f, 0f);
-    [SerializeField] Sprite endpoint;
-    [SerializeField] Sprite straight;
-    [SerializeField] Sprite corner;
-    [SerializeField] GameObject pathPoint;
+    [SerializeField] float pathPreviewOffset = 0.2f;
+    [SerializeField] float pathAlpha = 0.3f;
+    [SerializeField] GameObject pathSegment;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,26 +28,34 @@ public class PathPreview : MonoBehaviour
 
     internal void SetColor(Color previewColor)
     {
-        pathColor = previewColor;
+        pathColor = new Color(previewColor.r,previewColor.g,previewColor.b,pathAlpha);
     }
 
     internal void DisplayPreview(List<DungeonTile> previewPath)
     {
-        for(int i=0;i<pathTrace.Count;i++)
+
+        if (previewPath.Count > 1&&!(DungeonManager.instance.mode == DungeonManager.Mode.Wait))
         {
-            Destroy(pathTrace[i].gameObject);
-        }
-        pathTrace = new List<SpriteRenderer>();
-        for(int i=0;i<previewPath.Count;i++)
-        {
-            pathTrace.Add(Instantiate(pathPoint, previewPath[i].GetOccupyingCoordinates(false)+ pathPreviewOffset, Quaternion.identity).GetComponent<SpriteRenderer>());
-            if(i==0||i==previewPath.Count-1)
+            for (int i = 0; i < pathTrace.Count; i++)
             {
-                //use endpoint sprite
+                Destroy(pathTrace[i].gameObject);
             }
-            else
+            pathTrace = new List<SpriteRenderer>();
+            for (int i = 1; i < previewPath.Count; i++)
             {
-                pathTrace[i].sprite = straight;
+                pathTrace.Add(Instantiate(pathSegment, previewPath[i].GetOccupyingCoordinates(false)+Vector3.up*pathPreviewOffset, previewPath[i].getOccupantRotation()).GetComponent<SpriteRenderer>());
+            }
+        }
+        else
+        {
+            for (int i = pathTrace.Count - 1; i >= 0; i--)
+            {
+                if (i >= 0)
+                {
+                    GameObject temp = pathTrace[i].gameObject;
+                    pathTrace.RemoveAt(i);
+                    Destroy(temp);
+                }
             }
         }
     }
