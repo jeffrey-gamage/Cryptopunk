@@ -118,6 +118,10 @@ public class DungeonTile : MonoBehaviour
     {
         DungeonManager.instance.SelectTile(this);
     }
+    private void OnMouseOver()
+    {
+        DungeonManager.instance.PreviewTile(this);
+    }
     internal int GetHeight()
     {
         return height;

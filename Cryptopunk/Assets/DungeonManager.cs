@@ -19,6 +19,10 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] internal int turnsLeft = 10;
     internal DungeonGrid grid;
 
+    [SerializeField] Color AttackPreview;
+    [SerializeField] Color BreachPreview;
+    [SerializeField] Color MovePreview;
+
     [SerializeField] List<Program> playerPrograms;
     [SerializeField] List<EnemyProgram> enemyPrograms;
     public bool isPlayerTurn = true;
@@ -141,6 +145,26 @@ public class DungeonManager : MonoBehaviour
         if(allActionsComplete)
         {
             EndTurn();
+        }
+    }
+
+    internal void PreviewTile(DungeonTile dungeonTile)
+    {
+        if(Program.selectedProgram&&mode!=Mode.Deploy&&mode!=Mode.Wait)
+        {
+            PathPreview.instance.previewPath = grid.FindPath(Program.selectedProgram.myTile, dungeonTile, Program.selectedProgram.movesLeft, Program.selectedProgram.IsFlying());
+            if(Program.isTargetingAttack)
+            {
+                PathPreview.instance.SetColor(AttackPreview);
+            }
+            else if(Program.isTargetingBreach)
+            {
+                PathPreview.instance.SetColor(BreachPreview);
+            }
+            else
+            {
+                PathPreview.instance.SetColor(MovePreview);
+            }
         }
     }
 
