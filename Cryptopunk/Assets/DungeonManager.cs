@@ -152,7 +152,7 @@ public class DungeonManager : MonoBehaviour
     {
         if(Program.selectedProgram&&mode!=Mode.Deploy&&mode!=Mode.Wait)
         {
-            PathPreview.instance.previewPath = grid.FindPath(Program.selectedProgram.myTile, dungeonTile, Program.selectedProgram.movesLeft, Program.selectedProgram.IsFlying());
+            PathPreview.instance.DisplayPreview(grid.FindPath(Program.selectedProgram.myTile, dungeonTile, Program.selectedProgram.movesLeft, Program.selectedProgram.IsFlying()));
             if(Program.isTargetingAttack)
             {
                 PathPreview.instance.SetColor(AttackPreview);

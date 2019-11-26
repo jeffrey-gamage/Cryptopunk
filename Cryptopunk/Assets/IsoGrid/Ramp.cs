@@ -36,4 +36,15 @@ public class Ramp : MonoBehaviour
             Debug.Log(name + " missing tile");
         }
     }
+    private void OnMouseOver()
+    {
+        if (tile)
+        {
+            DungeonManager.instance.PreviewTile(tile);
+        }
+        else
+        {
+            Debug.Log(name + " missing tile");
+        }
+    }
 }

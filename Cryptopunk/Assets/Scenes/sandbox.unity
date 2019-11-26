@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 410829715}
   - component: {fileID: 410829714}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: PathPreviewer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a248cff2e7c4c5a4696c8fd4aa149178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previewPath: []
+  pathTrace: []
+  pathPreviewOffset: {x: 0, y: 0.2, z: 0}
+  endpoint: {fileID: 21300000, guid: dfd4203f463b9e642b525c4e9443797e, type: 3}
+  straight: {fileID: 21300000, guid: 902315f2f57aabb409b50a6ebac787a7, type: 3}
+  corner: {fileID: 21300000, guid: abf3fa8985bfff64ea7edb1810aeb075, type: 3}
+  pathPoint: {fileID: 7081362655246423465, guid: 02a4981f0ebdde3418bb4c19081cf372,
+    type: 3}
 --- !u!4 &410829715
 Transform:
   m_ObjectHideFlags: 0
@@ -300,9 +306,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnsLeft: 10
-  AttackPreview: {r: 0, g: 0, b: 0, a: 0}
-  BreachPreview: {r: 0, g: 0, b: 0, a: 0}
-  MovePreview: {r: 0, g: 0, b: 0, a: 0}
+  AttackPreview: {r: 0.8509804, g: 0.19001652, b: 0.13333333, a: 1}
+  BreachPreview: {r: 0.2691349, g: 0.8990904, b: 0.9056604, a: 1}
+  MovePreview: {r: 0.3372549, g: 0.81960785, b: 0.40392157, a: 1}
   playerPrograms:
   - {fileID: 1917500778}
   - {fileID: 1289212501}
