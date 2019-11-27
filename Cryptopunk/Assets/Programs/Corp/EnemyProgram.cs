@@ -12,6 +12,9 @@ public class EnemyProgram : Program
         Attack
     }
     private State myState;
+    private List<GameObject> lineOfSightIndicators;
+    [SerializeField] GameObject sightIndicator;
+    [SerializeField] float sightPreviewOffset = 0.11f;
     private int nextWaypointIndex = 0;
     internal List<DungeonTile> waypoints;
     private Hackable hackable;
@@ -21,6 +24,7 @@ public class EnemyProgram : Program
     {
         base.Start();
         hackable = GetComponent<Hackable>();
+        lineOfSightIndicators = new List<GameObject>();
     }
     // Update is called once per frame
     override internal void Update()
@@ -104,6 +108,27 @@ public class EnemyProgram : Program
             NavigateTowards(DungeonManager.instance.grid.GetNearestTileInRange(this, target.myTile, range, movesLeft));
         }
     }
+    internal override void OnMouseDown()
+    {
+        base.OnMouseDown();
+        GenerateLineOfSightIndicators();
+    }
+
+    private void GenerateLineOfSightIndicators()
+    {
+        if (!IsControlledByPlayer())
+        {
+            foreach (DungeonTile tile in DungeonManager.instance.grid.GetAllSeenTiles(this))
+            {
+                lineOfSightIndicators.Add(CreateLineOfSightIndicator(tile));
+            }
+        }
+    }
+
+    private GameObject CreateLineOfSightIndicator(DungeonTile tile)
+    {
+        return Instantiate(sightIndicator, tile.GetOccupyingCoordinates(false) + Vector3.up * sightPreviewOffset, tile.getOccupantRotation());
+    }
 
     private void Search()
     {
@@ -172,6 +197,18 @@ public class EnemyProgram : Program
             hasAttacked = true;
             isActiveAI = false;
             DungeonManager.instance.TakeNextAIAction();
+        }
+    }
+
+    internal void ClearSightPreview()
+    {
+        if (lineOfSightIndicators.Count > 0 && Program.selectedProgram != this)
+        {
+            foreach (GameObject indicator in lineOfSightIndicators)
+            {
+                Destroy(indicator);
+            }
+            lineOfSightIndicators = new List<GameObject>();
         }
     }
 }

@@ -115,6 +115,26 @@ public class DungeonGrid : MonoBehaviour
         return destination;
     }
 
+    internal List<DungeonTile> GetAllSeenTiles(Program program)
+    {
+        List<DungeonTile> seenTiles = new List<DungeonTile>();
+        int minX = Math.Max(0, program.myTile.xCoord - program.sight);
+        int minZ = Math.Max(0, program.myTile.zCoord - program.sight);
+        int maxX = Math.Min(tileGrid.Length-1, program.myTile.xCoord + program.sight);
+        int maxZ = Math.Min(tileGrid.Length-1, program.myTile.zCoord + program.sight);
+        for(int i=minX;i<=maxX; i++)
+        {
+            for(int j=minZ; j<=maxZ;j++)
+            {
+                if (TileDistance(program.myTile, tileGrid[i][j]) <= program.sight && IsInLineOfSight(program, tileGrid[i][j]))
+                {
+                    seenTiles.Add(tileGrid[i][j]);
+                }
+            }
+        }
+        return seenTiles;
+    }
+
     internal void FogOfWarRender(Program[] playerPrograms)
     {
         foreach(DungeonTile[] row in tileGrid)
@@ -138,7 +158,7 @@ public class DungeonGrid : MonoBehaviour
         bool isSeen = false;
         foreach(Program program in playerPrograms)
         {
-            isSeen = isSeen || TileDistance(tile, program.myTile) <= program.sight;
+            isSeen = isSeen || (TileDistance(tile, program.myTile) <= program.sight&&IsInLineOfSight(program,tile));
         }
         return isSeen;
     }
@@ -146,6 +166,13 @@ public class DungeonGrid : MonoBehaviour
     internal int TileDistance(DungeonTile tile, DungeonTile myTile)
     {
         return Math.Abs(tile.xCoord - myTile.xCoord) + Math.Abs(tile.zCoord - myTile.zCoord);
+    }
+
+    internal bool IsInLineOfSight(Program observer, DungeonTile tile)
+    {
+        Vector3 direction = (tile.GetOccupyingCoordinates(true) - observer.myTile.GetOccupyingCoordinates(true)).normalized;
+        float distance =(tile.GetOccupyingCoordinates(true) -observer.myTile.GetOccupyingCoordinates(true)).magnitude;
+        return !Physics.Raycast(observer.myTile.GetOccupyingCoordinates(true), direction, distance, LayerMask.GetMask("Ground"));
     }
 
     internal List<DungeonTile> FindPath(DungeonTile start, DungeonTile end, int pathLength, bool isFlying)

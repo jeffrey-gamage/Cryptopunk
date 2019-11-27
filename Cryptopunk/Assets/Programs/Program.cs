@@ -130,7 +130,7 @@ public class Program : MonoBehaviour
         {
             return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= 1;
         }
-        return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= sight;
+        return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= sight&&DungeonManager.instance.grid.IsInLineOfSight(this,program.myTile);
     }
 
     internal bool IsStealthed()
@@ -150,7 +150,7 @@ public class Program : MonoBehaviour
         movesLeft = speed;
     }
 
-    private void OnMouseDown()
+    internal virtual void OnMouseDown()
     {
         if (isTargetingAttack && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByPlayer())
         {
@@ -159,6 +159,15 @@ public class Program : MonoBehaviour
         else
         {
             selectedProgram = this;
+        }
+        ClearSightPreviews();
+    }
+
+    private void ClearSightPreviews()
+    {
+        foreach(EnemyProgram enemyProgram in DungeonManager.instance.GetAICotrolledPrograms())
+        {
+            enemyProgram.ClearSightPreview();
         }
     }
     private void OnMouseOver()

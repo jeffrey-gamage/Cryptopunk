@@ -152,7 +152,7 @@ public class DungeonTile : MonoBehaviour
         }
         if(ramp)
         {
-            occupyCoordinates += Vector3.up * 0.5f;
+            occupyCoordinates += Vector3.up * 0.5f*unitHeight;
         }
         return occupyCoordinates;
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4291032839040103483}
   - component: {fileID: 4291032839040103492}
   - component: {fileID: 4291032839040103480}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   height: 0
-  hasTile: 1
   unexplored: {fileID: 2100000, guid: 81b9347c3d6d2274fa34ebfe9d0d8649, type: 2}
   fog: {fileID: 2100000, guid: 5e884e25519427842b33d6134cf28ffb, type: 2}
   visible: {fileID: 2100000, guid: c450c5135fd8e25409e41ac5994cacd2, type: 2}

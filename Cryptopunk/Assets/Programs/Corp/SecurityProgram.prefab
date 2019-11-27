@@ -131,3 +131,8 @@ MonoBehaviour:
   myAttack: {fileID: 3597810718955383176, guid: cc3c61cad8810464a84f25d7f638064b,
     type: 3}
   myBreach: {fileID: 0}
+  stealthMaterial: {fileID: 0}
+  iconStealthAlpha: 0.3
+  sightIndicator: {fileID: 6032789004985220605, guid: f746366951b9bea479cb5fc3050a3759,
+    type: 3}
+  sightPreviewOffset: 0.11
