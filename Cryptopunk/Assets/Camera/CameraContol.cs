@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class CameraContol : MonoBehaviour
 {
-    [SerializeField] float maxPan = 12f;
+    [SerializeField] internal float maxPan = 12f;
+    internal Vector3 center = Vector3.zero;
     [SerializeField] float rotateSpeed = 90f;
     [SerializeField] float panSpeed = 3f;
     [SerializeField] float zoomSpeed = 1f;
@@ -69,9 +70,9 @@ public class CameraContol : MonoBehaviour
         {
             gameObject.transform.position += gameObject.transform.rotation * Vector3.right * panSpeed * Time.deltaTime;
         }
-        if (gameObject.transform.position.magnitude > maxPan)
+        if ((gameObject.transform.position-center).magnitude > maxPan)
         {
-            gameObject.transform.position = gameObject.transform.position.normalized * maxPan;
+            gameObject.transform.position = center+(gameObject.transform.position-center).normalized * maxPan;
         }
     }
 }

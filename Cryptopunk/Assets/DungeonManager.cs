@@ -31,13 +31,21 @@ public class DungeonManager : MonoBehaviour
     {
         instance = this;
         grid = FindObjectOfType<DungeonGrid>();
-        GridGenerator generator = new GridGenerator(24,3,2);
+        GridGenerator generator = new GridGenerator(24, 3, 2);
         int[][] gridPlan = generator.GetGrid();
-        FindObjectOfType<CameraContol>().transform.position = new Vector3(gridPlan.Length / 2, 0, gridPlan.Length / 2);
+        SetUpCamera(gridPlan.Length);
         grid.GenerateGrid(gridPlan);
         //grid.GenerateRamps();
         //grid.GenerateEnemies();
         PrepareNextDeployment();
+    }
+
+    private static void SetUpCamera(int gridSize)
+    {
+        CameraContol cameraContol = FindObjectOfType<CameraContol>();
+        cameraContol.center= new Vector3(gridSize / 2, 0, gridSize / 2);
+        cameraContol.transform.position = cameraContol.center;
+        cameraContol.maxPan = gridSize * 2 / 3;
     }
 
     internal List<Program> GetPlayerControlledPrograms()
@@ -89,6 +97,7 @@ public class DungeonManager : MonoBehaviour
         }
         return hasActionsLeft;
     }
+    
 
     private void PrepareNextDeployment()
     {
