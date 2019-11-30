@@ -258,7 +258,7 @@ public class Program : MonoBehaviour
         }
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         DungeonManager.instance.RemoveProgram(this);
         DungeonManager.instance.UpdateVisibility();

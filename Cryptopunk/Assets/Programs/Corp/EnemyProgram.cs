@@ -211,4 +211,10 @@ public class EnemyProgram : Program
             lineOfSightIndicators = new List<GameObject>();
         }
     }
+
+    protected override void Die()
+    {
+        ClearSightPreview();
+        base.Die();
+    }
 }

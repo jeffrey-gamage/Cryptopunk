@@ -31,11 +31,12 @@ public class DungeonManager : MonoBehaviour
     {
         instance = this;
         grid = FindObjectOfType<DungeonGrid>();
-        int[][] gridPlan = GridGenerator.GenerateGrid(3);
+        GridGenerator generator = new GridGenerator(24,3,2);
+        int[][] gridPlan = generator.GetGrid();
         FindObjectOfType<CameraContol>().transform.position = new Vector3(gridPlan.Length / 2, 0, gridPlan.Length / 2);
         grid.GenerateGrid(gridPlan);
-        grid.GenerateRamps();
-        grid.GenerateEnemies();
+        //grid.GenerateRamps();
+        //grid.GenerateEnemies();
         PrepareNextDeployment();
     }
 
