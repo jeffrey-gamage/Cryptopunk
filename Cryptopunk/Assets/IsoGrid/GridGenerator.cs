@@ -26,7 +26,7 @@ public class GridGenerator
         internal Room(int size)
         {
             this.size = size;
-            connections = new Room[Math.Max(2, size / 3)];
+            connections = new Room[Math.Max(2, Math.Min(size / 3,4))];
         }
         private Vector3Int GetRandomDirection()
         {
@@ -190,8 +190,8 @@ public class GridGenerator
 
     private void DefineGridBoundaries()
     {
-        int minX = 0;
-        int minZ = 0;
+        int minX = 999;
+        int minZ = 999;
         foreach(Room room in rooms)
         {
             foreach(Vector3Int tileCoords in room.tiles)
@@ -256,7 +256,7 @@ public class GridGenerator
         {
             foreach (Vector3Int tileCoords in room.tiles)
             {
-                rows[tileCoords.x][tileCoords.z] = tileCoords.y;
+                rows[tileCoords.x][tileCoords.z] +=1;
             }
         }
         return rows;
