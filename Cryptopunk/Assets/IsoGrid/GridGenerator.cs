@@ -100,7 +100,7 @@ public class GridGenerator
         int[][] rows = new int[gridX][];
         for (int i = 0; i < gridX; i++)
         {
-            rows[i] = new int[gridX];
+            rows[i] = new int[gridZ];
             for (int j = 0; j < gridZ; j++)
             {
                 rows[i][j] = -1;
@@ -110,7 +110,7 @@ public class GridGenerator
         {
             foreach (Vector3Int tileCoords in room.tiles)
             {
-                if (tileCoords.x >= gridX || tileCoords.z >= gridX)
+                if (tileCoords.x >= gridX || tileCoords.z >= gridZ)
                 {
                     Debug.LogWarning("tile coords out of bounds - tile coords: " + tileCoords.x.ToString() + ", " + tileCoords.z.ToString() + ", grid max: " + gridX.ToString());
                 }

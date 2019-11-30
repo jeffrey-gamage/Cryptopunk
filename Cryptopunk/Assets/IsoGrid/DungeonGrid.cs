@@ -180,7 +180,7 @@ public class DungeonGrid : MonoBehaviour
         int[][] distances = new int[tileGrid.Length][];
         for(int i=0;i<distances.Length;i++)
         {
-            distances[i] = new int[tileGrid.Length];
+            distances[i] = new int[tileGrid[i].Length];
             for(int j=0;j<tileGrid[i].Length;j++)
             {
                 distances[i][j] = 63;
