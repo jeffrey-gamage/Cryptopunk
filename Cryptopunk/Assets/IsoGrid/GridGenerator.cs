@@ -4,10 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public struct RampCoordinates
+{
+    public Vector3Int coord1;
+    public Vector3Int coord2;
+}
+
 public class GridGenerator 
 {
     [SerializeField] int minNumRooms = 3;
-    [SerializeField] int minRoomSize = 3;
+    [SerializeField] int minRoomSize = 2;
     private int mapSize;
     private int connectivity;
     private int verticality;
@@ -30,11 +36,11 @@ public class GridGenerator
             rooms.Add(new Room(newRoomSize));
             roomsGeneratedSize += newRoomSize;
         }
-        rooms[0].GenerateTiles();
+        rooms[0].GenerateTiles(verticality);
         for(int i=1;i<rooms.Count;i++)
         {
             MakeFirstConnection(i, rooms[i]);
-            rooms[i].GenerateTiles();
+            rooms[i].GenerateTiles(verticality);
         }
         DefineGridBoundaries();
     }
@@ -73,6 +79,13 @@ public class GridGenerator
             {
                 rooms[i].tiles[j] += new Vector3Int(-1, 0, 0) * minX+new Vector3Int(0,0,-1)*minZ;
             }
+            for(int k=0;k<rooms[i].rampCoordinates.Count;k++)
+            {
+                RampCoordinates updatedCoords;
+                updatedCoords.coord1 = rooms[i].rampCoordinates[k].coord1 + new Vector3Int(-1, 0, 0) * minX + new Vector3Int(0, 0, -1) * minZ;
+                updatedCoords.coord2 = rooms[i].rampCoordinates[k].coord2 + new Vector3Int(-1, 0, 0) * minX + new Vector3Int(0, 0, -1) * minZ;
+                rooms[i].rampCoordinates[k] = updatedCoords;
+            }
         }
         gridX += minX * -1+1;
         gridZ += minZ * -1 + 1;
@@ -110,16 +123,34 @@ public class GridGenerator
         {
             foreach (Vector3Int tileCoords in room.tiles)
             {
-                if (tileCoords.x >= gridX || tileCoords.z >= gridZ)
+                if (tileCoords.x >= gridX)
                 {
-                    Debug.LogWarning("tile coords out of bounds - tile coords: " + tileCoords.x.ToString() + ", " + tileCoords.z.ToString() + ", grid max: " + gridX.ToString());
+                    Debug.LogWarning("tile x out of bounds - tile coords: " + tileCoords.x.ToString() + ", " + tileCoords.z.ToString() + ", grid max: " + gridX.ToString());
+                }
+                else if(tileCoords.z >= gridZ)
+                {
+                    Debug.LogWarning("tile z out of bounds - tile coords: " + tileCoords.x.ToString() + ", " + tileCoords.z.ToString() + ", grid max: " + gridZ.ToString());
                 }
                 else
                 {
-                    rows[tileCoords.x][tileCoords.z] = tileCoords.y;
+                    rows[tileCoords.x][tileCoords.z] = Mathf.Max(rows[tileCoords.x][tileCoords.z],tileCoords.y);
                 }
             }
         }
         return rows;
     }
+
+    internal List<RampCoordinates> GetRamps()
+    {
+        List<RampCoordinates> allRampCoordinates= new List<RampCoordinates>();
+        foreach( Room room in rooms)
+        {
+            foreach( RampCoordinates coordinates in room.rampCoordinates)
+            {
+                allRampCoordinates.Add(coordinates);
+            }
+        }
+        return allRampCoordinates;
+    }
+
 }

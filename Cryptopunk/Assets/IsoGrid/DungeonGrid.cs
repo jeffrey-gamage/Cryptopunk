@@ -57,23 +57,52 @@ public class DungeonGrid : MonoBehaviour
         newProgram.waypoints.Add(tileGrid[1][6]);
     }
 
-    internal void GenerateRamps()
+    internal void GenerateRamps(List<RampCoordinates> rampCoordinates)
     {
-        Ramp newRamp = Instantiate(ramp).GetComponent<Ramp>();
-        newRamp.SetDirection(Ramp.Direction.Back);
-        tileGrid[4][1].SetRamp(newRamp);
+        foreach (RampCoordinates coords in rampCoordinates)
+        {
+            Vector3Int origin;
+            Vector3Int dest;
+            if (coords.coord1.y != coords.coord2.y)
+            {
+                origin = Vector3Int.zero;
+                dest = Vector3Int.zero;
+                if (coords.coord1.y > coords.coord2.y)
+                {
+                    dest = coords.coord1;
+                    origin = coords.coord2;
+                }
+                else if (coords.coord2.y > coords.coord1.y)
+                {
+                    dest = coords.coord2;
+                    origin = coords.coord1;
+                }
+                Ramp newRamp = (Instantiate(ramp).GetComponent<Ramp>());
+                newRamp.SetDirection(DetermineRampDirection(origin, dest));
+                tileGrid[origin.x][origin.z].SetRamp(newRamp);
 
-        newRamp = Instantiate(ramp).GetComponent<Ramp>();
-        newRamp.SetDirection(Ramp.Direction.Left);
-        tileGrid[1][4].SetRamp(newRamp);
+            }
+        }
+    }
 
-        newRamp = Instantiate(ramp).GetComponent<Ramp>();
-        newRamp.SetDirection(Ramp.Direction.Forward);
-        tileGrid[3][6].SetRamp(newRamp);
-
-        newRamp = Instantiate(ramp).GetComponent<Ramp>();
-        newRamp.SetDirection(Ramp.Direction.Right);
-        tileGrid[6][3].SetRamp(newRamp);
+    private Ramp.Direction DetermineRampDirection(Vector3Int origin, Vector3Int dest)
+    {
+        if(dest.x - origin.x>0)
+        {
+            return Ramp.Direction.Right;
+        }
+        else if(dest.z - origin.z>0)
+        {
+            return Ramp.Direction.Forward;
+        }
+        else if (dest.z - origin.z < 0)
+        {
+            return Ramp.Direction.Back;
+        }
+        else
+        {
+            return Ramp.Direction.Left;
+        }
     }
 
     internal DungeonTile GetNewSearchLocation(DungeonTile searcherTile)
