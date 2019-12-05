@@ -13,3 +13,4 @@ Cryptopunk/Library/ScriptAssemblies/
 Cryptopunk/Library/StateCache/
 *.log
 Cryptopunk/Library/
+Cryptopunk/Assembly-CSharp.csproj

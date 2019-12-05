@@ -21,6 +21,37 @@ public class GridGenerator
     private int gridX;
     private int gridZ;
    
+    protected GridGenerator()
+    {
+        //only used by tutorial grid generator;
+        rooms = new List<Room>();
+        rooms.Add(new Room(6, 15, 2, 8, 0, new List<RampCoordinates>()));
+        rooms.Add(new Room(5, 7, 8, 11, 0, new List<RampCoordinates>()));
+        rooms.Add(new Room(1, 5, 10, 12, 0, new List<RampCoordinates>()));
+        RampCoordinates rampCoords1;
+        rampCoords1.coord1 = new Vector3Int(8, 0, 17);
+        rampCoords1.coord2 = new Vector3Int(7, 1, 17);
+        List<RampCoordinates> rampCoordinates = new List<RampCoordinates>();
+        rampCoordinates.Add(rampCoords1);
+        rooms.Add(new Room(5, 10, 10, 18, 0,rampCoordinates));
+        rooms.Add(new Room(5, 8, 16, 20, 1, new List<RampCoordinates>()));
+        rooms.Add(new Room(10, 16, 12, 14, 0, new List<RampCoordinates>()));
+        rooms.Add(new Room(13, 15, 9, 12, 0, new List<RampCoordinates>()));
+        RampCoordinates rampCoords2;
+        rampCoords2.coord1 = new Vector3Int(18, 0, 15);
+        rampCoords2.coord2 = new Vector3Int(18, 1, 14);
+        List<RampCoordinates> rampCoordinates2 = new List<RampCoordinates>();
+        rampCoordinates2.Add(rampCoords2);
+        rooms.Add(new Room(16, 21, 10, 19, 0, rampCoordinates2));
+        RampCoordinates rampCoords3;
+        rampCoords3.coord1 = new Vector3Int(19, 1, 10);
+        rampCoords3.coord2 = new Vector3Int(20, 2, 10);
+        List<RampCoordinates> rampCoordinates3 = new List<RampCoordinates>();
+        rampCoordinates3.Add(rampCoords3);
+        rooms.Add(new Room(18, 20, 10, 15, 1, rampCoordinates3));
+        rooms.Add(new Room(20, 21, 10, 15, 2, new List<RampCoordinates>()));
+        DefineGridBoundaries();
+    }
 
     public GridGenerator(int mapSize,int connectivity, int verticality)
     {

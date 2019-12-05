@@ -22,6 +22,20 @@ public class Room
         connections = new Room[Mathf.Max(2, Mathf.Min(size / 3, 4))];
         rampCoordinates = new List<RampCoordinates>();
     }
+
+    internal Room(int minX, int maxX, int minZ, int maxZ, int height, List<RampCoordinates> rampCoordinates)
+        //directly create rooms for the tutorial. not compatible with procedural generation
+    {
+        tiles = new List<Vector3Int>();
+        this.rampCoordinates = rampCoordinates;
+        for (int i = minX; i < maxX; i++)
+        {
+            for (int j = minZ; j < maxZ; j++)
+            {
+                tiles.Add(new Vector3Int(i, height, j));
+            }
+        }
+    }
     private Vector3Int GetRandomDirection()
     {
         int direction = Random.Range(0, 3);

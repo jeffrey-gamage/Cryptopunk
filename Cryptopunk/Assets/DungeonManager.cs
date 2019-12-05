@@ -20,6 +20,7 @@ public class DungeonManager : MonoBehaviour
     internal DungeonGrid grid;
 
     [SerializeField] Color AttackPreview;
+    [SerializeField] bool IsTutorial;
     [SerializeField] Color BreachPreview;
     [SerializeField] Color MovePreview;
 
@@ -31,7 +32,15 @@ public class DungeonManager : MonoBehaviour
     {
         instance = this;
         grid = FindObjectOfType<DungeonGrid>();
-        GridGenerator generator = new GridGenerator(24, 3, 3);
+        GridGenerator generator;
+        if (IsTutorial)
+        {
+            generator = new TutorialGridGenerator();
+        }
+        else
+        {
+            generator = new GridGenerator(24, 3, 3);
+        }
         int[][] gridPlan = generator.GetGrid();
         SetUpCamera(gridPlan.Length);
         grid.GenerateGrid(gridPlan);
