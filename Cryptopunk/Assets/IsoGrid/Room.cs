@@ -53,53 +53,56 @@ public class Room
         tiles = new List<Vector3Int>();
         if (connections[0] != null)
         {
-            Vector3Int direction = GetRandomDirection();
+            Vector3Int direction;
             Vector3Int connector;
             int attempts = 5;
             do
             {
+                direction = GetRandomDirection();
                 connector = connections[0].TakeRandomEdge(direction);
                 attempts--;
             }
             while (connector == failToFind && attempts > 0);
             if (connector != failToFind)
+            {
                 roomY = RandomizeHeight(connector.y, vert);
-            Vector3Int connection = new Vector3Int(connector.x + direction.x, roomY, connector.z + direction.z);
-            tiles.Add(connection);
-            if (connection.y != connector.y)
-            {
-                RampCoordinates newCoordinates;
-                newCoordinates.coord1 = connection;
-                newCoordinates.coord2 = connector;
-                rampCoordinates.Add(newCoordinates);
-            }
-            if (direction.z > 0)
-            {
-                minZ = connector.z + 1;
-                maxZ = minZ + roomWidth;
-                minX = Random.Range(connector.x - roomLength, connector.x);
-                maxX = minX + roomLength;
-            }
-            else if (direction.x < 0)
-            {
-                maxX = connector.x - 1;
-                minX = maxX - roomLength;
-                minZ = Random.Range(connector.z - roomWidth, connector.z);
-                maxZ = minZ + roomWidth;
-            }
-            else if (direction.z < 0)
-            {
-                maxZ = connector.z - 1;
-                minZ = maxZ - roomWidth;
-                minX = Random.Range(connector.x - roomLength, connector.x);
-                maxX = minX + roomLength;
-            }
-            else
-            {
-                minX = connector.x + 1;
-                maxX = minX + roomLength;
-                minZ = Random.Range(connector.z - roomWidth, connector.z);
-                maxZ = minZ + roomWidth;
+                Vector3Int connection = new Vector3Int(connector.x + direction.x, roomY, connector.z + direction.z);
+                tiles.Add(connection);
+                if (connection.y != connector.y)
+                {
+                    RampCoordinates newCoordinates;
+                    newCoordinates.coord1 = connection;
+                    newCoordinates.coord2 = connector;
+                    rampCoordinates.Add(newCoordinates);
+                }
+                if (direction.z > 0)
+                {
+                    minZ = connector.z + 1;
+                    maxZ = minZ + roomWidth;
+                    minX = Random.Range(connector.x + 1 - roomLength, connector.x);
+                    maxX = minX + roomLength;
+                }
+                else if (direction.x < 0)
+                {
+                    maxX = connector.x - 1;
+                    minX = maxX - roomLength;
+                    minZ = Random.Range(connector.z + 1 - roomWidth, connector.z);
+                    maxZ = minZ + roomWidth;
+                }
+                else if (direction.z < 0)
+                {
+                    maxZ = connector.z - 1;
+                    minZ = maxZ - roomWidth;
+                    minX = Random.Range(connector.x + 1 - roomLength, connector.x);
+                    maxX = minX + roomLength;
+                }
+                else
+                {
+                    minX = connector.x + 1;
+                    maxX = minX + roomLength;
+                    minZ = Random.Range(connector.z + 1 - roomWidth, connector.z);
+                    maxZ = minZ + roomWidth;
+                }
             }
         }
         if (connections[0] == null)
@@ -153,22 +156,22 @@ public class Room
         if (direction.z > 0 && foreEdgeTiles.Count > 0)
         {
             randomEdge = foreEdgeTiles[Random.Range(0, foreEdgeTiles.Count) % foreEdgeTiles.Count];
-            foreEdgeTiles.Remove(randomEdge);
+            foreEdgeTiles.Clear();
         }
         else if (direction.x < 0 && leftEdgeTiles.Count > 0)
         {
             randomEdge = leftEdgeTiles[Random.Range(0, leftEdgeTiles.Count) % leftEdgeTiles.Count];
-            leftEdgeTiles.Remove(randomEdge);
+            leftEdgeTiles.Clear();
         }
         else if (direction.z < 0 && aftEdgeTiles.Count > 0)
         {
             randomEdge = aftEdgeTiles[Random.Range(0, aftEdgeTiles.Count) % aftEdgeTiles.Count];
-            aftEdgeTiles.Remove(randomEdge);
+            aftEdgeTiles.Clear();
         }
         else if (direction.x > 0 && rightEdgeTiles.Count > 0)
         {
             randomEdge = rightEdgeTiles[Random.Range(0, rightEdgeTiles.Count) % rightEdgeTiles.Count];
-            rightEdgeTiles.Remove(randomEdge);
+            rightEdgeTiles.Clear();
         }
         else
         {

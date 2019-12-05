@@ -67,7 +67,7 @@ public class GridGenerator
                 {
                     gridX = tileCoords.x;
                 }
-                if (tileCoords.z > gridX)
+                if (tileCoords.z > gridZ)
                 {
                     gridZ = tileCoords.z;
                 }
