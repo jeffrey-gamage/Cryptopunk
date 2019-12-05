@@ -84,25 +84,25 @@ public class DungeonTile : MonoBehaviour
             case Ramp.Direction.Forward:
                 {
                     return (new Vector3(gameObject.transform.position.x,
-                                        (float)height * unitHeight / 2f,
+                                        (float)height * unitHeight,
                                         gameObject.transform.position.z+rampAlignmentDistance));
                 }
             case Ramp.Direction.Right:
                 {
                     return (new Vector3(gameObject.transform.position.x + rampAlignmentDistance,
-                                        (float)height * unitHeight / 2f,
+                                        (float)height * unitHeight,
                                         gameObject.transform.position.z ));
                 }
             case Ramp.Direction.Back:
                 {
                     return (new Vector3(gameObject.transform.position.x ,
-                                        (float)height * unitHeight / 2f,
+                                        (float)height * unitHeight,
                                         gameObject.transform.position.z - rampAlignmentDistance));
                 }
             default:
                 {
                     return (new Vector3(gameObject.transform.position.x - rampAlignmentDistance,
-                                        (float)height * unitHeight / 2f,
+                                        (float)height * unitHeight,
                                         gameObject.transform.position.z));
                 }
         }
