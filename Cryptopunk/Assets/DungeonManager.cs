@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
+    private TutorialInfo tutorialInfo;
     internal enum Mode
     {
         Deploy,
@@ -31,6 +32,10 @@ public class DungeonManager : MonoBehaviour
     void Start()
     {
         instance = this;
+        if(IsTutorial)
+        {
+            tutorialInfo = FindObjectOfType<TutorialInfo>();
+        }
         grid = FindObjectOfType<DungeonGrid>();
         GridGenerator generator;
         if (IsTutorial)
@@ -45,6 +50,14 @@ public class DungeonManager : MonoBehaviour
         SetUpCamera(gridPlan.Length);
         grid.GenerateGrid(gridPlan);
         grid.GenerateRamps(generator.GetRamps());
+        if (!IsTutorial)
+        {
+            grid.GenerateFirewalls(generator.GetFirewalls());
+        }
+        else
+        {
+            grid.GenerateFirewalls(tutorialInfo.GetFirewallLocations());
+        }
         //grid.GenerateEnemies();
         PrepareNextDeployment();
     }

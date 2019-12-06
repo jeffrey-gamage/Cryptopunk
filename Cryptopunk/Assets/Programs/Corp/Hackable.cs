@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class Hackable : MonoBehaviour
 {
+    public static Hackable selectedObject;
     [SerializeField] internal int maxIntegrity;
     [SerializeField] int rebootTime = 3;
     internal int currentIntegrity;
     internal DungeonTile myTile;
     private bool isHacked;
+    internal bool isEnabled = true;
+    internal Program myProgram;
     internal int rebootCountdown=0;
 
     internal void OnStartTurn()
@@ -22,6 +25,7 @@ public class Hackable : MonoBehaviour
                 rebootCountdown = rebootTime;
                 currentIntegrity = maxIntegrity;
                 isHacked = false;
+                Activate();
             }
         }
     }
@@ -30,12 +34,18 @@ public class Hackable : MonoBehaviour
     void Start()
     {
         currentIntegrity = maxIntegrity;
+        myProgram = GetComponent<Program>();
     }
     private void OnMouseDown()
     {
-        if(Program.isTargetingBreach&&Program.selectedProgram.IsControlledByPlayer())
+        if(Program.isTargetingBreach&&Program.selectedProgram&&Program.selectedProgram.IsControlledByPlayer())
         {
             Program.selectedProgram.AttemptBreach(this);
+        }
+        else
+        {
+            Program.selectedProgram = myProgram;
+            selectedObject = this;
         }
     }
     internal void Disrupt(int damageAmount)
@@ -56,7 +66,26 @@ public class Hackable : MonoBehaviour
                 currentIntegrity = 0;
             }
             this.isHacked = true;
+            Deactivate();
         }
+    }
+    internal void SetTile(DungeonTile tile)
+    {
+        myTile = tile;
+        if (isEnabled)
+        {
+            tile.isBlocked = true;
+        }
+    }
+    internal virtual void Activate()
+    {
+        //hook for subclasses to do behaviour when switched on
+        isEnabled = true;
+    }
+    internal virtual void Deactivate()
+    {
+        //hook for subclasses to do behaviour when switched off
+        isEnabled = false;
     }
 
     internal bool IsHacked()

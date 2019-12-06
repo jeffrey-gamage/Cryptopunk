@@ -8,6 +8,9 @@ public class DungeonGrid : MonoBehaviour
 {
     [SerializeField] GameObject gridTile;
     [SerializeField] GameObject ramp;
+    [SerializeField] GameObject firewall;
+    [SerializeField] GameObject port;
+    [SerializeField] GameObject terminal;
     [SerializeField] GameObject[] enemyPrefabs;
     private DungeonTile[][] tileGrid;
     [SerializeField] int numSegments = 3;
@@ -38,6 +41,17 @@ public class DungeonGrid : MonoBehaviour
             }
         }
     }
+
+    internal void GenerateFirewalls(Vector3Int[] firewallLocations)
+    {
+        foreach(Vector3Int firewallLocation in firewallLocations)
+        {
+            DungeonTile tile = tileGrid[firewallLocation.x][firewallLocation.z];
+            Firewall newFirewall = Instantiate(firewall, tile.GetOccupyingCoordinates(true),Quaternion.identity).GetComponent<Firewall>();
+            newFirewall.myTile = tile;
+        }
+    }
+
     internal void GenerateEnemies()
     {
         EnemyProgram newProgram = Instantiate(enemyPrefabs[0]).GetComponent<EnemyProgram>();

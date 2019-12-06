@@ -53,6 +53,12 @@ public class GridGenerator
         DefineGridBoundaries();
     }
 
+    internal Vector3Int[] GetFirewalls()
+    {
+        //TODO
+        return new Vector3Int[0];
+    }
+
     public GridGenerator(int mapSize,int connectivity, int verticality)
     {
         this.mapSize = mapSize;
