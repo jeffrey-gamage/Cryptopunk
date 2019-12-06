@@ -53,13 +53,29 @@ public class HackPanel : MonoBehaviour
                 toggleButtonText.text = "";
             }
         }
+        else
+        {
+            objectName.text ="";
+            integrity.text = "";
+            rebootCounter.text = "";
+            status.text = "";
+            toggleButton.enabled = false;
+            toggleButtonText.text = "";
+        }
     }
 
-    void Toggle()
+    public void Toggle()
     {
         if(Hackable.selectedObject)
         {
-            Hackable.selectedObject.isEnabled = !Hackable.selectedObject.isEnabled;
+            if(Hackable.selectedObject.isEnabled)
+            {
+                Hackable.selectedObject.Deactivate();
+            }
+            else
+            {
+                Hackable.selectedObject.Activate();
+            }
         }
     }
 }

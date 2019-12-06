@@ -48,6 +48,7 @@ public class DungeonGrid : MonoBehaviour
         {
             DungeonTile tile = tileGrid[firewallLocation.x][firewallLocation.z];
             Firewall newFirewall = Instantiate(firewall, tile.GetOccupyingCoordinates(true),Quaternion.identity).GetComponent<Firewall>();
+            DungeonManager.instance.hackableObjects.Add(newFirewall);
             newFirewall.myTile = tile;
         }
     }

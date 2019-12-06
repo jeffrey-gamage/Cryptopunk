@@ -159,6 +159,7 @@ public class Program : MonoBehaviour
         else
         {
             selectedProgram = this;
+            Hackable.selectedObject = GetComponent<Hackable>();
         }
         ClearSightPreviews();
     }

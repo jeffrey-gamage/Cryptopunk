@@ -27,11 +27,13 @@ public class DungeonManager : MonoBehaviour
 
     [SerializeField] List<Program> playerPrograms;
     [SerializeField] List<EnemyProgram> enemyPrograms;
+    [SerializeField] internal List<Hackable> hackableObjects;
     public bool isPlayerTurn = true;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        hackableObjects = new List<Hackable>();
         if(IsTutorial)
         {
             tutorialInfo = FindObjectOfType<TutorialInfo>();
@@ -147,6 +149,10 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
+            foreach(Hackable hackableObject in hackableObjects)
+            {
+                hackableObject.OnStartTurn();
+            }
             foreach(EnemyProgram program in GetAICotrolledPrograms())
             {
                 program.OnStartTurn();

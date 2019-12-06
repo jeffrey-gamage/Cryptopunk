@@ -188,11 +188,11 @@ RectTransform:
   m_Children:
   - {fileID: 6344918417712051027}
   m_Father: {fileID: 4264234982824778506}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.95188415, y: 0.24333145}
-  m_AnchorMax: {x: 0.95188415, y: 0.24333145}
-  m_AnchoredPosition: {x: -27.616, y: 7.3}
+  m_AnchorMin: {x: 0.637663, y: 0.24333145}
+  m_AnchorMax: {x: 0.637663, y: 0.24333145}
+  m_AnchoredPosition: {x: 16.384, y: 7.3}
   m_SizeDelta: {x: 68.857, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &790094015511065867
@@ -255,7 +255,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.3207547, g: 0.31318974, b: 0.31318974, a: 0.26666668}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -273,7 +273,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 480356847459058031}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 45720775557019691}
+        m_MethodName: Toggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6325104039753673798
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,8 +472,8 @@ RectTransform:
   - {fileID: 2369849679709372077}
   - {fileID: 5168872211355126677}
   - {fileID: 1851020264264392602}
-  - {fileID: 5403257345160479751}
   - {fileID: 7177810718375074982}
+  - {fileID: 5403257345160479751}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -555,7 +566,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4264234982824778506}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.06272885, y: 0.26033998}
   m_AnchorMax: {x: 0.06272885, y: 0.26033998}

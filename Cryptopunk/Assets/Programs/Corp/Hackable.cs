@@ -15,6 +15,11 @@ public class Hackable : MonoBehaviour
     internal Program myProgram;
     internal int rebootCountdown=0;
 
+    internal virtual void Start()
+    {
+        myProgram = GetComponent<Program>();
+        Reboot();
+    }
     internal void OnStartTurn()
     {
         if(isHacked)
@@ -22,20 +27,19 @@ public class Hackable : MonoBehaviour
             rebootCountdown--;
             if(rebootCountdown<=0)
             {
-                rebootCountdown = rebootTime;
-                currentIntegrity = maxIntegrity;
-                isHacked = false;
-                Activate();
+                Reboot();
             }
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Reboot()
     {
+        rebootCountdown = rebootTime;
         currentIntegrity = maxIntegrity;
-        myProgram = GetComponent<Program>();
+        isHacked = false;
+        Activate();
     }
+
     private void OnMouseDown()
     {
         if(Program.isTargetingBreach&&Program.selectedProgram&&Program.selectedProgram.IsControlledByPlayer())
@@ -55,7 +59,7 @@ public class Hackable : MonoBehaviour
 
     internal void Breach(int breachAmount, Program hacker)
     {
-        currentIntegrity -= breachAmount;
+        currentIntegrity= Mathf.Clamp(currentIntegrity - breachAmount, 0, maxIntegrity);
         if(currentIntegrity<=0)
         {
             rebootCountdown = rebootTime;
