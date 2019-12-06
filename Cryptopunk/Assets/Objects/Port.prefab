@@ -108,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxIntegrity: 1
   rebootTime: 3
+  hackedMaterial: {fileID: 2100000, guid: 018910f21987c194590d65958ec868e5, type: 2}
 --- !u!1 &6515475754625557088
 GameObject:
   m_ObjectHideFlags: 0

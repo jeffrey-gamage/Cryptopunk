@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Hackable : MonoBehaviour
 {
+    internal MeshRenderer myMeshRenderer;
     public static Hackable selectedObject;
     [SerializeField] internal int maxIntegrity;
     [SerializeField] int rebootTime = 3;
@@ -14,9 +15,13 @@ public class Hackable : MonoBehaviour
     internal bool isEnabled = true;
     internal Program myProgram;
     internal int rebootCountdown=0;
+    private Material normalMaterial;
+    [SerializeField] Material hackedMaterial;
 
     internal virtual void Start()
     {
+        myMeshRenderer = GetComponent<MeshRenderer>();
+        normalMaterial = myMeshRenderer.material;
         myProgram = GetComponent<Program>();
         Reboot();
     }
@@ -34,6 +39,7 @@ public class Hackable : MonoBehaviour
 
     private void Reboot()
     {
+        myMeshRenderer.material = normalMaterial;
         rebootCountdown = rebootTime;
         currentIntegrity = maxIntegrity;
         isHacked = false;
@@ -70,6 +76,7 @@ public class Hackable : MonoBehaviour
                 currentIntegrity = 0;
             }
             this.isHacked = true;
+            myMeshRenderer.material = hackedMaterial;
             Deactivate();
         }
     }

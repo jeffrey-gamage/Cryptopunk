@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Firewall : Hackable
 {
-    MeshRenderer myMeshRenderer;
+    
     [SerializeField] float inactiveHeight = 0.1f;
     private Vector3 inactiveScale;
     private Vector3 activeScale;
