@@ -15,7 +15,6 @@ public class Terminal : Hackable
     internal override void Start()
     {
         base.Start();
-        controlledObjects = new List<Hackable>();
     }
     // Update is called once per frame
     internal override void Update()

@@ -305,6 +305,10 @@ MonoBehaviour:
   terminalLocations:
   - {x: 0, y: 0, z: 9}
   - {x: 15, y: 0, z: 8}
+  terminalControlAssignments:
+  - {x: 1, y: 0}
+  - {x: 1, y: 1}
+  - {x: 1, y: 2}
 --- !u!4 &755555846
 Transform:
   m_ObjectHideFlags: 0
@@ -365,6 +369,7 @@ MonoBehaviour:
   - {fileID: 1411670196}
   enemyPrograms: []
   hackableObjects: []
+  terminals: []
   isPlayerTurn: 1
 --- !u!4 &1174387683
 Transform:

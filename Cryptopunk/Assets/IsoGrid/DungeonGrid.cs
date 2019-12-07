@@ -59,8 +59,17 @@ public class DungeonGrid : MonoBehaviour
         {
             DungeonTile tile = tileGrid[terminalLocation.x][terminalLocation.z];
             Terminal newTerminal = Instantiate(terminal, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Terminal>();
-            DungeonManager.instance.hackableObjects.Add(newTerminal);
+            DungeonManager.instance.terminals.Add(newTerminal);
             newTerminal.myTile = tile;
+        }
+    }
+
+    internal void AssignControl(Vector2Int[] controlAssignments)
+    {
+        foreach(Vector2Int controlAssignment in controlAssignments)
+        {
+            Debug.Log("Assigning control of " + DungeonManager.instance.hackableObjects[controlAssignment.y].name + " to " + DungeonManager.instance.terminals[controlAssignment.x]);
+            DungeonManager.instance.terminals[controlAssignment.x].controlledObjects.Add(DungeonManager.instance.hackableObjects[controlAssignment.y]);
         }
     }
 

@@ -28,12 +28,14 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] List<Program> playerPrograms;
     [SerializeField] List<EnemyProgram> enemyPrograms;
     [SerializeField] internal List<Hackable> hackableObjects;
+    [SerializeField] internal List<Terminal> terminals;
     public bool isPlayerTurn = true;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         hackableObjects = new List<Hackable>();
+        terminals = new List<Terminal>();
         if(IsTutorial)
         {
             tutorialInfo = FindObjectOfType<TutorialInfo>();
@@ -56,11 +58,13 @@ public class DungeonManager : MonoBehaviour
         {
             grid.GenerateFirewalls(generator.GetFirewalls());
             grid.GenerateTerminals(generator.GetTerminals());
+            grid.AssignControl(generator.GetTerminalControlledObjects());
         }
         else
         {
             grid.GenerateFirewalls(tutorialInfo.GetFirewallLocations());
             grid.GenerateTerminals(tutorialInfo.GetTerminalInfo());
+            grid.AssignControl(tutorialInfo.GetTerminalControlAssignments());
         }
         //grid.GenerateEnemies();
         PrepareNextDeployment();
@@ -151,6 +155,10 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
+            foreach(Terminal terminal in terminals)
+            {
+                terminal.OnStartTurn();
+            }
             foreach(Hackable hackableObject in hackableObjects)
             {
                 hackableObject.OnStartTurn();

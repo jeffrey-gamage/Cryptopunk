@@ -53,6 +53,11 @@ public class GridGenerator
         DefineGridBoundaries();
     }
 
+    internal Vector2Int[] GetTerminalControlledObjects()
+    {
+        throw new NotImplementedException();
+    }
+
     internal Vector3Int[] GetTerminals()
     {
         //TODO
