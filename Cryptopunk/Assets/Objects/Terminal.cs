@@ -21,52 +21,21 @@ public class Terminal : Hackable
     internal override void Update()
     {
         base.Update();
+        foreach(SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (myTile.isExplored)
+            {
+                renderer.enabled = true;
+            }
+            else
+            {
+                renderer.enabled = false;
+            }
+        }
         if (controlledObjects.Count > 0)
         {
             linkStart.transform.position = gameObject.transform.position + Vector3.up * linkOffset;
             linkEnd.transform.position = controlledObjects[0].transform.position + Vector3.up * linkOffset;
-            //linkStart.transform.rotation = Quaternion.identity;
-            //if (controlledObjects[0].transform.position.x > gameObject.transform.position.x)
-            //{
-            //    linkStart.transform.localScale = new Vector3(1, 1, 1);
-            //}
-            //else if (controlledObjects[0].transform.position.x < gameObject.transform.position.x)
-            //{
-            //    linkStart.transform.localScale = new Vector3(-1, 1, 1);
-            //}
-            //else
-            //{
-            //    linkStart.transform.rotation = Quaternion.AngleAxis(90f, Vector3.up);
-            //    if (controlledObjects[0].transform.position.z < gameObject.transform.position.z)
-            //    {
-            //        linkStart.transform.localScale = new Vector3(1, 1, 1);
-            //    }
-            //    else
-            //    {
-            //        linkStart.transform.localScale = new Vector3(-1, 1, 1);
-            //    }
-            //}
-            //linkEnd.transform.rotation = Quaternion.identity;
-            //if (controlledObjects[0].transform.position.z > gameObject.transform.position.z)
-            //{
-            //    linkEnd.transform.localScale = new Vector3(1, 1, 1);
-            //}
-            //else if (controlledObjects[0].transform.position.z < gameObject.transform.position.z)
-            //{
-            //    linkEnd.transform.localScale = new Vector3(-1, 1, 1);
-            //}
-            //else
-            //{
-            //    linkEnd.transform.rotation = Quaternion.AngleAxis(90f, Vector3.up);
-            //    if (controlledObjects[0].transform.position.z < gameObject.transform.position.z)
-            //    {
-            //        linkEnd.transform.localScale = new Vector3(1, 1, 1);
-            //    }
-            //    else
-            //    {
-            //        linkEnd.transform.localScale = new Vector3(-1, 1, 1);
-            //    }
-            //}
             linkLR.transform.position = new Vector3((controlledObjects[0].transform.position.x + gameObject.transform.position.x) / 2f, gameObject.transform.position.y+linkOffset, gameObject.transform.position.z);
             linkLR.transform.localScale = new Vector3(Mathf.Abs(controlledObjects[0].transform.position.x - gameObject.transform.position.x), 1, 1)*1.25f;
             linkVert.transform.position = new Vector3(controlledObjects[0].transform.position.x, (controlledObjects[0].transform.position.y + gameObject.transform.position.y) / 2f+linkOffset, gameObject.transform.position.z);
