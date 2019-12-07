@@ -13,39 +13,27 @@ public class Firewall : Hackable
     {
         activeScale = gameObject.transform.localScale;
         inactiveScale = new Vector3(activeScale.x, inactiveHeight, activeScale.z);
-        myMeshRenderer = GetComponent<MeshRenderer>();
         base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    internal override void Update()
     {
-        if(myTile.isExplored)
+        base.Update();
+        if (isEnabled)
         {
-            myMeshRenderer.enabled = true;
-            if (isEnabled)
-            {
-                gameObject.transform.localScale = activeScale;
-                gameObject.transform.position = myTile.GetOccupyingCoordinates(true);
-            }
-            else
-            {
-                gameObject.transform.localScale = inactiveScale;
-                gameObject.transform.position = myTile.GetOccupyingCoordinates(false);
-            }
+            gameObject.transform.localScale = activeScale;
+            gameObject.transform.position = myTile.GetOccupyingCoordinates(true);
         }
         else
         {
-            myMeshRenderer.enabled = false;
+            gameObject.transform.localScale = inactiveScale;
+            gameObject.transform.position = myTile.GetOccupyingCoordinates(false);
         }
     }
     internal override void Activate()
     {
-        if(myTile.isOccupied)
-        {
-            Destroy(gameObject);
-        }
-        else
+        if(!myTile.isOccupied)
         {
             base.Activate();
             myTile.isBlocked = true;

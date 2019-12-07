@@ -25,6 +25,19 @@ public class Hackable : MonoBehaviour
         myProgram = GetComponent<Program>();
         Reboot();
     }
+    internal virtual void Update()
+    {
+
+        if (myTile.isExplored)
+        {
+            myMeshRenderer.enabled = true;
+        }
+        else
+        {
+            myMeshRenderer.enabled = false;
+        }
+    }
+
     internal void OnStartTurn()
     {
         if(isHacked)

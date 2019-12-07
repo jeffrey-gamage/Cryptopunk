@@ -55,10 +55,12 @@ public class DungeonManager : MonoBehaviour
         if (!IsTutorial)
         {
             grid.GenerateFirewalls(generator.GetFirewalls());
+            grid.GenerateTerminals(generator.GetTerminals());
         }
         else
         {
             grid.GenerateFirewalls(tutorialInfo.GetFirewallLocations());
+            grid.GenerateTerminals(tutorialInfo.GetTerminalInfo());
         }
         //grid.GenerateEnemies();
         PrepareNextDeployment();

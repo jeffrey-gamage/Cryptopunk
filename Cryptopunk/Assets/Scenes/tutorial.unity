@@ -302,6 +302,9 @@ MonoBehaviour:
   - {x: 17, y: 0, z: 14}
   - {x: 18, y: 0, z: 14}
   - {x: 19, y: 0, z: 14}
+  terminalLocations:
+  - {x: 0, y: 0, z: 9}
+  - {x: 15, y: 0, z: 8}
 --- !u!4 &755555846
 Transform:
   m_ObjectHideFlags: 0
@@ -361,6 +364,7 @@ MonoBehaviour:
   - {fileID: 1289212501}
   - {fileID: 1411670196}
   enemyPrograms: []
+  hackableObjects: []
   isPlayerTurn: 1
 --- !u!4 &1174387683
 Transform:
@@ -691,8 +695,8 @@ MonoBehaviour:
   ramp: {fileID: 1212212368378406168, guid: 2da76353be6dab840a31a2f2ce557cce, type: 3}
   firewall: {fileID: 8972520504613835973, guid: 244a00ffca5451244b40b1c7fc13a043,
     type: 3}
-  port: {fileID: 0}
-  terminal: {fileID: 0}
+  port: {fileID: 915114725526548709, guid: 722a7ceb6a6341e4d80a5d3e3cc7875e, type: 3}
+  terminal: {fileID: 915114725526548709, guid: e15c513da6ee9944b80e0034b75b02c9, type: 3}
   enemyPrefabs:
   - {fileID: 8847390588398665581, guid: cc9165c5c5962f94b90de1271946cf96, type: 3}
   numSegments: 3

@@ -53,6 +53,17 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    internal void GenerateTerminals(Vector3Int[] terminalLocations)
+    {
+        foreach (Vector3Int terminalLocation in terminalLocations)
+        {
+            DungeonTile tile = tileGrid[terminalLocation.x][terminalLocation.z];
+            Terminal newTerminal = Instantiate(terminal, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Terminal>();
+            DungeonManager.instance.hackableObjects.Add(newTerminal);
+            newTerminal.myTile = tile;
+        }
+    }
+
     internal void GenerateEnemies()
     {
         EnemyProgram newProgram = Instantiate(enemyPrefabs[0]).GetComponent<EnemyProgram>();
