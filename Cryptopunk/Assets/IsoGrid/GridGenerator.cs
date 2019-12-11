@@ -52,6 +52,10 @@ public class GridGenerator
         rooms.Add(new Room(20, 21, 10, 15, 2, new List<RampCoordinates>()));
         DefineGridBoundaries();
     }
+    internal Vector3Int GetStart()
+    {
+        return rooms[0].GetCentre();
+    }
 
     internal Vector2Int[] GetTerminalControlledObjects()
     {

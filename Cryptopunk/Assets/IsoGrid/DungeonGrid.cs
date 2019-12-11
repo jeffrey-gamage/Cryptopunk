@@ -15,16 +15,6 @@ public class DungeonGrid : MonoBehaviour
     private DungeonTile[][] tileGrid;
     [SerializeField] int numSegments = 3;
     [SerializeField] int searchSize = 8;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     internal void GenerateGrid(int[][] gridHeights)
     {
@@ -73,6 +63,21 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    internal void CreateDeploymentZone(Vector3Int startCoords)
+    {
+        DungeonTile deploymentPoint = tileGrid[startCoords.x][startCoords.z];
+        foreach (DungeonTile[] row in tileGrid)
+        {
+            foreach (DungeonTile tile in row)
+            {
+                if (IsOpenAndAdjacent(deploymentPoint, tile))
+                {
+                    tile.isExplored = true;
+                }
+            }
+        }
+    }
+
     internal void GenerateEnemies()
     {
         EnemyProgram newProgram = Instantiate(enemyPrefabs[0]).GetComponent<EnemyProgram>();
@@ -118,6 +123,22 @@ public class DungeonGrid : MonoBehaviour
 
             }
         }
+    }
+
+    internal void RestrictDeployment(DungeonTile deploymentPoint)
+    {
+        foreach(DungeonTile[] row in tileGrid)
+        {
+            foreach(DungeonTile tile in row)
+            {
+                tile.myCollider.enabled = IsOpenAndAdjacent(deploymentPoint, tile);
+            }
+        }
+    }
+
+    private bool IsOpenAndAdjacent(DungeonTile deploymentPoint, DungeonTile tile)
+    {
+        return (!tile.isOccupied)&&Mathf.Abs(deploymentPoint.xCoord - tile.xCoord) <= 1 && Mathf.Abs(deploymentPoint.zCoord - tile.zCoord) <= 1;
     }
 
     private Ramp.Direction DetermineRampDirection(Vector3Int origin, Vector3Int dest)

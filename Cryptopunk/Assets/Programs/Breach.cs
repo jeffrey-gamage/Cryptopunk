@@ -28,7 +28,7 @@ public class Breach : MonoBehaviour
             gameObject.transform.position = myTile.GetOccupyingCoordinates(false);
             if (movePath.Count == 0)
             {
-                target.Breach(power,hacker);
+                target.Breach(power);
                 DungeonManager.instance.mode = DungeonManager.Mode.Move;
                 Destroy(gameObject);
             }

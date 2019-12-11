@@ -28,6 +28,9 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] List<Program> playerPrograms;
     [SerializeField] List<EnemyProgram> enemyPrograms;
     [SerializeField] internal List<Hackable> hackableObjects;
+
+
+
     [SerializeField] internal List<Terminal> terminals;
     public bool isPlayerTurn = true;
     // Start is called before the first frame update
@@ -67,6 +70,7 @@ public class DungeonManager : MonoBehaviour
             grid.AssignControl(tutorialInfo.GetTerminalControlAssignments());
         }
         //grid.GenerateEnemies();
+        grid.CreateDeploymentZone(generator.GetStart());
         PrepareNextDeployment();
     }
 
@@ -127,7 +131,13 @@ public class DungeonManager : MonoBehaviour
         }
         return hasActionsLeft;
     }
-    
+    internal void DeployFromPort(DungeonTile portTile, Program program)
+    {
+        mode = Mode.Deploy;
+        playerPrograms.Add(program);
+        DungeonManager.instance.grid.RestrictDeployment(portTile);
+        PrepareNextDeployment();
+    }
 
     private void PrepareNextDeployment()
     {
@@ -237,7 +247,7 @@ public class DungeonManager : MonoBehaviour
             PrepareNextDeployment();
             if (!Program.selectedProgram)
             {
-                BeginRun();
+                ResumeRun();
             }
         }
         else if (mode==Mode.Move)
@@ -249,17 +259,20 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-    private void BeginRun()
+    private void ResumeRun()
     {
         UpdateVisibility();
         mode = Mode.Move;
         foreach (Program program in playerPrograms)
         {
-            program.OnStartTurn();
+            if (program.size > 0)//check if the program has had start called already
+            {
+                program.OnStartTurn();
+            }
         }
     }
 
-    internal static void DeploySelected(DungeonTile dungeonTile)
+    internal void DeploySelected(DungeonTile dungeonTile)
     {
         Program.selectedProgram.myTile = dungeonTile;
         Program.selectedProgram.transform.position = dungeonTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying());

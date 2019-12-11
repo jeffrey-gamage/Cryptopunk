@@ -159,6 +159,20 @@ public class Room
         }
     }
 
+    internal Vector3Int GetCentre()
+    {
+        int avgX = 0;
+        int avgZ = 0;
+        foreach(Vector3Int coord in tiles)
+        {
+            avgX += coord.x;
+            avgZ += coord.z;
+        }
+        avgX /= tiles.Count;
+        avgZ /= tiles.Count;
+        return new Vector3Int(avgX, 0, avgZ);
+    }
+
     private int RandomizeHeight(int y, int vert)
     {
         return Mathf.Clamp(Random.Range(y - 1, y + 1), 0, vert);

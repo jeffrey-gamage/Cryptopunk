@@ -76,7 +76,7 @@ public class Hackable : MonoBehaviour
         currentIntegrity = Mathf.Clamp(currentIntegrity - damageAmount, 1, maxIntegrity);
     }
 
-    internal void Breach(int breachAmount, Program hacker)
+    internal virtual void Breach(int breachAmount)
     {
         currentIntegrity= Mathf.Clamp(currentIntegrity - breachAmount, 0, maxIntegrity);
         if(currentIntegrity<=0)

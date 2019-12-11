@@ -22,7 +22,7 @@ public class Program : MonoBehaviour
     [SerializeField] GameObject myAttack;
     [SerializeField] GameObject myBreach;
     internal DungeonTile myTile;
-    internal int size;
+    internal int size =0;
     internal int movesLeft;
     internal bool hasAttacked;
     internal bool hasBeenSpotted;
