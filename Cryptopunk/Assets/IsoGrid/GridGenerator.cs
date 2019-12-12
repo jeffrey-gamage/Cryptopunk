@@ -59,7 +59,7 @@ public class GridGenerator
         throw new NotImplementedException();
     }
 
-    internal Vector3Int GetStart()
+    internal Vector3Int GetDeploymentArea()
     {
         return rooms[0].GetCentre();
     }
@@ -68,6 +68,11 @@ public class GridGenerator
     {
         //TODO
         throw new NotImplementedException();
+    }
+
+    internal List<Vector3Int> GetStartingArea()
+    {
+        return rooms[0].tiles;
     }
 
     internal Vector3Int[] GetTerminals()

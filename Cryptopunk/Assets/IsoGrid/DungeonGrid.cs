@@ -12,6 +12,7 @@ public class DungeonGrid : MonoBehaviour
     [SerializeField] GameObject port;
     [SerializeField] GameObject terminal;
     [SerializeField] GameObject[] enemyPrefabs;
+    [SerializeField] GameObject deploymentZone;
     private DungeonTile[][] tileGrid;
     [SerializeField] int numSegments = 3;
     [SerializeField] int searchSize = 8;
@@ -63,6 +64,14 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    internal void ExploreStartingArea(List<Vector3Int> startingRoomTileCoords)
+    {
+        foreach(Vector3Int coord in startingRoomTileCoords)
+        {
+            tileGrid[coord.x][coord.z].isExplored = true;
+        }
+    }
+
     internal void GeneratePorts(Vector3Int[] portLocations)
     {
         foreach (Vector3Int portLocation in portLocations)
@@ -74,19 +83,13 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
-    internal void CreateDeploymentZone(Vector3Int startCoords)
+    internal void CreateDeploymentZone(Vector3Int deploymentCoords)
     {
-        DungeonTile deploymentPoint = tileGrid[startCoords.x][startCoords.z];
-        foreach (DungeonTile[] row in tileGrid)
-        {
-            foreach (DungeonTile tile in row)
-            {
-                if (IsOpenAndAdjacent(deploymentPoint, tile))
-                {
-                    tile.isExplored = true;
-                }
-            }
-        }
+        Instantiate(deploymentZone);
+        DeploymentZone zone = FindObjectOfType<DeploymentZone>();
+        zone.myCoords = deploymentCoords;
+        zone.transform.position = tileGrid[deploymentCoords.x][deploymentCoords.z].GetOccupyingCoordinates(true);
+
     }
 
     internal void GenerateEnemies()
@@ -134,22 +137,6 @@ public class DungeonGrid : MonoBehaviour
 
             }
         }
-    }
-
-    internal void RestrictDeployment(DungeonTile deploymentPoint)
-    {
-        foreach(DungeonTile[] row in tileGrid)
-        {
-            foreach(DungeonTile tile in row)
-            {
-                tile.myCollider.enabled = IsOpenAndAdjacent(deploymentPoint, tile);
-            }
-        }
-    }
-
-    private bool IsOpenAndAdjacent(DungeonTile deploymentPoint, DungeonTile tile)
-    {
-        return (!tile.isOccupied)&&Mathf.Abs(deploymentPoint.xCoord - tile.xCoord) <= 1 && Mathf.Abs(deploymentPoint.zCoord - tile.zCoord) <= 1;
     }
 
     private Ramp.Direction DetermineRampDirection(Vector3Int origin, Vector3Int dest)
@@ -229,6 +216,11 @@ public class DungeonGrid : MonoBehaviour
             }
         }
         return seenTiles;
+    }
+
+    internal bool CanDeployHere(DungeonTile dungeonTile)
+    {
+        return (!dungeonTile.isOccupied)&&((dungeonTile.GetHeight() >= 0&&!dungeonTile.isBlocked)|| Program.selectedProgram.IsFlying());
     }
 
     internal void FogOfWarRender(Program[] playerPrograms)

@@ -73,7 +73,8 @@ public class DungeonManager : MonoBehaviour
             grid.AssignControl(tutorialInfo.GetTerminalControlAssignments());
         }
         //grid.GenerateEnemies();
-        grid.CreateDeploymentZone(generator.GetStart());
+        grid.CreateDeploymentZone(generator.GetDeploymentArea());
+        grid.ExploreStartingArea(generator.GetStartingArea());
         PrepareNextDeployment();
     }
 
@@ -139,7 +140,7 @@ public class DungeonManager : MonoBehaviour
         mode = Mode.Deploy;
         Program newProgram = Instantiate(program).GetComponent<Program>();
         playerPrograms.Add(newProgram);
-        DungeonManager.instance.grid.RestrictDeployment(portTile);
+        DungeonManager.instance.grid.CreateDeploymentZone(new Vector3Int(portTile.xCoord,0,portTile.zCoord));
         PrepareNextDeployment();
     }
 
@@ -154,6 +155,10 @@ public class DungeonManager : MonoBehaviour
             }
         }
         Program.selectedProgram = toDeploy;
+        if(!toDeploy)
+        {
+            Destroy(DeploymentZone.instance.gameObject);
+        }
     }
 
     void EndTurn()
@@ -278,10 +283,22 @@ public class DungeonManager : MonoBehaviour
 
     internal void DeploySelected(DungeonTile dungeonTile)
     {
-        Program.selectedProgram.myTile = dungeonTile;
-        Program.selectedProgram.transform.position = dungeonTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying());
-        Program.selectedProgram.BeginPlay();
-        dungeonTile.Occupy(Program.selectedProgram);
+        if (Mathf.Abs(DeploymentZone.instance.myCoords.x - dungeonTile.xCoord) <= DeploymentZone.instance.range &&
+            Mathf.Abs(DeploymentZone.instance.myCoords.z - dungeonTile.zCoord) <= DeploymentZone.instance.range &&
+            grid.CanDeployHere(dungeonTile))
+        {
+            Program.selectedProgram.myTile = dungeonTile;
+            Program.selectedProgram.transform.position = dungeonTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying());
+            Program.selectedProgram.BeginPlay();
+            dungeonTile.Occupy(Program.selectedProgram);
+        }
+        else
+        {
+            Debug.Log((Mathf.Abs(DeploymentZone.instance.myCoords.x - dungeonTile.xCoord)).ToString());
+            Debug.Log((Mathf.Abs(DeploymentZone.instance.myCoords.z - dungeonTile.zCoord)).ToString());
+            Debug.Log(DeploymentZone.instance.range.ToString());
+            Debug.Log(grid.CanDeployHere(dungeonTile).ToString());
+        }
     }
 
     internal void DeploySecurity(EnemyProgram enemy, DungeonTile dungeonTile)

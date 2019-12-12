@@ -76,7 +76,7 @@ public class Hackable : MonoBehaviour
         {
             Program.selectedProgram.AttemptBreach(this);
         }
-        else
+        else if(DungeonManager.instance.mode!=DungeonManager.Mode.Deploy)
         {
             Program.selectedProgram = myProgram;
             selectedObject = this;

@@ -7,6 +7,7 @@ public class Program : MonoBehaviour
 {
     protected MeshRenderer myRenderer;
     private SpriteRenderer myIcon;
+    private bool hasBegunPlay = false;
     public bool isAnimating = false;
     public static bool isTargetingAttack = false;
     public static bool isTargetingBreach = false;
@@ -145,6 +146,7 @@ public class Program : MonoBehaviour
 
     internal virtual void OnStartTurn()
     {
+        hasBegunPlay = true;
         hasAttacked = false;
         hasBeenSpotted = false;
         movesLeft = speed;
@@ -158,8 +160,11 @@ public class Program : MonoBehaviour
         }
         else
         {
-            selectedProgram = this;
-            Hackable.selectedObject = GetComponent<Hackable>();
+            if (DungeonManager.instance.mode != DungeonManager.Mode.Deploy || !hasBegunPlay)//prevent port deployment from moving your programs
+            {
+                selectedProgram = this;
+                Hackable.selectedObject = GetComponent<Hackable>();
+            }
         }
         ClearSightPreviews();
     }
