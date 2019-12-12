@@ -359,6 +359,39 @@ MonoBehaviour:
   - {x: 1, y: 0}
   - {x: 1, y: 1}
   - {x: 1, y: 2}
+  enemyDeploymentInfo:
+  - {x: 8, y: 0, z: 3}
+  - {x: 9, y: 0, z: 7}
+  - {x: 6, y: 1, z: 8}
+  - {x: 5, y: 0, z: 13}
+  - {x: 9, y: 0, z: 12}
+  - {x: 17, y: 0, z: 11}
+  - {x: 16, y: 0, z: 17}
+  - {x: 18, y: 0, z: 12}
+  enemy0PatrolRoute:
+  - {x: 8, y: 0, z: 3}
+  - {x: 8, y: 0, z: 7}
+  enemy1PatrolRoute:
+  - {x: 9, y: 0, z: 7}
+  - {x: 9, y: 0, z: 4}
+  enemy2PatrolRoute:
+  - {x: 6, y: 0, z: 8}
+  - {x: 6, y: 0, z: 2}
+  enemy3PatrolRoute:
+  - {x: 5, y: 0, z: 13}
+  - {x: 5, y: 0, z: 9}
+  enemy4PatrolRoute:
+  - {x: 9, y: 0, z: 12}
+  - {x: 9, y: 0, z: 8}
+  enemy5PatrolRoute:
+  - {x: 17, y: 0, z: 11}
+  - {x: 17, y: 0, z: 15}
+  enemy6PatrolRoute:
+  - {x: 16, y: 0, z: 17}
+  - {x: 16, y: 0, z: 13}
+  enemy7PatrolRoute:
+  - {x: 18, y: 0, z: 12}
+  - {x: 18, y: 0, z: 17}
 --- !u!4 &755555846
 Transform:
   m_ObjectHideFlags: 0
@@ -1289,6 +1322,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7100711414162670378, guid: caabeceff4649644db18674a511073bf,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100711414162670378, guid: caabeceff4649644db18674a511073bf,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 8847390588398665581, guid: 4f2b1d46ceff44e4bb67c8dcd5e64f0a,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: caabeceff4649644db18674a511073bf, type: 3}
 --- !u!1001 &8097729392711325018

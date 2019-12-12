@@ -64,6 +64,11 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    internal DungeonTile GetTile(int x, int z)
+    {
+        return tileGrid[x][z];
+    }
+
     internal void ExploreStartingArea(List<Vector3Int> startingRoomTileCoords)
     {
         foreach(Vector3Int coord in startingRoomTileCoords)
@@ -92,23 +97,13 @@ public class DungeonGrid : MonoBehaviour
 
     }
 
-    internal void GenerateEnemies()
+    internal void GenerateEnemies(Vector3Int[] enemySpawns)
     {
-        EnemyProgram newProgram = Instantiate(enemyPrefabs[0]).GetComponent<EnemyProgram>();
-        DungeonManager.instance.DeploySecurity(newProgram, tileGrid[1][1]);
-        newProgram.waypoints = new List<DungeonTile>();
-        newProgram.waypoints.Add(tileGrid[1][1]);
-        newProgram.waypoints.Add(tileGrid[1][6]);
-        newProgram.waypoints.Add(tileGrid[6][6]);
-        newProgram.waypoints.Add(tileGrid[6][1]);
-
-        newProgram = Instantiate(enemyPrefabs[0]).GetComponent<EnemyProgram>();
-        DungeonManager.instance.DeploySecurity(newProgram, tileGrid[6][6]);
-        newProgram.waypoints = new List<DungeonTile>();
-        newProgram.waypoints.Add(tileGrid[6][6]);
-        newProgram.waypoints.Add(tileGrid[6][1]);
-        newProgram.waypoints.Add(tileGrid[1][1]);
-        newProgram.waypoints.Add(tileGrid[1][6]);
+        foreach(Vector3Int spawn in enemySpawns)
+        {
+            EnemyProgram newProgram = Instantiate(enemyPrefabs[spawn.y]).GetComponent<EnemyProgram>();
+            DungeonManager.instance.DeploySecurity(newProgram, tileGrid[spawn.x][spawn.z]);
+        }
     }
 
     internal void GenerateRamps(List<RampCoordinates> rampCoordinates)

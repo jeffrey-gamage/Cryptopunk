@@ -69,6 +69,11 @@ public class DungeonManager : MonoBehaviour
         {
             grid.GenerateFirewalls(tutorialInfo.GetFirewallLocations());
             grid.GenerateTerminals(tutorialInfo.GetTerminalInfo());
+            grid.GenerateEnemies(tutorialInfo.GetEnemies());
+            for(int i=0;i<enemyPrograms.Count;i++)
+            {
+                enemyPrograms[i].SetWaypoints(tutorialInfo.GetPatrolRoute(i));
+            }
             grid.GeneratePorts(tutorialInfo.GetPortLocations());
             grid.AssignControl(tutorialInfo.GetTerminalControlAssignments());
         }

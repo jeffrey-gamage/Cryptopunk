@@ -52,6 +52,7 @@ MonoBehaviour:
   terminal: {fileID: 915114725526548709, guid: e15c513da6ee9944b80e0034b75b02c9, type: 3}
   enemyPrefabs:
   - {fileID: 8847390588398665581, guid: cc9165c5c5962f94b90de1271946cf96, type: 3}
+  - {fileID: 8847390588398665581, guid: 4f2b1d46ceff44e4bb67c8dcd5e64f0a, type: 3}
   deploymentZone: {fileID: 887745695631915783, guid: 91102fbe6413a92429fa9abe7684b2c5,
     type: 3}
   numSegments: 3

@@ -87,6 +87,15 @@ public class EnemyProgram : Program
         hasMoved = true;
     }
 
+    internal void SetWaypoints(Vector3Int[] waypointCoords)
+    {
+        waypoints = new List<DungeonTile>();
+        foreach(Vector3Int waypointCoord in waypointCoords)
+        {
+            waypoints.Add(DungeonManager.instance.grid.GetTile(waypointCoord.x,waypointCoord.z));
+        }
+    }
+
     private void MoveIntoRange()
     {
         List<Program> hostilePrograms = DungeonManager.instance.GetPlayerControlledPrograms();
