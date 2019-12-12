@@ -15,9 +15,9 @@ public class ProgramListItem : MonoBehaviour
     [SerializeField] Text programKeywords;
     private GameObject myProgram;
 
-    private void OnMouseDown()
+    public void OnSelect()
     {
-        FindObjectOfType<PortUI>().Select(myProgram.GetComponent<Program>());
+        FindObjectOfType<PortUI>().Select(myProgram);
     }
 
     internal void SetProgram(GameObject newProgram)

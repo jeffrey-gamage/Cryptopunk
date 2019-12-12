@@ -9,9 +9,10 @@ public class Port : Hackable
     private bool isOpen = false;
     internal override void Activate()
     {
-        if(IsHacked()&&!isEnabled)
+        if(IsHacked()&&!isEnabled&&!FindObjectOfType<PortUI>())
         {
-            Instantiate(portUI, FindObjectOfType<Canvas>().transform);
+            PortUI newPortUI =Instantiate(portUI, FindObjectOfType<Canvas>().transform).GetComponent<PortUI>();
+            newPortUI.SetPort(this);
         }
         base.Activate();
     }
@@ -31,8 +32,9 @@ public class Port : Hackable
         }
     }
 
-    internal void Import(Program program)
+    internal void Import(GameObject program)
     {
+        rebootCountdown = program.GetComponent<Program>().maxSize;
         DungeonManager.instance.DeployFromPort(myTile,program);
     }
 }

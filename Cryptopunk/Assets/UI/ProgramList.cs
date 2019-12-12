@@ -19,8 +19,18 @@ public class ProgramList : MonoBehaviour
     {
         displayedPrograms = new List<ProgramListItem>();
         state = FindObjectOfType<PersistentState>();
+        RefreshProgramList();
+    }
+
+    private void RefreshProgramList()
+    {
+        foreach(ProgramListItem listItem in displayedPrograms)
+        {
+            Destroy(listItem.gameObject);
+        }
+        displayedPrograms.Clear();
         int i = scrollIndex;
-        while(i<=scrollIndex+programAnchors.Length&&i<state.GetOwnedPrograms().Count)
+        while (i <= scrollIndex + programAnchors.Length && i < state.GetOwnedPrograms().Count)
         {
             ProgramListItem newListItem = Instantiate(listItem, programAnchors[i - scrollIndex].transform).GetComponent<ProgramListItem>();
             newListItem.SetProgram(state.GetOwnedPrograms()[i]);

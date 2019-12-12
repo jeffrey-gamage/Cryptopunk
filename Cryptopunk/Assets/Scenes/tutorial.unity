@@ -353,6 +353,8 @@ MonoBehaviour:
   terminalLocations:
   - {x: 0, y: 0, z: 9}
   - {x: 15, y: 0, z: 8}
+  portLocations:
+  - {x: 14, y: 0, z: 9}
   terminalControlAssignments:
   - {x: 1, y: 0}
   - {x: 1, y: 1}

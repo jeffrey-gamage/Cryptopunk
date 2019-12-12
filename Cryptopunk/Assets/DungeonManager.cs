@@ -60,13 +60,16 @@ public class DungeonManager : MonoBehaviour
         if (!IsTutorial)
         {
             grid.GenerateFirewalls(generator.GetFirewalls());
+            grid.GenerateFirewalls(generator.GetFirewalls());
             grid.GenerateTerminals(generator.GetTerminals());
+            grid.GeneratePorts(generator.GetPorts());
             grid.AssignControl(generator.GetTerminalControlledObjects());
         }
         else
         {
             grid.GenerateFirewalls(tutorialInfo.GetFirewallLocations());
             grid.GenerateTerminals(tutorialInfo.GetTerminalInfo());
+            grid.GeneratePorts(tutorialInfo.GetPortLocations());
             grid.AssignControl(tutorialInfo.GetTerminalControlAssignments());
         }
         //grid.GenerateEnemies();
@@ -131,10 +134,11 @@ public class DungeonManager : MonoBehaviour
         }
         return hasActionsLeft;
     }
-    internal void DeployFromPort(DungeonTile portTile, Program program)
+    internal void DeployFromPort(DungeonTile portTile, GameObject program)
     {
         mode = Mode.Deploy;
-        playerPrograms.Add(program);
+        Program newProgram = Instantiate(program).GetComponent<Program>();
+        playerPrograms.Add(newProgram);
         DungeonManager.instance.grid.RestrictDeployment(portTile);
         PrepareNextDeployment();
     }
@@ -276,7 +280,7 @@ public class DungeonManager : MonoBehaviour
     {
         Program.selectedProgram.myTile = dungeonTile;
         Program.selectedProgram.transform.position = dungeonTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying());
-        Program.selectedProgram.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        Program.selectedProgram.BeginPlay();
         dungeonTile.Occupy(Program.selectedProgram);
     }
 

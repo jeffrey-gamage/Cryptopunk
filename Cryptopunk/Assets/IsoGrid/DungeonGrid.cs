@@ -63,6 +63,17 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    internal void GeneratePorts(Vector3Int[] portLocations)
+    {
+        foreach (Vector3Int portLocation in portLocations)
+        {
+            DungeonTile tile = tileGrid[portLocation.x][portLocation.z];
+            Port newPort = Instantiate(port, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Port>();
+            DungeonManager.instance.hackableObjects.Add(newPort);
+            newPort.myTile = tile;
+        }
+    }
+
     internal void CreateDeploymentZone(Vector3Int startCoords)
     {
         DungeonTile deploymentPoint = tileGrid[startCoords.x][startCoords.z];

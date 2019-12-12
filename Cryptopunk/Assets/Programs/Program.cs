@@ -265,4 +265,12 @@ public class Program : MonoBehaviour
         DungeonManager.instance.UpdateVisibility();
         Destroy(gameObject);
     }
+
+    internal void BeginPlay()
+    {
+        myRenderer.enabled = true;
+        myIcon.enabled = true;
+        GetComponent<Collider>().enabled = true;
+        OnStartTurn();
+    }
 }

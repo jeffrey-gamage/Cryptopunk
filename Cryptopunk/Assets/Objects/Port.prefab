@@ -109,6 +109,7 @@ MonoBehaviour:
   maxIntegrity: 1
   rebootTime: 3
   hackedMaterial: {fileID: 2100000, guid: 018910f21987c194590d65958ec868e5, type: 2}
+  portUI: {fileID: 8719980140497699984, guid: 56b2c49071c9fd84c91fe3ff5267af36, type: 3}
 --- !u!1 &6515475754625557088
 GameObject:
   m_ObjectHideFlags: 0
