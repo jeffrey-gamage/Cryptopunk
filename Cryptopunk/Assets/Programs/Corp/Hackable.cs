@@ -36,6 +36,17 @@ public class Hackable : MonoBehaviour
         {
             myMeshRenderer.enabled = false;
         }
+        foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (myTile.isExplored)
+            {
+                renderer.enabled = true;
+            }
+            else
+            {
+                renderer.enabled = false;
+            }
+        }
     }
 
     internal void OnStartTurn()

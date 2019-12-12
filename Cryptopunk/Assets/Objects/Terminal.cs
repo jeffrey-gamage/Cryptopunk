@@ -20,17 +20,6 @@ public class Terminal : Hackable
     internal override void Update()
     {
         base.Update();
-        foreach(SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
-        {
-            if (myTile.isExplored)
-            {
-                renderer.enabled = true;
-            }
-            else
-            {
-                renderer.enabled = false;
-            }
-        }
         if (controlledObjects.Count > 0)
         {
             linkStart.transform.position = gameObject.transform.position + Vector3.up * linkOffset;
