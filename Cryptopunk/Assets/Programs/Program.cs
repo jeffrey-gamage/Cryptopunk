@@ -163,6 +163,7 @@ public class Program : MonoBehaviour
             if (DungeonManager.instance.mode != DungeonManager.Mode.Deploy || !hasBegunPlay)//prevent port deployment from moving your programs
             {
                 selectedProgram = this;
+                FindObjectOfType<PathPreview>().ClearPreview();
                 Hackable.selectedObject = GetComponent<Hackable>();
             }
         }

@@ -79,6 +79,7 @@ public class Hackable : MonoBehaviour
         else if(DungeonManager.instance.mode!=DungeonManager.Mode.Deploy)
         {
             Program.selectedProgram = myProgram;
+            FindObjectOfType<PathPreview>().ClearPreview();
             selectedObject = this;
         }
     }

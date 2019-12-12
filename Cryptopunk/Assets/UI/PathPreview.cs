@@ -24,6 +24,10 @@ public class PathPreview : MonoBehaviour
         {
             renderer.color = pathColor;
         }
+        if(pathTrace.Count>0&&DungeonManager.instance.mode==DungeonManager.Mode.Wait)
+        {
+            ClearPreview();
+        }
     }
 
     internal void SetColor(Color previewColor)
@@ -48,14 +52,19 @@ public class PathPreview : MonoBehaviour
         }
         else
         {
-            for (int i = pathTrace.Count - 1; i >= 0; i--)
+            ClearPreview();
+        }
+    }
+
+    internal void ClearPreview()
+    {
+        for (int i = pathTrace.Count - 1; i >= 0; i--)
+        {
+            if (i >= 0)
             {
-                if (i >= 0)
-                {
-                    GameObject temp = pathTrace[i].gameObject;
-                    pathTrace.RemoveAt(i);
-                    Destroy(temp);
-                }
+                GameObject temp = pathTrace[i].gameObject;
+                pathTrace.RemoveAt(i);
+                Destroy(temp);
             }
         }
     }
