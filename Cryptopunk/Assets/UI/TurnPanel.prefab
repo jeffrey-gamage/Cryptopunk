@@ -292,7 +292,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4209940953845439373}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b38d9a966d5dc74db3334f6e1d95164, type: 3}
+  m_Script: {fileID: 11500000, guid: a1673d94ecbc70647b576d0562a204bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   endTurnButton: {fileID: 2330873896828390308}

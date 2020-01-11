@@ -40,20 +40,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7100711414162670381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 643b5045fe3b0df4a8a2fb9c09aeb1d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d55e3a688d8ab141bf31e83677131cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridTile: {fileID: 4291032839040103493, guid: 3a50d53613f53d044bf7950bfa1b6938,
+  gridTile: {fileID: 4291032839040103493, guid: 63ba2de8d3c65594db9045b776319bd6,
     type: 3}
-  ramp: {fileID: 1212212368378406168, guid: 2da76353be6dab840a31a2f2ce557cce, type: 3}
-  firewall: {fileID: 8972520504613835973, guid: 244a00ffca5451244b40b1c7fc13a043,
+  ramp: {fileID: 1212212368378406168, guid: ec754956d76b0414ea8052381f629e30, type: 3}
+  firewall: {fileID: 8972520504613835973, guid: 71711ac669d3c2b478fcf9cc854205cd,
     type: 3}
-  port: {fileID: 915114725526548709, guid: 722a7ceb6a6341e4d80a5d3e3cc7875e, type: 3}
-  terminal: {fileID: 915114725526548709, guid: e15c513da6ee9944b80e0034b75b02c9, type: 3}
-  enemyPrefabs:
-  - {fileID: 8847390588398665581, guid: cc9165c5c5962f94b90de1271946cf96, type: 3}
-  - {fileID: 8847390588398665581, guid: 4f2b1d46ceff44e4bb67c8dcd5e64f0a, type: 3}
-  deploymentZone: {fileID: 887745695631915783, guid: 91102fbe6413a92429fa9abe7684b2c5,
+  port: {fileID: 915114725526548709, guid: 08a1536172e539f4bacc5ceb803230ed, type: 3}
+  terminal: {fileID: 915114725526548709, guid: 40432318e7c8adf41a32732687675fb8, type: 3}
+  enemyPrefabs: []
+  deploymentZone: {fileID: 887745695631915783, guid: 4b9c1ec94336749429409b4d8023e76f,
     type: 3}
   numSegments: 3
   searchSize: 8

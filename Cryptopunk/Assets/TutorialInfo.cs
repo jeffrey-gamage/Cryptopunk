@@ -44,9 +44,9 @@ public class TutorialInfo: MonoBehaviour
         return enemyDeploymentInfo;
     }
 
-    internal Vector3Int[] GetPatrolRoute(int i)
+    internal Vector3Int[] GetPatrolRoute(int enemyIndex)
     {
-        switch(i)
+        switch(enemyIndex)
         {
             case 0: return enemy0PatrolRoute;
             case 1: return enemy1PatrolRoute;

@@ -88,14 +88,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2711076570217799609}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc815debc414bc44ea33706ee2681bed, type: 3}
+  m_Script: {fileID: 11500000, guid: 0642cdd062cf33e4fa016f7fe8ea02bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   programAnchors:
   - {fileID: 1189575198179801933}
   - {fileID: 2010263531168049181}
   - {fileID: 3436887219020544669}
-  listItem: {fileID: 3717714518391659336, guid: 027358ab88df7b445804ef7406d09484,
+  listItem: {fileID: 3717714518391659336, guid: e9694a51e50427a4e8b8c68ce40ead0b,
     type: 3}
   leftScroll: {fileID: 7441572121626449871}
   rightScroll: {fileID: 3715859226136878266}
@@ -792,7 +792,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.26200002, y: 0.28300002}
   m_AnchorMax: {x: 0.7705876, y: 0.74300003}
-  m_AnchoredPosition: {x: -0.5, y: -1.2999992}
+  m_AnchoredPosition: {x: -0.5, y: -1.300003}
   m_SizeDelta: {x: -4.800003, y: 2.300003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8719980140497699991
@@ -840,7 +840,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8719980140497699984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afe977fd4f26fa14b97cf3d1dd4cd920, type: 3}
+  m_Script: {fileID: 11500000, guid: 48e6c2e713c27e14385fc0d356e72886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   programList: {fileID: 2711076570217799609}

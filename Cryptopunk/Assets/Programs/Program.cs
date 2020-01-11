@@ -6,7 +6,7 @@ using UnityEngine;
 public class Program : MonoBehaviour
 {
     protected MeshRenderer myRenderer;
-    private SpriteRenderer myIcon;
+    protected SpriteRenderer myIcon;
     private bool hasBegunPlay = false;
     public bool isAnimating = false;
     public static bool isTargetingAttack = false;
@@ -29,9 +29,7 @@ public class Program : MonoBehaviour
     internal bool hasBeenSpotted;
     internal List<DungeonTile> movePath;
 
-    private Material standardMaterial;
-    [SerializeField] Material stealthMaterial;
-    [SerializeField] float iconStealthAlpha = 0.3f;
+    protected Material standardMaterial;
     // Start is called before the first frame update
     internal virtual void Start()
     {
@@ -45,32 +43,8 @@ public class Program : MonoBehaviour
     internal virtual void Update()
     {
         AnimateMovement();
-        ShowStealthVisuals();
     }
 
-    private void ShowStealthVisuals()
-    {
-        if (myIcon)
-        {
-            myIcon.enabled = myRenderer.enabled;
-            if (IsStealthed())
-            {
-                myIcon.color = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, iconStealthAlpha);
-            }
-            else
-            {
-                myIcon.color = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, 1);
-            }
-        }
-        if (IsStealthed())
-        {
-            myRenderer.material = stealthMaterial;
-        }
-        else
-        {
-            myRenderer.material = standardMaterial;
-        }
-    }
 
     private void AnimateMovement()
     {
@@ -158,14 +132,15 @@ public class Program : MonoBehaviour
         {
             Program.selectedProgram.AttemptAttack(this);
         }
-        else
+        else if (isTargetingBreach && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByPlayer())
         {
-            if (DungeonManager.instance.mode != DungeonManager.Mode.Deploy || !hasBegunPlay)//prevent port deployment from moving your programs
-            {
-                selectedProgram = this;
-                FindObjectOfType<PathPreview>().ClearPreview();
-                Hackable.selectedObject = GetComponent<Hackable>();
-            }
+            //breach is handled by hackable component
+        }
+        else if (DungeonManager.instance.mode != DungeonManager.Mode.Deploy || !hasBegunPlay)//prevent port deployment from moving your programs
+        {
+            selectedProgram = this;
+            FindObjectOfType<PathPreview>().ClearPreview();
+            Hackable.selectedObject = GetComponent<Hackable>();
         }
         ClearSightPreviews();
     }

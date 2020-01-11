@@ -69,12 +69,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0e9863174febfa5418a237b2f9c32f54, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e5bffd1573a6b6e40a5bb9f5d32d0dbf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 3672195777505167934}
   - component: {fileID: 1959233367652890180}
   - component: {fileID: 1110286489082683140}
-  - component: {fileID: 8889500540644206685}
+  - component: {fileID: 8989083602300243947}
   m_Layer: 0
   m_Name: Rogue
   m_TagString: Untagged
@@ -140,7 +140,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8db67f439a290984c82c9c81c28dd92a, type: 2}
+  - {fileID: 2100000, guid: 40d88d730866676499989296149cc29f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -174,7 +174,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &8889500540644206685
+--- !u!114 &8989083602300243947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,11 +183,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8847390588398665581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad49cb11c4991f94f94054e97ccf9300, type: 3}
+  m_Script: {fileID: 11500000, guid: 03950eff4b682fc4ab3d2a2439c9d43c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isAnimating: 0
-  maxSize: 4
+  maxSize: 3
   power: 2
   speed: 4
   range: 3
@@ -195,9 +195,9 @@ MonoBehaviour:
   breach: 3
   keywords:
   - Ghost
-  myAttack: {fileID: 3597810718955383176, guid: 30f41a6b8148a604b9fdd182a2ec9c7b,
+  myAttack: {fileID: 3597810718955383176, guid: 6bd187128c5d7b64db0e21debd67e3a0,
     type: 3}
-  myBreach: {fileID: 3597810718955383176, guid: 4def78b6c75265e4487b62f9f71161bf,
+  myBreach: {fileID: 3597810718955383176, guid: 71cf1953440f91d4d87f06d4f071002d,
     type: 3}
-  stealthMaterial: {fileID: 2100000, guid: 89c57764d8b98e54fb170b00df2e38e1, type: 2}
+  stealthMaterial: {fileID: 2100000, guid: ee7b9c07adc88f740ae1b0e0db377e0b, type: 2}
   iconStealthAlpha: 0.3

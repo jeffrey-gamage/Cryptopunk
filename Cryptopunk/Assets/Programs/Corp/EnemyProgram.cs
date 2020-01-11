@@ -120,7 +120,10 @@ public class EnemyProgram : Program
     internal override void OnMouseDown()
     {
         base.OnMouseDown();
-        GenerateLineOfSightIndicators();
+        if (selectedProgram == this)
+        {
+            GenerateLineOfSightIndicators();
+        }
     }
 
     private void GenerateLineOfSightIndicators()
