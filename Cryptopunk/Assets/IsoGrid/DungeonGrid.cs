@@ -74,6 +74,7 @@ public class DungeonGrid : MonoBehaviour
         foreach(Vector3Int coord in startingRoomTileCoords)
         {
             tileGrid[coord.x][coord.z].isExplored = true;
+            tileGrid[coord.x][coord.z].isVisible = true;
         }
     }
 

@@ -27,24 +27,23 @@ public class Hackable : MonoBehaviour
     }
     internal virtual void Update()
     {
-
-        if (myTile.isExplored)
-        {
-            myMeshRenderer.enabled = true;
-        }
-        else
-        {
-            myMeshRenderer.enabled = false;
-        }
-        foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
+        if (!myProgram)
         {
             if (myTile.isExplored)
             {
-                renderer.enabled = true;
+                myMeshRenderer.enabled = true;
+                foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
+                {
+                    renderer.enabled = true;
+                }
             }
             else
             {
-                renderer.enabled = false;
+                myMeshRenderer.enabled = false;
+                foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
+                {
+                    renderer.enabled = false;
+                }
             }
         }
     }

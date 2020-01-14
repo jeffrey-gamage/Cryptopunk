@@ -60,7 +60,6 @@ public class DungeonManager : MonoBehaviour
         if (!IsTutorial)
         {
             grid.GenerateFirewalls(generator.GetFirewalls());
-            grid.GenerateFirewalls(generator.GetFirewalls());
             grid.GenerateTerminals(generator.GetTerminals());
             grid.GeneratePorts(generator.GetPorts());
             grid.AssignControl(generator.GetTerminalControlledObjects());
@@ -123,22 +122,21 @@ public class DungeonManager : MonoBehaviour
     }
     internal bool HasActionsLeft()
     {
-        bool hasActionsLeft = false;
         foreach(Program program in playerPrograms)
         {
             if(program.movesLeft>0)
             {
-                hasActionsLeft = true;
+                return true;
             }
         }
         foreach(Program program in enemyPrograms)
         {
             if(program.movesLeft>0&&program.IsControlledByPlayer())
             {
-                hasActionsLeft = true;
+                return true;
             }
         }
-        return hasActionsLeft;
+        return false;
     }
     internal void DeployFromPort(DungeonTile portTile, GameObject program)
     {

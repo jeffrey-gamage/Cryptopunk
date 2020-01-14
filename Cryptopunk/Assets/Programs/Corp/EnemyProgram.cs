@@ -33,6 +33,7 @@ public class EnemyProgram : Program
         if(myTile)
         {
             myRenderer.enabled = myTile.isVisible;
+            myIcon.enabled = myTile.isVisible;
             hackable.myTile = myTile;
         }
         if (DungeonManager.instance.mode!=DungeonManager.Mode.Wait&&hasMoved&&isActiveAI&& base.movePath.Count == 0)
