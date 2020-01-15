@@ -50,7 +50,11 @@ MonoBehaviour:
     type: 3}
   port: {fileID: 915114725526548709, guid: 08a1536172e539f4bacc5ceb803230ed, type: 3}
   terminal: {fileID: 915114725526548709, guid: 40432318e7c8adf41a32732687675fb8, type: 3}
-  enemyPrefabs: []
+  enemyPrefabs:
+  - {fileID: 8847390588398665581, guid: 715c1b2e91eca31488223aa29a47f4fc, type: 3}
+  - {fileID: 8847390588398665581, guid: c615111808f997c4f90e3cb875533531, type: 3}
+  defencePrefabs:
+  - {fileID: 8847390588398665581, guid: 4113b39f299b4bb439af968cef159b04, type: 3}
   deploymentZone: {fileID: 887745695631915783, guid: 4b9c1ec94336749429409b4d8023e76f,
     type: 3}
   numSegments: 3

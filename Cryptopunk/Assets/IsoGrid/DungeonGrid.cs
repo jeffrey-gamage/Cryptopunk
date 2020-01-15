@@ -12,6 +12,7 @@ public class DungeonGrid : MonoBehaviour
     [SerializeField] GameObject port;
     [SerializeField] GameObject terminal;
     [SerializeField] GameObject[] enemyPrefabs;
+    [SerializeField] GameObject[] defencePrefabs;
     [SerializeField] GameObject deploymentZone;
     private DungeonTile[][] tileGrid;
     [SerializeField] int numSegments = 3;
@@ -52,6 +53,18 @@ public class DungeonGrid : MonoBehaviour
             Terminal newTerminal = Instantiate(terminal, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Terminal>();
             DungeonManager.instance.terminals.Add(newTerminal);
             newTerminal.myTile = tile;
+        }
+    }
+
+    internal void GenerateDefenses(Vector3Int[] defenseInfo)
+    {
+        foreach (Vector3Int defensePosition in defenseInfo)
+        {
+            DungeonTile tile = tileGrid[defensePosition.x][defensePosition.z];
+            GameObject newDefence = Instantiate(defencePrefabs[defensePosition.y]);
+            DungeonManager.instance.hackableObjects.Add(newDefence.GetComponent<Hackable>());
+            DungeonManager.instance.DeploySecurity(newDefence.GetComponent<EnemyProgram>(),tile);
+            newDefence.GetComponent<EnemyProgram>().myTile = tile;
         }
     }
 

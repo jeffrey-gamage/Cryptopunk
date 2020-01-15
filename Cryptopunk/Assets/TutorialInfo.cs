@@ -6,6 +6,7 @@ using UnityEngine;
 public class TutorialInfo: MonoBehaviour
 {
     [SerializeField] Vector3Int[] firewallLocations;
+    [SerializeField] Vector3Int[] defencePlacements;
     [SerializeField] Vector3Int[] terminalLocations;
     [SerializeField] Vector3Int[] portLocations;
     [SerializeField] Vector2Int[] terminalControlAssignments; //x = index of terminal in terminals list, y= index of controlled object in object list
@@ -58,5 +59,10 @@ public class TutorialInfo: MonoBehaviour
             default: return enemy7PatrolRoute;
 
         }
+    }
+
+    internal Vector3Int[] GetDefencePlacements()
+    {
+        return defencePlacements;
     }
 }

@@ -61,12 +61,14 @@ public class DungeonManager : MonoBehaviour
         {
             grid.GenerateFirewalls(generator.GetFirewalls());
             grid.GenerateTerminals(generator.GetTerminals());
+            grid.GenerateEnemies(generator.GetEnemies());
             grid.GeneratePorts(generator.GetPorts());
             grid.AssignControl(generator.GetTerminalControlledObjects());
         }
         else
         {
             grid.GenerateFirewalls(tutorialInfo.GetFirewallLocations());
+            grid.GenerateDefenses(tutorialInfo.GetDefencePlacements());
             grid.GenerateTerminals(tutorialInfo.GetTerminalInfo());
             grid.GenerateEnemies(tutorialInfo.GetEnemies());
             for(int i=0;i<enemyPrograms.Count;i++)
@@ -76,7 +78,6 @@ public class DungeonManager : MonoBehaviour
             grid.GeneratePorts(tutorialInfo.GetPortLocations());
             grid.AssignControl(tutorialInfo.GetTerminalControlAssignments());
         }
-        //grid.GenerateEnemies();
         grid.CreateDeploymentZone(generator.GetDeploymentArea());
         grid.ExploreStartingArea(generator.GetStartingArea());
         PrepareNextDeployment();
@@ -183,7 +184,10 @@ public class DungeonManager : MonoBehaviour
             }
             foreach(Hackable hackableObject in hackableObjects)
             {
-                hackableObject.OnStartTurn();
+                if (!hackableObject.myProgram)
+                {
+                    hackableObject.OnStartTurn();
+                }
             }
             foreach(EnemyProgram program in GetAICotrolledPrograms())
             {
