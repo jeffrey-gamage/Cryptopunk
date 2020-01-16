@@ -20,6 +20,14 @@ public class EnemyProgram : Program
     private Hackable hackable;
     internal bool hasMoved = false;
     private bool isActiveAI = false;
+
+    internal void InitializeReinforcement()
+    {
+        myState = State.Search;
+        waypoints = new List<DungeonTile>();
+        waypoints.Add(myTile);
+    }
+
     override internal void Start()
     {
         base.Start();

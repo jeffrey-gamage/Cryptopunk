@@ -11,8 +11,9 @@ public class DungeonGrid : MonoBehaviour
     [SerializeField] GameObject firewall;
     [SerializeField] GameObject port;
     [SerializeField] GameObject terminal;
-    [SerializeField] GameObject[] enemyPrefabs;
+    [SerializeField] internal GameObject[] enemyPrefabs;
     [SerializeField] GameObject[] defencePrefabs;
+    [SerializeField] GameObject hubPrefab;
     [SerializeField] GameObject lootPrefab;
     [SerializeField] GameObject deploymentZone;
     private DungeonTile[][] tileGrid;
@@ -35,6 +36,15 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    internal bool CanDeploySecurityHere(int xCoord, int zCoord)
+    {
+        if(IsValidCoordinates(xCoord,zCoord))
+        {
+            return (!tileGrid[xCoord][zCoord].isOccupied) && ((tileGrid[xCoord][zCoord].GetHeight() >= 0 && !tileGrid[xCoord][zCoord].isBlocked));
+        }
+        return false;
+    }
+
     internal void GenerateFirewalls(Vector3Int[] firewallLocations)
     {
         foreach(Vector3Int firewallLocation in firewallLocations)
@@ -54,6 +64,17 @@ public class DungeonGrid : MonoBehaviour
             Terminal newTerminal = Instantiate(terminal, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Terminal>();
             DungeonManager.instance.terminals.Add(newTerminal);
             newTerminal.myTile = tile;
+        }
+    }
+
+    internal void GenerateSecurityHubs(Vector3Int[] hubPlacements)
+    {
+        foreach (Vector3Int hubLocation in hubPlacements)
+        {
+            DungeonTile tile = tileGrid[hubLocation.x][hubLocation.z];
+            SecurityNode newNode = Instantiate(hubPrefab, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<SecurityNode>();
+            DungeonManager.instance.securityNodes.Add(newNode);
+            newNode.myTile = tile;
         }
     }
 

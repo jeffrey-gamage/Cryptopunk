@@ -53,6 +53,16 @@ public class GridGenerator
         DefineGridBoundaries();
     }
 
+    internal Vector3Int[] GetHubs()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal Vector3Int[] GetDefences()
+    {
+        throw new NotImplementedException();
+    }
+
     internal Vector3Int[] GetLoot()
     {
         throw new NotImplementedException();

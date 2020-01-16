@@ -17,7 +17,6 @@ public class DungeonManager : MonoBehaviour
     internal Mode mode = Mode.Deploy;
     internal Mode waitingTo;
     public static DungeonManager instance;
-    [SerializeField] internal int turnsLeft = 10;
     internal DungeonGrid grid;
 
     [SerializeField] Color AttackPreview;
@@ -27,11 +26,16 @@ public class DungeonManager : MonoBehaviour
 
     [SerializeField] List<Program> playerPrograms;
     [SerializeField] List<EnemyProgram> enemyPrograms;
+    [SerializeField] internal List<SecurityNode> securityNodes;
     [SerializeField] internal List<Hackable> hackableObjects;
-
-
-
     [SerializeField] internal List<Terminal> terminals;
+
+    public int maxTurns;
+    public int currentTurn = 0;
+    public List<int> reinforcementTurns;
+    [SerializeField] int[] reinforcementLineup;
+    private int reinforcementIndex = 0;
+
     public bool isPlayerTurn = true;
     // Start is called before the first frame update
     void Start()
@@ -60,7 +64,9 @@ public class DungeonManager : MonoBehaviour
         if (!IsTutorial)
         {
             grid.GenerateFirewalls(generator.GetFirewalls());
+            grid.GenerateDefenses(generator.GetDefences());
             grid.GenerateTerminals(generator.GetTerminals());
+            grid.GenerateSecurityHubs(generator.GetHubs());
             grid.GenerateEnemies(generator.GetEnemies());
             grid.GeneratePorts(generator.GetPorts());
             grid.AssignControl(generator.GetTerminalControlledObjects());
@@ -71,6 +77,7 @@ public class DungeonManager : MonoBehaviour
             grid.GenerateFirewalls(tutorialInfo.GetFirewallLocations());
             grid.GenerateDefenses(tutorialInfo.GetDefencePlacements());
             grid.GenerateTerminals(tutorialInfo.GetTerminalInfo());
+            grid.GenerateSecurityHubs(tutorialInfo.GetHubs());
             grid.GenerateEnemies(tutorialInfo.GetEnemies());
             for(int i=0;i<enemyPrograms.Count;i++)
             {
@@ -172,7 +179,7 @@ public class DungeonManager : MonoBehaviour
         isPlayerTurn = !isPlayerTurn;
         if(isPlayerTurn)
         {
-            turnsLeft--;
+            currentTurn++;
             foreach(Program program in GetPlayerControlledPrograms())
             {
                 program.OnStartTurn();
@@ -180,6 +187,15 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
+            if(currentTurn==maxTurns)
+            {
+                //TODO: lose state
+            }
+            else if(reinforcementTurns.Contains(currentTurn))
+            {
+                reinforcementTurns.Remove(currentTurn);
+                DeployReinforcements();
+            }
             foreach(Terminal terminal in terminals)
             {
                 terminal.OnStartTurn();
@@ -196,6 +212,15 @@ public class DungeonManager : MonoBehaviour
                 program.OnStartTurn();
             }
             TakeNextAIAction();
+        }
+    }
+
+    private void DeployReinforcements()
+    {
+        foreach(SecurityNode node in securityNodes)
+        {
+            node.DeployReinforcement(grid.enemyPrefabs[reinforcementLineup[reinforcementIndex]]);
+            reinforcementIndex = (reinforcementIndex +1)% reinforcementLineup.Length;
         }
     }
 

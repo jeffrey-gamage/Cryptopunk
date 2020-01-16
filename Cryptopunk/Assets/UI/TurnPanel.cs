@@ -8,7 +8,9 @@ public class TurnPanel : MonoBehaviour
     [SerializeField] GameObject endTurnButton;
     [SerializeField] Text actionWarning;
     [SerializeField] Text turnCounter;
-    [SerializeField] string turnCounterText = " turns until connection is blocked";
+    [SerializeField] string reinforcementCountdownText = " turns until security is increased";
+    [SerializeField] string lastTurnBeforeText = "Last turn before security is increased";
+    [SerializeField] string finalCountdownText = " turns until connection is blocked";
     [SerializeField] string lastTurnText = "Last turn before connection is blocked";
     // Start is called before the first frame update
     void Start()
@@ -21,13 +23,29 @@ public class TurnPanel : MonoBehaviour
     {
         endTurnButton.SetActive(DungeonManager.instance.isPlayerTurn);
         actionWarning.enabled = DungeonManager.instance.isPlayerTurn && DungeonManager.instance.HasActionsLeft();
-        if(DungeonManager.instance.turnsLeft>0)
+        if (DungeonManager.instance.reinforcementTurns.Count > 0)
         {
-            turnCounter.text = DungeonManager.instance.turnsLeft.ToString() + turnCounterText;
+            int turnsUntilReinforcement = DungeonManager.instance.reinforcementTurns[0] - DungeonManager.instance.currentTurn;
+            if (turnsUntilReinforcement>1)
+            {
+                turnCounter.text = turnsUntilReinforcement.ToString() + reinforcementCountdownText;
+            }
+            else
+            {
+                turnCounter.text = lastTurnBeforeText;
+            }
         }
         else
         {
-            turnCounter.text = lastTurnText;
+            int turnsUntilShutdown = DungeonManager.instance.maxTurns - DungeonManager.instance.currentTurn;
+            if(turnsUntilShutdown>1)
+            {
+                turnCounter.text = turnsUntilShutdown.ToString() + finalCountdownText;
+            }
+        else
+            {
+                turnCounter.text = lastTurnText;
+            }
         }
     }
     public void EndTurn()

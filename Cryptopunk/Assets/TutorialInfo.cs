@@ -9,6 +9,7 @@ public class TutorialInfo: MonoBehaviour
     [SerializeField] Vector3Int[] defencePlacements;
     [SerializeField] Vector3Int[] terminalLocations;
     [SerializeField] Vector3Int[] portLocations;
+    [SerializeField] Vector3Int[] hubPlacements;
     [SerializeField] Vector2Int[] terminalControlAssignments; //x = index of terminal in terminals list, y= index of controlled object in object list
     [SerializeField] Vector3Int[] enemyDeploymentInfo;
     [SerializeField] Vector3Int[] enemy0PatrolRoute;
@@ -70,5 +71,10 @@ public class TutorialInfo: MonoBehaviour
     internal Vector3Int[] GetLootPlacements()
     {
         return lootPlacements;
+    }
+
+    internal Vector3Int[] GetHubs()
+    {
+        return hubPlacements;
     }
 }

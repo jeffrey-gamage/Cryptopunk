@@ -8,6 +8,7 @@ public class Loot : MonoBehaviour
     public int credits = 50;
     public String schema;
     private static List<String> schemaLibrary;
+    private bool isMissionObjective = false;
     private static bool isLibraryInitialized = false;
     // Start is called before the first frame update
 

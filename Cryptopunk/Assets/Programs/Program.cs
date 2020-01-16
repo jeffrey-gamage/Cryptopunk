@@ -211,7 +211,10 @@ public class Program : MonoBehaviour
                 newAttack.damage = power;
                 newAttack.SetCourse(tempPath,target);
                 Program.isTargetingAttack = false;
-                movesLeft = 0;//TODO: Make exception for hit and run programs
+                if (!keywords.Contains("Hit and Run"))
+                {
+                    movesLeft = 0;
+                }
                 hasAttacked = true;
             }
         }
