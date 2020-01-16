@@ -96,6 +96,7 @@ public class Hackable : MonoBehaviour
             if (GetComponent<EnemyProgram>())
             {
                 GetComponent<EnemyProgram>().OnStartTurn();
+                GetComponent<EnemyProgram>().ClearSightPreview();
                 rebootCountdown++;
                 currentIntegrity = 0;
             }

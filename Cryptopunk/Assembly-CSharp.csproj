@@ -71,6 +71,7 @@
     <Compile Include="Assets\IsoGrid\Ramp.cs" />
     <Compile Include="Assets\IsoGrid\Room.cs" />
     <Compile Include="Assets\IsoGrid\TutorialGridGenerator.cs" />
+    <Compile Include="Assets\Objects\Loot.cs" />
     <Compile Include="Assets\Objects\Obstacles\Firewall.cs" />
     <Compile Include="Assets\Objects\Port.cs" />
     <Compile Include="Assets\Objects\SecurityNode.cs" />

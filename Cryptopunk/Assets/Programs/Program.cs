@@ -42,11 +42,18 @@ public class Program : MonoBehaviour
     // Update is called once per frame
     internal virtual void Update()
     {
-        AnimateMovement();
+        HandleMovement();
     }
 
+    private void CollectLoot()
+    {
+        if(myTile&&myTile.loot&&IsControlledByPlayer())
+        {
+            myTile.loot.Yield();
+        }
+    }
 
-    private void AnimateMovement()
+    private void HandleMovement()
     {
         if (isAnimating)
         {
@@ -62,6 +69,7 @@ public class Program : MonoBehaviour
                 else
                 {
                     myTile = movePath[0];
+                    CollectLoot();
                     movePath.Remove(myTile);
                     DungeonManager.instance.UpdateVisibility();
                 }
@@ -180,11 +188,15 @@ public class Program : MonoBehaviour
         }
         else
         {
-            Debug.Log("no path found.");
+            Debug.Log(gameObject.name+"- no path found.");
             foreach(DungeonTile tile in tempPath)
             {
-                Debug.Log(tile.xCoord.ToString() + " " + tile.zCoord.ToString());
+                Debug.Log(gameObject.name+" "+tile.xCoord.ToString() + " " + tile.zCoord.ToString());
             }
+            movePath = new List<DungeonTile>();
+            movePath.Add(myTile); 
+            DungeonManager.instance.Wait();
+            isAnimating = true;
         }
     }
 

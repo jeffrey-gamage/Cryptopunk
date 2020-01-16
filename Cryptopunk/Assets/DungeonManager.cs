@@ -64,6 +64,7 @@ public class DungeonManager : MonoBehaviour
             grid.GenerateEnemies(generator.GetEnemies());
             grid.GeneratePorts(generator.GetPorts());
             grid.AssignControl(generator.GetTerminalControlledObjects());
+            grid.PlaceLoot(generator.GetLoot());
         }
         else
         {
@@ -77,6 +78,7 @@ public class DungeonManager : MonoBehaviour
             }
             grid.GeneratePorts(tutorialInfo.GetPortLocations());
             grid.AssignControl(tutorialInfo.GetTerminalControlAssignments());
+            grid.PlaceLoot(tutorialInfo.GetLootPlacements());
         }
         grid.CreateDeploymentZone(generator.GetDeploymentArea());
         grid.ExploreStartingArea(generator.GetStartingArea());

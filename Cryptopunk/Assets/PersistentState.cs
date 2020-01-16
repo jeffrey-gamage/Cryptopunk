@@ -9,6 +9,7 @@ public class PersistentState : MonoBehaviour
     internal int credits;
     [SerializeField] List<GameObject> startingPrograms;
     [SerializeField] int startingCredits = 250;
+    [SerializeField] GameObject[] schemaLibrary;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +35,24 @@ public class PersistentState : MonoBehaviour
         ownedPrograms = startingPrograms;
     }
 
+    internal void AddProgram(GameObject newProgramSchema)
+    {
+        ownedPrograms.Add(newProgramSchema);
+    }
+
     void Update()
     {
         
+    }
+
+    internal void AddSchema(string newSchema)
+    {
+        foreach(GameObject schema in schemaLibrary)
+        {
+            if(newSchema == schema.name)
+            {
+                ownedPrograms.Add(schema);
+            }
+        }
     }
 }

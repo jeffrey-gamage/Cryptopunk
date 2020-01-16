@@ -154,6 +154,8 @@ MonoBehaviour:
   - {fileID: 8847390588398665581, guid: 55125c16779a1754992d196b9ef0102f, type: 3}
   - {fileID: 8847390588398665581, guid: 09de20a9d86bb254183bffd87c7b68f5, type: 3}
   startingCredits: 250
+  schemaLibrary:
+  - {fileID: 8847390588398665581, guid: 421af939b1e8c054f822f8dea200370f, type: 3}
 --- !u!4 &34798624
 Transform:
   m_ObjectHideFlags: 0
@@ -374,6 +376,12 @@ PrefabInstance:
       propertyPath: enemyPrefabs.Array.data[1]
       value: 
       objectReference: {fileID: 8847390588398665581, guid: c615111808f997c4f90e3cb875533531,
+        type: 3}
+    - target: {fileID: 7100711414162670378, guid: 3927df66cabfcb841af96a6d440a5d83,
+        type: 3}
+      propertyPath: lootPrefab
+      value: 
+      objectReference: {fileID: 3597810718955383176, guid: 82010ff00b1eaf240a515f6023e8f0f2,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3927df66cabfcb841af96a6d440a5d83, type: 3}
@@ -730,6 +738,11 @@ MonoBehaviour:
   enemy5PatrolRoute: []
   enemy6PatrolRoute: []
   enemy7PatrolRoute: []
+  lootPlacements:
+  - {x: 0, y: 50, z: 8}
+  - {x: 4, y: 0, z: 17}
+  - {x: 12, y: 75, z: 7}
+  - {x: 19, y: 250, z: 12}
 --- !u!4 &755555846
 Transform:
   m_ObjectHideFlags: 0

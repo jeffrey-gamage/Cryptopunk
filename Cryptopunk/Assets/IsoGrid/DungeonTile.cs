@@ -18,6 +18,7 @@ public class DungeonTile : MonoBehaviour
     internal bool isVisible = false;
     
     private MeshRenderer myMeshRenderer;
+    internal Loot loot;
     internal Collider myCollider;
     internal Ramp ramp;
     [SerializeField] Material unexplored;
@@ -45,6 +46,10 @@ public class DungeonTile : MonoBehaviour
         }
         else
         {
+            if (loot)
+            {
+                loot.GetComponent<MeshRenderer>().enabled = true;
+            }
             myMeshRenderer.enabled = height>=0;
             if (isVisible)
             {

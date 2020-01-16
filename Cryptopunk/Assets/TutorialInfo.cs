@@ -19,6 +19,7 @@ public class TutorialInfo: MonoBehaviour
     [SerializeField] Vector3Int[] enemy5PatrolRoute;
     [SerializeField] Vector3Int[] enemy6PatrolRoute;
     [SerializeField] Vector3Int[] enemy7PatrolRoute;
+    [SerializeField] Vector3Int[] lootPlacements;
 
     public Vector3Int[] GetFirewallLocations()
     {
@@ -64,5 +65,10 @@ public class TutorialInfo: MonoBehaviour
     internal Vector3Int[] GetDefencePlacements()
     {
         return defencePlacements;
+    }
+
+    internal Vector3Int[] GetLootPlacements()
+    {
+        return lootPlacements;
     }
 }

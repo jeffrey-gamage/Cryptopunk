@@ -20,7 +20,7 @@ public class Terminal : Hackable
     internal override void Update()
     {
         base.Update();
-        if (controlledObjects.Count > 0)
+        if (controlledObjects.Count > 0&&controlledObjects[0])
         {
             linkStart.transform.position = gameObject.transform.position + Vector3.up * linkOffset;
             linkEnd.transform.position = controlledObjects[0].transform.position + Vector3.up * linkOffset;
@@ -30,6 +30,17 @@ public class Terminal : Hackable
             linkVert.transform.localScale = new Vector3(Mathf.Abs(controlledObjects[0].transform.position.y - gameObject.transform.position.y), 1, 1) * 2.5f;
             linkFB.transform.position = new Vector3(controlledObjects[0].transform.position.x, controlledObjects[0].transform.position.y+linkOffset, (controlledObjects[0].transform.position.z + gameObject.transform.position.z) / 2f);
             linkFB.transform.localScale = new Vector3(Mathf.Abs(controlledObjects[0].transform.position.z - gameObject.transform.position.z), 1, 1)*1.25f;
+        }
+        else
+        {
+            if(linkStart)
+            {
+                Destroy(linkStart);
+                Destroy(linkEnd);
+                Destroy(linkLR);
+                Destroy(linkVert);
+                Destroy(linkFB);
+            }
         }
     }
     internal override void Activate()

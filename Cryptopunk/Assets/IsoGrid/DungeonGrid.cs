@@ -13,6 +13,7 @@ public class DungeonGrid : MonoBehaviour
     [SerializeField] GameObject terminal;
     [SerializeField] GameObject[] enemyPrefabs;
     [SerializeField] GameObject[] defencePrefabs;
+    [SerializeField] GameObject lootPrefab;
     [SerializeField] GameObject deploymentZone;
     private DungeonTile[][] tileGrid;
     [SerializeField] int numSegments = 3;
@@ -56,15 +57,24 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
-    internal void GenerateDefenses(Vector3Int[] defenseInfo)
+    internal void GenerateDefenses(Vector3Int[] defenceArray)
     {
-        foreach (Vector3Int defensePosition in defenseInfo)
+        foreach (Vector3Int defenceInfo in defenceArray)
         {
-            DungeonTile tile = tileGrid[defensePosition.x][defensePosition.z];
-            GameObject newDefence = Instantiate(defencePrefabs[defensePosition.y]);
-            DungeonManager.instance.hackableObjects.Add(newDefence.GetComponent<Hackable>());
-            DungeonManager.instance.DeploySecurity(newDefence.GetComponent<EnemyProgram>(),tile);
-            newDefence.GetComponent<EnemyProgram>().myTile = tile;
+            DungeonTile tile = tileGrid[defenceInfo.x][defenceInfo.z];
+            GameObject newDefense =Instantiate(defencePrefabs[defenceInfo.y]);
+            DungeonManager.instance.hackableObjects.Add(newDefense.GetComponent<Hackable>());
+            DungeonManager.instance.DeploySecurity(newDefense.GetComponent<EnemyProgram>(), tile);
+        }
+    }
+
+    internal void PlaceLoot(Vector3Int[] lootInfo)
+    {
+        foreach (Vector3Int lootPos in lootInfo)
+        {
+            Loot newLoot = Instantiate(lootPrefab, tileGrid[lootPos.x][lootPos.z].GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Loot>();
+            newLoot.setContents(lootPos.y);
+            tileGrid[lootPos.x][lootPos.z].loot = newLoot;
         }
     }
 
