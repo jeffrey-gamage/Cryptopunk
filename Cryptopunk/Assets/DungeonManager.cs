@@ -20,7 +20,6 @@ public class DungeonManager : MonoBehaviour
     internal DungeonGrid grid;
 
     [SerializeField] Color AttackPreview;
-    [SerializeField] bool IsTutorial;
     [SerializeField] Color BreachPreview;
     [SerializeField] Color MovePreview;
 
@@ -43,13 +42,10 @@ public class DungeonManager : MonoBehaviour
         instance = this;
         hackableObjects = new List<Hackable>();
         terminals = new List<Terminal>();
-        if(IsTutorial)
-        {
-            tutorialInfo = FindObjectOfType<TutorialInfo>();
-        }
+        tutorialInfo = FindObjectOfType<TutorialInfo>();
         grid = FindObjectOfType<DungeonGrid>();
         GridGenerator generator;
-        if (IsTutorial)
+        if (tutorialInfo)
         {
             generator = new TutorialGridGenerator();
         }
@@ -61,16 +57,16 @@ public class DungeonManager : MonoBehaviour
         SetUpCamera(gridPlan.Length);
         grid.GenerateGrid(gridPlan);
         grid.GenerateRamps(generator.GetRamps());
-        if (!IsTutorial)
+        if (!tutorialInfo)
         {
             grid.GenerateFirewalls(generator.GetFirewalls());
-            grid.GenerateDefenses(generator.GetDefences());
-            grid.GenerateTerminals(generator.GetTerminals());
-            grid.GenerateSecurityHubs(generator.GetHubs());
-            grid.GenerateEnemies(generator.GetEnemies());
-            grid.GeneratePorts(generator.GetPorts());
-            grid.AssignControl(generator.GetTerminalControlledObjects());
-            grid.PlaceLoot(generator.GetLoot());
+            //TODO  grid.GenerateDefenses(generator.GetDefences());
+            //TODO  grid.GenerateTerminals(generator.GetTerminals());
+            //TODO  grid.GenerateSecurityHubs(generator.GetHubs());
+            //TODO  grid.GenerateEnemies(generator.GetEnemies());
+            //TODO  grid.GeneratePorts(generator.GetPorts());
+            //TODO  grid.AssignControl(generator.GetTerminalControlledObjects());
+            //TODO  grid.PlaceLoot(generator.GetLoot());
         }
         else
         {

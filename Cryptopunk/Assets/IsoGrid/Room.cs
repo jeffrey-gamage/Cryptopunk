@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 public class Room
 {
+    public static readonly float PROBABILITY_OF_LEDGE_IN_ROOM = 0.5f;
     int size;
     static readonly Vector3Int failToFind = new Vector3Int(0, -3, 0);
     internal List<Vector3Int> tiles;
@@ -15,6 +16,14 @@ public class Room
     internal List<Vector3Int> foreEdgeTiles;
     internal List<Vector3Int> aftEdgeTiles;
     internal List<RampCoordinates> rampCoordinates;
+
+    private int roomLength;
+    private int roomWidth;
+    private int minX;
+    private int minZ;
+    private int maxX;
+    private int maxZ;
+    private int roomY;
 
     internal Room(int size)
     {
@@ -62,8 +71,8 @@ public class Room
         int maxZ=0;
         int roomY =0;
 
-        int roomLength = Random.Range(size, size * 2);
-        int roomWidth = size * 3 - roomLength;
+        roomLength = Random.Range(size, size * 2);
+        roomWidth = size * 3 - roomLength;
         tiles = new List<Vector3Int>();
         if (connections[0] != null)
         {
@@ -157,6 +166,145 @@ public class Room
                 foreEdgeTiles.Add(tile);
             }
         }
+    }
+
+    internal void DivideIntoChambers(ref List<Vector3Int> firewalls)
+    {
+        if (tiles.Count>36)
+        {
+            Debug.Log("room is large enought to divide");
+            bool pivotIsXdimension = OrientPivot();
+            int pivot = selectPivot(pivotIsXdimension);
+
+            Debug.Log("pivot at " + pivot.ToString() + " x = " + pivotIsXdimension.ToString());
+            if (Random.value > PROBABILITY_OF_LEDGE_IN_ROOM)
+            {
+                Debug.Log("dividing with firewalls");
+                PlaceDividingFirewalls(pivotIsXdimension, pivot, ref firewalls);
+            }
+            else
+            {
+                Debug.Log("dividing with ramps");
+                CreateLedgeAndRamps(pivotIsXdimension, pivot);
+            }
+        }
+        Debug.Log("room is too small to divide");
+    }
+
+    private void CreateLedgeAndRamps(bool pivotIsXdimension, int pivot)
+    {
+        int newHeight = GetNewHeight(roomY);
+        List<Vector3Int> rampCandidates = new List<Vector3Int>();
+        if (pivotIsXdimension)
+        {
+            for (int i=0;i<tiles.Count;i++)
+            {
+                if (tiles[i].x > pivot)
+                {
+                    tiles[i]=new Vector3Int(tiles[i].x,newHeight,tiles[i].z);
+                }
+                else if(tiles[i].x==pivot)
+                {
+                    rampCandidates.Add(tiles[i]);
+                }
+            }
+            if (rampCandidates.Count > 0)
+            {
+                RampCoordinates rampCoords;
+                rampCoords.coord1 = rampCandidates[Random.Range(0, rampCandidates.Count)];
+                rampCoords.coord2 = rampCoords.coord1 + Vector3Int.right;
+                rampCoordinates.Add(rampCoords);
+            }
+            else
+            {
+                Debug.LogWarning("no valid tiles for ramp!");
+            }
+        }
+        else
+        {
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                if (tiles[i].z > pivot)
+                {
+                    tiles[i] = new Vector3Int(tiles[i].x, newHeight, tiles[i].z);
+                }
+                else if (tiles[i].z == pivot)
+                {
+                    rampCandidates.Add(tiles[i]);
+                }
+            }
+            if (rampCandidates.Count > 0)
+            {
+                RampCoordinates rampCoords;
+                rampCoords.coord1 = rampCandidates[Random.Range(0, rampCandidates.Count)];
+                rampCoords.coord2 = rampCoords.coord1 + new Vector3Int(0,0,1);
+                rampCoordinates.Add(rampCoords);
+            }
+            else
+            {
+                Debug.LogWarning("no valid tiles for ramp!");
+            }
+        }
+    }
+
+    private int GetNewHeight(int roomY)
+    {
+        if (roomY==0)
+        {
+            return 1;
+        }
+        if(roomY ==3)
+        {
+            return 2;
+        }
+        if(Random.value>0.5f)
+        {
+            return roomY + 1;
+        }
+        return roomY - 1;
+    }
+
+    private void PlaceDividingFirewalls(bool pivotIsXdimension, int pivot, ref List<Vector3Int> firewalls)
+    {
+        if(pivotIsXdimension)
+        {
+            foreach(Vector3Int tile in tiles)
+            {
+                if (tile.x == pivot)
+                {
+                    Debug.Log("Adding firewall at  " + tile.ToString());
+                    firewalls.Add(tile);
+                }
+            }
+        }
+        else
+        {
+            foreach (Vector3Int tile in tiles)
+            {
+                if (tile.y == pivot)
+                {
+                    firewalls.Add(tile);
+                }
+            }
+        }
+    }
+
+    private int selectPivot(bool pivotIsXdimension)
+    {
+        if(pivotIsXdimension)
+        {
+            return Random.Range(minZ + 3, maxZ - 3);
+        }
+        return Random.Range(minX + 3, maxZ- 3);
+    }
+
+    private bool OrientPivot()
+    {
+        if (roomLength < 7)
+            return false;
+        if (roomWidth < 7)
+            return true;
+        return Random.value > 0.5f;
     }
 
     internal Vector3Int GetCentre()

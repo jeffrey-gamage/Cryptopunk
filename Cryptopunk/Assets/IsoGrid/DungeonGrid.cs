@@ -49,10 +49,17 @@ public class DungeonGrid : MonoBehaviour
     {
         foreach(Vector3Int firewallLocation in firewallLocations)
         {
-            DungeonTile tile = tileGrid[firewallLocation.x][firewallLocation.z];
-            Firewall newFirewall = Instantiate(firewall, tile.GetOccupyingCoordinates(true),Quaternion.identity).GetComponent<Firewall>();
-            DungeonManager.instance.hackableObjects.Add(newFirewall);
-            newFirewall.myTile = tile;
+            if (IsValidCoordinates(firewallLocation.x, firewallLocation.z))
+            {
+                DungeonTile tile = tileGrid[firewallLocation.x][firewallLocation.z];
+                Firewall newFirewall = Instantiate(firewall, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Firewall>();
+                DungeonManager.instance.hackableObjects.Add(newFirewall);
+                newFirewall.myTile = tile;
+            }
+            else
+            {
+                Debug.LogWarning("Attempeted to place firewall at invalid coordinates " + firewallLocation.ToString());
+            }
         }
     }
 
@@ -117,8 +124,7 @@ public class DungeonGrid : MonoBehaviour
     {
         foreach(Vector3Int coord in startingRoomTileCoords)
         {
-            tileGrid[coord.x][coord.z].isExplored = true;
-            tileGrid[coord.x][coord.z].isVisible = true;
+            tileGrid[coord.x][coord.z].Reveal();
         }
     }
 

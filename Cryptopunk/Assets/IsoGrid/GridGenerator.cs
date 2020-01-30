@@ -14,6 +14,14 @@ public class GridGenerator
 {
     [SerializeField] int minNumRooms = 3;
     [SerializeField] int minRoomSize = 2;
+
+    private List<Vector3Int> firewalls;
+    private List<Vector3Int> securityHubs;
+    private List<Vector3Int> defences;
+    private List<Vector3Int> loot;
+    private List<Vector3Int> ports;
+    private List<Vector3Int> terminals;
+
     private int mapSize;
     private int connectivity;
     private int verticality;
@@ -55,17 +63,17 @@ public class GridGenerator
 
     internal Vector3Int[] GetHubs()
     {
-        throw new NotImplementedException();
+        return securityHubs.ToArray();
     }
 
     internal Vector3Int[] GetDefences()
     {
-        throw new NotImplementedException();
+        return defences.ToArray();
     }
 
     internal Vector3Int[] GetLoot()
     {
-        throw new NotImplementedException();
+        return loot.ToArray();
     }
 
     internal Vector3Int[] GetEnemies()
@@ -75,8 +83,7 @@ public class GridGenerator
 
     internal Vector3Int[] GetPorts()
     {
-        //TODO
-        throw new NotImplementedException();
+        return ports.ToArray();
     }
 
     internal Vector3Int GetDeploymentArea()
@@ -97,14 +104,12 @@ public class GridGenerator
 
     internal Vector3Int[] GetTerminals()
     {
-        //TODO
-        throw new NotImplementedException();
+        return terminals.ToArray();
     }
 
     internal Vector3Int[] GetFirewalls()
     {
-        //TODO
-        return new Vector3Int[0];
+        return firewalls.ToArray();
     }
 
     public GridGenerator(int mapSize,int connectivity, int verticality)
@@ -112,6 +117,13 @@ public class GridGenerator
         this.mapSize = mapSize;
         this.connectivity = connectivity;
         this.verticality = verticality;
+
+        firewalls = new List<Vector3Int>();
+        securityHubs = new List<Vector3Int>();
+        defences = new List<Vector3Int>();
+        loot = new List<Vector3Int>();
+        ports = new List<Vector3Int>();
+        terminals = new List<Vector3Int>();
 
         rooms = new List<Room>();
         int roomsGeneratedSize = 0;
@@ -126,6 +138,7 @@ public class GridGenerator
         {
             MakeFirstConnection(i, rooms[i]);
             rooms[i].GenerateTiles(verticality);
+            rooms[i].DivideIntoChambers(ref firewalls);
         }
         DefineGridBoundaries();
     }
@@ -158,6 +171,7 @@ public class GridGenerator
                 }
             }
         }
+        Debug.Log("Adjustment: x " + minX.ToString() + " z: " + minZ.ToString());
         for(int i=0;i<rooms.Count;i++)
         {
             for(int j=0;j<rooms[i].tiles.Count;j++)
@@ -172,8 +186,17 @@ public class GridGenerator
                 rooms[i].rampCoordinates[k] = updatedCoords;
             }
         }
+        RepositionObjectsToMinimizedGrid(minX, minZ);
         gridX += minX * -1+1;
         gridZ += minZ * -1 + 1;
+    }
+
+    private void RepositionObjectsToMinimizedGrid(int minX, int minZ)
+    {
+        for(int i=0;i<firewalls.Count;i++)
+        {
+            firewalls[i] += new Vector3Int(-1, 0, 0) * minX + new Vector3Int(0, 0, -1) * minZ;
+        }
     }
 
     private void MakeFirstConnection(int i, Room room)

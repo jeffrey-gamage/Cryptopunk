@@ -180,7 +180,6 @@ public class Program : MonoBehaviour
         {
             myTile.Vacate(this);
             target.Occupy(this);
-            Debug.Log("Found path, animating movement");
             movePath = tempPath;
             movesLeft -= (movePath.Count-1);
             DungeonManager.instance.Wait();
@@ -188,7 +187,6 @@ public class Program : MonoBehaviour
         }
         else
         {
-            Debug.Log(gameObject.name+"- no path found.");
             foreach(DungeonTile tile in tempPath)
             {
                 Debug.Log(gameObject.name+" "+tile.xCoord.ToString() + " " + tile.zCoord.ToString());
