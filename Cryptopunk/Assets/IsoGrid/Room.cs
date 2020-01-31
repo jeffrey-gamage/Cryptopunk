@@ -65,11 +65,11 @@ public class Room
 
     internal void GenerateTiles(int vert)
     {
-        int minX=0;
-        int minZ=0;
-        int maxX=0;
-        int maxZ=0;
-        int roomY =0;
+        minX=0;
+        minZ=0;
+        maxX=0;
+        maxZ=0;
+        roomY =0;
 
         roomLength = Random.Range(size, size * 2);
         roomWidth = size * 3 - roomLength;
@@ -199,11 +199,15 @@ public class Room
         {
             for (int i=0;i<tiles.Count;i++)
             {
-                if (tiles[i].x > pivot)
+                if (tiles[i].z > pivot&&connections[0].GetCentre().z<pivot)
                 {
                     tiles[i]=new Vector3Int(tiles[i].x,newHeight,tiles[i].z);
                 }
-                else if(tiles[i].x==pivot)
+                else if (tiles[i].z < pivot && connections[0].GetCentre().z > pivot)
+                {
+                    tiles[i] = new Vector3Int(tiles[i].x, newHeight, tiles[i].z);
+                }
+                else if(tiles[i].z==pivot)
                 {
                     rampCandidates.Add(tiles[i]);
                 }
@@ -224,11 +228,15 @@ public class Room
         {
             for (int i = 0; i < tiles.Count; i++)
             {
-                if (tiles[i].z > pivot)
+                if (tiles[i].x > pivot&&connections[0].GetCentre().x<pivot)
                 {
                     tiles[i] = new Vector3Int(tiles[i].x, newHeight, tiles[i].z);
                 }
-                else if (tiles[i].z == pivot)
+                else if (tiles[i].x < pivot && connections[0].GetCentre().x > pivot)
+                {
+                    tiles[i] = new Vector3Int(tiles[i].x, newHeight, tiles[i].z);
+                }
+                else if (tiles[i].x == pivot)
                 {
                     rampCandidates.Add(tiles[i]);
                 }
@@ -270,7 +278,7 @@ public class Room
         {
             foreach(Vector3Int tile in tiles)
             {
-                if (tile.x == pivot)
+                if (tile.z == pivot)
                 {
                     Debug.Log("Adding firewall at  " + tile.ToString());
                     firewalls.Add(tile);
@@ -281,7 +289,7 @@ public class Room
         {
             foreach (Vector3Int tile in tiles)
             {
-                if (tile.y == pivot)
+                if (tile.x == pivot)
                 {
                     firewalls.Add(tile);
                 }
@@ -293,17 +301,21 @@ public class Room
     {
         if(pivotIsXdimension)
         {
-            return Random.Range(minZ + 3, maxZ - 3);
+            int zPivot = Random.Range(minZ + 3, maxZ - 3);
+            Debug.Log("minZ = " + minZ.ToString() + ", maxZ = " + maxZ.ToString() + "pivot = " + zPivot.ToString());
+            return zPivot;
         }
-        return Random.Range(minX + 3, maxZ- 3);
+        int xPivot = Random.Range(minX + 3, maxX - 3);
+        Debug.Log("minX = " + minX.ToString() + ", maxX = " + maxX.ToString() + "pivot = " + xPivot.ToString());
+        return xPivot;
     }
 
     private bool OrientPivot()
     {
         if (roomLength < 7)
-            return false;
-        if (roomWidth < 7)
             return true;
+        if (roomWidth < 7)
+            return false;
         return Random.value > 0.5f;
     }
 
