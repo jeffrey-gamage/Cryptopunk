@@ -12,25 +12,47 @@ public struct RampCoordinates
 
 public class GridGenerator 
 {
-    [SerializeField] int minNumRooms = 3;
-    [SerializeField] int minRoomSize = 2;
-
-    private List<Vector3Int> firewalls;
-    private List<Vector3Int> securityHubs;
-    private List<Vector3Int> defences;
-    private List<Vector3Int> loot;
-    private List<Vector3Int> ports;
-    private List<Vector3Int> terminals;
+    internal static GridGenerator instance;
 
     private int mapSize;
     private int connectivity;
     private int verticality;
-    private List<Room> rooms;
+    internal List<Room> rooms;
     private int gridX;
     private int gridZ;
-   
+    public GridGenerator(int numRooms, int corpID)
+    {
+        instance = this;
+        rooms = new List<Room>();
+
+        int firstRoomIndex = RoomDirectory.instance.GetFirstRoomIndex();
+        int[] genRoomIndices = RoomDirectory.instance.GetGenRoomIndices(numRooms);
+        int finalRoomIndex = RoomDirectory.instance.GetFinalRoomIndex();
+
+        rooms.Add(Room.LoadFirstRoom(firstRoomIndex));
+        Room previousRoom;
+        Vector3Int roomCoords;
+        int roomOrientation;
+
+        if (numRooms > 1)
+        {
+            for (int i = 1; i < numRooms - 1; i++)
+            {
+                previousRoom = SelectRandomRoom();
+                roomCoords = previousRoom.GetRandomExit();
+                roomOrientation = previousRoom.GetOrientation(roomCoords);
+                rooms.Add(Room.LoadGeneralRoom(genRoomIndices[i - 1], roomCoords, roomOrientation));
+            }
+            previousRoom = SelectRandomRoom();
+            roomCoords = previousRoom.GetRandomExit();
+            roomOrientation = previousRoom.GetOrientation(roomCoords);
+            rooms.Add(Room.LoadFinalRoom(finalRoomIndex, roomCoords, roomOrientation));
+        }
+        DefineGridBoundaries();
+    }
     protected GridGenerator()
     {
+        instance = this;
         //only used by tutorial grid generator;
         rooms = new List<Room>();
         rooms.Add(new Room(6, 15, 2, 8, 0, new List<RampCoordinates>()));
@@ -63,28 +85,73 @@ public class GridGenerator
 
     internal Vector3Int[] GetHubs()
     {
+        List<Vector3Int> securityHubs = new List<Vector3Int>();
+        foreach(Room room in rooms)
+        {
+            securityHubs.AddRange(room.securityHubs);
+        }
         return securityHubs.ToArray();
     }
 
     internal Vector3Int[] GetDefences()
     {
+        List<Vector3Int> defences = new List<Vector3Int>();
+        foreach (Room room in rooms)
+        {
+            defences.AddRange(room.defences);
+        }
         return defences.ToArray();
     }
 
     internal Vector3Int[] GetLoot()
     {
+        List<Vector3Int> loot = new List<Vector3Int>();
+        foreach (Room room in rooms)
+        {
+            loot.AddRange(room.loot);
+        }
         return loot.ToArray();
     }
 
     internal Vector3Int[] GetEnemies()
     {
-        throw new NotImplementedException();
+        List<Vector3Int> enemies = new List<Vector3Int>();
+        foreach (Room room in rooms)
+        {
+            enemies.AddRange(room.enemies);
+        }
+        return enemies.ToArray();
     }
 
     internal Vector3Int[] GetPorts()
     {
+        List<Vector3Int> ports = new List<Vector3Int>();
+        foreach (Room room in rooms)
+        {
+            ports.AddRange(room.ports);
+        }
         return ports.ToArray();
     }
+    internal Vector3Int[] GetTerminals()
+    {
+        List<Vector3Int> terminals = new List<Vector3Int>();
+        foreach (Room room in rooms)
+        {
+            terminals.AddRange(room.terminals);
+        }
+        return terminals.ToArray();
+    }
+
+    internal Vector3Int[] GetFirewalls()
+    {
+        List<Vector3Int> firewalls = new List<Vector3Int>();
+        foreach (Room room in rooms)
+        {
+            firewalls.AddRange(room.firewalls);
+        }
+        return firewalls.ToArray();
+    }
+
 
     internal Vector3Int GetDeploymentArea()
     {
@@ -102,45 +169,9 @@ public class GridGenerator
         return rooms[0].tiles;
     }
 
-    internal Vector3Int[] GetTerminals()
+    private Room SelectRandomRoom()
     {
-        return terminals.ToArray();
-    }
-
-    internal Vector3Int[] GetFirewalls()
-    {
-        return firewalls.ToArray();
-    }
-
-    public GridGenerator(int mapSize,int connectivity, int verticality)
-    {
-        this.mapSize = mapSize;
-        this.connectivity = connectivity;
-        this.verticality = verticality;
-
-        firewalls = new List<Vector3Int>();
-        securityHubs = new List<Vector3Int>();
-        defences = new List<Vector3Int>();
-        loot = new List<Vector3Int>();
-        ports = new List<Vector3Int>();
-        terminals = new List<Vector3Int>();
-
-        rooms = new List<Room>();
-        int roomsGeneratedSize = 0;
-        while(roomsGeneratedSize<mapSize)
-        {
-            int newRoomSize = Random.Range(minRoomSize, Math.Min(mapSize/minNumRooms,mapSize - roomsGeneratedSize + 1));
-            rooms.Add(new Room(newRoomSize));
-            roomsGeneratedSize += newRoomSize;
-        }
-        rooms[0].GenerateTiles(verticality);
-        for(int i=1;i<rooms.Count;i++)
-        {
-            MakeFirstConnection(i, rooms[i]);
-            rooms[i].GenerateTiles(verticality);
-            rooms[i].DivideIntoChambers(ref firewalls);
-        }
-        DefineGridBoundaries();
+        return rooms[Random.Range(0, rooms.Count)];
     }
 
     private void DefineGridBoundaries()
@@ -171,31 +202,16 @@ public class GridGenerator
                 }
             }
         }
-        Debug.Log("Adjustment: x " + minX.ToString() + " z: " + minZ.ToString());
-        for(int i=0;i<rooms.Count;i++)
-        {
-            for(int j=0;j<rooms[i].tiles.Count;j++)
-            {
-                rooms[i].tiles[j] += new Vector3Int(-1, 0, 0) * minX+new Vector3Int(0,0,-1)*minZ;
-            }
-            for(int k=0;k<rooms[i].rampCoordinates.Count;k++)
-            {
-                RampCoordinates updatedCoords;
-                updatedCoords.coord1 = rooms[i].rampCoordinates[k].coord1 + new Vector3Int(-1, 0, 0) * minX + new Vector3Int(0, 0, -1) * minZ;
-                updatedCoords.coord2 = rooms[i].rampCoordinates[k].coord2 + new Vector3Int(-1, 0, 0) * minX + new Vector3Int(0, 0, -1) * minZ;
-                rooms[i].rampCoordinates[k] = updatedCoords;
-            }
-        }
-        RepositionObjectsToMinimizedGrid(minX, minZ);
-        gridX += minX * -1+1;
-        gridZ += minZ * -1 + 1;
+        gridX+=1- minX;
+        gridZ+=1- minZ;
+        RepositionToMinimizedGrid(minX, minZ);
     }
 
-    private void RepositionObjectsToMinimizedGrid(int minX, int minZ)
+    private void RepositionToMinimizedGrid(int minX, int minZ)
     {
-        for(int i=0;i<firewalls.Count;i++)
+        foreach(Room room in rooms)
         {
-            firewalls[i] += new Vector3Int(-1, 0, 0) * minX + new Vector3Int(0, 0, -1) * minZ;
+            room.AdjustCoordinatesToMinimizedGrid(minX,minZ);
         }
     }
 

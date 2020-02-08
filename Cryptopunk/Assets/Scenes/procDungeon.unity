@@ -829,7 +829,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackPreview: {r: 1, g: 0.35686275, b: 0.21176472, a: 0.44705883}
-  IsTutorial: 0
   BreachPreview: {r: 0.34117648, g: 0.6039216, b: 1, a: 0.44705883}
   MovePreview: {r: 0.7607844, g: 1, b: 0.3647059, a: 0.44705883}
   playerPrograms:
@@ -928,6 +927,62 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fadb4526a00c2d4a87dc8a68f978328, type: 3}
+--- !u!1 &1228498247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1228498249}
+  - component: {fileID: 1228498248}
+  m_Layer: 0
+  m_Name: RoomDirectory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1228498248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228498247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58408c1bb71e18b4e8adbb94e2f92123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  STARTING_ROOMS:
+  - {fileID: 4900000, guid: 86580a264ea3e7f40bbdedc1bfb85073, type: 3}
+  - {fileID: 4900000, guid: d8c3e8b9a9b71dd47934aeb385b3ba61, type: 3}
+  - {fileID: 4900000, guid: 60ddf59728e0d214ca33ef73291c3e77, type: 3}
+  GENERAL_ROOMS:
+  - {fileID: 4900000, guid: 40a05d95467903541907e2076b15f734, type: 3}
+  - {fileID: 4900000, guid: 81a609634c083564c82e39f7e5ba1a7a, type: 3}
+  - {fileID: 4900000, guid: bf1c702a66d5551458752ccac09bfda5, type: 3}
+  - {fileID: 4900000, guid: 70ac1e21ee61f444fb8b3bfdff86ff27, type: 3}
+  - {fileID: 4900000, guid: 790a6117fad98744fb5ef8ae513edbb4, type: 3}
+  - {fileID: 4900000, guid: b79cc3bb2d6f674458a532534fc2c6f0, type: 3}
+  FINAL_ROOMS:
+  - {fileID: 4900000, guid: 522e7f64753ea9441889cebc9e3fb2eb, type: 3}
+--- !u!4 &1228498249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228498247}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1438600742
 PrefabInstance:
   m_ObjectHideFlags: 0

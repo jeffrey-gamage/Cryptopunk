@@ -70,6 +70,7 @@
     <Compile Include="Assets\IsoGrid\GridGenerator.cs" />
     <Compile Include="Assets\IsoGrid\Ramp.cs" />
     <Compile Include="Assets\IsoGrid\Room.cs" />
+    <Compile Include="Assets\IsoGrid\RoomDirectory.cs" />
     <Compile Include="Assets\IsoGrid\TutorialGridGenerator.cs" />
     <Compile Include="Assets\Objects\Loot.cs" />
     <Compile Include="Assets\Objects\Obstacles\Firewall.cs" />
@@ -93,6 +94,17 @@
     <Compile Include="Assets\UI\ProgramListItem.cs" />
     <Compile Include="Assets\UI\SelectedIndicator.cs" />
     <Compile Include="Assets\UI\TurnPanel.cs" />
+    <None Include="Assets\IsoGrid\Rooms\GenRoom3.txt" />
+    <None Include="Assets\IsoGrid\Rooms\GenRoom1.txt" />
+    <None Include="Assets\IsoGrid\Rooms\Room serialization and level construction.txt" />
+    <None Include="Assets\IsoGrid\Rooms\EndRoom0.txt" />
+    <None Include="Assets\IsoGrid\Rooms\GenRoom0.txt" />
+    <None Include="Assets\IsoGrid\Rooms\StartingRoom0.txt" />
+    <None Include="Assets\IsoGrid\Rooms\GenRoom4.txt" />
+    <None Include="Assets\IsoGrid\Rooms\StartingRoom2.txt" />
+    <None Include="Assets\IsoGrid\Rooms\StartingRoom1.txt" />
+    <None Include="Assets\IsoGrid\Rooms\GenRoom2.txt" />
+    <None Include="Assets\IsoGrid\Rooms\GenRoom5.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Jeffrey/Documents/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

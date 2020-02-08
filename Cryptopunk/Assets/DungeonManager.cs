@@ -51,7 +51,7 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
-            generator = new GridGenerator(24, 3, 3);
+            generator = new GridGenerator(1,0);
         }
         int[][] gridPlan = generator.GetGrid();
         SetUpCamera(gridPlan.Length);
@@ -59,7 +59,7 @@ public class DungeonManager : MonoBehaviour
         grid.GenerateRamps(generator.GetRamps());
         if (!tutorialInfo)
         {
-            grid.GenerateFirewalls(generator.GetFirewalls());
+            //grid.GenerateFirewalls(generator.GetFirewalls());
             //TODO  grid.GenerateDefenses(generator.GetDefences());
             //TODO  grid.GenerateTerminals(generator.GetTerminals());
             //TODO  grid.GenerateSecurityHubs(generator.GetHubs());
