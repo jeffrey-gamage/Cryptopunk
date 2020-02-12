@@ -51,7 +51,7 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
-            generator = new GridGenerator(1,0);
+            generator = new GridGenerator(4,0);
         }
         int[][] gridPlan = generator.GetGrid();
         SetUpCamera(gridPlan.Length);
@@ -59,14 +59,14 @@ public class DungeonManager : MonoBehaviour
         grid.GenerateRamps(generator.GetRamps());
         if (!tutorialInfo)
         {
-            //grid.GenerateFirewalls(generator.GetFirewalls());
-            //TODO  grid.GenerateDefenses(generator.GetDefences());
-            //TODO  grid.GenerateTerminals(generator.GetTerminals());
-            //TODO  grid.GenerateSecurityHubs(generator.GetHubs());
-            //TODO  grid.GenerateEnemies(generator.GetEnemies());
-            //TODO  grid.GeneratePorts(generator.GetPorts());
+            grid.GenerateFirewalls(generator.GetFirewalls());
+            grid.GenerateDefenses(generator.GetDefences());
+            grid.GenerateTerminals(generator.GetTerminals());
+            grid.GenerateSecurityHubs(generator.GetHubs());
+            grid.GenerateEnemies(generator.GetEnemies());
+            grid.GeneratePorts(generator.GetPorts());
             //TODO  grid.AssignControl(generator.GetTerminalControlledObjects());
-            //TODO  grid.PlaceLoot(generator.GetLoot());
+            grid.PlaceLoot(generator.GetLoot());
         }
         else
         {

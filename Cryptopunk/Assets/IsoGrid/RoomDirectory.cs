@@ -8,13 +8,11 @@ public class RoomDirectory : MonoBehaviour
 {
     //container for text room layouts
     //to be prefabbed once for each corp
-    public static RoomDirectory instance;
     public TextAsset[] STARTING_ROOMS;
     public TextAsset[] GENERAL_ROOMS;
     public TextAsset[] FINAL_ROOMS;
     void Start()
     {
-        instance = this;
     }
 
     // Update is called once per frame
@@ -43,6 +41,11 @@ public class RoomDirectory : MonoBehaviour
             availableIndices.RemoveAt(i);
         }
         return genRoomIndices;
+    }
+
+    internal static RoomDirectory GetInstance()
+    {
+        return FindObjectOfType<RoomDirectory>();
     }
 
     internal int GetFinalRoomIndex()

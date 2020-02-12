@@ -120,6 +120,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &7389379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7389381}
+  - component: {fileID: 7389380}
+  m_Layer: 0
+  m_Name: PersistentState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &7389380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ca84c51fb22d5242a2feaa69bcb6696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingPrograms:
+  - {fileID: 8847390588398665581, guid: 119aa54ab4c655b48b6fcfacf6ede377, type: 3}
+  - {fileID: 8847390588398665581, guid: 55125c16779a1754992d196b9ef0102f, type: 3}
+  - {fileID: 8847390588398665581, guid: 09de20a9d86bb254183bffd87c7b68f5, type: 3}
+  startingCredits: 250
+  schemaLibrary: []
+--- !u!4 &7389381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7389379}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9, y: 0.7, z: 4.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &47472900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -960,6 +1009,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 86580a264ea3e7f40bbdedc1bfb85073, type: 3}
   - {fileID: 4900000, guid: d8c3e8b9a9b71dd47934aeb385b3ba61, type: 3}
   - {fileID: 4900000, guid: 60ddf59728e0d214ca33ef73291c3e77, type: 3}
+  - {fileID: 4900000, guid: 4ddc51df904762c4b99010952f30e714, type: 3}
   GENERAL_ROOMS:
   - {fileID: 4900000, guid: 40a05d95467903541907e2076b15f734, type: 3}
   - {fileID: 4900000, guid: 81a609634c083564c82e39f7e5ba1a7a, type: 3}
@@ -967,8 +1017,16 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 70ac1e21ee61f444fb8b3bfdff86ff27, type: 3}
   - {fileID: 4900000, guid: 790a6117fad98744fb5ef8ae513edbb4, type: 3}
   - {fileID: 4900000, guid: b79cc3bb2d6f674458a532534fc2c6f0, type: 3}
+  - {fileID: 4900000, guid: 33fbe96f0110922458f27ec07f1d260c, type: 3}
+  - {fileID: 4900000, guid: c744d790507f08f4ea03c1eeb1645f8c, type: 3}
+  - {fileID: 4900000, guid: 43dfe63b21859e94c8c11536358dfe10, type: 3}
+  - {fileID: 4900000, guid: 22c808eb5f94949498289eae4625f9ac, type: 3}
+  - {fileID: 4900000, guid: cd6f326a2dd364b4382f287390eb7348, type: 3}
+  - {fileID: 4900000, guid: 1d689b124ace7ff4183f89bfb7179f11, type: 3}
   FINAL_ROOMS:
   - {fileID: 4900000, guid: 522e7f64753ea9441889cebc9e3fb2eb, type: 3}
+  - {fileID: 4900000, guid: 2e8134d3edcf7014484331afd902d061, type: 3}
+  - {fileID: 4900000, guid: cd89558a48fb19d4d8c58297a7427438, type: 3}
 --- !u!4 &1228498249
 Transform:
   m_ObjectHideFlags: 0

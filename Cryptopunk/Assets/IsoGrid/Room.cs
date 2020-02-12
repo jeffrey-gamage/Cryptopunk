@@ -37,6 +37,11 @@ public class Room
     private int maxZ;
     private int roomY;
 
+    internal enum Orientation
+    {
+        right,forward,left,back
+    }
+
     internal Room(int size)
     {
         this.size = size;
@@ -195,32 +200,395 @@ public class Room
         }
     }
 
-    internal static Room LoadGeneralRoom(int roomIndex, Vector3Int roomCoords, int roomOrientation)
+    internal static Room LoadGeneralRoom(int roomIndex, Vector3Int previousRoomExit, Orientation roomOrientation,RoomDirectory directory)
     {
-        throw new NotImplementedException();
+        TextAsset roomFile = directory.GENERAL_ROOMS[roomIndex];
+        Room newRoom = new Room();
+        newRoom.ParseRoomFile(roomFile.text);
+        newRoom.AdjustOrientation(roomOrientation);
+        newRoom.AttachToPrevious(previousRoomExit, roomOrientation);
+        newRoom.SetBoundaries();
+        newRoom.ConfigureExitHeights();
+        return newRoom;
     }
 
-    internal int GetOrientation(Vector3Int roomCoords)
+    private void SetBoundaries()
     {
-        throw new NotImplementedException();
+        foreach (Vector3Int tile in tiles)
+        {
+            if (tile.x < minX)
+            {
+                minX = tile.x;
+            }
+            if (tile.z < minZ)
+            {
+                minZ = tile.z;
+            }
+            if (tile.x > maxX)
+            {
+                maxX = tile.x;
+            }
+            if (tile.z > maxZ)
+            {
+                maxZ = tile.z;
+            }
+        }
     }
 
-    internal static Room LoadFinalRoom(int roomIndex, Vector3Int roomCoords, int roomOrientation)
+    private void AttachToPrevious(Vector3Int previousRoomExit, Orientation roomOrientation)
     {
-        throw new NotImplementedException();
+        Debug.Log("attaching to exit: " + previousRoomExit.ToString());
+        Vector3Int connectionPoint = entrance;
+        Vector3Int connectorDirectionVector = Vector3Int.zero;
+        switch (roomOrientation)
+        {
+            case Orientation.right:
+                {
+                    connectorDirectionVector = new Vector3Int(-1, 0, 0);
+                    break;
+                }
+            case Orientation.left:
+                {
+                    connectorDirectionVector = new Vector3Int(1, 0, 0);
+                    break;
+                }
+            case Orientation.forward:
+                {
+                    connectorDirectionVector = new Vector3Int(0, 0, -1);
+                    break;
+                }
+            case Orientation.back:
+                {
+                    connectorDirectionVector = new Vector3Int(0, 0, 1);
+                    break;
+                }
+        }
+
+        connectionPoint += connectorDirectionVector;
+        Debug.Log("Adding connector tile: " + connectionPoint.ToString());
+        tiles.Add(connectionPoint);
+        while (connectionPoint.y != previousRoomExit.y)
+        {
+            connectionPoint += connectorDirectionVector;
+            if (connectionPoint.y > previousRoomExit.y)
+            {
+                connectionPoint += Vector3Int.down;
+                RampCoordinates newRamp;
+                newRamp.coord1 = connectionPoint;
+                newRamp.coord2 = connectionPoint - connectorDirectionVector-Vector3Int.down;
+                rampCoordinates.Add(newRamp);
+                Debug.Log("Adding ramp: " + newRamp.coord1.ToString() + ", " + newRamp.coord2.ToString());
+                Debug.Log("Adding connector tile: " + connectionPoint.ToString());
+                tiles.Add(connectionPoint);
+            }
+            else if (connectionPoint.y < previousRoomExit.y)
+            {
+                connectionPoint += Vector3Int.up;
+                RampCoordinates newRamp;
+                newRamp.coord1 = connectionPoint;
+                newRamp.coord2 = connectionPoint - connectorDirectionVector-Vector3Int.up;
+                rampCoordinates.Add(newRamp);
+                Debug.Log("Adding ramp: " + newRamp.coord1.ToString() + ", " + newRamp.coord2.ToString());
+                Debug.Log("Adding connector tile: " + connectionPoint.ToString());
+                tiles.Add(connectionPoint);
+            }
+        }
+
+        Vector3Int translationVector = previousRoomExit-connectorDirectionVector - connectionPoint;
+        Debug.Log("translation vector: " + translationVector.ToString());
+        TranslateEverything(translationVector);
+    }
+
+    private void TranslateEverything(Vector3Int translationVector)
+    {
+        TranslateAll(ref tiles, translationVector);
+        TranslateAll(ref exits, translationVector);
+        TranslateAll(ref rampCoordinates, translationVector);
+        TranslateAll(ref firewalls, translationVector);
+        TranslateAll(ref securityHubs, translationVector);
+        TranslateAll(ref enemies, translationVector);
+        TranslateAll(ref defences, translationVector);
+        TranslateAll(ref loot, translationVector);
+        TranslateAll(ref ports, translationVector);
+        TranslateAll(ref terminals, translationVector);
+        TranslateAll(ref patrolRoutes, translationVector);
+        entrance += translationVector;
+    }
+
+    private void TranslateAll(ref List<List<Vector3Int>> patrolRoutes, Vector3Int translationVector)
+    {
+        if (patrolRoutes.Count > 0)
+        {
+            for (int i = 0; i < patrolRoutes.Count; i++)
+            {
+                if (patrolRoutes[i].Count > 0)
+                {
+                    for (int j = 0; j < patrolRoutes[i].Count; j++)
+                    {
+                        patrolRoutes[i][j] += translationVector;
+                    }
+                }
+            }
+        }
+    }
+
+    private void TranslateAll(ref List<RampCoordinates> rampCoordinates, Vector3Int translationVector)
+    {
+        if (rampCoordinates.Count > 0)
+        {
+            for (int i = 0; i < rampCoordinates.Count; i++)
+            {
+                RampCoordinates translatedCoords;
+                translatedCoords.coord1 = rampCoordinates[i].coord1+ translationVector;
+                translatedCoords.coord2 = rampCoordinates[i].coord2+translationVector;
+                rampCoordinates[i] = translatedCoords;
+            }
+        }
+    }
+
+    private void TranslateAll(ref List<Vector3Int> coordinates, Vector3Int translationVector)
+    {
+        if (coordinates.Count > 0)
+        {
+            for (int i = 0; i < coordinates.Count; i++)
+            {
+                coordinates[i] += translationVector;
+            }
+        }
+    }
+
+    private void AdjustOrientation(Orientation roomOrientation)
+    {
+        if(roomOrientation==Orientation.left)
+        {
+            FlipX(ref tiles);
+            FlipX(ref exits);
+            FlipX(ref rampCoordinates);
+            FlipX(ref firewalls);
+            FlipX(ref securityHubs);
+            FlipX(ref enemies);
+            FlipX(ref defences);
+            FlipX(ref loot);
+            FlipX(ref ports);
+            FlipX(ref terminals);
+            FlipX(ref patrolRoutes);
+            entrance += new Vector3Int(1, 0, 0) * (maxX - entrance.x * 2);
+        }
+        if(roomOrientation==Orientation.forward)
+        {
+            FlipDiagonal(ref tiles);
+            FlipDiagonal(ref exits);
+            FlipDiagonal(ref rampCoordinates);
+            FlipDiagonal(ref firewalls);
+            FlipDiagonal(ref securityHubs);
+            FlipDiagonal(ref enemies);
+            FlipDiagonal(ref defences);
+            FlipDiagonal(ref loot);
+            FlipDiagonal(ref ports);
+            FlipDiagonal(ref terminals);
+            FlipDiagonal(ref patrolRoutes);
+            entrance = new Vector3Int(entrance.z,entrance.y,entrance.x);
+        }
+        if(roomOrientation==Orientation.back||roomOrientation==Orientation.right)
+        {
+            FlipZ(ref tiles);
+            FlipZ(ref exits);
+            FlipZ(ref rampCoordinates);
+            FlipZ(ref firewalls);
+            FlipZ(ref securityHubs);
+            FlipZ(ref enemies);
+            FlipZ(ref defences);
+            FlipZ(ref loot);
+            FlipZ(ref ports);
+            FlipZ(ref terminals);
+            FlipZ(ref patrolRoutes);
+            entrance += new Vector3Int(0, 0, 1) * (maxX - entrance.z * 2);
+        }
+    }
+
+    private void FlipZ(ref List<List<Vector3Int>> patrolRoutes)
+    {
+        if (patrolRoutes.Count > 0)
+        {
+            for(int i=0;i<patrolRoutes.Count;i++)
+            {
+                if (patrolRoutes[i].Count > 0)
+                {
+                    for (int j = 0; j < patrolRoutes[i].Count; j++)
+                    {
+                        patrolRoutes[i][j] += new Vector3Int(0, 0, 1) * (maxZ - patrolRoutes[i][j].z * 2);
+                    }
+                }
+            }
+        }
+    }
+
+    private void FlipZ(ref List<RampCoordinates> rampCoordinates)
+    {
+        if (rampCoordinates.Count > 0)
+        {
+            for (int i = 0; i < rampCoordinates.Count; i++)
+            {
+                RampCoordinates flippedCoords;
+                flippedCoords.coord1 = new Vector3Int(rampCoordinates[i].coord1.x, rampCoordinates[i].coord1.y, maxZ -rampCoordinates[i].coord1.z);
+                flippedCoords.coord2 = new Vector3Int(rampCoordinates[i].coord2.x, rampCoordinates[i].coord2.y, maxZ - rampCoordinates[i].coord2.z);
+                rampCoordinates[i] = flippedCoords;
+            }
+        }
+    }
+
+    private void FlipZ(ref List<Vector3Int> coordinates)
+    {
+        if (coordinates.Count > 0)
+        {
+            for (int i = 0; i < coordinates.Count; i++)
+            {
+                coordinates[i] += new Vector3Int(0,0,1) * (maxZ - coordinates[i].z * 2);
+            }
+        }
+    }
+
+    private void FlipDiagonal(ref List<List<Vector3Int>> patrolRoutes)
+    {
+        if (patrolRoutes.Count > 0)
+        {
+            for (int i = 0; i < patrolRoutes.Count; i++)
+            {
+                if (patrolRoutes[i].Count > 0)
+                {
+                    for (int j = 0; j < patrolRoutes[i].Count; j++)
+                    {
+                        patrolRoutes[i][j] = new Vector3Int(patrolRoutes[i][j].z,patrolRoutes[i][j].y,patrolRoutes[i][j].x);
+                    }
+                }
+            }
+        }
+    }
+
+    private void FlipDiagonal(ref List<RampCoordinates> rampCoordinates)
+    {
+        if (rampCoordinates.Count > 0)
+        {
+            for (int i = 0; i < rampCoordinates.Count; i++)
+            {
+                RampCoordinates flippedCoords;
+                flippedCoords.coord1 = new Vector3Int(rampCoordinates[i].coord1.z, rampCoordinates[i].coord1.y, rampCoordinates[i].coord1.x);
+                flippedCoords.coord2 = new Vector3Int(rampCoordinates[i].coord2.z, rampCoordinates[i].coord2.y, rampCoordinates[i].coord2.x);
+                rampCoordinates[i] = flippedCoords;
+            }
+        }
+    }
+
+    private void FlipDiagonal(ref List<Vector3Int> coordinates)
+    {
+        if (coordinates.Count > 0)
+        {
+            for (int i = 0; i < coordinates.Count; i++)
+            {
+                coordinates[i] = new Vector3Int(coordinates[i].z,coordinates[i].y,coordinates[i].x);
+            }
+        }
+    }
+
+    private void FlipX(ref List<List<Vector3Int>> patrolRoutes)
+    {
+        if (patrolRoutes.Count > 0)
+        {
+            for (int i = 0; i < patrolRoutes.Count; i++)
+            {
+                if (patrolRoutes[i].Count > 0)
+                {
+                    for (int j = 0; j < patrolRoutes[i].Count; j++)
+                    {
+                        patrolRoutes[i][j] += new Vector3Int(1, 0, 0) * (maxX - patrolRoutes[i][j].x * 2);
+                    }
+                }
+            }
+        }
+    }
+
+    private void FlipX(ref List<RampCoordinates> rampCoordinates)
+    {
+        if (rampCoordinates.Count > 0)
+        {
+            for (int i = 0; i < rampCoordinates.Count; i++)
+            {
+                RampCoordinates flippedCoords;
+                flippedCoords.coord1 = new Vector3Int(maxX - rampCoordinates[i].coord1.x,rampCoordinates[i].coord1.y,rampCoordinates[i].coord1.z);
+                flippedCoords.coord2 = new Vector3Int(maxX - rampCoordinates[i].coord2.x, rampCoordinates[i].coord2.y, rampCoordinates[i].coord2.z);
+                rampCoordinates[i] = flippedCoords;
+            }
+        }
+    }
+
+    private void FlipX(ref List<Vector3Int> coordinates)
+    {
+        if (coordinates.Count > 0)
+        {
+            for (int i=0; i < coordinates.Count; i++)
+            {
+                coordinates[i] += Vector3Int.right * (maxX - coordinates[i].x * 2);
+            }
+        }
+    }
+
+    internal Orientation GetOrientation(Vector3Int exit)
+    {
+        if(exit.x==maxX)
+        {
+            return Orientation.right;
+        }
+        if(exit.x==minX)
+        {
+            return Orientation.left;
+        }
+        if(exit.z==maxZ)
+        {
+            return Orientation.forward;
+        }
+        return Orientation.back;
+    }
+
+    internal static Room LoadFinalRoom(int roomIndex, Vector3Int previousRoomExit, Orientation roomOrientation, RoomDirectory directory)
+    {
+        TextAsset roomFile = directory.FINAL_ROOMS[roomIndex];
+        Room newRoom = new Room();
+        newRoom.ParseRoomFile(roomFile.text);
+        newRoom.AdjustOrientation(roomOrientation);
+        newRoom.AttachToPrevious(previousRoomExit, roomOrientation);
+        newRoom.SetBoundaries();
+        return newRoom;
     }
 
     internal Vector3Int GetRandomExit()
     {
-        throw new NotImplementedException();
+        Vector3Int exit = exits[Random.Range(0, exits.Count)];
+        exits.Remove(exit);
+        return exit;
     }
 
-    internal static Room LoadFirstRoom(int roomIndex)
+    internal static Room LoadFirstRoom(int roomIndex, RoomDirectory directory)
     {
-        TextAsset roomFile = RoomDirectory.instance.STARTING_ROOMS[roomIndex];
+        TextAsset roomFile = directory.STARTING_ROOMS[roomIndex];
         Room newRoom = new Room();
         newRoom.ParseRoomFile(roomFile.text);
+        newRoom.SetBoundaries();
+        newRoom.ConfigureExitHeights();
         return newRoom;
+    }
+
+    private void ConfigureExitHeights()
+    {
+        foreach(Vector3Int tile in tiles)
+        {
+            for(int i=0;i<exits.Count;i++)
+            {
+                if(tile.x==exits[i].x&&tile.z==exits[i].z)
+                {
+                    exits[i] += Vector3Int.up * tile.y;
+                }
+            }
+        }
     }
 
     private void ParseRoomFile(string roomText)

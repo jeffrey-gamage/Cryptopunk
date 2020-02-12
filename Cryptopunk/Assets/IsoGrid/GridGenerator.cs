@@ -25,28 +25,32 @@ public class GridGenerator
         instance = this;
         rooms = new List<Room>();
 
-        int firstRoomIndex = RoomDirectory.instance.GetFirstRoomIndex();
-        int[] genRoomIndices = RoomDirectory.instance.GetGenRoomIndices(numRooms);
-        int finalRoomIndex = RoomDirectory.instance.GetFinalRoomIndex();
+        RoomDirectory directory = RoomDirectory.GetInstance();
+        int firstRoomIndex = directory.GetFirstRoomIndex();
+        int[] genRoomIndices = directory.GetGenRoomIndices(numRooms);
+        int finalRoomIndex = directory.GetFinalRoomIndex();
 
-        rooms.Add(Room.LoadFirstRoom(firstRoomIndex));
+        rooms.Add(Room.LoadFirstRoom(firstRoomIndex,directory));
         Room previousRoom;
-        Vector3Int roomCoords;
-        int roomOrientation;
+        Vector3Int previousRoomExit;
+        Room.Orientation roomOrientation;
 
-        if (numRooms > 1)
+        if (numRooms > 2)
         {
             for (int i = 1; i < numRooms - 1; i++)
             {
                 previousRoom = SelectRandomRoom();
-                roomCoords = previousRoom.GetRandomExit();
-                roomOrientation = previousRoom.GetOrientation(roomCoords);
-                rooms.Add(Room.LoadGeneralRoom(genRoomIndices[i - 1], roomCoords, roomOrientation));
+                previousRoomExit = previousRoom.GetRandomExit();
+                roomOrientation = previousRoom.GetOrientation(previousRoomExit);
+                rooms.Add(Room.LoadGeneralRoom(genRoomIndices[i - 1], previousRoomExit, roomOrientation,directory));
             }
+        }
+        if(numRooms>1)
+        {
             previousRoom = SelectRandomRoom();
-            roomCoords = previousRoom.GetRandomExit();
-            roomOrientation = previousRoom.GetOrientation(roomCoords);
-            rooms.Add(Room.LoadFinalRoom(finalRoomIndex, roomCoords, roomOrientation));
+            previousRoomExit = previousRoom.GetRandomExit();
+            roomOrientation = previousRoom.GetOrientation(previousRoomExit);
+            rooms.Add(Room.LoadFinalRoom(finalRoomIndex, previousRoomExit, roomOrientation,directory));
         }
         DefineGridBoundaries();
     }
@@ -171,6 +175,12 @@ public class GridGenerator
 
     private Room SelectRandomRoom()
     {
+        Room selectedRoom = null;
+        do
+        {
+            selectedRoom = rooms[Random.Range(0, rooms.Count)];
+        }
+        while (selectedRoom.exits.Count == 0);
         return rooms[Random.Range(0, rooms.Count)];
     }
 
