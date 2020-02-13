@@ -181,7 +181,7 @@ public class GridGenerator
             selectedRoom = rooms[Random.Range(0, rooms.Count)];
         }
         while (selectedRoom.exits.Count == 0);
-        return rooms[Random.Range(0, rooms.Count)];
+        return selectedRoom;
     }
 
     private void DefineGridBoundaries()
@@ -221,7 +221,7 @@ public class GridGenerator
     {
         foreach(Room room in rooms)
         {
-            room.AdjustCoordinatesToMinimizedGrid(minX,minZ);
+            room.TranslateEverything(new Vector3Int(-1, 0, 0) * minX + new Vector3Int(0, 0, -1 * minZ));
         }
     }
 

@@ -63,7 +63,11 @@ public class DungeonManager : MonoBehaviour
             grid.GenerateDefenses(generator.GetDefences());
             grid.GenerateTerminals(generator.GetTerminals());
             grid.GenerateSecurityHubs(generator.GetHubs());
-            grid.GenerateEnemies(generator.GetEnemies());
+            foreach(Room room in generator.rooms)
+            {
+                List<EnemyProgram> enemiesInRoom = grid.GenerateEnemies(room.GetEnemies());
+                grid.AssignPatrolRoutes(ref enemiesInRoom, room.patrolRoutes);
+            }
             grid.GeneratePorts(generator.GetPorts());
             //TODO  grid.AssignControl(generator.GetTerminalControlledObjects());
             grid.PlaceLoot(generator.GetLoot());

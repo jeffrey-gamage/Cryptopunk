@@ -17,7 +17,6 @@ public class DungeonGrid : MonoBehaviour
     [SerializeField] GameObject lootPrefab;
     [SerializeField] GameObject deploymentZone;
     private DungeonTile[][] tileGrid;
-    [SerializeField] int numSegments = 3;
     [SerializeField] int searchSize = 8;
 
     internal void GenerateGrid(int[][] gridHeights)
@@ -59,6 +58,20 @@ public class DungeonGrid : MonoBehaviour
             else
             {
                 Debug.LogWarning("Attempeted to place firewall at invalid coordinates " + firewallLocation.ToString());
+            }
+        }
+    }
+
+    internal void AssignPatrolRoutes(ref List<EnemyProgram> enemiesInRoom, List<List<Vector3Int>> patrolRoutes)
+    {
+        foreach(List<Vector3Int> patrolRoute in patrolRoutes)
+        {
+            foreach(EnemyProgram enemy in enemiesInRoom)
+            {
+                if(enemy.myTile.xCoord==patrolRoute[0].x&&enemy.myTile.zCoord==patrolRoute[0].z)
+                {
+                    enemy.SetWaypoints(patrolRoute.ToArray());
+                }
             }
         }
     }
@@ -148,13 +161,16 @@ public class DungeonGrid : MonoBehaviour
 
     }
 
-    internal void GenerateEnemies(Vector3Int[] enemySpawns)
+    internal List<EnemyProgram> GenerateEnemies(Vector3Int[] enemySpawns)
     {
+        List<EnemyProgram> enemies = new List<EnemyProgram>();
         foreach(Vector3Int spawn in enemySpawns)
         {
             EnemyProgram newProgram = Instantiate(enemyPrefabs[spawn.y]).GetComponent<EnemyProgram>();
+            enemies.Add(newProgram);
             DungeonManager.instance.DeploySecurity(newProgram, tileGrid[spawn.x][spawn.z]);
         }
+        return enemies;
     }
 
     internal void GenerateRamps(List<RampCoordinates> rampCoordinates)

@@ -16,7 +16,7 @@ public class EnemyProgram : Program
     [SerializeField] GameObject sightIndicator;
     [SerializeField] float sightPreviewOffset = 0.11f;
     private int nextWaypointIndex = 0;
-    internal List<DungeonTile> waypoints;
+    [SerializeField] internal List<DungeonTile> waypoints; //TODO: remove serialization once testing is finished
     private Hackable hackable;
     internal bool hasMoved = false;
     private bool isActiveAI = false;
@@ -165,6 +165,11 @@ public class EnemyProgram : Program
 
     private void Patrol()
     {
+        if (!(waypoints.Count > 0))
+        {
+            Debug.Log("Patrol route failed to map");
+            waypoints.Add(myTile);
+        }
         if (myTile == waypoints[nextWaypointIndex])
         {
             nextWaypointIndex = (nextWaypointIndex + 1) % waypoints.Count;

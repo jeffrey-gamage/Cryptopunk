@@ -78,12 +78,17 @@ public class Room
         }
     }
 
+    internal Vector3Int[] GetEnemies()
+    {
+        return enemies.ToArray();
+    }
+
     internal static Room LoadFirstRoom(int roomIndex, RoomDirectory directory)
     {
         TextAsset roomFile = directory.STARTING_ROOMS[roomIndex];
         Room newRoom = new Room();
         newRoom.ParseRoomFile(roomFile.text);
-        newRoom.SetBoundaries();
+        newRoom.SetRoomBoundaries();
         newRoom.ConfigureExitHeights();
         return newRoom;
     }
@@ -94,7 +99,7 @@ public class Room
         newRoom.ParseRoomFile(roomFile.text);
         newRoom.AdjustOrientation(roomOrientation);
         newRoom.AttachToPrevious(previousRoomExit, roomOrientation);
-        newRoom.SetBoundaries();
+        newRoom.SetRoomBoundaries();
         newRoom.ConfigureExitHeights();
         return newRoom;
     }
@@ -106,10 +111,10 @@ public class Room
         newRoom.ParseRoomFile(roomFile.text);
         newRoom.AdjustOrientation(roomOrientation);
         newRoom.AttachToPrevious(previousRoomExit, roomOrientation);
-        newRoom.SetBoundaries();
+        newRoom.SetRoomBoundaries();
         return newRoom;
     }
-    private void SetBoundaries()
+    private void SetRoomBoundaries()
     {
         foreach (Vector3Int tile in tiles)
         {
@@ -134,7 +139,6 @@ public class Room
 
     private void AttachToPrevious(Vector3Int previousRoomExit, Orientation roomOrientation)
     {
-        Debug.Log("attaching to exit: " + previousRoomExit.ToString());
         Vector3Int connectionPoint = entrance;
         Vector3Int connectorDirectionVector = Vector3Int.zero;
         switch (roomOrientation)
@@ -162,7 +166,6 @@ public class Room
         }
 
         connectionPoint += connectorDirectionVector;
-        Debug.Log("Adding connector tile: " + connectionPoint.ToString());
         tiles.Add(connectionPoint);
         while (connectionPoint.y != previousRoomExit.y)
         {
@@ -174,8 +177,6 @@ public class Room
                 newRamp.coord1 = connectionPoint;
                 newRamp.coord2 = connectionPoint - connectorDirectionVector-Vector3Int.down;
                 rampCoordinates.Add(newRamp);
-                Debug.Log("Adding ramp: " + newRamp.coord1.ToString() + ", " + newRamp.coord2.ToString());
-                Debug.Log("Adding connector tile: " + connectionPoint.ToString());
                 tiles.Add(connectionPoint);
             }
             else if (connectionPoint.y < previousRoomExit.y)
@@ -185,18 +186,15 @@ public class Room
                 newRamp.coord1 = connectionPoint;
                 newRamp.coord2 = connectionPoint - connectorDirectionVector-Vector3Int.up;
                 rampCoordinates.Add(newRamp);
-                Debug.Log("Adding ramp: " + newRamp.coord1.ToString() + ", " + newRamp.coord2.ToString());
-                Debug.Log("Adding connector tile: " + connectionPoint.ToString());
                 tiles.Add(connectionPoint);
             }
         }
 
         Vector3Int translationVector = previousRoomExit-connectorDirectionVector - connectionPoint;
-        Debug.Log("translation vector: " + translationVector.ToString());
         TranslateEverything(translationVector);
     }
 
-    private void TranslateEverything(Vector3Int translationVector)
+    internal void TranslateEverything(Vector3Int translationVector)
     {
         TranslateAll(ref tiles, translationVector);
         TranslateAll(ref exits, translationVector);
