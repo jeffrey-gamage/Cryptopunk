@@ -210,6 +210,11 @@ public class Room
         entrance += translationVector;
     }
 
+    internal bool HasTerminalTargets()
+    {
+        return defences.Count > 0 || firewalls.Count > 0;
+    }
+
     private void TranslateAll(ref List<List<Vector3Int>> patrolRoutes, Vector3Int translationVector)
     {
         if (patrolRoutes.Count > 0)
