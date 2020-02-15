@@ -257,6 +257,7 @@ public class Program : MonoBehaviour
     {
         DungeonManager.instance.RemoveProgram(this);
         DungeonManager.instance.UpdateVisibility();
+        myTile.Vacate(this);
         Destroy(gameObject);
     }
 
