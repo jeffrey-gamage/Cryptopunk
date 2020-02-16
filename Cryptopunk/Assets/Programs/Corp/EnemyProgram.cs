@@ -167,7 +167,7 @@ public class EnemyProgram : Program
     {
         if (!(waypoints.Count > 0))
         {
-            Debug.Log("Patrol route failed to map");
+            Debug.Log("Patrol route failed to map at coords: "+myTile.xCoord.ToString()+", "+myTile.zCoord.ToString());
             waypoints.Add(myTile);
         }
         if (myTile == waypoints[nextWaypointIndex])
@@ -251,5 +251,12 @@ public class EnemyProgram : Program
     {
         ClearSightPreview();
         base.Die();
+    }
+
+    internal void SetTile(DungeonTile dungeonTile)
+    {
+        myTile = dungeonTile;
+        hackable = GetComponent<Hackable>();
+        hackable.myTile = dungeonTile;
     }
 }

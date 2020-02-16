@@ -164,8 +164,57 @@ public class GridGenerator
 
     internal Vector2Int[] GetTerminalControlledObjects()
     {
-        //TODO
-        throw new NotImplementedException();
+        List<Vector2Int> controlAssignments = new List<Vector2Int>();
+        List<Room> controllableRooms = new List<Room>();
+        foreach(Room room in rooms)
+        {
+            if(room.HasTerminalTargets())
+            {
+                controllableRooms.Add(room);
+            }
+        }
+        AssignControlAll(ref controlAssignments, controllableRooms);
+        return controlAssignments.ToArray();
+    }
+
+    private void AssignControlAll(ref List<Vector2Int> controlAssignments, List<Room> controllableRooms)
+    {
+        if (GetTerminals().Length > 0)
+        {
+            for(int i=0;i<GetTerminals().Length;i++)
+            {
+                if(controllableRooms.Count>0)
+                {
+                    int selectionIndex = Random.Range(0, controllableRooms.Count);
+                    AssignControl(ref controlAssignments, i, controllableRooms[selectionIndex]);
+                    controllableRooms.RemoveAt(selectionIndex);
+                }
+            }
+        }
+    }
+
+    private void AssignControl(ref List<Vector2Int> controlAssignments, int terminalNum, Room room)
+    {
+        foreach(Vector3Int firewall in room.firewalls)
+        {
+            foreach(Hackable generatedFirewall in DungeonManager.instance.hackableObjects)
+            {
+                if(generatedFirewall.myTile.xCoord==firewall.x&&generatedFirewall.myTile.zCoord==firewall.z)
+                {
+                    controlAssignments.Add(new Vector2Int(terminalNum, DungeonManager.instance.hackableObjects.IndexOf(generatedFirewall)));
+                }
+            }
+        }
+        foreach (Vector3Int staticDefense in room.defences)
+        {
+            foreach (Hackable generatedDefense in DungeonManager.instance.hackableObjects)
+            {
+                if (generatedDefense.myTile.xCoord == staticDefense.x && generatedDefense.myTile.zCoord == staticDefense.z)
+                {
+                    controlAssignments.Add(new Vector2Int(terminalNum, DungeonManager.instance.hackableObjects.IndexOf(generatedDefense)));
+                }
+            }
+        }
     }
 
     internal List<Vector3Int> GetStartingArea()

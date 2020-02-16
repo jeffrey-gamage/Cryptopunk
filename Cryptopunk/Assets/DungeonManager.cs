@@ -69,7 +69,7 @@ public class DungeonManager : MonoBehaviour
                 grid.AssignPatrolRoutes(ref enemiesInRoom, room.patrolRoutes);
             }
             grid.GeneratePorts(generator.GetPorts());
-            //TODO  grid.AssignControl(generator.GetTerminalControlledObjects());
+            grid.AssignControl(generator.GetTerminalControlledObjects());
             grid.PlaceLoot(generator.GetLoot());
         }
         else
@@ -337,7 +337,7 @@ public class DungeonManager : MonoBehaviour
 
     internal void DeploySecurity(EnemyProgram enemy, DungeonTile dungeonTile)
     {
-        enemy.myTile = dungeonTile;
+        enemy.SetTile(dungeonTile);
         enemy.transform.position = dungeonTile.GetOccupyingCoordinates(enemy.IsFlying());
         enemyPrograms.Add(enemy);
         dungeonTile.Occupy(enemy);
