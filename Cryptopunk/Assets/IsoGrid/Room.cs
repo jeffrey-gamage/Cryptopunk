@@ -632,6 +632,12 @@ public class Room
                                 loot.Add(new Vector3Int(x, 0, z));
                                 break;
                             }
+                        case 'V':
+                            {
+                                loot.Add(new Vector3Int(x, 0, z));
+                                firewalls.Add(new Vector3Int(x, 0, z));
+                                break;
+                            }
                         case 'T':
                             {
                                 terminals.Add(new Vector3Int(x, 0, z));

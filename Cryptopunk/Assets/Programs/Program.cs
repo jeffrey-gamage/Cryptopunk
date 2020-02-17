@@ -45,9 +45,9 @@ public class Program : MonoBehaviour
         HandleMovement();
     }
 
-    private void CollectLoot()
+    private void AttemptCollectLoot()
     {
-        if(myTile&&myTile.loot&&IsControlledByPlayer())
+        if(myTile&&myTile.loot&&IsControlledByPlayer()&&DungeonManager.instance.CanCollectLoot(myTile))
         {
             myTile.loot.Yield();
         }
@@ -69,7 +69,7 @@ public class Program : MonoBehaviour
                 else
                 {
                     myTile = movePath[0];
-                    CollectLoot();
+                    AttemptCollectLoot();
                     movePath.Remove(myTile);
                     DungeonManager.instance.UpdateVisibility();
                 }

@@ -92,6 +92,25 @@ public class DungeonManager : MonoBehaviour
         PrepareNextDeployment();
     }
 
+    internal bool CanCollectLoot(DungeonTile lootTile)
+    {
+        foreach(EnemyProgram enemy in enemyPrograms)
+        {
+            if(enemy.myTile==lootTile&!enemy.IsControlledByPlayer())
+            {
+                return false;
+            }
+        }
+        foreach (Hackable security in hackableObjects)
+        {
+            if (security.myTile == lootTile & security.isEnabled)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private static void SetUpCamera(int gridSize)
     {
         CameraContol cameraContol = FindObjectOfType<CameraContol>();

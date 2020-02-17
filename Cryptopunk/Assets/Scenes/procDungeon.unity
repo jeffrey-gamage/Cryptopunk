@@ -1027,6 +1027,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 522e7f64753ea9441889cebc9e3fb2eb, type: 3}
   - {fileID: 4900000, guid: 2e8134d3edcf7014484331afd902d061, type: 3}
   - {fileID: 4900000, guid: cd89558a48fb19d4d8c58297a7427438, type: 3}
+  - {fileID: 4900000, guid: 11ee3367f4f75414dbe1b7dbd9a863c6, type: 3}
 --- !u!4 &1228498249
 Transform:
   m_ObjectHideFlags: 0
@@ -1169,7 +1170,6 @@ MonoBehaviour:
     type: 3}
   deploymentZone: {fileID: 887745695631915783, guid: 4b9c1ec94336749429409b4d8023e76f,
     type: 3}
-  numSegments: 3
   searchSize: 8
 --- !u!4 &1479125997
 Transform:
