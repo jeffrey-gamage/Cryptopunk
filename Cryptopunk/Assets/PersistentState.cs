@@ -7,6 +7,7 @@ public class PersistentState : MonoBehaviour
 {
     private List<GameObject> ownedPrograms;
     internal int credits;
+    internal int progress;
     [SerializeField] List<GameObject> startingPrograms;
     [SerializeField] int startingCredits = 250;
     [SerializeField] GameObject[] schemaLibrary;
@@ -33,6 +34,7 @@ public class PersistentState : MonoBehaviour
     {
         credits = startingCredits;
         ownedPrograms = startingPrograms;
+        progress = 0;
     }
 
     internal void AddProgram(GameObject newProgramSchema)
