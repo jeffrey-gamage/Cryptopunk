@@ -189,11 +189,12 @@ MonoBehaviour:
   isAnimating: 0
   maxSize: 5
   power: 3
-  speed: 4
+  speed: 5
   range: 1
-  sight: 4
+  sight: 5
   breach: 1
-  keywords: []
+  keywords:
+  - Armored
   myAttack: {fileID: 3597810718955383176, guid: 6bd187128c5d7b64db0e21debd67e3a0,
     type: 3}
   myBreach: {fileID: 3597810718955383176, guid: 71cf1953440f91d4d87f06d4f071002d,

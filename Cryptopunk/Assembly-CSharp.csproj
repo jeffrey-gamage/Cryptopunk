@@ -71,6 +71,7 @@
     <Compile Include="Assets\IsoGrid\Room.cs" />
     <Compile Include="Assets\IsoGrid\RoomDirectory.cs" />
     <Compile Include="Assets\IsoGrid\TutorialGridGenerator.cs" />
+    <Compile Include="Assets\Menu\Menu.cs" />
     <Compile Include="Assets\Objects\Loot.cs" />
     <Compile Include="Assets\Objects\Obstacles\Firewall.cs" />
     <Compile Include="Assets\Objects\Port.cs" />

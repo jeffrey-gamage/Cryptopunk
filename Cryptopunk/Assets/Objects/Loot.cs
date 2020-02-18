@@ -19,6 +19,9 @@ public class Loot : MonoBehaviour
         {
             schemaLibrary = new List<string>();
             schemaLibrary.Add("Harrier");
+            schemaLibrary.Add("Troll");
+            schemaLibrary.Add("Assassin");
+            schemaLibrary.Add("Bug");
             isLibraryInitialized = true;
         }
     }

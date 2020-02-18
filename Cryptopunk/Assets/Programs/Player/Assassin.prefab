@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4094432031296718229
+--- !u!1 &7247997092584460856
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,36 +8,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8782822845505759309}
-  - component: {fileID: 2105376964430345135}
+  - component: {fileID: 8037439351302705805}
+  - component: {fileID: 3067393431832091435}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8782822845505759309
+--- !u!4 &8037439351302705805
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4094432031296718229}
+  m_GameObject: {fileID: 7247997092584460856}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0.51, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0}
   m_Children: []
   m_Father: {fileID: 4083519901496748975}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
---- !u!212 &2105376964430345135
+--- !u!212 &3067393431832091435
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4094432031296718229}
+  m_GameObject: {fileID: 7247997092584460856}
   m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -69,12 +69,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 425181468f56d9946bf801a5264e957d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d8e342b7b5e57804cb8865cd7faaf258, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -92,9 +92,9 @@ GameObject:
   - component: {fileID: 3672195777505167934}
   - component: {fileID: 1959233367652890180}
   - component: {fileID: 1110286489082683140}
-  - component: {fileID: 1785443426260888412}
+  - component: {fileID: 5807592590764673350}
   m_Layer: 0
-  m_Name: Oculus
+  m_Name: Assassin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,10 +108,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8847390588398665581}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 0.3, z: 9}
+  m_LocalPosition: {x: 13, y: 0, z: 9}
   m_LocalScale: {x: 0.75, y: 0.2, z: 0.75}
   m_Children:
-  - {fileID: 8782822845505759309}
+  - {fileID: 8037439351302705805}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -174,7 +174,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &1785443426260888412
+--- !u!114 &5807592590764673350
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,14 +187,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAnimating: 0
-  maxSize: 2
-  power: 0
-  speed: 8
-  range: 0
-  sight: 8
-  breach: 0
+  maxSize: 4
+  power: 3
+  speed: 4
+  range: 5
+  sight: 6
+  breach: 1
   keywords:
-  - Flying
   - Ghost
   myAttack: {fileID: 3597810718955383176, guid: 6bd187128c5d7b64db0e21debd67e3a0,
     type: 3}

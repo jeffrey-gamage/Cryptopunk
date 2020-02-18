@@ -132,6 +132,10 @@ public class Program : MonoBehaviour
         hasAttacked = false;
         hasBeenSpotted = false;
         movesLeft = speed;
+        if(keywords.Contains("Recover"))
+        {
+            size = Math.Min(maxSize, size + 1);
+        }
     }
 
     internal virtual void OnMouseDown()
@@ -246,6 +250,10 @@ public class Program : MonoBehaviour
 
     internal virtual void Damage(int damageAmount)
     {
+        if(keywords.Contains("armored")&&damageAmount>0)
+        {
+            damageAmount--;
+        }
         size -= damageAmount;
         if(size<=0)
         {

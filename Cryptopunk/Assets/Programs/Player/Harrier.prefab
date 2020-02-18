@@ -189,7 +189,7 @@ MonoBehaviour:
   isAnimating: 0
   maxSize: 4
   power: 3
-  speed: 5
+  speed: 6
   range: 1
   sight: 4
   breach: 2
