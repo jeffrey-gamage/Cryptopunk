@@ -7,7 +7,7 @@ public class Loot : MonoBehaviour
 {
     public int credits = 50;
     public String schema;
-    private static List<String> schemaLibrary;
+    private static List<String> schemaNames;
     private bool isMissionObjective = false;
     private static bool isLibraryInitialized = false;
     // Start is called before the first frame update
@@ -17,11 +17,11 @@ public class Loot : MonoBehaviour
     {
         if (!isLibraryInitialized)
         {
-            schemaLibrary = new List<string>();
-            schemaLibrary.Add("Harrier");
-            schemaLibrary.Add("Troll");
-            schemaLibrary.Add("Assassin");
-            schemaLibrary.Add("Bug");
+            schemaNames = new List<string>();
+            foreach(GameObject schema in FindObjectOfType<PersistentState>().schemaLibrary)
+            {
+                schemaNames.Add(schema.name);
+            }
             isLibraryInitialized = true;
         }
     }
@@ -48,7 +48,7 @@ public class Loot : MonoBehaviour
     private static String GetSchema(int i)
     {
         PopulateLibrary();
-        return schemaLibrary[i];
+        return schemaNames[i];
     }
 
     private void AddSchema()

@@ -8,9 +8,10 @@ public class PersistentState : MonoBehaviour
     private List<GameObject> ownedPrograms;
     internal int credits;
     internal int progress;
+    [SerializeField] string filename;
     [SerializeField] List<GameObject> startingPrograms;
     [SerializeField] int startingCredits = 250;
-    [SerializeField] GameObject[] schemaLibrary;
+    [SerializeField] public GameObject[] schemaLibrary;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class PersistentState : MonoBehaviour
         }
         else
         {
+            DontDestroyOnLoad(gameObject);
             CreateStartingPackage();
         }
     }

@@ -85,6 +85,8 @@
     <Compile Include="Assets\Programs\Corp\Hackable.cs" />
     <Compile Include="Assets\Programs\Player\PlayerProgram.cs" />
     <Compile Include="Assets\Programs\Program.cs" />
+    <Compile Include="Assets\shop\InventoryItem.cs" />
+    <Compile Include="Assets\shop\shop.cs" />
     <Compile Include="Assets\TutorialInfo.cs" />
     <Compile Include="Assets\UI\DeploymentZone.cs" />
     <Compile Include="Assets\UI\HackPanel.cs" />

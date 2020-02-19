@@ -31,6 +31,11 @@ L - - - - - - - F - - - - -
 // F = firewall
 // X = exit
 // I = ingress
+//U = turret
+//T= terminal
+//V= vault
+//M=local terminal
+//M=mission objective
 
 ++PATROL ROUTES++
 0,5-2,0
