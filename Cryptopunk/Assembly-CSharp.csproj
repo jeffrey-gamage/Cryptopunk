@@ -72,7 +72,9 @@
     <Compile Include="Assets\IsoGrid\RoomDirectory.cs" />
     <Compile Include="Assets\IsoGrid\TutorialGridGenerator.cs" />
     <Compile Include="Assets\Menus\Desktop.cs" />
+    <Compile Include="Assets\Menus\Exploit.cs" />
     <Compile Include="Assets\Menus\Menu.cs" />
+    <Compile Include="Assets\Menus\MissionSelect.cs" />
     <Compile Include="Assets\Objects\Loot.cs" />
     <Compile Include="Assets\Objects\Obstacles\Firewall.cs" />
     <Compile Include="Assets\Objects\Port.cs" />

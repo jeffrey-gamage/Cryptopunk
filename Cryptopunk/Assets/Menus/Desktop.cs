@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Desktop : MonoBehaviour
 {
-    public void LoadMission()
+    public void Missions()
     {
-        SceneManager.LoadScene("procDungeon");
+        SceneManager.LoadScene("missionSelect");
     }
 
     public void Shop()
