@@ -75,4 +75,10 @@ public class CameraContol : MonoBehaviour
             gameObject.transform.position = center+(gameObject.transform.position-center).normalized * maxPan;
         }
     }
+
+    internal void Configure()
+    {
+        gameObject.transform.position = FindObjectOfType<DeploymentZone>().transform.position;
+        center = DungeonManager.instance.grid.GetCentrePoint();
+    }
 }

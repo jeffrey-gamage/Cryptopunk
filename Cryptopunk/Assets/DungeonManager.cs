@@ -88,6 +88,7 @@ public class DungeonManager : MonoBehaviour
             grid.PlaceLoot(tutorialInfo.GetLootPlacements());
         }
         grid.CreateDeploymentZone(generator.GetDeploymentArea());
+        FindObjectOfType<CameraContol>().Configure();
         grid.ExploreStartingArea(generator.GetStartingArea());
         PrepareNextDeployment();
     }
@@ -325,13 +326,6 @@ public class DungeonManager : MonoBehaviour
     {
         UpdateVisibility();
         mode = Mode.Move;
-        foreach (Program program in playerPrograms)
-        {
-            if (program.size > 0)//check if the program has had start called already
-            {
-                program.OnStartTurn();
-            }
-        }
     }
 
     internal void DeploySelected(DungeonTile dungeonTile)

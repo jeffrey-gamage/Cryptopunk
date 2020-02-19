@@ -76,6 +76,13 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    internal Vector3 GetCentrePoint()
+    {
+        int centreX = tileGrid.Length / 2;
+        int centreZ = tileGrid[0].Length / 2;
+        return tileGrid[centreX][centreZ].transform.position;
+    }
+
     internal void GenerateTerminals(Vector3Int[] terminalLocations)
     {
         foreach (Vector3Int terminalLocation in terminalLocations)
