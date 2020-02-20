@@ -7,7 +7,7 @@ public class Desktop : MonoBehaviour
 {
     public void Missions()
     {
-        SceneManager.LoadScene("missionSelect");
+        SceneManager.LoadScene("missions");
     }
 
     public void Shop()
