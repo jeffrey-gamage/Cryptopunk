@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
@@ -64,6 +65,18 @@ public class MissionParameters : MonoBehaviour
             costIncrease = selectedProgram.GetComponent<Program>().maxSize;
         }
         return kbBudget >= costIncrease;
+    }
+
+    public void BackToMissionSelect()
+    {
+        SceneManager.LoadScene("missions");
+    }
+
+    public void LaunchMission()
+    {
+        gameObject.transform.parent = null;
+        DontDestroyOnLoad(gameObject);
+        SceneManager.LoadScene("procDungeon");
     }
 
     public void SelectSlot(int slotNum)

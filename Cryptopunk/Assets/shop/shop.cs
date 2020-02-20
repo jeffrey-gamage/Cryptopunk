@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 public class shop : MonoBehaviour
 {
     [SerializeField] int inventorySize =3;
-    internal PersistentState playerState;
     internal List<GameObject> inventory;
     [SerializeField] GameObject[] shopItemAnchors;
     [SerializeField] GameObject shopItemPrefab;
@@ -25,12 +24,11 @@ public class shop : MonoBehaviour
 
     private void LoadInventory()
     {
-        playerState = FindObjectOfType<PersistentState>();
         List<GameObject> buyableSchema = new List<GameObject>();
         inventory = new List<GameObject>();
-        foreach(GameObject schema in playerState.schemaLibrary)
+        foreach(GameObject schema in PersistentState.instance.schemaLibrary)
         {
-            if (!playerState.GetOwnedPrograms().Contains(schema))
+            if (!PersistentState.instance.GetOwnedPrograms().Contains(schema))
             {
                 buyableSchema.Add(schema);
             }
@@ -55,8 +53,8 @@ public class shop : MonoBehaviour
 
     internal void Buy(InventoryItem inventoryItem)
     {
-        playerState.AddProgram(inventoryItem.item);
-        playerState.credits -= inventoryItem.cost;
+        PersistentState.instance.AddProgram(inventoryItem.item);
+        PersistentState.instance.credits -= inventoryItem.cost;
         inventory.Remove(inventoryItem.gameObject);
         Destroy(inventoryItem.gameObject);
     }

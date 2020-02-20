@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PersistentState : MonoBehaviour
 {
+    public static PersistentState instance;
     private List<GameObject> ownedPrograms;
     internal int credits;
     internal int progress;
@@ -22,6 +23,7 @@ public class PersistentState : MonoBehaviour
         }
         else
         {
+            instance = this;
             DontDestroyOnLoad(gameObject);
             CreateStartingPackage();
         }

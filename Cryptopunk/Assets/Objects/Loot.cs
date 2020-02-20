@@ -18,7 +18,7 @@ public class Loot : MonoBehaviour
         if (!isLibraryInitialized)
         {
             schemaNames = new List<string>();
-            foreach(GameObject schema in FindObjectOfType<PersistentState>().schemaLibrary)
+            foreach(GameObject schema in PersistentState.instance.schemaLibrary)
             {
                 schemaNames.Add(schema.name);
             }
@@ -55,12 +55,12 @@ public class Loot : MonoBehaviour
     {
         if(schema.Length>0)
         {
-                FindObjectOfType<PersistentState>().AddSchema(schema);
+            PersistentState.instance.AddSchema(schema);
         }
     }
 
     private void AddCredits()
     {
-        FindObjectOfType<PersistentState>().credits += credits;
+        PersistentState.instance.credits += credits;
     }
 }

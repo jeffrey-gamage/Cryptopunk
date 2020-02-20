@@ -76,6 +76,16 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    internal int GetWidth()
+    {
+        return tileGrid.Length;
+    }
+
+    internal int GetHeight()
+    {
+        return tileGrid[0].Length;
+    }
+
     internal Vector3 GetCentrePoint()
     {
         int centreX = tileGrid.Length / 2;

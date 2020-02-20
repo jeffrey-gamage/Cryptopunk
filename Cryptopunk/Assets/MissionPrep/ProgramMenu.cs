@@ -10,13 +10,11 @@ public class ProgramMenu : MonoBehaviour
     [SerializeField] Button leftScroll;
     [SerializeField] Button rightScroll;
     private List<ProgramMenuItem> displayedPrograms;
-    private PersistentState state;
     private int scrollIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
         displayedPrograms = new List<ProgramMenuItem>();
-        state = FindObjectOfType<PersistentState>();
         RefreshProgramList();
     }
 
@@ -28,10 +26,10 @@ public class ProgramMenu : MonoBehaviour
         }
         displayedPrograms.Clear();
         int i = scrollIndex;
-        while (i <= scrollIndex + programAnchors.Length && i < state.GetOwnedPrograms().Count)
+        while (i < scrollIndex + programAnchors.Length && i <PersistentState.instance.GetOwnedPrograms().Count)
         {
             ProgramMenuItem newListItem = Instantiate(menuItem, programAnchors[i - scrollIndex].transform).GetComponent<ProgramMenuItem>();
-            newListItem.SetProgram(state.GetOwnedPrograms()[i]);
+            newListItem.SetProgram(PersistentState.instance.GetOwnedPrograms()[i]);
             displayedPrograms.Add(newListItem);
             i++;
         }
@@ -49,7 +47,7 @@ public class ProgramMenu : MonoBehaviour
         Destroy(temp.gameObject);
         scrollIndex--;
         ProgramMenuItem newListItem = Instantiate(menuItem, programAnchors[0].transform).GetComponent<ProgramMenuItem>();
-        newListItem.SetProgram(state.GetOwnedPrograms()[scrollIndex]);
+        newListItem.SetProgram(PersistentState.instance.GetOwnedPrograms()[scrollIndex]);
         displayedPrograms.Insert(0, newListItem);
         UpdateScrollEnabled();
     }
@@ -65,7 +63,7 @@ public class ProgramMenu : MonoBehaviour
         Destroy(temp.gameObject);
         scrollIndex++;
         ProgramMenuItem newListItem = Instantiate(menuItem, programAnchors[programAnchors.Length - 1].transform).GetComponent<ProgramMenuItem>();
-        newListItem.SetProgram(state.GetOwnedPrograms()[scrollIndex + programAnchors.Length - 1]);
+        newListItem.SetProgram(PersistentState.instance.GetOwnedPrograms()[scrollIndex + programAnchors.Length - 1]);
         displayedPrograms.Add(newListItem);
         UpdateScrollEnabled();
     }
@@ -80,6 +78,6 @@ public class ProgramMenu : MonoBehaviour
     }
     private bool CanScrollRight()
     {
-        return scrollIndex + programAnchors.Length < state.GetOwnedPrograms().Count;
+        return scrollIndex + programAnchors.Length < PersistentState.instance.GetOwnedPrograms().Count;
     }
 }

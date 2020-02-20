@@ -80,5 +80,6 @@ public class CameraContol : MonoBehaviour
     {
         gameObject.transform.position = FindObjectOfType<DeploymentZone>().transform.position;
         center = DungeonManager.instance.grid.GetCentrePoint();
+        maxPan = Math.Max(DungeonManager.instance.grid.GetHeight(), DungeonManager.instance.grid.GetWidth())/2;
     }
 }
