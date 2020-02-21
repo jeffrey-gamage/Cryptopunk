@@ -7,6 +7,7 @@ using System;
 
 public class MissionParameters : MonoBehaviour
 {
+    internal static MissionParameters instance;
     [SerializeField] List<Image> programSlots;
     internal int kbBudget;
     internal int selectedSlotIndex = 0;
@@ -20,6 +21,7 @@ public class MissionParameters : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         Exploit targetExploit = FindObjectOfType<Exploit>();
         kbBudget = targetExploit.vulnerability;
         corpName = targetExploit.corpName;

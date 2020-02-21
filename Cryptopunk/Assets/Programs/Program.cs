@@ -33,6 +33,11 @@ public class Program : MonoBehaviour
     // Start is called before the first frame update
     internal virtual void Start()
     {
+        InitializeProgram();
+    }
+
+    private void InitializeProgram()
+    {
         size = maxSize;
         myIcon = GetComponentInChildren<SpriteRenderer>();
         myRenderer = GetComponent<MeshRenderer>();

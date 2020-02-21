@@ -71,6 +71,9 @@ public class DungeonManager : MonoBehaviour
             grid.GeneratePorts(generator.GetPorts());
             grid.AssignControl(generator.GetTerminalControlledObjects());
             grid.PlaceLoot(generator.GetLoot());
+            CreatePlayerPrograms(MissionParameters.instance.selectedPrograms);
+            //Make sure we have everything we need from mission parameters before destroying it
+            Destroy(MissionParameters.instance.gameObject);
         }
         else
         {
@@ -86,11 +89,25 @@ public class DungeonManager : MonoBehaviour
             grid.GeneratePorts(tutorialInfo.GetPortLocations());
             grid.AssignControl(tutorialInfo.GetTerminalControlAssignments());
             grid.PlaceLoot(tutorialInfo.GetLootPlacements());
+            CreatePlayerPrograms(tutorialInfo.tutorialPrograms);
         }
         grid.CreateDeploymentZone(generator.GetDeploymentArea());
         FindObjectOfType<CameraContol>().Configure();
         grid.ExploreStartingArea(generator.GetStartingArea());
         PrepareNextDeployment();
+    }
+
+    private void CreatePlayerPrograms(GameObject[] selectedPrograms)
+    {
+        playerPrograms = new List<Program>();
+        foreach(GameObject missionProgram in selectedPrograms)
+        {
+            if (missionProgram != null)
+            {
+                Program newProgram = Instantiate(missionProgram).GetComponent<Program>();
+                playerPrograms.Add(newProgram);
+            }
+        }
     }
 
     internal bool CanCollectLoot(DungeonTile lootTile)

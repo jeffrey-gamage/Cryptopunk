@@ -21,6 +21,7 @@ public class TutorialInfo: MonoBehaviour
     [SerializeField] Vector3Int[] enemy6PatrolRoute;
     [SerializeField] Vector3Int[] enemy7PatrolRoute;
     [SerializeField] Vector3Int[] lootPlacements;
+    [SerializeField] internal GameObject[] tutorialPrograms;
 
     public Vector3Int[] GetFirewallLocations()
     {

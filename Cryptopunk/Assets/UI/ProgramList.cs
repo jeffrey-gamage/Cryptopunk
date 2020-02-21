@@ -28,7 +28,7 @@ public class ProgramList : MonoBehaviour
         }
         displayedPrograms.Clear();
         int i = scrollIndex;
-        while (i <= scrollIndex + programAnchors.Length && i < PersistentState.instance.GetOwnedPrograms().Count)
+        while (i < scrollIndex + programAnchors.Length && i < PersistentState.instance.GetOwnedPrograms().Count)
         {
             ProgramListItem newListItem = Instantiate(listItem, programAnchors[i - scrollIndex].transform).GetComponent<ProgramListItem>();
             newListItem.SetProgram(PersistentState.instance.GetOwnedPrograms()[i]);
