@@ -75,9 +75,10 @@
     <Compile Include="Assets\Menus\Exploit.cs" />
     <Compile Include="Assets\Menus\Menu.cs" />
     <Compile Include="Assets\Menus\MissionSelect.cs" />
-    <Compile Include="Assets\MissionPrep\MissionParameters.cs" />
+    <Compile Include="Assets\MissionPrep\MissionStatus.cs" />
     <Compile Include="Assets\MissionPrep\ProgramMenu.cs" />
     <Compile Include="Assets\MissionPrep\ProgramMenuItem.cs" />
+    <Compile Include="Assets\MissionResults\Results.cs" />
     <Compile Include="Assets\Objects\Loot.cs" />
     <Compile Include="Assets\Objects\Obstacles\Firewall.cs" />
     <Compile Include="Assets\Objects\Port.cs" />

@@ -5,9 +5,16 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 
-public class MissionParameters : MonoBehaviour
+public class MissionStatus : MonoBehaviour
 {
-    internal static MissionParameters instance;
+    internal enum MissionOutcome  {
+        eliminated,
+        timeout,
+        retrieved
+    }
+    internal MissionOutcome outcome = MissionOutcome.timeout;
+
+    internal static MissionStatus instance;
     [SerializeField] List<Image> programSlots;
     internal int kbBudget;
     internal int selectedSlotIndex = 0;
@@ -18,6 +25,10 @@ public class MissionParameters : MonoBehaviour
     [SerializeField] Text targetCorpName;
     [SerializeField] Text budgetDisplay;
     [SerializeField] Text budgetAvailableDisplay;
+
+    //mission results tracker
+    internal int lootValue = 0;
+    internal List<String> schematics = new List<string>();
     // Start is called before the first frame update
     void Start()
     {

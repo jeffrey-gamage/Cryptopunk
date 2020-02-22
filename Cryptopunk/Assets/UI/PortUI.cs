@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PortUI : MonoBehaviour
 {
@@ -21,12 +22,8 @@ public class PortUI : MonoBehaviour
 
     public void Disengage()
     {
-        //TODO: cash in all collected loot and leave the mission
-    }
-    
-    private void DisplayUpdateList()
-    {
-        //TODO: allow player to select updates for ported in program
+        MissionStatus.instance.outcome = MissionStatus.MissionOutcome.retrieved;
+        SceneManager.LoadScene("results");
     }
 
     internal void Select(GameObject program)

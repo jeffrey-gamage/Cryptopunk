@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DungeonManager : MonoBehaviour
 {
@@ -71,9 +72,7 @@ public class DungeonManager : MonoBehaviour
             grid.GeneratePorts(generator.GetPorts());
             grid.AssignControl(generator.GetTerminalControlledObjects());
             grid.PlaceLoot(generator.GetLoot());
-            CreatePlayerPrograms(MissionParameters.instance.selectedPrograms);
-            //Make sure we have everything we need from mission parameters before destroying it
-            Destroy(MissionParameters.instance.gameObject);
+            CreatePlayerPrograms(MissionStatus.instance.selectedPrograms);
         }
         else
         {
@@ -226,7 +225,8 @@ public class DungeonManager : MonoBehaviour
         {
             if(currentTurn==maxTurns)
             {
-                //TODO: lose state
+                MissionStatus.instance.outcome = MissionStatus.MissionOutcome.timeout;
+                SceneManager.LoadScene("results");
             }
             else if(reinforcementTurns.Contains(currentTurn))
             {
@@ -401,6 +401,11 @@ public class DungeonManager : MonoBehaviour
         if (playerPrograms.Contains(program))
         {
             playerPrograms.Remove(program);
+            if(playerPrograms.Count==0)
+            {
+                MissionStatus.instance.outcome = MissionStatus.MissionOutcome.eliminated;
+                SceneManager.LoadScene("results");
+            }
         }
         else 
         {

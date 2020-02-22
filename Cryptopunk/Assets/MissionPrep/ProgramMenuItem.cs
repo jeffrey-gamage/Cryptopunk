@@ -39,6 +39,6 @@ public class ProgramMenuItem : MonoBehaviour
 
     public void AddToPackage()
     {
-        FindObjectOfType<MissionParameters>().SubmitProgramToPackage(myProgramPrefab);
+        FindObjectOfType<MissionStatus>().SubmitProgramToPackage(myProgramPrefab);
     }
 }
