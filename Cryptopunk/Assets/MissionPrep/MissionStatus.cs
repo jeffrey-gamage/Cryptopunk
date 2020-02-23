@@ -13,6 +13,9 @@ public class MissionStatus : MonoBehaviour
         retrieved
     }
     internal MissionOutcome outcome = MissionOutcome.timeout;
+    //mission results tracker
+    internal int lootValue = 0;
+    internal List<String> schematics = new List<string>();
 
     internal static MissionStatus instance;
     [SerializeField] List<Image> programSlots;
@@ -26,9 +29,6 @@ public class MissionStatus : MonoBehaviour
     [SerializeField] Text budgetDisplay;
     [SerializeField] Text budgetAvailableDisplay;
 
-    //mission results tracker
-    internal int lootValue = 0;
-    internal List<String> schematics = new List<string>();
     // Start is called before the first frame update
     void Start()
     {
@@ -40,12 +40,17 @@ public class MissionStatus : MonoBehaviour
         selectedPrograms = new GameObject[programSlots.Count];
 
         targetCorpName.text = "target: " + corpName;
-        budgetDisplay.text = "maximum package size: " + kbBudget;
+        budgetDisplay.text = "maximum package size: " + kbBudget+" kb";
+    }
+
+    internal void AddSchema(string schema)
+    {
+        schematics.Add(schema);
     }
 
     private void Update()
     {
-        budgetAvailableDisplay.text = "available space: " + kbBudget;
+        budgetAvailableDisplay.text = "available space: " + kbBudget + " kb";
     }
 
     public void SubmitProgramToPackage(GameObject selectedProgram)

@@ -55,12 +55,12 @@ public class Loot : MonoBehaviour
     {
         if(schema.Length>0)
         {
-            PersistentState.instance.AddSchema(schema);
+            MissionStatus.instance.AddSchema(schema);
         }
     }
 
     private void AddCredits()
     {
-        PersistentState.instance.credits += credits;
+        MissionStatus.instance.lootValue += credits;
     }
 }

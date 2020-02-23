@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Results : MonoBehaviour
 {
@@ -14,11 +15,37 @@ public class Results : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(MissionStatus.instance.outcome==MissionStatus.MissionOutcome.retrieved)
+        DetermineMissionOutcome();
+        DetermineMissionProceeds();
+        Destroy(MissionStatus.instance.gameObject);
+    }
+
+    private void DetermineMissionProceeds()
+    {
+        proceeds.text = "Attack proceeds:\n";
+        PersistentState.instance.credits += MissionStatus.instance.lootValue;
+        proceeds.text += "   " + MissionStatus.instance.lootValue.ToString() + " credits\n";
+        if (MissionStatus.instance.outcome==MissionStatus.MissionOutcome.retrieved)
+        {
+            foreach(string schema in MissionStatus.instance.schematics)
+            {
+                PersistentState.instance.AddSchema(schema);
+                proceeds.text += "program schematic: " + schema + "\n";
+            }
+        }
+        else
+        {
+            proceeds.text = "You must retrieve one of your attack programs from a port in order to collect mission rewards.";
+        }
+    }
+
+    private void DetermineMissionOutcome()
+    {
+        if (MissionStatus.instance.outcome == MissionStatus.MissionOutcome.retrieved)
         {
             missionOutcome.text = disengageText;
         }
-        else if(MissionStatus.instance.outcome==MissionStatus.MissionOutcome.eliminated)
+        else if (MissionStatus.instance.outcome == MissionStatus.MissionOutcome.eliminated)
         {
             missionOutcome.text = wipeoutText;
         }
@@ -26,9 +53,7 @@ public class Results : MonoBehaviour
         {
             missionOutcome.text = timeoutText;
         }
-        Destroy(MissionStatus.instance.gameObject);
     }
-    
 
     public void Exit()
     {

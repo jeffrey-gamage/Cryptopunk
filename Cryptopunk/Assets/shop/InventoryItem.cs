@@ -39,13 +39,19 @@ public class InventoryItem : MonoBehaviour
 
     private void Update()
     {
-        buyButton.enabled = PersistentState.instance.credits >= cost;
         buyButtonText.text = "Buy: " +cost.ToString() + " credits";
     }
 
     public void BuyItem()
     {
-        FindObjectOfType<shop>().Buy(this);
+        if (PersistentState.instance.credits >= cost)
+        {
+            FindObjectOfType<shop>().Buy(this);
+        }
+        else
+        {
+            FindObjectOfType<shop>().OverBudgetFeedback();
+        }
     }
     
     internal void SetSchema(GameObject item)
