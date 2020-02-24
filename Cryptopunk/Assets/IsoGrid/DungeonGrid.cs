@@ -62,6 +62,19 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    internal int SelectEnemy(int difficultyBudget)
+    {
+        int maxIndex = 1;
+        for(int i=0;i<enemyPrefabs.Length;i++)
+        {
+            if(difficultyBudget>=enemyPrefabs[i].GetComponent<EnemyProgram>().difficultyRating)
+            {
+                maxIndex = i;
+            }
+        }
+        return UnityEngine.Random.Range(0, maxIndex);
+    }
+
     internal void AssignPatrolRoutes(ref List<EnemyProgram> enemiesInRoom, List<List<Vector3Int>> patrolRoutes)
     {
         foreach(List<Vector3Int> patrolRoute in patrolRoutes)
@@ -102,6 +115,11 @@ public class DungeonGrid : MonoBehaviour
             DungeonManager.instance.terminals.Add(newTerminal);
             newTerminal.myTile = tile;
         }
+    }
+
+    internal int GetEnemyRating(int enemyIndex)
+    {
+        return enemyPrefabs[enemyIndex].GetComponent<EnemyProgram>().difficultyRating;
     }
 
     internal void GenerateSecurityHubs(Vector3Int[] hubPlacements)

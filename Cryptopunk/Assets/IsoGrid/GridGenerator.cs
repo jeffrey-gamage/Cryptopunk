@@ -52,6 +52,10 @@ public class GridGenerator
             roomOrientation = previousRoom.GetOrientation(previousRoomExit);
             rooms.Add(Room.LoadFinalRoom(finalRoomIndex, previousRoomExit, roomOrientation,directory));
         }
+        foreach(Room room in rooms)
+        {
+            room.ChooseEnemies();
+        }
         DefineGridBoundaries();
     }
     protected GridGenerator()

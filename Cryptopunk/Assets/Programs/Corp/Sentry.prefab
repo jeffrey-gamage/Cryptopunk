@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4896562813821211903}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0.51, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0}
   m_Children: []
   m_Father: {fileID: 4083519901496748975}
   m_RootOrder: 0
@@ -69,7 +69,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2738a13e86a43cc46b73886d1c4fd1ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9cb7cd077a78e584aa08243418f19af5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -193,16 +193,15 @@ MonoBehaviour:
   speed: 3
   range: 1
   sight: 3
-  breach: 0
+  breach: 3
   keywords: []
   myAttack: {fileID: 3597810718955383176, guid: b6e10a6c41be2b84d89a236c93612e3b,
     type: 3}
   myBreach: {fileID: 0}
-  stealthMaterial: {fileID: 0}
-  iconStealthAlpha: 0.3
   sightIndicator: {fileID: 6032789004985220605, guid: 7ac049fa422918b4aa803986a38c31bd,
     type: 3}
   sightPreviewOffset: 0.11
+  waypoints: []
 --- !u!114 &8181304386263870204
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class Room
 {
-    public static readonly float PROBABILITY_OF_LEDGE_IN_ROOM = 0.5f;
+    private static int baseDifficulty = 4;
     int size;
     static readonly Vector3Int failToFind = new Vector3Int(0, -3, 0);
     internal List<Vector3Int> tiles;
@@ -62,6 +62,20 @@ public class Room
         ports = new List<Vector3Int>();
         terminals = new List<Vector3Int>();
         patrolRoutes = new List<List<Vector3Int>>();
+    }
+
+    internal void ChooseEnemies()
+    {
+        int difficultyBudget = baseDifficulty + PersistentState.instance.progress;
+        for(int i=0;i<enemies.Count;i++)
+        {
+            if(difficultyBudget>0)
+            {
+                int enemyIndex = DungeonManager.instance.grid.SelectEnemy(difficultyBudget);
+                enemies[i] += Vector3Int.up * enemyIndex;
+                difficultyBudget -= DungeonManager.instance.grid.GetEnemyRating(enemyIndex);
+            }
+        }
     }
 
     internal Room(int minX, int maxX, int minZ, int maxZ, int height, List<RampCoordinates> rampCoordinates)

@@ -20,6 +20,7 @@ public class EnemyProgram : Program
     private Hackable hackable;
     internal bool hasMoved = false;
     private bool isActiveAI = false;
+    [SerializeField]internal int difficultyRating;
 
     internal void InitializeReinforcement()
     {
@@ -138,7 +139,7 @@ public class EnemyProgram : Program
     private void GenerateLineOfSightIndicators()
     {
         ClearSightPreview();
-        if (!IsControlledByPlayer())
+        if (!IsControlledByPlayer()||hackable.IsHacked())
         {
             foreach (DungeonTile tile in DungeonManager.instance.grid.GetAllSeenTiles(this))
             {

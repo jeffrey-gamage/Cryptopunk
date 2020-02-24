@@ -69,7 +69,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1e25b6bd5a4a5f24aab309e3754df426, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 074c9e6bcf4a195458d302c44ceefdbb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7285652274544824615}
   - component: {fileID: 8181304386263870204}
   m_Layer: 0
-  m_Name: Overseer
+  m_Name: Gargoyle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,12 +184,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 8847390588398665581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdb29b9888f002a4eac2471466eb003f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c7d7ffae365fab4eae01bd6ae004dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxIntegrity: 4
-  rebootTime: 3
-  hackedMaterial: {fileID: 2100000, guid: 642e0b922724f5a4895df7421cadafc0, type: 2}
+  isAnimating: 0
+  maxSize: 4
+  power: 2
+  speed: 4
+  range: 1
+  sight: 3
+  breach: 0
+  keywords:
+  - Flying
+  myAttack: {fileID: 3597810718955383176, guid: b6e10a6c41be2b84d89a236c93612e3b,
+    type: 3}
+  myBreach: {fileID: 0}
+  sightIndicator: {fileID: 6032789004985220605, guid: 7ac049fa422918b4aa803986a38c31bd,
+    type: 3}
+  sightPreviewOffset: 0.11
+  waypoints: []
+  difficultyRating: 3
 --- !u!114 &8181304386263870204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,24 +213,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8847390588398665581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c7d7ffae365fab4eae01bd6ae004dc5, type: 3}
+  m_Script: {fileID: 11500000, guid: cdb29b9888f002a4eac2471466eb003f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAnimating: 0
-  maxSize: 4
-  power: 1
-  speed: 3
-  range: 3
-  sight: 4
-  breach: 0
-  keywords:
-  - Flying
-  - Sensor
-  myAttack: {fileID: 3597810718955383176, guid: b6e10a6c41be2b84d89a236c93612e3b,
-    type: 3}
-  myBreach: {fileID: 0}
-  sightIndicator: {fileID: 6032789004985220605, guid: 7ac049fa422918b4aa803986a38c31bd,
-    type: 3}
-  sightPreviewOffset: 0.11
-  waypoints: []
-  difficultyRating: 2
+  maxIntegrity: 3
+  rebootTime: 3
+  hackedMaterial: {fileID: 2100000, guid: 642e0b922724f5a4895df7421cadafc0, type: 2}

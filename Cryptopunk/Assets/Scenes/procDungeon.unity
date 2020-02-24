@@ -1000,7 +1000,10 @@ MonoBehaviour:
   terminal: {fileID: 915114725526548709, guid: 40432318e7c8adf41a32732687675fb8, type: 3}
   enemyPrefabs:
   - {fileID: 8847390588398665581, guid: 715c1b2e91eca31488223aa29a47f4fc, type: 3}
+  - {fileID: 8847390588398665581, guid: c3d6744011bfb234ca68d61bed630706, type: 3}
   - {fileID: 8847390588398665581, guid: c615111808f997c4f90e3cb875533531, type: 3}
+  - {fileID: 8847390588398665581, guid: 5327aabc8fd5ca643b7aae59e00fb9d1, type: 3}
+  - {fileID: 8847390588398665581, guid: d96eaaf4fcf9fcf48a001d29e8c4762a, type: 3}
   defencePrefabs:
   - {fileID: 8847390588398665581, guid: 4113b39f299b4bb439af968cef159b04, type: 3}
   hubPrefab: {fileID: 915114725526548709, guid: 873c8f08086219d4eab4bd8e0c2ada0c,
