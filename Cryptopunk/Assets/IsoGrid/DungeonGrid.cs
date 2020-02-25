@@ -157,7 +157,7 @@ public class DungeonGrid : MonoBehaviour
 
     internal void PlaceObjective(Vector3Int missionObj)
     {
-        Loot newLoot = Instantiate(lootPrefab, tileGrid[missionObj.x][missionObj.z].GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Loot>();
+        Loot newLoot = Instantiate(objectivePrefab, tileGrid[missionObj.x][missionObj.z].GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Loot>();
         newLoot.setContents(missionObj.y);
         tileGrid[missionObj.x][missionObj.z].loot = newLoot;
     }

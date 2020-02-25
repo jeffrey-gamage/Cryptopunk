@@ -291,6 +291,7 @@ public class Room
             FlipX(ref ports);
             FlipX(ref terminals);
             FlipX(ref patrolRoutes);
+            missionObj += new Vector3Int(1, 0, 0) * (maxX -missionObj.x * 2);
             entrance += new Vector3Int(1, 0, 0) * (maxX - entrance.x * 2);
         }
         if(roomOrientation==Orientation.forward)
@@ -306,6 +307,7 @@ public class Room
             FlipDiagonal(ref ports);
             FlipDiagonal(ref terminals);
             FlipDiagonal(ref patrolRoutes);
+            missionObj = new Vector3Int(missionObj.z, missionObj.y, missionObj.x);
             entrance = new Vector3Int(entrance.z,entrance.y,entrance.x);
         }
         if(roomOrientation==Orientation.back||roomOrientation==Orientation.right)
@@ -321,7 +323,8 @@ public class Room
             FlipZ(ref ports);
             FlipZ(ref terminals);
             FlipZ(ref patrolRoutes);
-            entrance += new Vector3Int(0, 0, 1) * (maxX - entrance.z * 2);
+            missionObj += new Vector3Int(0, 0, 1) * (maxZ - entrance.z * 2);
+            entrance += new Vector3Int(0, 0, 1) * (maxZ - entrance.z * 2);
         }
     }
 
