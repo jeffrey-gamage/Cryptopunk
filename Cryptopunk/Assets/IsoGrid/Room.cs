@@ -323,7 +323,7 @@ public class Room
             FlipZ(ref ports);
             FlipZ(ref terminals);
             FlipZ(ref patrolRoutes);
-            missionObj += new Vector3Int(0, 0, 1) * (maxZ - entrance.z * 2);
+            missionObj += new Vector3Int(0, 0, 1) * (maxZ - missionObj.z * 2);
             entrance += new Vector3Int(0, 0, 1) * (maxZ - entrance.z * 2);
         }
     }
