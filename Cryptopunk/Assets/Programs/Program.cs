@@ -11,7 +11,9 @@ public class Program : MonoBehaviour
     public bool isAnimating = false;
     public static bool isTargetingAttack = false;
     public static bool isTargetingBreach = false;
-    public static float animationSpeed = 2f;
+    public float animationSpeed = 2f;
+    public static float unseenMovementSpeed = 12f;
+    public static float normalMovementSpeed = 2f;
     public static Program selectedProgram;
     [SerializeField] internal int maxSize;
     [SerializeField] internal int power;
@@ -47,6 +49,14 @@ public class Program : MonoBehaviour
     // Update is called once per frame
     internal virtual void Update()
     {
+        if(myTile&&!myTile.isVisible)
+        {
+            animationSpeed = unseenMovementSpeed;
+        }
+        else
+        {
+            animationSpeed = normalMovementSpeed;
+        }
         HandleMovement();
     }
 
@@ -62,8 +72,8 @@ public class Program : MonoBehaviour
     {
         if (isAnimating)
         {
-            Vector3 motion = (myTile.GetOccupyingCoordinates(IsFlying()) - gameObject.transform.position).normalized * animationSpeed * Time.deltaTime;
-            if (motion==Vector3.zero||motion.magnitude > (myTile.GetOccupyingCoordinates(IsFlying()) - gameObject.transform.position).magnitude)
+            Vector3 motion = GetMotionVector();
+            if (motion == Vector3.zero || motion.magnitude > (myTile.GetOccupyingCoordinates(IsFlying()) - gameObject.transform.position).magnitude)
             {
                 gameObject.transform.position = myTile.GetOccupyingCoordinates(IsFlying());
                 if (movePath.Count == 0)
@@ -85,6 +95,25 @@ public class Program : MonoBehaviour
                 gameObject.transform.position += motion;
             }
         }
+    }
+
+    private Vector3 GetMotionVector()
+    {
+        Vector3 motionVector = myTile.GetOccupyingCoordinates(IsFlying()) - gameObject.transform.position;
+        if (IsFlying())
+        {
+            if (motionVector.y < 0 && (motionVector - Vector3.up * motionVector.y).magnitude > animationSpeed * Time.deltaTime)//don't descend until hovering over destination
+            {
+                motionVector -= Vector3.up * motionVector.y;
+            }
+            else if(motionVector.y>animationSpeed*Time.deltaTime)//ascend before moving laterally
+            {
+                motionVector = new Vector3(0, motionVector.y, 0);
+            }
+        }
+        motionVector = motionVector.normalized * animationSpeed * Time.deltaTime;
+
+        return motionVector;
     }
 
     private void CheckStealth()
