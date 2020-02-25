@@ -28,6 +28,7 @@ public class Room
     internal List<Vector3Int> terminals;
     internal List<Vector3Int> enemies;
     internal List<List<Vector3Int>> patrolRoutes;
+    internal Vector3Int missionObj=Vector3Int.down;
 
     private int roomLength;
     private int roomWidth;
@@ -222,6 +223,10 @@ public class Room
         TranslateAll(ref terminals, translationVector);
         TranslateAll(ref patrolRoutes, translationVector);
         entrance += translationVector;
+        if(missionObj!=Vector3Int.down)
+        {
+            missionObj += translationVector;
+        }
     }
 
     internal bool HasTerminalTargets()
@@ -544,7 +549,11 @@ public class Room
                 }
             }
             lootValue = newVal;
-            for(int i=0;i<loot.Count;i++)
+            if(missionObj!=Vector3Int.down&&missionObj.x==x&&missionObj.z==z)
+            {
+                missionObj += Vector3Int.up * lootValue;
+            }
+            else for(int i=0;i<loot.Count;i++)
             {
                 if(loot[i].x == x && loot[i].z == z)
                 {
@@ -644,6 +653,12 @@ public class Room
                         case 'L':
                             {
                                 loot.Add(new Vector3Int(x, 0, z));
+                                break;
+                            }
+                        case 'O':
+                            {
+                                firewalls.Add(new Vector3Int(x, 0, z));
+                                missionObj = new Vector3Int(x, 0, z);
                                 break;
                             }
                         case 'V':

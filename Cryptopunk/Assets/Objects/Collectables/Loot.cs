@@ -8,7 +8,7 @@ public class Loot : MonoBehaviour
     public int credits = 50;
     public String schema;
     private static List<String> schemaNames;
-    private bool isMissionObjective = false;
+    [SerializeField] bool isMissionObjective = false;
     private static bool isLibraryInitialized = false;
     // Start is called before the first frame update
 
@@ -30,6 +30,10 @@ public class Loot : MonoBehaviour
     {
             AddCredits();
             AddSchema();
+            if(isMissionObjective)
+            {
+                MissionStatus.instance.CollectMissionObjective();
+            }
             Destroy(gameObject);
     }
 

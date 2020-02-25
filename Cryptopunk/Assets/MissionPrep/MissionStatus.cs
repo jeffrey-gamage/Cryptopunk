@@ -15,6 +15,7 @@ public class MissionStatus : MonoBehaviour
     internal MissionOutcome outcome = MissionOutcome.timeout;
     //mission results tracker
     internal int lootValue = 0;
+    internal bool hasMissionObjective = false;
     internal List<String> schematics = new List<string>();
 
     internal static MissionStatus instance;
@@ -46,6 +47,12 @@ public class MissionStatus : MonoBehaviour
     internal void AddSchema(string schema)
     {
         schematics.Add(schema);
+    }
+
+
+    internal void CollectMissionObjective()
+    {
+        hasMissionObjective = true;
     }
 
     private void Update()

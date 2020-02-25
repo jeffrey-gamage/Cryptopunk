@@ -22,7 +22,16 @@ public class Results : MonoBehaviour
 
     private void DetermineMissionProceeds()
     {
-        proceeds.text = "Attack proceeds:\n";
+        if(MissionStatus.instance.hasMissionObjective)
+        {
+            proceeds.text = "mission successful\n";
+            PersistentState.instance.progress++;
+        }
+        else
+        {
+            proceeds.text = "";
+        }
+        proceeds.text += "Attack proceeds:\n";
         PersistentState.instance.credits += MissionStatus.instance.lootValue;
         proceeds.text += "   " + MissionStatus.instance.lootValue.ToString() + " credits\n";
         if (MissionStatus.instance.outcome==MissionStatus.MissionOutcome.retrieved)

@@ -15,6 +15,7 @@ public class DungeonGrid : MonoBehaviour
     [SerializeField] GameObject[] defencePrefabs;
     [SerializeField] GameObject hubPrefab;
     [SerializeField] GameObject lootPrefab;
+    [SerializeField] GameObject objectivePrefab;
     [SerializeField] GameObject deploymentZone;
     private DungeonTile[][] tileGrid;
     [SerializeField] int searchSize = 8;
@@ -152,6 +153,13 @@ public class DungeonGrid : MonoBehaviour
             newLoot.setContents(lootPos.y);
             tileGrid[lootPos.x][lootPos.z].loot = newLoot;
         }
+    }
+
+    internal void PlaceObjective(Vector3Int missionObj)
+    {
+        Loot newLoot = Instantiate(lootPrefab, tileGrid[missionObj.x][missionObj.z].GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Loot>();
+        newLoot.setContents(missionObj.y);
+        tileGrid[missionObj.x][missionObj.z].loot = newLoot;
     }
 
     internal void AssignControl(Vector2Int[] controlAssignments)

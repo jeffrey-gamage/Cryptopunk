@@ -91,6 +91,18 @@ public class GridGenerator
         DefineGridBoundaries();
     }
 
+    internal Vector3Int getMissionObj()
+    {
+        foreach(Room room in rooms)
+        {
+            if(room.missionObj!=Vector3Int.down)
+            {
+                return room.missionObj;
+            }
+        }
+        throw new Exception("Failed to locate mission objective");
+    }
+
     internal Vector3Int[] GetHubs()
     {
         List<Vector3Int> securityHubs = new List<Vector3Int>();

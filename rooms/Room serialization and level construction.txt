@@ -35,7 +35,7 @@ L - - - - - - - F - - - - -
 //T= terminal
 //V= vault
 //M=local terminal
-//M=mission objective
+//O=mission objective
 
 ++PATROL ROUTES++
 0,5-2,0

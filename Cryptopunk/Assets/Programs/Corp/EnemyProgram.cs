@@ -60,7 +60,8 @@ public class EnemyProgram : Program
         {
             myState = State.Search;
             nextWaypointIndex = 0;
-            waypoints[0] = myTile;
+            waypoints.Clear();
+            waypoints.Add(myTile);
         }
         foreach(Program program in DungeonManager.instance.GetPlayerControlledPrograms())
         {

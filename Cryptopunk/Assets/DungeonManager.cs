@@ -72,6 +72,7 @@ public class DungeonManager : MonoBehaviour
             grid.GeneratePorts(generator.GetPorts());
             grid.AssignControl(generator.GetTerminalControlledObjects());
             grid.PlaceLoot(generator.GetLoot());
+            grid.PlaceObjective(generator.getMissionObj());
             CreatePlayerPrograms(MissionStatus.instance.selectedPrograms);
         }
         else
