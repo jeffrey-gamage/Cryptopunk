@@ -9,6 +9,7 @@ public class DungeonTile : MonoBehaviour
     private static readonly float flyingHeight = 0.3f;
     private static readonly float rampSlope = -35f;
     private static readonly float unitHeight = 0.7f;
+    private static readonly float baseHeight = 0.125f;
     internal int xCoord;
     internal int zCoord;
     internal bool isBlocked = false;
@@ -66,15 +67,15 @@ public class DungeonTile : MonoBehaviour
         }
     }
 
-    internal Quaternion getOccupantRotation()
+    internal Quaternion getPreviewRotation()
     {
-        Quaternion occupantRotation = Quaternion.identity;
+        Quaternion previewRotation = Quaternion.identity;
         if(ramp)
         {
-            occupantRotation*= ramp.transform.rotation;
+            previewRotation*= ramp.transform.rotation;
         }
-        occupantRotation *= Quaternion.AngleAxis(90f, Vector3.right);
-        return occupantRotation;
+        previewRotation *= Quaternion.AngleAxis(90f, Vector3.right);
+        return previewRotation;
     }
 
     internal void SetRamp(Ramp newRamp)
@@ -163,6 +164,7 @@ public class DungeonTile : MonoBehaviour
         {
             occupyCoordinates += Vector3.up * 0.5f*unitHeight;
         }
+        occupyCoordinates += Vector3.up*baseHeight;
         return occupyCoordinates;
 }
     internal void Reveal()

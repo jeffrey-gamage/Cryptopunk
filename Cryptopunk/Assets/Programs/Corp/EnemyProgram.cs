@@ -151,7 +151,7 @@ public class EnemyProgram : Program
 
     private GameObject CreateLineOfSightIndicator(DungeonTile tile)
     {
-        return Instantiate(sightIndicator, tile.GetOccupyingCoordinates(false) + Vector3.up * sightPreviewOffset, tile.getOccupantRotation());
+        return Instantiate(sightIndicator, tile.GetOccupyingCoordinates(false) + Vector3.up * sightPreviewOffset, tile.getPreviewRotation());
     }
 
     private void Search()

@@ -47,7 +47,7 @@ public class PathPreview : MonoBehaviour
             pathTrace = new List<SpriteRenderer>();
             for (int i = 1; i < previewPath.Count; i++)
             {
-                pathTrace.Add(Instantiate(pathSegment, previewPath[i].GetOccupyingCoordinates(false)+Vector3.up*pathPreviewOffset, previewPath[i].getOccupantRotation()).GetComponent<SpriteRenderer>());
+                pathTrace.Add(Instantiate(pathSegment, previewPath[i].GetOccupyingCoordinates(false)+Vector3.up*pathPreviewOffset, previewPath[i].getPreviewRotation()).GetComponent<SpriteRenderer>());
             }
         }
         else

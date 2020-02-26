@@ -14,6 +14,11 @@ public class Program : MonoBehaviour
     public float animationSpeed = 2f;
     public static float unseenMovementSpeed = 12f;
     public static float normalMovementSpeed = 2f;
+
+    private static float rotationRate = 80f;
+    private float rotationAmount = 0f;
+    private float maxRotation = 35f;
+
     public static Program selectedProgram;
     [SerializeField] internal int maxSize;
     [SerializeField] internal int power;
@@ -73,6 +78,10 @@ public class Program : MonoBehaviour
         if (isAnimating)
         {
             Vector3 motion = GetMotionVector();
+            if(!IsFlying())
+            {
+                HandleRampClimbRotation(motion);
+            }
             if (motion == Vector3.zero || motion.magnitude > (myTile.GetOccupyingCoordinates(IsFlying()) - gameObject.transform.position).magnitude)
             {
                 gameObject.transform.position = myTile.GetOccupyingCoordinates(IsFlying());
@@ -93,6 +102,68 @@ public class Program : MonoBehaviour
             else
             {
                 gameObject.transform.position += motion;
+            }
+        }
+    }
+
+    private void HandleRampClimbRotation(Vector3 motion)
+    {
+        Vector3 rotationAxis = GetRotationAxis(motion);
+        if (myTile.ramp && rotationAmount<maxRotation)
+        {
+            rotationAmount = Mathf.Clamp(rotationAmount+rotationRate * Time.deltaTime,0f,maxRotation);
+        }
+        else if(!myTile.ramp&&rotationAmount>0f)
+        {
+            rotationAmount = Mathf.Clamp(rotationAmount - rotationRate * Time.deltaTime, 0f, maxRotation);
+        }
+        gameObject.transform.rotation = Quaternion.AngleAxis(rotationAmount, rotationAxis);
+    }
+
+    private Vector3 GetRotationAxis(Vector3 motion)
+    {
+        if(motion.x>0)//moving right
+        {
+            if(motion.y<0)
+            {
+                return Vector3.back;
+            }
+            else
+            {
+                return Vector3.forward;
+            }
+        }
+        if(motion.x<0)//moving left
+        {
+            if(motion.y<0)
+            {
+                return Vector3.forward;
+            }
+            else
+            {
+                return Vector3.back;
+            }
+        }
+        if(motion.z>0)//moving forward
+        {
+            if(motion.y>0)
+            {
+                return Vector3.left;
+            }
+            else
+            {
+                return Vector3.right;
+            }
+        }
+        else//moving backward
+        {
+            if(motion.y>0)
+            {
+                return Vector3.right;
+            }
+            else
+            {
+                return Vector3.left;
             }
         }
     }
