@@ -2,9 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DungeonTile : MonoBehaviour
 {
+    private static readonly float baseDropDistance = 5f;
+    private static readonly float dropDistanceRange = 2.5f;
+    private static readonly float maxRevealDelayTime=0.75f;
+    private static readonly float animationSpeed = 5f;
+    private Vector3 homeLocation;
+
     private static readonly float rampAlignmentDistance = 0.1f;
     private static readonly float flyingHeight = 0.3f;
     private static readonly float rampSlope = -35f;
@@ -25,7 +32,8 @@ public class DungeonTile : MonoBehaviour
     [SerializeField] Material unexplored;
     [SerializeField] Material fog;
     [SerializeField] Material visible;
-    
+    private float revealAnimationCountDown = -99;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,10 +47,11 @@ public class DungeonTile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleRevealAnimation();
         myCollider.enabled = isExplored;
         if (!isExplored)
         {
-            myMeshRenderer.enabled = true;
+            myMeshRenderer.enabled = revealAnimationCountDown<=0f;
             myMeshRenderer.material = unexplored;
         }
         else
@@ -51,7 +60,7 @@ public class DungeonTile : MonoBehaviour
             {
                 loot.GetComponent<MeshRenderer>().enabled = true;
             }
-            myMeshRenderer.enabled = height>=0;
+            myMeshRenderer.enabled = height >= 0;
             if (isVisible)
             {
                 myMeshRenderer.material = visible;
@@ -64,6 +73,27 @@ public class DungeonTile : MonoBehaviour
         if (ramp)
         {
             ramp.myRenderer.material = myMeshRenderer.material;
+        }
+    }
+
+    private void HandleRevealAnimation()
+    {
+        if (revealAnimationCountDown > 0)
+        {
+            revealAnimationCountDown -= Time.deltaTime;
+        }
+        else if (revealAnimationCountDown > -50)
+        {
+            Vector3 motion = homeLocation - gameObject.transform.position;
+            if (animationSpeed * Time.deltaTime > motion.magnitude)
+            {
+                revealAnimationCountDown = -99;
+            }
+            else
+            {
+                motion = motion.normalized * animationSpeed * Time.deltaTime;
+            }
+            gameObject.transform.position += motion;
         }
     }
 
@@ -171,7 +201,14 @@ public class DungeonTile : MonoBehaviour
     {
         if(!isExplored)
         {
-            gameObject.transform.position += Vector3.up * height*unitHeight / 2f;
+            homeLocation = gameObject.transform.position + Vector3.up * height*unitHeight / 2f;
+            if (!myMeshRenderer)
+            {
+                myMeshRenderer = GetComponent<MeshRenderer>();
+            }
+            myMeshRenderer.enabled = false;
+            gameObject.transform.position -= Vector3.up * Random.Range(baseDropDistance, baseDropDistance + dropDistanceRange);
+            revealAnimationCountDown = Random.Range(0f, maxRevealDelayTime);
             if (height >= 0)
             {
                 gameObject.transform.localScale += Vector3.up * height * unitHeight;
@@ -185,6 +222,7 @@ public class DungeonTile : MonoBehaviour
         isExplored = true;
         isVisible = true;
     }
+
     internal void Fog()
     {
         isVisible = false;
