@@ -13,7 +13,6 @@ public struct RampCoordinates
 public class GridGenerator 
 {
     internal static GridGenerator instance;
-
     private int mapSize;
     private int connectivity;
     private int verticality;
@@ -39,25 +38,54 @@ public class GridGenerator
         {
             for (int i = 1; i < numRooms - 1; i++)
             {
-                previousRoom = SelectRandomRoom();
-                previousRoomExit = previousRoom.GetRandomExit();
-                roomOrientation = previousRoom.GetOrientation(previousRoomExit);
-                rooms.Add(Room.LoadGeneralRoom(genRoomIndices[i - 1], previousRoomExit, roomOrientation,directory));
+                Room newRoom=null;
+                do
+                {
+                    previousRoom = SelectRandomRoom();
+                    if(previousRoom==null)
+                    {
+                        break;
+                    }
+                    previousRoomExit = previousRoom.GetRandomExit();
+                    roomOrientation = previousRoom.GetOrientation(previousRoomExit);
+                    newRoom = Room.LoadGeneralRoom(genRoomIndices[i - 1], previousRoomExit, roomOrientation, directory);
+                }
+                while (OverlapsExistingRoom(newRoom));
+                rooms.Add(newRoom);
             }
         }
         if(numRooms>1)
         {
-            previousRoom = SelectRandomRoom();
-            previousRoomExit = previousRoom.GetRandomExit();
-            roomOrientation = previousRoom.GetOrientation(previousRoomExit);
-            rooms.Add(Room.LoadFinalRoom(finalRoomIndex, previousRoomExit, roomOrientation,directory));
-        }
+            Room newRoom = null;
+            do
+            {
+                previousRoom = SelectRandomRoom();
+                previousRoomExit = previousRoom.GetRandomExit();
+                roomOrientation = previousRoom.GetOrientation(previousRoomExit);
+                newRoom = Room.LoadFinalRoom(finalRoomIndex, previousRoomExit, roomOrientation, directory);
+            }
+            while (OverlapsExistingRoom(newRoom));
+                rooms.Add(newRoom);
+            }
         foreach(Room room in rooms)
         {
             room.ChooseEnemies();
         }
         DefineGridBoundaries();
     }
+
+    private bool OverlapsExistingRoom(Room newRoom)
+    {
+        foreach(Room room in rooms)
+        {
+            if(room.Overlaps(newRoom))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected GridGenerator()
     {
         instance = this;

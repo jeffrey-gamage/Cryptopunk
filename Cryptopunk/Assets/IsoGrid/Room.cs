@@ -11,10 +11,6 @@ public class Room
     static readonly Vector3Int failToFind = new Vector3Int(0, -3, 0);
     internal List<Vector3Int> tiles;
     internal Room[] connections;
-    internal List<Vector3Int> leftEdgeTiles;
-    internal List<Vector3Int> rightEdgeTiles;
-    internal List<Vector3Int> foreEdgeTiles;
-    internal List<Vector3Int> aftEdgeTiles;
     internal List<RampCoordinates> rampCoordinates;
 
     internal Vector3Int entrance;
@@ -32,10 +28,10 @@ public class Room
 
     private int roomLength;
     private int roomWidth;
-    private int minX;
-    private int minZ;
-    private int maxX;
-    private int maxZ;
+    private int roomMinX;
+    private int roomMinZ;
+    private int roomMaxX;
+    private int roomMaxZ;
     private int roomY;
 
     internal enum Orientation
@@ -77,6 +73,18 @@ public class Room
                 difficultyBudget -= DungeonManager.instance.grid.GetEnemyRating(enemyIndex);
             }
         }
+    }
+
+    internal bool Overlaps(Room newRoom)
+    {
+        if((roomMaxX>newRoom.roomMinX&&roomMinX<newRoom.roomMaxX)||(newRoom.roomMaxX > roomMinX && newRoom.roomMinX <roomMaxX))
+        {
+            if ((roomMaxZ > newRoom.roomMinZ && roomMinZ < newRoom.roomMaxZ) || (newRoom.roomMaxZ > roomMinZ && newRoom.roomMinZ < roomMaxZ))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     internal Room(int minX, int maxX, int minZ, int maxZ, int height, List<RampCoordinates> rampCoordinates)
@@ -131,23 +139,27 @@ public class Room
     }
     private void SetRoomBoundaries()
     {
+        roomMinX = 9999;
+        roomMinZ = 9999;
+        roomMaxX = -9999;
+        roomMaxZ = -9999;
         foreach (Vector3Int tile in tiles)
         {
-            if (tile.x < minX)
+            if (tile.x < roomMinX)
             {
-                minX = tile.x;
+                roomMinX = tile.x;
             }
-            if (tile.z < minZ)
+            if (tile.z < roomMinZ)
             {
-                minZ = tile.z;
+                roomMinZ = tile.z;
             }
-            if (tile.x > maxX)
+            if (tile.x > roomMaxX)
             {
-                maxX = tile.x;
+                roomMaxX = tile.x;
             }
-            if (tile.z > maxZ)
+            if (tile.z > roomMaxZ)
             {
-                maxZ = tile.z;
+                roomMaxZ = tile.z;
             }
         }
     }
@@ -291,8 +303,8 @@ public class Room
             FlipX(ref ports);
             FlipX(ref terminals);
             FlipX(ref patrolRoutes);
-            missionObj += new Vector3Int(1, 0, 0) * (maxX -missionObj.x * 2);
-            entrance += new Vector3Int(1, 0, 0) * (maxX - entrance.x * 2);
+            missionObj += new Vector3Int(1, 0, 0) * (roomMaxX -missionObj.x * 2);
+            entrance += new Vector3Int(1, 0, 0) * (roomMaxX - entrance.x * 2);
         }
         if(roomOrientation==Orientation.forward)
         {
@@ -323,8 +335,8 @@ public class Room
             FlipZ(ref ports);
             FlipZ(ref terminals);
             FlipZ(ref patrolRoutes);
-            missionObj += new Vector3Int(0, 0, 1) * (maxZ - missionObj.z * 2);
-            entrance += new Vector3Int(0, 0, 1) * (maxZ - entrance.z * 2);
+            missionObj += new Vector3Int(0, 0, 1) * (roomMaxZ - missionObj.z * 2);
+            entrance += new Vector3Int(0, 0, 1) * (roomMaxZ - entrance.z * 2);
         }
     }
 
@@ -338,7 +350,7 @@ public class Room
                 {
                     for (int j = 0; j < patrolRoutes[i].Count; j++)
                     {
-                        patrolRoutes[i][j] += new Vector3Int(0, 0, 1) * (maxZ - patrolRoutes[i][j].z * 2);
+                        patrolRoutes[i][j] += new Vector3Int(0, 0, 1) * (roomMaxZ - patrolRoutes[i][j].z * 2);
                     }
                 }
             }
@@ -352,8 +364,8 @@ public class Room
             for (int i = 0; i < rampCoordinates.Count; i++)
             {
                 RampCoordinates flippedCoords;
-                flippedCoords.coord1 = new Vector3Int(rampCoordinates[i].coord1.x, rampCoordinates[i].coord1.y, maxZ -rampCoordinates[i].coord1.z);
-                flippedCoords.coord2 = new Vector3Int(rampCoordinates[i].coord2.x, rampCoordinates[i].coord2.y, maxZ - rampCoordinates[i].coord2.z);
+                flippedCoords.coord1 = new Vector3Int(rampCoordinates[i].coord1.x, rampCoordinates[i].coord1.y, roomMaxZ -rampCoordinates[i].coord1.z);
+                flippedCoords.coord2 = new Vector3Int(rampCoordinates[i].coord2.x, rampCoordinates[i].coord2.y, roomMaxZ - rampCoordinates[i].coord2.z);
                 rampCoordinates[i] = flippedCoords;
             }
         }
@@ -365,7 +377,7 @@ public class Room
         {
             for (int i = 0; i < coordinates.Count; i++)
             {
-                coordinates[i] += new Vector3Int(0,0,1) * (maxZ - coordinates[i].z * 2);
+                coordinates[i] += new Vector3Int(0,0,1) * (roomMaxZ - coordinates[i].z * 2);
             }
         }
     }
@@ -422,7 +434,7 @@ public class Room
                 {
                     for (int j = 0; j < patrolRoutes[i].Count; j++)
                     {
-                        patrolRoutes[i][j] += new Vector3Int(1, 0, 0) * (maxX - patrolRoutes[i][j].x * 2);
+                        patrolRoutes[i][j] += new Vector3Int(1, 0, 0) * (roomMaxX - patrolRoutes[i][j].x * 2);
                     }
                 }
             }
@@ -436,8 +448,8 @@ public class Room
             for (int i = 0; i < rampCoordinates.Count; i++)
             {
                 RampCoordinates flippedCoords;
-                flippedCoords.coord1 = new Vector3Int(maxX - rampCoordinates[i].coord1.x,rampCoordinates[i].coord1.y,rampCoordinates[i].coord1.z);
-                flippedCoords.coord2 = new Vector3Int(maxX - rampCoordinates[i].coord2.x, rampCoordinates[i].coord2.y, rampCoordinates[i].coord2.z);
+                flippedCoords.coord1 = new Vector3Int(roomMaxX - rampCoordinates[i].coord1.x,rampCoordinates[i].coord1.y,rampCoordinates[i].coord1.z);
+                flippedCoords.coord2 = new Vector3Int(roomMaxX - rampCoordinates[i].coord2.x, rampCoordinates[i].coord2.y, rampCoordinates[i].coord2.z);
                 rampCoordinates[i] = flippedCoords;
             }
         }
@@ -449,22 +461,22 @@ public class Room
         {
             for (int i=0; i < coordinates.Count; i++)
             {
-                coordinates[i] += Vector3Int.right * (maxX - coordinates[i].x * 2);
+                coordinates[i] += Vector3Int.right * (roomMaxX - coordinates[i].x * 2);
             }
         }
     }
 
     internal Orientation GetOrientation(Vector3Int exit)
     {
-        if(exit.x==maxX)
+        if(exit.x==roomMaxX)
         {
             return Orientation.right;
         }
-        if(exit.x==minX)
+        if(exit.x==roomMinX)
         {
             return Orientation.left;
         }
-        if(exit.z==maxZ)
+        if(exit.z==roomMaxZ)
         {
             return Orientation.forward;
         }
