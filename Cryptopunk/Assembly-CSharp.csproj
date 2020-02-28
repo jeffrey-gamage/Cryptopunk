@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Camera\CameraContol.cs" />
+    <Compile Include="Assets\credits\creditScroll.cs" />
+    <Compile Include="Assets\credits\creditsUI.cs" />
     <Compile Include="Assets\DungeonManager.cs" />
     <Compile Include="Assets\IsoGrid\DungeonGrid.cs" />
     <Compile Include="Assets\IsoGrid\DungeonTile.cs" />
