@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAnimating: 0
+  animationSpeed: 2
   maxSize: 4
   power: 1
   speed: 3
@@ -219,4 +220,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxIntegrity: 4
   rebootTime: 3
-  hackedMaterial: {fileID: 0}
+  hackedMaterial: {fileID: 2100000, guid: 642e0b922724f5a4895df7421cadafc0, type: 2}

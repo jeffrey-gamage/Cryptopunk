@@ -243,26 +243,32 @@ public class Program : MonoBehaviour
         }
     }
 
-    internal virtual void OnMouseDown()
+    internal virtual void OnMouseOver()
     {
         if (isTargetingAttack && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByPlayer())
         {
-            Program.selectedProgram.AttemptAttack(this);
+            DungeonManager.instance.PreviewTile(this.myTile);
         }
-        else if (isTargetingBreach && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByPlayer())
+        if (Input.GetMouseButtonDown(0))//select
         {
-            //breach is handled by hackable component
+            if (DungeonManager.instance.mode != DungeonManager.Mode.Deploy || !hasBegunPlay)//prevent port deployment from moving your programs
+            {
+                isTargetingAttack = false;
+                isTargetingBreach = false;
+                DungeonManager.instance.mode = DungeonManager.Mode.Move;
+                selectedProgram = this;
+                FindObjectOfType<PathPreview>().ClearPreview();
+                Hackable.selectedObject = GetComponent<Hackable>();
+                ClearSightPreviews();
+            }
         }
-        else if (DungeonManager.instance.mode != DungeonManager.Mode.Deploy || !hasBegunPlay)//prevent port deployment from moving your programs
+        else if(Input.GetMouseButtonDown(1))
         {
-            isTargetingAttack = false;
-            isTargetingBreach = false;
-            DungeonManager.instance.mode = DungeonManager.Mode.Move;
-            selectedProgram = this;
-            FindObjectOfType<PathPreview>().ClearPreview();
-            Hackable.selectedObject = GetComponent<Hackable>();
+            if (isTargetingAttack && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByPlayer())
+            {
+                Program.selectedProgram.AttemptAttack(this);
+            }
         }
-        ClearSightPreviews();
     }
 
     private void ClearSightPreviews()
@@ -270,13 +276,6 @@ public class Program : MonoBehaviour
         foreach(EnemyProgram enemyProgram in DungeonManager.instance.GetAICotrolledPrograms())
         {
             enemyProgram.ClearSightPreview();
-        }
-    }
-    private void OnMouseOver()
-    {
-        if (isTargetingAttack && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByPlayer())
-        {
-            DungeonManager.instance.PreviewTile(this.myTile);
         }
     }
 

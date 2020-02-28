@@ -164,16 +164,20 @@ public class DungeonTile : MonoBehaviour
     {
         this.height = newHeight;
     }
-
-    private void OnMouseDown()
-    {
-        DungeonManager.instance.SelectTile(this);
-    }
+    
     private void OnMouseOver()
     {
         if (DungeonManager.instance.mode == DungeonManager.Mode.Move)
         {
             DungeonManager.instance.PreviewTile(this);
+        }
+        if(Input.GetMouseButtonDown(0))
+        {
+            DungeonManager.instance.LeftClickTile(this);
+        }
+        else if(Input.GetMouseButtonDown(1))
+        {
+            DungeonManager.instance.RightClickTile(this);
         }
     }
     internal int GetHeight()

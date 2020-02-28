@@ -69,17 +69,23 @@ public class Hackable : MonoBehaviour
         Activate();
     }
 
-    private void OnMouseDown()
+    private void OnMouseOver()
     {
-        if(Program.isTargetingBreach&&Program.selectedProgram&&Program.selectedProgram.IsControlledByPlayer())
+        if(Input.GetMouseButtonDown(0))
         {
-            Program.selectedProgram.AttemptBreach(this);
+            if (DungeonManager.instance.mode != DungeonManager.Mode.Deploy)
+            {
+                Program.selectedProgram = myProgram;
+                FindObjectOfType<PathPreview>().ClearPreview();
+                selectedObject = this;
+            }
         }
-        else if(DungeonManager.instance.mode!=DungeonManager.Mode.Deploy)
+        else if(Input.GetMouseButtonDown(1))
         {
-            Program.selectedProgram = myProgram;
-            FindObjectOfType<PathPreview>().ClearPreview();
-            selectedObject = this;
+            if (Program.isTargetingBreach && Program.selectedProgram && Program.selectedProgram.IsControlledByPlayer())
+            {
+                Program.selectedProgram.AttemptBreach(this);
+            }
         }
     }
     internal void Disrupt(int damageAmount)

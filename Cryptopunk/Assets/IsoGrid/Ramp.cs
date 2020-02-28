@@ -25,17 +25,6 @@ public class Ramp : MonoBehaviour
     {
         return myDirection;
     }
-    private void OnMouseDown()
-    {
-        if(tile)
-        {
-            DungeonManager.instance.SelectTile(tile);
-        }
-        else
-        {
-            Debug.Log(name + " missing tile");
-        }
-    }
     private void OnMouseOver()
     {
         if (tile)
@@ -45,6 +34,14 @@ public class Ramp : MonoBehaviour
         else
         {
             Debug.Log(name + " missing tile");
+        }
+        if(Input.GetMouseButtonDown(0))
+        {
+            DungeonManager.instance.LeftClickTile(tile);
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            DungeonManager.instance.RightClickTile(tile);
         }
     }
 }

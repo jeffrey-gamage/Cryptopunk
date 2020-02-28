@@ -167,6 +167,7 @@ public class DungeonManager : MonoBehaviour
         }
         return controlledPrograms;
     }
+
     internal bool HasActionsLeft()
     {
         foreach(Program program in playerPrograms)
@@ -320,22 +321,26 @@ public class DungeonManager : MonoBehaviour
         grid.FogOfWarRender(GetPlayerControlledPrograms().ToArray());
     }
 
-    internal void SelectTile(DungeonTile dungeonTile)
+    internal void RightClickTile(DungeonTile dungeonTile)
     {
-        if(mode==Mode.Deploy)
+        if (mode == Mode.Move)
+        {
+            if (Program.selectedProgram && Program.selectedProgram.IsControlledByPlayer())
+            {
+                Program.selectedProgram.AttemptMove(dungeonTile);
+            }
+        }
+    }
+
+    internal void LeftClickTile(DungeonTile dungeonTile)
+    {
+        if (mode == Mode.Deploy)
         {
             DeploySelected(dungeonTile);
             PrepareNextDeployment();
             if (!Program.selectedProgram)
             {
                 ResumeRun();
-            }
-        }
-        else if (mode==Mode.Move)
-        {
-            if (Program.selectedProgram&&Program.selectedProgram.IsControlledByPlayer())
-            {
-                Program.selectedProgram.AttemptMove(dungeonTile);
             }
         }
     }

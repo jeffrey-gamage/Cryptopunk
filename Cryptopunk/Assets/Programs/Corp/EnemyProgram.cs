@@ -128,10 +128,10 @@ public class EnemyProgram : Program
             NavigateTowards(DungeonManager.instance.grid.GetNearestTileInRange(this, target.myTile, range, movesLeft));
         }
     }
-    internal override void OnMouseDown()
+    internal override void OnMouseOver()
     {
-        base.OnMouseDown();
-        if (selectedProgram == this&&!hackable.IsHacked())
+        base.OnMouseOver();
+        if (Input.GetMouseButtonDown(0)&&selectedProgram == this&&!hackable.IsHacked())
         {
             GenerateLineOfSightIndicators();
         }
