@@ -30,15 +30,18 @@ public class RoomDirectory : MonoBehaviour
     {
         int[] genRoomIndices = new int[numRooms];
         List<int> availableIndices = new List<int>();
-        for(int i=0;i<GENERAL_ROOMS.Length;i++)
+        if (GENERAL_ROOMS.Length > 0)
         {
-            availableIndices.Add(i);
-        }
-        for(int i=0;i<genRoomIndices.Length;i++)
-        {
-            int selectedIndex = Random.Range(0, availableIndices.Count);
-            genRoomIndices[i] = availableIndices[i];
-            availableIndices.RemoveAt(i);
+            for (int i = 0; i < GENERAL_ROOMS.Length; i++)
+            {
+                availableIndices.Add(i);
+            }
+            for (int i = 0; i < genRoomIndices.Length; i++)
+            {
+                int selectedIndex = Random.Range(0, availableIndices.Count);
+                genRoomIndices[i] = availableIndices[i];
+                availableIndices.RemoveAt(i);
+            }
         }
         return genRoomIndices;
     }

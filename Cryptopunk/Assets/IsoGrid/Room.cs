@@ -24,6 +24,8 @@ public class Room
     internal List<Vector3Int> terminals;
     internal List<Vector3Int> enemies;
     internal List<List<Vector3Int>> patrolRoutes;
+    internal List<TerminalAssignment> terminalAssignments;
+    internal bool isControlledByInternalTerminal = false;
     internal Vector3Int missionObj=Vector3Int.down;
 
     private int roomLength;
@@ -97,6 +99,24 @@ public class Room
             for (int j = minZ; j < maxZ; j++)
             {
                 tiles.Add(new Vector3Int(i, height, j));
+            }
+        }
+    }
+
+    internal void AssignEnemyTypes(Vector3Int[] predefinedEnemyTypes)
+    {
+        if (enemies.Count > 0)
+        {
+            for(int i= 0;i< enemies.Count;i++)
+            {
+                foreach (Vector3Int predefinedEnemy in predefinedEnemyTypes)
+                {
+                    if (enemies[i].x == predefinedEnemy.x && enemies[i].z == predefinedEnemy.z)
+                    {
+                        enemies[i] = predefinedEnemy;
+                    }
+                }
+
             }
         }
     }
@@ -221,6 +241,34 @@ public class Room
         TranslateEverything(translationVector);
     }
 
+    internal bool ContainsTile(Vector3Int tileCoords)
+    {
+        return tileCoords.x <= roomMaxX && tileCoords.x >= roomMinZ && tileCoords.z <= roomMaxZ && tileCoords.z >= roomMinZ;
+    }
+
+    internal void ConnectTerminal(ref List<Terminal> terminals)
+    {
+        foreach(Terminal terminal in terminals)
+        {
+            foreach (TerminalAssignment assignment in terminalAssignments)
+            {
+                if (terminal.myTile.xCoord ==assignment.terminalLocation.x&&terminal.myTile.zCoord==assignment.terminalLocation.z)
+                {
+                    foreach(Vector3Int controlLocation in assignment.controlLocations)
+                    {
+                        foreach(Hackable controllableObject in DungeonManager.instance.hackableObjects)
+                        {
+                            if(controlLocation.x==controllableObject.myTile.xCoord&&controlLocation.z==controllableObject.myTile.zCoord)
+                            {
+                                terminal.controlledObjects.Add(controllableObject);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     internal void TranslateEverything(Vector3Int translationVector)
     {
         TranslateAll(ref tiles, translationVector);
@@ -233,6 +281,10 @@ public class Room
         TranslateAll(ref loot, translationVector);
         TranslateAll(ref ports, translationVector);
         TranslateAll(ref terminals, translationVector);
+        if (isControlledByInternalTerminal)
+        {
+            TranslateAll(ref terminalAssignments, translationVector);
+        }
         TranslateAll(ref patrolRoutes, translationVector);
         entrance += translationVector;
         if(missionObj!=Vector3Int.down)
@@ -241,9 +293,17 @@ public class Room
         }
     }
 
+    private void TranslateAll(ref List<TerminalAssignment> terminalAssignments, Vector3Int translationVector)
+    {
+            foreach (TerminalAssignment terminalAssignment in terminalAssignments)
+            {
+                terminalAssignment.Translate(translationVector);
+            }
+    }
+
     internal bool HasTerminalTargets()
     {
-        return defences.Count > 0 || firewalls.Count > 0;
+        return (!isControlledByInternalTerminal)&&(defences.Count > 0 || firewalls.Count > 0);
     }
 
     private void TranslateAll(ref List<List<Vector3Int>> patrolRoutes, Vector3Int translationVector)
@@ -524,6 +584,11 @@ public class Room
                     ParseRoutes(ref roomText);
                     break;
                 }
+            case "++TERMINAL ASSIGNMENTS++":
+                {
+                    ParseAssignments(ref roomText);
+                    break;
+                }
             case "++LOOT VALUES++":
                 {
                     ParseLootValues(ref roomText);
@@ -534,6 +599,42 @@ public class Room
                     return;
                 }
         }
+    }
+
+    private void ParseAssignments(ref string roomText)
+    {
+        terminalAssignments = new List<TerminalAssignment>();
+        isControlledByInternalTerminal = true;
+        string nextLine = GetNextLine(ref roomText);
+        while (nextLine!="++END++")
+        {
+            int newVal = 0;
+            int x = 0;
+            int z = 0;
+            TerminalAssignment newAssignement = new TerminalAssignment();
+            foreach (char nextChar in nextLine)
+            {
+                if (Char.IsDigit(nextChar))
+                {
+                    newVal *= 10;
+                    newVal += int.Parse(nextChar.ToString());
+                }
+                else if (nextChar == ',')
+                {
+                    x = newVal;
+                    newVal = 0;
+                }
+                else if (nextChar == '-')
+                {
+                    z = newVal;
+                    newVal = 0;
+                    newAssignement.AddLocation(new Vector3Int(x, 0, z));
+                }
+            }
+            newAssignement.AddLocation(new Vector3Int(x, 0, z));
+            terminalAssignments.Add(newAssignement);
+        }
+        ParseRoomFile(roomText);
     }
 
     private void ParseLootValues(ref string roomText)

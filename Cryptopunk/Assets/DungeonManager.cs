@@ -48,53 +48,65 @@ public class DungeonManager : MonoBehaviour
         GridGenerator generator;
         if (tutorialInfo)
         {
-            generator = new TutorialGridGenerator();
+            generator = new GridGenerator(1, 0);
         }
         else
         {
-            generator = new GridGenerator(4,0);
+            generator = new GridGenerator(GetDungeonSize(FindObjectOfType<MissionStatus>().GetTotalBudget()), 0);
         }
         int[][] gridPlan = generator.GetGrid();
         SetUpCamera(gridPlan.Length);
         grid.GenerateGrid(gridPlan);
         grid.GenerateRamps(generator.GetRamps());
-        if (!tutorialInfo)
+        grid.GenerateFirewalls(generator.GetFirewalls());
+        grid.GenerateDefenses(generator.GetDefences());
+        grid.GenerateTerminals(generator.GetTerminals());
+        grid.GenerateSecurityHubs(generator.GetHubs());
+        if(tutorialInfo)
         {
-            grid.GenerateFirewalls(generator.GetFirewalls());
-            grid.GenerateDefenses(generator.GetDefences());
-            grid.GenerateTerminals(generator.GetTerminals());
-            grid.GenerateSecurityHubs(generator.GetHubs());
-            foreach(Room room in generator.rooms)
+            AssignEnemyTypes(ref generator,tutorialInfo.GetEnemies());
+        }
+        foreach (Room room in generator.rooms)
+        {
+            List<EnemyProgram> enemiesInRoom = grid.GenerateEnemies(room.GetEnemies());
+            grid.AssignPatrolRoutes(ref enemiesInRoom, room.patrolRoutes);
+        }
+        grid.GeneratePorts(generator.GetPorts());
+        grid.AssignControl(generator.GetTerminalControlledObjects());
+        foreach (Room room in generator.rooms)
+        {
+            if(room.isControlledByInternalTerminal)
             {
-                List<EnemyProgram> enemiesInRoom = grid.GenerateEnemies(room.GetEnemies());
-                grid.AssignPatrolRoutes(ref enemiesInRoom, room.patrolRoutes);
+                room.ConnectTerminal(ref terminals);
             }
-            grid.GeneratePorts(generator.GetPorts());
-            grid.AssignControl(generator.GetTerminalControlledObjects());
-            grid.PlaceLoot(generator.GetLoot());
-            grid.PlaceObjective(generator.getMissionObj());
-            CreatePlayerPrograms(MissionStatus.instance.selectedPrograms);
+        }
+        grid.PlaceLoot(generator.GetLoot());
+        grid.PlaceObjective(generator.getMissionObj());
+        if (tutorialInfo)
+        {
+            CreatePlayerPrograms(tutorialInfo.tutorialPrograms);
         }
         else
         {
-            grid.GenerateFirewalls(tutorialInfo.GetFirewallLocations());
-            grid.GenerateDefenses(tutorialInfo.GetDefencePlacements());
-            grid.GenerateTerminals(tutorialInfo.GetTerminalInfo());
-            grid.GenerateSecurityHubs(tutorialInfo.GetHubs());
-            grid.GenerateEnemies(tutorialInfo.GetEnemies());
-            for(int i=0;i<enemyPrograms.Count;i++)
-            {
-                enemyPrograms[i].SetWaypoints(tutorialInfo.GetPatrolRoute(i));
-            }
-            grid.GeneratePorts(tutorialInfo.GetPortLocations());
-            grid.AssignControl(tutorialInfo.GetTerminalControlAssignments());
-            grid.PlaceLoot(tutorialInfo.GetLootPlacements());
-            CreatePlayerPrograms(tutorialInfo.tutorialPrograms);
+            CreatePlayerPrograms(MissionStatus.instance.selectedPrograms);
         }
         grid.CreateDeploymentZone(generator.GetDeploymentArea());
         FindObjectOfType<CameraContol>().Configure();
         grid.ExploreStartingArea(generator.GetStartingArea());
         PrepareNextDeployment();
+    }
+
+    private int GetDungeonSize(int missionBudget)
+    {
+        return missionBudget/3;
+    }
+
+    private void AssignEnemyTypes(ref GridGenerator generator, Vector3Int[] predefinedEnemyTypes)
+    {
+        foreach(Room room in generator.rooms)
+        {
+            room.AssignEnemyTypes(predefinedEnemyTypes);
+        }
     }
 
     private void CreatePlayerPrograms(GameObject[] selectedPrograms)

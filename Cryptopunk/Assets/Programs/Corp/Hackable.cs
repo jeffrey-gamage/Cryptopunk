@@ -69,7 +69,7 @@ public class Hackable : MonoBehaviour
         Activate();
     }
 
-    private void OnMouseOver()
+    protected virtual void OnMouseOver()
     {
         if(Input.GetMouseButtonDown(0))
         {

@@ -83,6 +83,5 @@ public class shop : MonoBehaviour
     internal void OverBudgetFeedback()
     {
         overBudgetFlashTimer = overBudgetFlashInterval;
-        Debug.Log("Not enough minerals");
     }
 }

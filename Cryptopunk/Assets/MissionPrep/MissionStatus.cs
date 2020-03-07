@@ -21,6 +21,7 @@ public class MissionStatus : MonoBehaviour
     internal static MissionStatus instance;
     [SerializeField] List<Image> programSlots;
     internal int kbBudget;
+    private int totalBudget;
     internal int selectedSlotIndex = 0;
     public Image selectedSlotHighlight;
     internal string corpName;
@@ -36,12 +37,13 @@ public class MissionStatus : MonoBehaviour
         instance = this;
         Exploit targetExploit = FindObjectOfType<Exploit>();
         kbBudget = targetExploit.vulnerability;
+        totalBudget = kbBudget;
         corpName = targetExploit.corpName;
         Destroy(targetExploit.gameObject);
         selectedPrograms = new GameObject[programSlots.Count];
 
         targetCorpName.text = "target: " + corpName;
-        budgetDisplay.text = "maximum package size: " + kbBudget+" kb";
+        budgetDisplay.text = "maximum package size: " + totalBudget+" kb";
     }
 
     internal void AddSchema(string schema)
@@ -60,6 +62,10 @@ public class MissionStatus : MonoBehaviour
         budgetAvailableDisplay.text = "available space: " + kbBudget + " kb";
     }
 
+    internal int GetTotalBudget()
+    {
+        return totalBudget;
+    }
     public void SubmitProgramToPackage(GameObject selectedProgram)
     {
         if (SubmissionIsInBudget(selectedProgram))

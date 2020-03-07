@@ -31,6 +31,14 @@ public class Firewall : Hackable
             gameObject.transform.position = myTile.GetOccupyingCoordinates(false);
         }
     }
+    protected override void OnMouseOver()
+    {
+        base.OnMouseOver();
+        if (!isEnabled)
+        {
+                myTile.SelectFromDisabledFirewall();
+        }
+    }
     internal override void Activate()
     {
         if(!myTile.isOccupied)

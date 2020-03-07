@@ -164,6 +164,11 @@ public class DungeonTile : MonoBehaviour
     {
         this.height = newHeight;
     }
+
+    internal void SelectFromDisabledFirewall()
+    {
+        OnMouseOver();//
+    }
     
     private void OnMouseOver()
     {

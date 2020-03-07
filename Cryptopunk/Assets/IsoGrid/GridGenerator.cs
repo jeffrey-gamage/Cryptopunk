@@ -227,14 +227,31 @@ public class GridGenerator
         {
             for(int i=0;i<GetTerminals().Length;i++)
             {
-                if(controllableRooms.Count>0)
+                if (controllableRooms.Count > 0 && !TerminalIsInternal(GetTerminals()[i]));
                 {
-                    int selectionIndex = Random.Range(0, controllableRooms.Count);
+                    int selectionIndex;
+                    do
+                    {
+                        selectionIndex = Random.Range(0, controllableRooms.Count);
+                    }
+                    while (rooms[selectionIndex].ContainsTile(GetTerminals()[i]));
                     AssignControl(ref controlAssignments, i, controllableRooms[selectionIndex]);
                     controllableRooms.RemoveAt(selectionIndex);
                 }
             }
         }
+    }
+
+    private bool TerminalIsInternal(Vector3Int terminalCoords)
+    {
+        foreach(Room room in rooms)
+        {
+            if(room.isControlledByInternalTerminal&&room.ContainsTile(terminalCoords))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void AssignControl(ref List<Vector2Int> controlAssignments, int terminalNum, Room room)
