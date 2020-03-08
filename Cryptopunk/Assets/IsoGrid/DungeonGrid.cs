@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 public class DungeonGrid : MonoBehaviour
 {
+    [SerializeField] readonly int STARTING_EXPLORE_DISTANCE = 5;
     [SerializeField] GameObject gridTile;
     [SerializeField] GameObject ramp;
     [SerializeField] GameObject firewall;
@@ -176,11 +177,17 @@ public class DungeonGrid : MonoBehaviour
         return tileGrid[x][z];
     }
 
-    internal void ExploreStartingArea(List<Vector3Int> startingRoomTileCoords)
+    internal void ExploreStartingArea(Vector3Int startPoint)
     {
-        foreach(Vector3Int coord in startingRoomTileCoords)
+        foreach(DungeonTile[] row in tileGrid)
         {
-            tileGrid[coord.x][coord.z].Reveal();
+            foreach (DungeonTile tile in row)
+            {
+                if (TileDistance(tile, tileGrid[startPoint.x][startPoint.z]) < STARTING_EXPLORE_DISTANCE)
+                {
+                    tile.Reveal();
+                }
+            }
         }
     }
 

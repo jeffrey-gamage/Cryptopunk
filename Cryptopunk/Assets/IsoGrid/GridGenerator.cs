@@ -282,11 +282,6 @@ public class GridGenerator
         }
     }
 
-    internal List<Vector3Int> GetStartingArea()
-    {
-        return rooms[0].tiles;
-    }
-
     private Room SelectRandomRoom()
     {
         Room selectedRoom = null;

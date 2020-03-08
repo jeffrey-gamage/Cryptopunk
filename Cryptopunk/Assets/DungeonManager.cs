@@ -92,7 +92,7 @@ public class DungeonManager : MonoBehaviour
         }
         grid.CreateDeploymentZone(generator.GetDeploymentArea());
         FindObjectOfType<CameraContol>().Configure();
-        grid.ExploreStartingArea(generator.GetStartingArea());
+        grid.ExploreStartingArea(generator.GetDeploymentArea());
         PrepareNextDeployment();
     }
 
