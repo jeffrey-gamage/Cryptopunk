@@ -203,7 +203,11 @@ public class GridGenerator
 
     internal Vector3Int GetDeploymentArea()
     {
-        return rooms[0].GetCentre();
+        if(rooms[0].deploymentPoint.y>=0)//check that start point has been set
+        {
+            return rooms[0].deploymentPoint;
+        }
+        return rooms[0].GetCentre();//default behaviour
     }
 
     internal Vector2Int[] GetTerminalControlledObjects()
@@ -227,7 +231,7 @@ public class GridGenerator
         {
             for(int i=0;i<GetTerminals().Length;i++)
             {
-                if (controllableRooms.Count > 0 && !TerminalIsInternal(GetTerminals()[i]));
+                if (controllableRooms.Count > 0 && !TerminalIsInternal(GetTerminals()[i]))
                 {
                     int selectionIndex;
                     do

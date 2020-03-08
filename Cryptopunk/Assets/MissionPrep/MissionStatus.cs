@@ -34,16 +34,27 @@ public class MissionStatus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
-        Exploit targetExploit = FindObjectOfType<Exploit>();
-        kbBudget = targetExploit.vulnerability;
-        totalBudget = kbBudget;
-        corpName = targetExploit.corpName;
-        Destroy(targetExploit.gameObject);
-        selectedPrograms = new GameObject[programSlots.Count];
+        if (instance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            Exploit targetExploit = FindObjectOfType<Exploit>();
+            if (targetExploit)
+            {
+                kbBudget = targetExploit.vulnerability;
+                totalBudget = kbBudget;
+                corpName = targetExploit.corpName;
+                Destroy(targetExploit.gameObject);
+                selectedPrograms = new GameObject[programSlots.Count];
 
-        targetCorpName.text = "target: " + corpName;
-        budgetDisplay.text = "maximum package size: " + totalBudget+" kb";
+                targetCorpName.text = "target: " + corpName;
+                budgetDisplay.text = "maximum package size: " + totalBudget + " kb";
+            }
+        }
     }
 
     internal void AddSchema(string schema)
@@ -59,7 +70,10 @@ public class MissionStatus : MonoBehaviour
 
     private void Update()
     {
-        budgetAvailableDisplay.text = "available space: " + kbBudget + " kb";
+        if (budgetAvailableDisplay)
+        {
+            budgetAvailableDisplay.text = "available space: " + kbBudget + " kb";
+        }
     }
 
     internal int GetTotalBudget()

@@ -13,6 +13,7 @@ public class Room
     internal Room[] connections;
     internal List<RampCoordinates> rampCoordinates;
 
+    internal Vector3Int deploymentPoint = Vector3Int.down;
     internal Vector3Int entrance;
     internal List<Vector3Int> exits;
 
@@ -26,6 +27,7 @@ public class Room
     internal List<List<Vector3Int>> patrolRoutes;
     internal List<TerminalAssignment> terminalAssignments;
     internal bool isControlledByInternalTerminal = false;
+    internal bool enemiesArePredefined = false;
     internal Vector3Int missionObj=Vector3Int.down;
 
     private int roomLength;
@@ -66,13 +68,16 @@ public class Room
     internal void ChooseEnemies()
     {
         int difficultyBudget = baseDifficulty + PersistentState.instance.progress;
-        for(int i=0;i<enemies.Count;i++)
+        if (!enemiesArePredefined)
         {
-            if(difficultyBudget>0)
+            for (int i = 0; i < enemies.Count; i++)
             {
-                int enemyIndex = DungeonManager.instance.grid.SelectEnemy(difficultyBudget);
-                enemies[i] += Vector3Int.up * enemyIndex;
-                difficultyBudget -= DungeonManager.instance.grid.GetEnemyRating(enemyIndex);
+                if (difficultyBudget > 0)
+                {
+                    int enemyIndex = DungeonManager.instance.grid.SelectEnemy(difficultyBudget);
+                    enemies[i] += Vector3Int.up * enemyIndex;
+                    difficultyBudget -= DungeonManager.instance.grid.GetEnemyRating(enemyIndex);
+                }
             }
         }
     }
@@ -631,8 +636,10 @@ public class Room
                     newAssignement.AddLocation(new Vector3Int(x, 0, z));
                 }
             }
+            z = newVal;
             newAssignement.AddLocation(new Vector3Int(x, 0, z));
             terminalAssignments.Add(newAssignement);
+            nextLine = GetNextLine(ref roomText);
         }
         ParseRoomFile(roomText);
     }
@@ -741,6 +748,11 @@ public class Room
                             }
                         case '-':
                             {
+                                break;
+                            }
+                        case 'S':
+                            {
+                                deploymentPoint = new Vector3Int(x, 0, z);
                                 break;
                             }
                         case 'E':
