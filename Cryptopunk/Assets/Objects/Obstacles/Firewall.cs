@@ -23,22 +23,22 @@ public class Firewall : Hackable
         if (isEnabled)
         {
             gameObject.transform.localScale = activeScale;
-            gameObject.transform.position = myTile.GetOccupyingCoordinates(true);
+            gameObject.transform.position = myTile.GetOccupyingCoordinates(true,true);
         }
         else
         {
             gameObject.transform.localScale = inactiveScale;
-            gameObject.transform.position = myTile.GetOccupyingCoordinates(false);
+            gameObject.transform.position = myTile.GetOccupyingCoordinates(false,true);
         }
     }
-    protected override void OnMouseOver()
-    {
-        base.OnMouseOver();
-        if (!isEnabled)
-        {
-                myTile.SelectFromDisabledFirewall();
-        }
-    }
+    //protected override void OnMouseOver()
+    //{
+    //    base.OnMouseOver();
+    //    if (!isEnabled)
+    //    {
+    //            myTile.SelectFromDisabledFirewall();
+    //    }
+    //}
     internal override void Activate()
     {
         if(!myTile.isOccupied)

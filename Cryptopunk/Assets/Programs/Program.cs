@@ -82,9 +82,9 @@ public class Program : MonoBehaviour
             {
                 HandleRampClimbRotation(motion);
             }
-            if (motion == Vector3.zero || motion.magnitude > (myTile.GetOccupyingCoordinates(IsFlying()) - gameObject.transform.position).magnitude)
+            if (motion == Vector3.zero || motion.magnitude > (myTile.GetOccupyingCoordinates(IsFlying(),false) - gameObject.transform.position).magnitude)
             {
-                gameObject.transform.position = myTile.GetOccupyingCoordinates(IsFlying());
+                gameObject.transform.position = myTile.GetOccupyingCoordinates(IsFlying(),false);
                 if (movePath.Count == 0)
                 {
                     isAnimating = false;
@@ -170,7 +170,7 @@ public class Program : MonoBehaviour
 
     private Vector3 GetMotionVector()
     {
-        Vector3 motionVector = myTile.GetOccupyingCoordinates(IsFlying()) - gameObject.transform.position;
+        Vector3 motionVector = myTile.GetOccupyingCoordinates(IsFlying(),false) - gameObject.transform.position;
         if (IsFlying())
         {
             if (motionVector.y < 0 && (motionVector - Vector3.up * motionVector.y).magnitude > animationSpeed * Time.deltaTime)//don't descend until hovering over destination

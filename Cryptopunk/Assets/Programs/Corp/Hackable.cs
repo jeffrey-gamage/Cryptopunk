@@ -86,6 +86,10 @@ public class Hackable : MonoBehaviour
             {
                 Program.selectedProgram.AttemptBreach(this);
             }
+            else if((!Program.isTargetingAttack)&&(!Program.isTargetingBreach)&&Program.selectedProgram&&Program.selectedProgram.IsControlledByPlayer())
+            {
+                DungeonManager.instance.RightClickTile(myTile);
+            }
         }
     }
     internal void Disrupt(int damageAmount)
@@ -123,6 +127,7 @@ public class Hackable : MonoBehaviour
     {
         //hook for subclasses to do behaviour when switched on
         isEnabled = true;
+        myTile.isBlocked = true;
     }
     internal virtual void Deactivate()
     {

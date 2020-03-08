@@ -14,6 +14,7 @@ public class DungeonTile : MonoBehaviour
 
     private static readonly float rampAlignmentDistance = 0.1f;
     private static readonly float flyingHeight = 0.3f;
+    private static readonly float flyOverHeight = 0.65f;
     private static readonly float rampSlope = -35f;
     private static readonly float unitHeight = 0.7f;
     private static readonly float baseHeight = 0.125f;
@@ -167,7 +168,7 @@ public class DungeonTile : MonoBehaviour
 
     internal void SelectFromDisabledFirewall()
     {
-        OnMouseOver();//
+        OnMouseOver();
     }
     
     private void OnMouseOver()
@@ -189,7 +190,7 @@ public class DungeonTile : MonoBehaviour
     {
         return height;
     }
-    internal Vector3 GetOccupyingCoordinates(bool isFlying)
+    internal Vector3 GetOccupyingCoordinates(bool isFlying, bool isObject)
         //returns the world coordinates a program should navigate to in order to occupy this tile
     {
         Vector3 occupyCoordinates = new Vector3(gameObject.transform.position.x,
@@ -197,6 +198,10 @@ public class DungeonTile : MonoBehaviour
                                 gameObject.transform.position.z);
         if (isFlying)
         {
+            if(isBlocked&&!isObject)
+            {
+                occupyCoordinates += Vector3.up * flyOverHeight;
+            }
             occupyCoordinates += Vector3.up * flyingHeight;
         }
         if(ramp)

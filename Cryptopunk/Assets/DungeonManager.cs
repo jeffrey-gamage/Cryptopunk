@@ -370,7 +370,7 @@ public class DungeonManager : MonoBehaviour
             grid.CanDeployHere(dungeonTile))
         {
             Program.selectedProgram.myTile = dungeonTile;
-            Program.selectedProgram.transform.position = dungeonTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying());
+            Program.selectedProgram.transform.position = dungeonTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying(),false);
             Program.selectedProgram.BeginPlay();
             dungeonTile.Occupy(Program.selectedProgram);
         }
@@ -386,7 +386,7 @@ public class DungeonManager : MonoBehaviour
     internal void DeploySecurity(EnemyProgram enemy, DungeonTile dungeonTile)
     {
         enemy.SetTile(dungeonTile);
-        enemy.transform.position = dungeonTile.GetOccupyingCoordinates(enemy.IsFlying());
+        enemy.transform.position = dungeonTile.GetOccupyingCoordinates(enemy.IsFlying(),false);
         enemyPrograms.Add(enemy);
         dungeonTile.Occupy(enemy);
     }

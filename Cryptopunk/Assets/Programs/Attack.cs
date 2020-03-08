@@ -21,10 +21,10 @@ public class Attack : MonoBehaviour
     }
     private void AnimateMovement()
     {
-        Vector3 motion = (myTile.GetOccupyingCoordinates(false) - gameObject.transform.position).normalized * animationSpeed * Time.deltaTime;
-        if (motion == Vector3.zero || motion.magnitude > (myTile.GetOccupyingCoordinates(false) - gameObject.transform.position).magnitude)
+        Vector3 motion = (myTile.GetOccupyingCoordinates(false,false) - gameObject.transform.position).normalized * animationSpeed * Time.deltaTime;
+        if (motion == Vector3.zero || motion.magnitude > (myTile.GetOccupyingCoordinates(false,false) - gameObject.transform.position).magnitude)
         {
-            gameObject.transform.position = myTile.GetOccupyingCoordinates(false);
+            gameObject.transform.position = myTile.GetOccupyingCoordinates(false,false);
             if (movePath.Count == 0)
             {
                 target.Damage(damage);

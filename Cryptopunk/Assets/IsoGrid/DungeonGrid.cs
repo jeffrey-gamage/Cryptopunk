@@ -53,7 +53,7 @@ public class DungeonGrid : MonoBehaviour
             if (IsValidCoordinates(firewallLocation.x, firewallLocation.z))
             {
                 DungeonTile tile = tileGrid[firewallLocation.x][firewallLocation.z];
-                Firewall newFirewall = Instantiate(firewall, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Firewall>();
+                Firewall newFirewall = Instantiate(firewall, tile.GetOccupyingCoordinates(true,true), Quaternion.identity).GetComponent<Firewall>();
                 DungeonManager.instance.hackableObjects.Add(newFirewall);
                 newFirewall.myTile = tile;
             }
@@ -113,7 +113,7 @@ public class DungeonGrid : MonoBehaviour
         foreach (Vector3Int terminalLocation in terminalLocations)
         {
             DungeonTile tile = tileGrid[terminalLocation.x][terminalLocation.z];
-            Terminal newTerminal = Instantiate(terminal, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Terminal>();
+            Terminal newTerminal = Instantiate(terminal, tile.GetOccupyingCoordinates(true,true), Quaternion.identity).GetComponent<Terminal>();
             DungeonManager.instance.terminals.Add(newTerminal);
             newTerminal.myTile = tile;
         }
@@ -129,7 +129,7 @@ public class DungeonGrid : MonoBehaviour
         foreach (Vector3Int hubLocation in hubPlacements)
         {
             DungeonTile tile = tileGrid[hubLocation.x][hubLocation.z];
-            SecurityNode newNode = Instantiate(hubPrefab, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<SecurityNode>();
+            SecurityNode newNode = Instantiate(hubPrefab, tile.GetOccupyingCoordinates(true,true), Quaternion.identity).GetComponent<SecurityNode>();
             DungeonManager.instance.securityNodes.Add(newNode);
             newNode.myTile = tile;
         }
@@ -150,7 +150,7 @@ public class DungeonGrid : MonoBehaviour
     {
         foreach (Vector3Int lootPos in lootInfo)
         {
-            Loot newLoot = Instantiate(lootPrefab, tileGrid[lootPos.x][lootPos.z].GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Loot>();
+            Loot newLoot = Instantiate(lootPrefab, tileGrid[lootPos.x][lootPos.z].GetOccupyingCoordinates(true,true), Quaternion.identity).GetComponent<Loot>();
             newLoot.setContents(lootPos.y);
             tileGrid[lootPos.x][lootPos.z].loot = newLoot;
         }
@@ -158,7 +158,7 @@ public class DungeonGrid : MonoBehaviour
 
     internal void PlaceObjective(Vector3Int missionObj)
     {
-        Loot newLoot = Instantiate(objectivePrefab, tileGrid[missionObj.x][missionObj.z].GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Loot>();
+        Loot newLoot = Instantiate(objectivePrefab, tileGrid[missionObj.x][missionObj.z].GetOccupyingCoordinates(true,true), Quaternion.identity).GetComponent<Loot>();
         newLoot.setContents(missionObj.y);
         tileGrid[missionObj.x][missionObj.z].loot = newLoot;
     }
@@ -196,7 +196,7 @@ public class DungeonGrid : MonoBehaviour
         foreach (Vector3Int portLocation in portLocations)
         {
             DungeonTile tile = tileGrid[portLocation.x][portLocation.z];
-            Port newPort = Instantiate(port, tile.GetOccupyingCoordinates(true), Quaternion.identity).GetComponent<Port>();
+            Port newPort = Instantiate(port, tile.GetOccupyingCoordinates(true,true), Quaternion.identity).GetComponent<Port>();
             DungeonManager.instance.hackableObjects.Add(newPort);
             newPort.myTile = tile;
         }
@@ -207,7 +207,7 @@ public class DungeonGrid : MonoBehaviour
         Instantiate(deploymentZone);
         DeploymentZone zone = FindObjectOfType<DeploymentZone>();
         zone.myCoords = deploymentCoords;
-        zone.transform.position = tileGrid[deploymentCoords.x][deploymentCoords.z].GetOccupyingCoordinates(true);
+        zone.transform.position = tileGrid[deploymentCoords.x][deploymentCoords.z].GetOccupyingCoordinates(true,true);
 
     }
 
@@ -370,9 +370,9 @@ public class DungeonGrid : MonoBehaviour
 
     internal bool IsInLineOfSight(Program observer, DungeonTile tile)
     {
-        Vector3 direction = (tile.GetOccupyingCoordinates(true) - observer.myTile.GetOccupyingCoordinates(true)).normalized;
-        float distance =(tile.GetOccupyingCoordinates(true) -observer.myTile.GetOccupyingCoordinates(true)).magnitude;
-        return !Physics.Raycast(observer.myTile.GetOccupyingCoordinates(true), direction, distance, LayerMask.GetMask("Ground"));
+        Vector3 direction = (tile.GetOccupyingCoordinates(true,false) - observer.myTile.GetOccupyingCoordinates(observer.IsFlying(),false)).normalized;
+        float distance =(tile.GetOccupyingCoordinates(true,false) -observer.myTile.GetOccupyingCoordinates(observer.IsFlying(),false)).magnitude;
+        return !Physics.Raycast(observer.myTile.GetOccupyingCoordinates(observer.IsFlying(),false), direction, distance, LayerMask.GetMask("Ground"));
     }
 
     internal List<DungeonTile> FindPath(DungeonTile start, DungeonTile end, int pathLength, bool isFlying)
