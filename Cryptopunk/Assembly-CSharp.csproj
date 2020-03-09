@@ -105,6 +105,9 @@
     <Compile Include="Assets\UI\ProgramList.cs" />
     <Compile Include="Assets\UI\ProgramListItem.cs" />
     <Compile Include="Assets\UI\SelectedIndicator.cs" />
+    <Compile Include="Assets\UI\TextPrompts\DeploymentComplete.cs" />
+    <Compile Include="Assets\UI\TextPrompts\TextPrompt.cs" />
+    <Compile Include="Assets\UI\TextPrompts\TextPromptManager.cs" />
     <Compile Include="Assets\UI\TurnPanel.cs" />
     <None Include="Assets\IsoGrid\Rooms\GenRoom7.txt" />
     <None Include="Assets\IsoGrid\Rooms\TutorialLayout.txt" />
