@@ -17,6 +17,8 @@ public class Hackable : MonoBehaviour
     internal int rebootCountdown=0;
     private Material normalMaterial;
     [SerializeField] Material hackedMaterial;
+    [SerializeField] Material inactiveMaterial;
+    [SerializeField] Material inactiveHackedMaterial;
 
     internal virtual void Start()
     {
@@ -128,11 +130,30 @@ public class Hackable : MonoBehaviour
         //hook for subclasses to do behaviour when switched on
         isEnabled = true;
         myTile.isBlocked = true;
+        if(isHacked)
+        {
+            myMeshRenderer.material = hackedMaterial;
+        }
+        else
+        {
+            myMeshRenderer.material = normalMaterial;
+        }
     }
     internal virtual void Deactivate()
     {
         //hook for subclasses to do behaviour when switched off
         isEnabled = false;
+        if(inactiveMaterial)
+        {
+            if(isHacked&&inactiveHackedMaterial)
+            {
+                myMeshRenderer.material = inactiveHackedMaterial;
+            }
+            else
+            {
+                myMeshRenderer.material = inactiveMaterial;
+            }
+        }
     }
 
     internal bool IsHacked()

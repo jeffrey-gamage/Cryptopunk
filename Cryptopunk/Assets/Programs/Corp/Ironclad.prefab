@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4896562813821211903}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0.51, z: 0}
-  m_LocalScale: {x: 0.35, y: 0.35, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0}
   m_Children: []
   m_Father: {fileID: 4083519901496748975}
   m_RootOrder: 0
@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAnimating: 0
+  animationSpeed: 2
   maxSize: 5
   power: 2
   speed: 3
@@ -219,3 +220,5 @@ MonoBehaviour:
   maxIntegrity: 3
   rebootTime: 3
   hackedMaterial: {fileID: 2100000, guid: 642e0b922724f5a4895df7421cadafc0, type: 2}
+  inactiveMaterial: {fileID: 0}
+  inactiveHackedMaterial: {fileID: 0}

@@ -233,7 +233,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 32ec0c30f90e0484c927d150f3dd6545, type: 3}
-    m_FontSize: 10
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -244,9 +244,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The turret ahead can inflict heavy damage on your programs. Use Access the
-    terminal to deactivate it. The green line shows what objects are controlled by
-    each terminal.
+  m_Text: The turret ahead can inflict heavy damage on your programs. Use the terminal
+    to deactivate it. The green line shows what objects are controlled by each terminal.
 --- !u!1 &5651975461860370351
 GameObject:
   m_ObjectHideFlags: 0
