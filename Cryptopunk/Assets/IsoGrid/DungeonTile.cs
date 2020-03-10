@@ -6,10 +6,10 @@ using Random = UnityEngine.Random;
 
 public class DungeonTile : MonoBehaviour
 {
-    private static readonly float baseDropDistance = 5f;
+    private static readonly float baseDropDistance = 6f;
     private static readonly float dropDistanceRange = 2.5f;
     private static readonly float maxRevealDelayTime=0.75f;
-    private static readonly float animationSpeed = 5f;
+    private static readonly float animationSpeed = 8f;
     private Vector3 homeLocation;
 
     private static readonly float rampAlignmentDistance = 0.1f;

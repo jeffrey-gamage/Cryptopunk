@@ -113,7 +113,7 @@ public class DungeonGrid : MonoBehaviour
         foreach (Vector3Int terminalLocation in terminalLocations)
         {
             DungeonTile tile = tileGrid[terminalLocation.x][terminalLocation.z];
-            Terminal newTerminal = Instantiate(terminal, tile.GetOccupyingCoordinates(true,true), Quaternion.identity).GetComponent<Terminal>();
+            Terminal newTerminal = Instantiate(terminal, tile.GetOccupyingCoordinates(false,true), Quaternion.identity).GetComponent<Terminal>();
             DungeonManager.instance.terminals.Add(newTerminal);
             newTerminal.myTile = tile;
         }
@@ -129,7 +129,7 @@ public class DungeonGrid : MonoBehaviour
         foreach (Vector3Int hubLocation in hubPlacements)
         {
             DungeonTile tile = tileGrid[hubLocation.x][hubLocation.z];
-            SecurityNode newNode = Instantiate(hubPrefab, tile.GetOccupyingCoordinates(true,true), Quaternion.identity).GetComponent<SecurityNode>();
+            SecurityNode newNode = Instantiate(hubPrefab, tile.GetOccupyingCoordinates(false,true), Quaternion.identity).GetComponent<SecurityNode>();
             DungeonManager.instance.securityNodes.Add(newNode);
             newNode.myTile = tile;
         }
@@ -196,7 +196,7 @@ public class DungeonGrid : MonoBehaviour
         foreach (Vector3Int portLocation in portLocations)
         {
             DungeonTile tile = tileGrid[portLocation.x][portLocation.z];
-            Port newPort = Instantiate(port, tile.GetOccupyingCoordinates(true,true), Quaternion.identity).GetComponent<Port>();
+            Port newPort = Instantiate(port, tile.GetOccupyingCoordinates(false,true), Quaternion.identity).GetComponent<Port>();
             DungeonManager.instance.hackableObjects.Add(newPort);
             newPort.myTile = tile;
         }
