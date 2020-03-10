@@ -6,6 +6,8 @@ public class TextPromptManager : MonoBehaviour
 {
     [SerializeField] GameObject[] textPromptObjects;
     private List<TextPrompt> textPrompts;
+    private static float queueWaitIncrement = 0.75f;
+    private List<GameObject> queuedTextPrompts;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +16,7 @@ public class TextPromptManager : MonoBehaviour
         {
             textPrompts.Add(@object.GetComponent<TextPrompt>());
         }
+        queuedTextPrompts = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -38,8 +41,24 @@ public class TextPromptManager : MonoBehaviour
         }
         if(toDisplay)
         {
-            Instantiate(toDisplay, FindObjectOfType<Canvas>().transform);
+            queuedTextPrompts.Add(toDisplay.gameObject);
             textPrompts.Remove(toDisplay);
+            QueueSpawnTextPrompt();
+        }
+    }
+    public void QueueSpawnTextPrompt()
+    {
+        if (queuedTextPrompts.Count > 0)
+        {
+            if (!FindObjectOfType<TextPrompt>())
+            {
+                Instantiate(queuedTextPrompts[0], FindObjectOfType<Canvas>().transform);
+                queuedTextPrompts.RemoveAt(0);
+            }
+            else
+            {
+                Invoke("QueueSpawnTextPrompt", queueWaitIncrement);
+            }
         }
     }
 }
