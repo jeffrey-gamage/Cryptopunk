@@ -292,6 +292,7 @@ public class Room
         }
         TranslateAll(ref patrolRoutes, translationVector);
         entrance += translationVector;
+        deploymentPoint += translationVector;
         if(missionObj!=Vector3Int.down)
         {
             missionObj += translationVector;
@@ -812,7 +813,16 @@ public class Room
                             }
                         case 'I':
                             {
-                                entrance = new Vector3Int(x, 0, z);
+
+                                int y = 0;
+                                foreach (Vector3Int tile in tiles)
+                                {
+                                    if (tile.x ==x&&tile.z==z)
+                                    {
+                                        y = tile.y;
+                                    }
+                                }
+                                entrance = new Vector3Int(x, y, z);
                                 break;
                             }
                         case 'X':

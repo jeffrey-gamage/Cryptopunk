@@ -11,15 +11,6 @@ public class RoomDirectory : MonoBehaviour
     public TextAsset[] STARTING_ROOMS;
     public TextAsset[] GENERAL_ROOMS;
     public TextAsset[] FINAL_ROOMS;
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     internal int GetFirstRoomIndex()
     {
@@ -39,8 +30,8 @@ public class RoomDirectory : MonoBehaviour
             for (int i = 0; i < genRoomIndices.Length; i++)
             {
                 int selectedIndex = Random.Range(0, availableIndices.Count);
-                genRoomIndices[i] = availableIndices[i];
-                availableIndices.RemoveAt(i);
+                genRoomIndices[i] = availableIndices[selectedIndex];
+                availableIndices.RemoveAt(selectedIndex);
             }
         }
         return genRoomIndices;
