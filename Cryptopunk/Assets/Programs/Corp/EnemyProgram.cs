@@ -41,8 +41,8 @@ public class EnemyProgram : Program
         base.Update();
         if(myTile)
         {
-            myRenderer.enabled = myTile.isVisible;
-            myIcon.enabled = myTile.isVisible;
+            myRenderer.enabled = myTile.isVisible&&myTile.IsFinishedRevealAnimation();
+            myIcon.enabled = myTile.isVisible && myTile.IsFinishedRevealAnimation();
             hackable.myTile = myTile;
         }
         if (DungeonManager.instance.mode!=DungeonManager.Mode.Wait&&hasMoved&&isActiveAI&&base.movePath.Count == 0)

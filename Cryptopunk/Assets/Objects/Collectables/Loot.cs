@@ -10,8 +10,6 @@ public class Loot : MonoBehaviour
     private static List<String> schemaNames;
     [SerializeField] bool isMissionObjective = false;
     private static bool isLibraryInitialized = false;
-    // Start is called before the first frame update
-
 
     private static void PopulateLibrary()
     {

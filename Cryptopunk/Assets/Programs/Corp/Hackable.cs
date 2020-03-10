@@ -29,7 +29,7 @@ public class Hackable : MonoBehaviour
     {
         if (!myProgram)
         {
-            if (myTile.isExplored)
+            if (myTile.isExplored&&myTile.IsFinishedRevealAnimation())
             {
                 myMeshRenderer.enabled = true;
                 foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
