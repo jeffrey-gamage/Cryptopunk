@@ -244,9 +244,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: The turret ahead can inflict heavy damage on your programs. Access it through
-    the terminal to deactivate it. The green line shows what objects are controlled
-    by each terminal.
+  m_Text: The turret ahead can inflict heavy damage on your programs. Use Access the
+    terminal to deactivate it. The green line shows what objects are controlled by
+    each terminal.
 --- !u!1 &5651975461860370351
 GameObject:
   m_ObjectHideFlags: 0

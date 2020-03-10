@@ -78,6 +78,7 @@
     <Compile Include="Assets\Menus\Menu.cs" />
     <Compile Include="Assets\Menus\MissionSelect.cs" />
     <Compile Include="Assets\Menus\MusicManager.cs" />
+    <Compile Include="Assets\Menus\Options.cs" />
     <Compile Include="Assets\MissionPrep\MissionStatus.cs" />
     <Compile Include="Assets\MissionPrep\ProgramMenu.cs" />
     <Compile Include="Assets\MissionPrep\ProgramMenuItem.cs" />

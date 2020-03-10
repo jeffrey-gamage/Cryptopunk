@@ -12,6 +12,8 @@ public class MusicManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            Options.InitializeSoundPrefs();
+            GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat(Options.musicVolumeKey);
         }
         else
         {
