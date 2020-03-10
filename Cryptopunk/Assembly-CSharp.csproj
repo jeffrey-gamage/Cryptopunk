@@ -84,6 +84,7 @@
     <Compile Include="Assets\MissionPrep\ProgramMenuItem.cs" />
     <Compile Include="Assets\MissionResults\Results.cs" />
     <Compile Include="Assets\Objects\Collectables\Loot.cs" />
+    <Compile Include="Assets\Objects\Collectables\LootMessage.cs" />
     <Compile Include="Assets\Objects\Obstacles\Firewall.cs" />
     <Compile Include="Assets\Objects\Port.cs" />
     <Compile Include="Assets\Objects\SecurityNode.cs" />

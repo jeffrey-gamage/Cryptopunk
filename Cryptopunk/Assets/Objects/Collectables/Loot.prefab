@@ -91,6 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d895b1757880b7f49a5d2a875b1064d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupMessage: {fileID: 2550305815535394908, guid: 38161f29b9b63f74586c1bc02fefa586,
+    type: 3}
   credits: 50
   schema: 
   isMissionObjective: 0

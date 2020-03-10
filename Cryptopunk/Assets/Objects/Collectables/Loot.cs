@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Loot : MonoBehaviour
 {
+    [SerializeField] GameObject pickupMessage;
+    private static float spinSpeed = 30f;
     public int credits = 50;
     public String schema;
     private static List<String> schemaNames;
@@ -23,6 +25,14 @@ public class Loot : MonoBehaviour
             isLibraryInitialized = true;
         }
     }
+    private void Start()
+    {
+        gameObject.transform.Rotate(0, 45, 0);
+    }
+    private void Update()
+    {
+        gameObject.transform.Rotate(0,spinSpeed * Time.deltaTime,0);
+    }
 
     internal void Yield()
     {
@@ -32,7 +42,27 @@ public class Loot : MonoBehaviour
             {
                 MissionStatus.instance.CollectMissionObjective();
             }
-            Destroy(gameObject);
+        LootMessage message = Instantiate(pickupMessage, gameObject.transform.position + Vector3.up, FindObjectOfType<Camera>().transform.rotation).GetComponent<LootMessage>();
+        message.SetText(GetPickupMessage());
+        Destroy(gameObject);
+    }
+
+    private string GetPickupMessage()
+    {
+        string message = "";
+        if(isMissionObjective)
+        {
+            message += "\nsecured mission objective";
+        }
+        if(credits>0)
+        {
+            message += "\nsecured " + credits.ToString() + " credits";
+        }
+        if(schema.Length>0)
+        {
+            message += "\nlocated schematic: " + schema;
+        }
+        return message;
     }
 
     internal void setContents(int contents)
