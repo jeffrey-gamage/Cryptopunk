@@ -1,12 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public void Play()
+    private bool isShowingTutorialSelect = false;
+    [SerializeField] Button tutorialSelectButton;
+    [SerializeField] Button skipTutorialButton;
+    public void ShowTutorialSelect()
+    {
+        isShowingTutorialSelect = !isShowingTutorialSelect;
+        tutorialSelectButton.enabled = isShowingTutorialSelect;
+        tutorialSelectButton.GetComponent<Text>().enabled = isShowingTutorialSelect;
+        skipTutorialButton.enabled = isShowingTutorialSelect;
+        skipTutorialButton.GetComponent<Text>().enabled = isShowingTutorialSelect;
+    }
+    public void StartGame()
     {
         SceneManager.LoadScene("desktop");
     }
@@ -21,5 +32,9 @@ public class Menu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+    public void PlayTutorial()
+    {
+        SceneManager.LoadScene("tutorial");
     }
 }
