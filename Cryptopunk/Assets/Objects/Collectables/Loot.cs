@@ -6,6 +6,7 @@ using UnityEngine;
 public class Loot : MonoBehaviour
 {
     [SerializeField] GameObject pickupMessage;
+    [SerializeField] GameObject body;
     private static float spinSpeed = 30f;
     public int credits = 50;
     public String schema;
@@ -24,10 +25,6 @@ public class Loot : MonoBehaviour
             }
             isLibraryInitialized = true;
         }
-    }
-    private void Start()
-    {
-        gameObject.transform.Rotate(0, 45, 0);
     }
     private void Update()
     {
@@ -75,6 +72,11 @@ public class Loot : MonoBehaviour
         {
             schema = GetSchema(contents * -1);
         }
+    }
+
+    internal void SetRenderer(bool isVisible)
+    {
+        body.GetComponent<MeshRenderer>().enabled = isVisible;
     }
 
     private static String GetSchema(int i)

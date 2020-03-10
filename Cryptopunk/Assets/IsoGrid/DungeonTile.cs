@@ -59,7 +59,7 @@ public class DungeonTile : MonoBehaviour
         {
             if (loot)
             {
-                loot.GetComponent<MeshRenderer>().enabled = IsFinishedRevealAnimation();
+                loot.SetRenderer(IsFinishedRevealAnimation());
             }
             myMeshRenderer.enabled = height >= 0;
             if (isVisible)
