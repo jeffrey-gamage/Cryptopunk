@@ -183,6 +183,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1901495325}
   despawnPoint: {fileID: 969466042}
   creditText:
+  - 
   - Game Design
   - Jeffrey Gamage
   - 
@@ -195,6 +196,9 @@ MonoBehaviour:
   - 
   - Music
   - Benjamin Tissot (www.bensound.com)
+  - 
+  - Font
+  - Yuji Adachi (dafont.com)
   - 
   - Inspiration
   - Invisible Inc - Klei Entertainment

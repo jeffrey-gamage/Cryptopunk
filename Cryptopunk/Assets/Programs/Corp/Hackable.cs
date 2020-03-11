@@ -6,6 +6,7 @@ using UnityEngine;
 public class Hackable : MonoBehaviour
 {
     internal MeshRenderer myMeshRenderer;
+    internal Collider myCollider;
     public static Hackable selectedObject;
     [SerializeField] internal int maxIntegrity;
     [SerializeField] int rebootTime = 3;
@@ -22,6 +23,7 @@ public class Hackable : MonoBehaviour
 
     internal virtual void Start()
     {
+        myCollider = GetComponent<Collider>();
         myMeshRenderer = GetComponent<MeshRenderer>();
         normalMaterial = myMeshRenderer.material;
         myProgram = GetComponent<Program>();
@@ -34,6 +36,7 @@ public class Hackable : MonoBehaviour
             if (myTile.isExplored&&myTile.IsFinishedRevealAnimation())
             {
                 myMeshRenderer.enabled = true;
+                myCollider.enabled = true;
                 foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
                 {
                     renderer.enabled = true;
@@ -42,6 +45,7 @@ public class Hackable : MonoBehaviour
             else
             {
                 myMeshRenderer.enabled = false;
+                myCollider.enabled = false;
                 foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
                 {
                     renderer.enabled = false;

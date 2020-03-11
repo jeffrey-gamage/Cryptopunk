@@ -18,6 +18,7 @@ public class EnemyProgram : Program
     private int nextWaypointIndex = 0;
     [SerializeField] internal List<DungeonTile> waypoints; //TODO: remove serialization once testing is finished
     private Hackable hackable;
+    private Collider myCollider;
     internal bool hasMoved = false;
     private bool isActiveAI = false;
     [SerializeField]internal int difficultyRating;
@@ -32,6 +33,7 @@ public class EnemyProgram : Program
     override internal void Start()
     {
         base.Start();
+        myCollider = GetComponent<Collider>();
         hackable = GetComponent<Hackable>();
         lineOfSightIndicators = new List<GameObject>();
     }
@@ -42,6 +44,7 @@ public class EnemyProgram : Program
         if(myTile)
         {
             myRenderer.enabled = myTile.isVisible&&myTile.IsFinishedRevealAnimation();
+            myCollider.enabled = myTile.isVisible && myTile.IsFinishedRevealAnimation();
             myIcon.enabled = myTile.isVisible && myTile.IsFinishedRevealAnimation();
             hackable.myTile = myTile;
         }
