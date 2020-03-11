@@ -223,7 +223,7 @@ public class Program : MonoBehaviour
 
     internal bool IsStealthed()
     {
-        return keywords.Contains("Ghost") && !hasAttacked &&!hasBeenSpotted;
+        return keywords.Contains("Stealth") && !hasAttacked &&!hasBeenSpotted;
     }
 
     internal bool IsFlying()
