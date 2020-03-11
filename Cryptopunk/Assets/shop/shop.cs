@@ -21,8 +21,28 @@ public class shop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadInventory();
+        inventory = new List<GameObject>();
+        if (PersistentState.instance.hasInventoryBeenRefeshed)
+        {
+            ShowInventory();
+        }
+        else
+        {
+            LoadInventory();
+            PersistentState.instance.hasInventoryBeenRefeshed = true;
+        }
         normalCreditsColor = playerCredits.color;
+    }
+
+    private void ShowInventory()
+    {
+        inventory = new List<GameObject>();
+        foreach(PersistentState.ShopInventoryRecord inventoryRecord in PersistentState.instance.shopInventorySchema)
+        {
+            GameObject persistentInventoryItem = CreateInventoryItem(PersistentState.instance.GetProgramPrefab(inventoryRecord.schemaName));
+            persistentInventoryItem.GetComponent<InventoryItem>().cost = inventoryRecord.cost;
+            inventory.Add(persistentInventoryItem);
+        }
     }
 
     private void Update()
@@ -47,7 +67,6 @@ public class shop : MonoBehaviour
     private void LoadInventory()
     {
         List<GameObject> buyableSchema = new List<GameObject>();
-        inventory = new List<GameObject>();
         foreach(GameObject schema in PersistentState.instance.schemaLibrary)
         {
             if (!PersistentState.instance.GetOwnedPrograms().Contains(schema))
@@ -55,13 +74,15 @@ public class shop : MonoBehaviour
                 buyableSchema.Add(schema);
             }
         }
-
         while(buyableSchema.Count>0&&inventory.Count<inventorySize)
         {
             GameObject schema = buyableSchema[Random.Range(0, buyableSchema.Count)];
-            inventory.Add(CreateInventoryItem(schema));
+            GameObject newItem =CreateInventoryItem(schema);
+            newItem.GetComponent<InventoryItem>().RandomizeCost();
+            inventory.Add(newItem);
             buyableSchema.Remove(schema);
         }
+        RecordInventory();
     }
 
     private GameObject CreateInventoryItem(GameObject schema)
@@ -78,8 +99,22 @@ public class shop : MonoBehaviour
         PersistentState.instance.AddProgram(inventoryItem.item);
         PersistentState.instance.credits -= inventoryItem.cost;
         inventory.Remove(inventoryItem.gameObject);
+        RecordInventory();
         Destroy(inventoryItem.gameObject);
     }
+
+    private void RecordInventory()
+    {
+        PersistentState.instance.shopInventorySchema = new List<PersistentState.ShopInventoryRecord>();
+        foreach(GameObject inventoryItem in inventory)
+        {
+            PersistentState.ShopInventoryRecord newRecord;
+            newRecord.cost = inventoryItem.GetComponent<InventoryItem>().cost;
+            newRecord.schemaName = inventoryItem.GetComponent<InventoryItem>().item.name;
+            PersistentState.instance.shopInventorySchema.Add(newRecord);
+        }
+    }
+
     internal void OverBudgetFeedback()
     {
         overBudgetFlashTimer = overBudgetFlashInterval;

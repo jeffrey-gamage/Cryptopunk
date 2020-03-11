@@ -89,7 +89,7 @@
     <Compile Include="Assets\Objects\Port.cs" />
     <Compile Include="Assets\Objects\SecurityNode.cs" />
     <Compile Include="Assets\Objects\Terminal.cs" />
-    <Compile Include="Assets\PersistentState.cs" />
+    <Compile Include="Assets\PersistentState\PersistentState.cs" />
     <Compile Include="Assets\Programs\Attack.cs" />
     <Compile Include="Assets\Programs\Breach.cs" />
     <Compile Include="Assets\Programs\Corp\EnemyProgram.cs" />

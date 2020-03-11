@@ -10,10 +10,34 @@ public class MissionSelect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach(RectTransform anchor in anchors)
+        if (PersistentState.instance.hasMissionListBeenRefreshed)
         {
-            Instantiate(exploitPrefab, anchor);
+            int i = 0;
+            foreach (RectTransform anchor in anchors)
+            {
+                Exploit exploit = Instantiate(exploitPrefab, anchor).GetComponent<Exploit>();
+                exploit.corpName = PersistentState.instance.availableMissions[i].corpName;
+                exploit.corpID = PersistentState.instance.availableMissions[i].corpID;
+                exploit.vulnerability = PersistentState.instance.availableMissions[i].vulnerability;
+                i++;
+            }
         }
+        else
+        {
+            PersistentState.instance.availableMissions = new List<PersistentState.ExploitRecord>();
+            foreach (RectTransform anchor in anchors)
+            {
+                Exploit exploit = Instantiate(exploitPrefab, anchor).GetComponent<Exploit>();
+                exploit.RandomizeExploit();
+                PersistentState.ExploitRecord newRecord;
+                newRecord.corpID = exploit.corpID;
+                newRecord.corpName = exploit.corpName;
+                newRecord.vulnerability = exploit.vulnerability;
+                PersistentState.instance.availableMissions.Add(newRecord);
+            }
+            PersistentState.instance.hasMissionListBeenRefreshed= true;
+        }
+
     }
 
     public void Back()

@@ -29,12 +29,11 @@ public class InventoryItem : MonoBehaviour
     private void Start()
     {
         buyButtonText = buyButton.GetComponentInChildren<Text>();
-        cost = RandomCost();
     }
 
-    private int RandomCost()
+    internal void RandomizeCost()
     {
-        return UnityEngine.Random.Range(minBaseCost, maxBaseCost) * 5;
+        cost= UnityEngine.Random.Range(minBaseCost, maxBaseCost) * 5;
     }
 
     private void Update()
