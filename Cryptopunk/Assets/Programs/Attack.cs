@@ -2,47 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class Attack : Projectile
 {
     internal Program target;
     internal int damage;
-    internal List<DungeonTile> movePath;
-    private DungeonTile myTile;
-    [SerializeField] float animationSpeed = 3f;
 
-    // Update is called once per frame
-    private void Start()
+    protected override void HitTarget()
     {
-        DungeonManager.instance.Wait();
+        target.Damage(damage);
     }
-    void Update()
-    {
-        AnimateMovement();
-    }
-    private void AnimateMovement()
-    {
-        Vector3 motion = (myTile.GetOccupyingCoordinates(false,false) - gameObject.transform.position).normalized * animationSpeed * Time.deltaTime;
-        if (motion == Vector3.zero || motion.magnitude > (myTile.GetOccupyingCoordinates(false,false) - gameObject.transform.position).magnitude)
-        {
-            gameObject.transform.position = myTile.GetOccupyingCoordinates(false,false);
-            if (movePath.Count == 0)
-            {
-                target.Damage(damage);
-                DungeonManager.instance.mode = DungeonManager.Mode.Move;
-                Destroy(gameObject);
-            }
-            else
-            {
-                myTile = movePath[0];
-                movePath.Remove(myTile);
-            }
-        }
-        else
-        {
-            gameObject.transform.position += motion;
-            gameObject.transform.localScale = new Vector3(Mathf.Clamp(motion.x, 0.1f, 0.6f), Mathf.Clamp(motion.y, 0.1f, 0.6f), 0.1f);
-        }
-    }
+
     internal void SetCourse(List<DungeonTile> path, Program target)
     {
         myTile = path[0];

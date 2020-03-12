@@ -105,4 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a2aa2914d08fa4d99c67ca496cc678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationSpeed: 3
+  animationSpeed: 4
+  attackTrail: {fileID: 3597810718955383176, guid: 3c8aaa72046d5a040b03030403e12a48,
+    type: 3}

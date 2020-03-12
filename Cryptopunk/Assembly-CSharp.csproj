@@ -91,11 +91,13 @@
     <Compile Include="Assets\Objects\Terminal.cs" />
     <Compile Include="Assets\PersistentState\PersistentState.cs" />
     <Compile Include="Assets\Programs\Attack.cs" />
+    <Compile Include="Assets\Programs\AttackTrail.cs" />
     <Compile Include="Assets\Programs\Breach.cs" />
     <Compile Include="Assets\Programs\Corp\EnemyProgram.cs" />
     <Compile Include="Assets\Programs\Corp\Hackable.cs" />
     <Compile Include="Assets\Programs\Player\PlayerProgram.cs" />
     <Compile Include="Assets\Programs\Program.cs" />
+    <Compile Include="Assets\Programs\Projectile.cs" />
     <Compile Include="Assets\shop\InventoryItem.cs" />
     <Compile Include="Assets\shop\shop.cs" />
     <Compile Include="Assets\TutorialInfo.cs" />

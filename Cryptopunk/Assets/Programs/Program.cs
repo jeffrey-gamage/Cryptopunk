@@ -346,8 +346,8 @@ public class Program : MonoBehaviour
             if (tempPath[tempPath.Count - 1] == toHack.myTile)
             {
                 Breach newBreach = Instantiate(myBreach, gameObject.transform.position, Quaternion.identity).GetComponent<Breach>();
-                newBreach.power = breach;
-                newBreach.SetCourse(tempPath, toHack,this);
+                newBreach.breach = breach;
+                newBreach.SetCourse(tempPath, toHack);
                 Program.isTargetingBreach = false;
                 movesLeft = 0;
                 hasAttacked = true;
