@@ -131,6 +131,7 @@
     <None Include="Assets\IsoGrid\Rooms\Starting\StartingRoom2.txt" />
     <None Include="Assets\IsoGrid\Rooms\Starting\StartingRoom1.txt" />
     <None Include="Assets\IsoGrid\Rooms\General\GenRoom2.txt" />
+    <None Include="Assets\8Bit_BGM_SE_vol1\_readme.txt" />
     <None Include="Assets\IsoGrid\Rooms\General\GenRoom10.txt" />
     <None Include="Assets\IsoGrid\Rooms\End\EndRoom2.txt" />
     <None Include="Assets\IsoGrid\Rooms\General\GenRoom8.txt" />

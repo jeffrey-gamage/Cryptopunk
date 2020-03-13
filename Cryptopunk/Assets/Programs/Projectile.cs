@@ -12,6 +12,7 @@ public abstract class Projectile : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
+        GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat(Options.sfxVolumeKey);
         DungeonManager.instance.Wait();
     }
     void Update()
