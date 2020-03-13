@@ -968,11 +968,15 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 22c808eb5f94949498289eae4625f9ac, type: 3}
   - {fileID: 4900000, guid: cd6f326a2dd364b4382f287390eb7348, type: 3}
   - {fileID: 4900000, guid: 1d689b124ace7ff4183f89bfb7179f11, type: 3}
+  - {fileID: 4900000, guid: 5e880cf316f7348468bd13b8d8a2ef86, type: 3}
+  - {fileID: 4900000, guid: c50b429dd3ac0f849a86bb00ec4b65e7, type: 3}
+  - {fileID: 4900000, guid: e9c0b6c126952ce4c8279a60eb23b0a0, type: 3}
   FINAL_ROOMS:
   - {fileID: 4900000, guid: 522e7f64753ea9441889cebc9e3fb2eb, type: 3}
   - {fileID: 4900000, guid: 2e8134d3edcf7014484331afd902d061, type: 3}
   - {fileID: 4900000, guid: cd89558a48fb19d4d8c58297a7427438, type: 3}
   - {fileID: 4900000, guid: 11ee3367f4f75414dbe1b7dbd9a863c6, type: 3}
+  - {fileID: 4900000, guid: c4186397aae92714f9f6720e8ae35641, type: 3}
 --- !u!4 &1228498249
 Transform:
   m_ObjectHideFlags: 0
