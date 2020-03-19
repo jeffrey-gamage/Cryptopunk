@@ -199,5 +199,7 @@ MonoBehaviour:
     type: 3}
   myBreach: {fileID: 3597810718955383176, guid: 71cf1953440f91d4d87f06d4f071002d,
     type: 3}
+  deathSound: {fileID: 8300000, guid: 6a3f5cfc5a3fb25448c376f8d48f659e, type: 3}
+  deathEffect: {fileID: 100004, guid: 7124e13ac9690314ea67450922b79060, type: 3}
   stealthMaterial: {fileID: 2100000, guid: ee7b9c07adc88f740ae1b0e0db377e0b, type: 2}
   iconStealthAlpha: 0.3

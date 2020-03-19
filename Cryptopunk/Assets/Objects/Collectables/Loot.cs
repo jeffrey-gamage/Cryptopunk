@@ -6,6 +6,7 @@ using UnityEngine;
 public class Loot : MonoBehaviour
 {
     [SerializeField] GameObject pickupMessage;
+    [SerializeField] AudioClip pickupClip;
     [SerializeField] GameObject body;
     private static float spinSpeed = 30f;
     public int credits = 50;
@@ -41,6 +42,10 @@ public class Loot : MonoBehaviour
             }
         LootMessage message = Instantiate(pickupMessage, gameObject.transform.position + Vector3.up, FindObjectOfType<Camera>().transform.rotation).GetComponent<LootMessage>();
         message.SetText(GetPickupMessage());
+        if (pickupClip)
+        {
+            AudioSource.PlayClipAtPoint(pickupClip, Vector3.zero, PlayerPrefs.GetFloat(Options.sfxVolumeKey));
+        }
         Destroy(gameObject);
     }
 

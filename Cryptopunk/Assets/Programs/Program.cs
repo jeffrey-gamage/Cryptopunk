@@ -29,6 +29,8 @@ public class Program : MonoBehaviour
     [SerializeField] internal List<string> keywords;
     [SerializeField] GameObject myAttack;
     [SerializeField] GameObject myBreach;
+    [SerializeField] AudioClip deathSound;
+    [SerializeField] GameObject deathEffect;
     internal DungeonTile myTile;
     internal int size =0;
     internal int movesLeft;
@@ -373,6 +375,14 @@ public class Program : MonoBehaviour
         DungeonManager.instance.RemoveProgram(this);
         DungeonManager.instance.UpdateVisibility();
         myTile.Vacate(this);
+        if(deathSound)
+        {
+            AudioSource.PlayClipAtPoint(deathSound, Vector3.zero,PlayerPrefs.GetFloat(Options.sfxVolumeKey));
+        }
+        if(deathEffect)
+        {
+            Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 

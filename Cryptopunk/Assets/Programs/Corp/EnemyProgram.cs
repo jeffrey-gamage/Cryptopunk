@@ -48,7 +48,7 @@ public class EnemyProgram : Program
             myIcon.enabled = myTile.isVisible && myTile.IsFinishedRevealAnimation();
             hackable.myTile = myTile;
         }
-        if (DungeonManager.instance.mode!=DungeonManager.Mode.Wait&&hasMoved&&isActiveAI&&base.movePath.Count == 0)
+        if (DungeonManager.instance.mode!=DungeonManager.Mode.Wait&&hasMoved&&isActiveAI&& movePath.Count == 0)
         {
             isActiveAI = false;
             DungeonManager.instance.TakeNextAIAction();
@@ -59,14 +59,18 @@ public class EnemyProgram : Program
         hasMoved = false;
         base.OnStartTurn();
         GetComponent<Hackable>().OnStartTurn();
-        if(myState == State.Attack)
+    }
+
+    private void UpdateState()
+    {
+        if (myState == State.Attack)
         {
             myState = State.Search;
             nextWaypointIndex = 0;
             waypoints.Clear();
             waypoints.Add(myTile);
         }
-        foreach(Program program in DungeonManager.instance.GetPlayerControlledPrograms())
+        foreach (Program program in DungeonManager.instance.GetPlayerControlledPrograms())
         {
             if (CanSee(program))
             {
@@ -74,7 +78,6 @@ public class EnemyProgram : Program
             }
         }
     }
-
 
     override internal void Damage(int damageAmount)
     {
@@ -84,6 +87,7 @@ public class EnemyProgram : Program
 
     internal void ExecuteAIMovement()
     {
+        UpdateState();
         isActiveAI = true;
         if(myState==State.Patrol)
         {

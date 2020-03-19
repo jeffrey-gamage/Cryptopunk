@@ -201,6 +201,8 @@ MonoBehaviour:
   myAttack: {fileID: 3597810718955383176, guid: b6e10a6c41be2b84d89a236c93612e3b,
     type: 3}
   myBreach: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 6a3f5cfc5a3fb25448c376f8d48f659e, type: 3}
+  deathEffect: {fileID: 100004, guid: 417d95259df90e4488eb927fde45cba3, type: 3}
   sightIndicator: {fileID: 6032789004985220605, guid: 7ac049fa422918b4aa803986a38c31bd,
     type: 3}
   sightPreviewOffset: 0.11

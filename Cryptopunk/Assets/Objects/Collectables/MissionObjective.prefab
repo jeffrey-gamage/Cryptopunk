@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupMessage: {fileID: 2550305815535394908, guid: 38161f29b9b63f74586c1bc02fefa586,
     type: 3}
+  pickupClip: {fileID: 8300000, guid: fb435440c26e542b59476a38d9129dbc, type: 3}
   body: {fileID: 5741954751441140713}
   credits: 50
   schema: 
