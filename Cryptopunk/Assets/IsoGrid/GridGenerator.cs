@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using System.Runtime.Serialization;
 
 public struct RampCoordinates
 {
@@ -41,10 +42,10 @@ public class GridGenerator
                 Room newRoom=null;
                 do
                 {
-                    previousRoom = SelectRandomRoom();
+                    previousRoom = SelectRandomRoomWithUnusedExits();
                     if(previousRoom==null)
                     {
-                        break;
+                        throw new ClosedDungeonException();
                     }
                     previousRoomExit = previousRoom.GetRandomExit();
                     roomOrientation = previousRoom.GetOrientation(previousRoomExit);
@@ -59,7 +60,11 @@ public class GridGenerator
             Room newRoom = null;
             do
             {
-                previousRoom = SelectRandomRoom();
+                previousRoom = SelectRandomRoomWithUnusedExits();
+                if (previousRoom == null)
+                {
+                    throw new ClosedDungeonException();
+                }
                 previousRoomExit = previousRoom.GetRandomExit();
                 roomOrientation = previousRoom.GetOrientation(previousRoomExit);
                 newRoom = Room.LoadFinalRoom(finalRoomIndex, previousRoomExit, roomOrientation, directory);
@@ -282,14 +287,21 @@ public class GridGenerator
         }
     }
 
-    private Room SelectRandomRoom()
+    private Room SelectRandomRoomWithUnusedExits()
     {
+        List<int> roomIndices = new List<int>();
+        for(int i=0;i<rooms.Count;i++)
+        {
+            roomIndices.Add(i);
+        }
         Room selectedRoom = null;
         do
         {
-            selectedRoom = rooms[Random.Range(0, rooms.Count)];
+            int roomIndex = roomIndices[Random.Range(0, roomIndices.Count)];
+            roomIndices.Remove(roomIndex);
+            selectedRoom = rooms[roomIndex];
         }
-        while (selectedRoom.exits.Count == 0);
+        while (selectedRoom.exits.Count == 0&&roomIndices.Count>0);
         return selectedRoom;
     }
 
@@ -396,4 +408,24 @@ public class GridGenerator
         return allRampCoordinates;
     }
 
+}
+
+[Serializable]
+internal class ClosedDungeonException : Exception
+{
+    public ClosedDungeonException()
+    {
+    }
+
+    public ClosedDungeonException(string message) : base(message)
+    {
+    }
+
+    public ClosedDungeonException(string message, Exception innerException) : base(message, innerException)
+    {
+    }
+
+    protected ClosedDungeonException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
 }

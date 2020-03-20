@@ -377,7 +377,7 @@ public class Program : MonoBehaviour
         myTile.Vacate(this);
         if(deathSound)
         {
-            AudioSource.PlayClipAtPoint(deathSound, Vector3.zero,PlayerPrefs.GetFloat(Options.sfxVolumeKey));
+            AudioSource.PlayClipAtPoint(deathSound, FindObjectOfType<Camera>().transform.position,PlayerPrefs.GetFloat(Options.sfxVolumeKey));
         }
         if(deathEffect)
         {

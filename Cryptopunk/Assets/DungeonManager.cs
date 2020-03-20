@@ -52,7 +52,7 @@ public class DungeonManager : MonoBehaviour
         }
         else
         {
-            generator = new GridGenerator(GetDungeonSize(FindObjectOfType<MissionStatus>().GetTotalBudget()), 0);
+            generator = TryMakeDungeonUntilSuccessful();
         }
         int[][] gridPlan = generator.GetGrid();
         SetUpCamera(gridPlan.Length);
@@ -94,6 +94,18 @@ public class DungeonManager : MonoBehaviour
         FindObjectOfType<CameraContol>().Configure();
         grid.ExploreStartingArea(generator.GetDeploymentArea());
         PrepareNextDeployment();
+    }
+
+    private GridGenerator TryMakeDungeonUntilSuccessful()
+    {
+        try
+        {
+            return new GridGenerator(GetDungeonSize(FindObjectOfType<MissionStatus>().GetTotalBudget()), 0);
+        }
+        catch
+        {
+            return TryMakeDungeonUntilSuccessful();
+        }
     }
 
     private int GetDungeonSize(int missionBudget)

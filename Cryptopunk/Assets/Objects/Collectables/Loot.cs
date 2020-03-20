@@ -34,17 +34,17 @@ public class Loot : MonoBehaviour
 
     internal void Yield()
     {
-            AddCredits();
-            AddSchema();
-            if(isMissionObjective)
-            {
-                MissionStatus.instance.CollectMissionObjective();
-            }
+        AddCredits();
+        AddSchema();
+        if(isMissionObjective)
+        {
+            MissionStatus.instance.CollectMissionObjective();
+        }
         LootMessage message = Instantiate(pickupMessage, gameObject.transform.position + Vector3.up, FindObjectOfType<Camera>().transform.rotation).GetComponent<LootMessage>();
         message.SetText(GetPickupMessage());
         if (pickupClip)
         {
-            AudioSource.PlayClipAtPoint(pickupClip, Vector3.zero, PlayerPrefs.GetFloat(Options.sfxVolumeKey));
+            AudioSource.PlayClipAtPoint(pickupClip, FindObjectOfType<Camera>().transform.position, PlayerPrefs.GetFloat(Options.sfxVolumeKey));
         }
         Destroy(gameObject);
     }
