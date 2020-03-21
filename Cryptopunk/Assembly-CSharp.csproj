@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
-    <CscToolPath>C:\Program Files\Unity\Hub\Editor\2019.2.12f1\Editor\Data\Tools\RoslynScripts</CscToolPath>
-    <CscToolExe>unity_csc.bat</CscToolExe>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,6 +51,9 @@
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2019.2.12f1</UnityVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2019.2.12f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -114,59 +115,59 @@
     <Compile Include="Assets\UI\TextPrompts\TextPrompt.cs" />
     <Compile Include="Assets\UI\TextPrompts\TextPromptManager.cs" />
     <Compile Include="Assets\UI\TurnPanel.cs" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom7.txt" />
-    <None Include="Assets\IsoGrid\Rooms\TutorialLayout.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom3.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom14.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom11.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom1.txt" />
-    <None Include="Assets\IsoGrid\Rooms\End\EndRoom1.txt" />
-    <None Include="Assets\IsoGrid\Rooms\Room serialization and level construction.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom12.txt" />
-    <None Include="Assets\IsoGrid\Rooms\End\EndRoom0.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom0.txt" />
-    <None Include="Assets\IsoGrid\Rooms\Starting\StartingRoom0.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom4.txt" />
-    <None Include="Assets\IsoGrid\Rooms\End\EndRoom3.txt" />
-    <None Include="Assets\IsoGrid\Rooms\End\EndRoom4.txt" />
-    <None Include="Assets\IsoGrid\Rooms\Starting\StartingRoom2.txt" />
-    <None Include="Assets\IsoGrid\Rooms\Starting\StartingRoom1.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom2.txt" />
-    <None Include="Assets\8Bit_BGM_SE_vol1\_readme.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom10.txt" />
-    <None Include="Assets\IsoGrid\Rooms\End\EndRoom2.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom8.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom5.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom9.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom13.txt" />
-    <None Include="Assets\IsoGrid\Rooms\General\GenRoom6.txt" />
-    <None Include="Assets\IsoGrid\Rooms\Starting\StartingRoom3.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom7.txt" />
+    <None Include="Assets\IsoGrid\rooms\TutorialLayout.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom3.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom14.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom11.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom1.txt" />
+    <None Include="Assets\IsoGrid\rooms\End\EndRoom1.txt" />
+    <None Include="Assets\IsoGrid\rooms\Room serialization and level construction.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom12.txt" />
+    <None Include="Assets\IsoGrid\rooms\End\EndRoom0.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom0.txt" />
+    <None Include="Assets\IsoGrid\rooms\Starting\StartingRoom0.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom4.txt" />
+    <None Include="Assets\IsoGrid\rooms\End\EndRoom3.txt" />
+    <None Include="Assets\IsoGrid\rooms\End\EndRoom4.txt" />
+    <None Include="Assets\IsoGrid\rooms\Starting\StartingRoom2.txt" />
+    <None Include="Assets\IsoGrid\rooms\Starting\StartingRoom1.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom2.txt" />
+    <None Include="Assets\Audio\8Bit_BGM_SE_vol1\_readme.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom10.txt" />
+    <None Include="Assets\IsoGrid\rooms\End\EndRoom2.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom8.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom5.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom9.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom13.txt" />
+    <None Include="Assets\IsoGrid\rooms\General\GenRoom6.txt" />
+    <None Include="Assets\IsoGrid\rooms\Starting\StartingRoom3.txt" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/Jeffrey/Documents/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/Jeffrey/Documents/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Jeffrey/Documents/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/Jeffrey/Documents/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/Jeffrey/Documents/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Jeffrey/Documents/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/Jeffrey/Documents/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Jeffrey/Documents/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Repos/Unity3d/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/Jeffrey/Documents/Cryptopunk/Cryptopunk/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
