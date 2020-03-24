@@ -23,10 +23,17 @@ public class DungeonTile : MonoBehaviour
     internal bool isBlocked = false;
     internal bool isOccupied = false;
     [SerializeField] private int height;
-    internal bool isExplored = false;
-    internal bool isVisible = false;
+    private bool isExplored = false;
+    private bool isVisible = false;
+    private bool hasVisibilityChanged = true;
     
     private MeshRenderer myMeshRenderer;
+
+    internal bool IsExplored()
+    {
+        return isExplored;
+    }
+
     internal Loot loot;
     internal Collider myCollider;
     internal Ramp ramp;
@@ -34,6 +41,11 @@ public class DungeonTile : MonoBehaviour
     [SerializeField] Material fog;
     [SerializeField] Material visible;
     private float revealAnimationCountDown = -99;
+
+    internal bool IsVisible()
+    {
+        return isVisible;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +65,11 @@ public class DungeonTile : MonoBehaviour
         if (!isExplored)
         {
             myMeshRenderer.enabled = revealAnimationCountDown<=0f;
-            myMeshRenderer.material = unexplored;
+            if (hasVisibilityChanged)
+            {
+                myMeshRenderer.material = unexplored;
+                hasVisibilityChanged = false;
+            }
         }
         else
         {
@@ -62,13 +78,17 @@ public class DungeonTile : MonoBehaviour
                 loot.SetRenderer(IsFinishedRevealAnimation());
             }
             myMeshRenderer.enabled = height >= 0;
-            if (isVisible)
+            if (hasVisibilityChanged)
             {
-                myMeshRenderer.material = visible;
-            }
-            else
-            {
-                myMeshRenderer.material = fog;
+                if (isVisible)
+                {
+                    myMeshRenderer.material = visible;
+                }
+                else
+                {
+                    myMeshRenderer.material = fog;
+                }
+                hasVisibilityChanged = true;
             }
         }
         if (ramp)
@@ -217,6 +237,7 @@ public class DungeonTile : MonoBehaviour
 }
     internal void Reveal()
     {
+        hasVisibilityChanged = true;
         if(!isExplored)
         {
             homeLocation = gameObject.transform.position + Vector3.up * height*unitHeight / 2f;
@@ -244,5 +265,6 @@ public class DungeonTile : MonoBehaviour
     internal void Fog()
     {
         isVisible = false;
+        hasVisibilityChanged = true;
     }
 }

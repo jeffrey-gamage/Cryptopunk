@@ -43,9 +43,9 @@ public class EnemyProgram : Program
         base.Update();
         if(myTile)
         {
-            myRenderer.enabled = myTile.isVisible&&myTile.IsFinishedRevealAnimation();
-            myCollider.enabled = myTile.isVisible && myTile.IsFinishedRevealAnimation();
-            myIcon.enabled = myTile.isVisible && myTile.IsFinishedRevealAnimation();
+            myRenderer.enabled = myTile.IsVisible()&&myTile.IsFinishedRevealAnimation();
+            myCollider.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation();
+            myIcon.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation();
             hackable.myTile = myTile;
         }
         if (DungeonManager.instance.mode!=DungeonManager.Mode.Wait&&hasMoved&&isActiveAI&& movePath.Count == 0)

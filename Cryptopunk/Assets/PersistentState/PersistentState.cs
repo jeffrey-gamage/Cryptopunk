@@ -75,12 +75,7 @@ public class PersistentState : MonoBehaviour
     {
         ownedPrograms.Add(newProgramSchema);
     }
-
-    void Update()
-    {
-        
-    }
-
+    
     internal void AddSchema(string newSchema)
     {
         foreach(GameObject schema in schemaLibrary)

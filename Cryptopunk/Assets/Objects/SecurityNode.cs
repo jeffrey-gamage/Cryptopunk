@@ -19,7 +19,7 @@ public class SecurityNode : MonoBehaviour
     private void Update()
     {
         myTile.isBlocked = true;
-        if (myTile.isExplored&&myTile.IsFinishedRevealAnimation())
+        if (myTile.IsExplored()&&myTile.IsFinishedRevealAnimation())
         {
             myMeshRenderer.enabled = true;
             myIcon.enabled = true;

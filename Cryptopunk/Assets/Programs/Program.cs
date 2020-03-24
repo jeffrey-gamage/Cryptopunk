@@ -37,6 +37,7 @@ public class Program : MonoBehaviour
     internal bool hasAttacked;
     internal bool hasBeenSpotted;
     internal List<DungeonTile> movePath;
+    protected bool updateStealthVisuals = true;
 
     protected Material standardMaterial;
     // Start is called before the first frame update
@@ -56,7 +57,7 @@ public class Program : MonoBehaviour
     // Update is called once per frame
     internal virtual void Update()
     {
-        if(myTile&&!myTile.isVisible)
+        if(myTile&&!myTile.IsVisible())
         {
             animationSpeed = unseenMovementSpeed;
         }
@@ -204,16 +205,23 @@ public class Program : MonoBehaviour
         {
             if(program.IsStealthed()&&this.CanSee(program))
             {
-                program.hasBeenSpotted = true;
+                program.Spot();
             }
             if(this.IsStealthed()&&program.CanSee(this))
             {
-                this.hasBeenSpotted = true;
+                this.Spot();
             }
         
         }
 
     }
+
+    private void Spot()
+    {
+        hasBeenSpotted = true;
+        updateStealthVisuals = true;
+    }
+
     protected bool CanSee(Program program)
     {
         if (program.IsStealthed()&&!keywords.Contains("Sensor"))
@@ -238,6 +246,7 @@ public class Program : MonoBehaviour
         hasBegunPlay = true;
         hasAttacked = false;
         hasBeenSpotted = false;
+        updateStealthVisuals = true;
         movesLeft = speed;
         if(keywords.Contains("Recover"))
         {

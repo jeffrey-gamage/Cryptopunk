@@ -6,11 +6,24 @@ public class PlayerProgram : Program
 {
     [SerializeField] Material stealthMaterial;
     [SerializeField] float iconStealthAlpha = 0.3f;
+    private Color visibleColor;
+    private Color stealthColor;
+
+    internal override void Start()
+    {
+        base.Start();
+        visibleColor = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, 1);
+        stealthColor = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, iconStealthAlpha);
+    }
 
     override internal void Update()
     {
         base.Update();
-        ShowStealthVisuals();
+        if (updateStealthVisuals)
+        {
+            ShowStealthVisuals();
+            updateStealthVisuals = false;
+        }
     }
     private void ShowStealthVisuals()
     {
@@ -19,11 +32,11 @@ public class PlayerProgram : Program
             myIcon.enabled = myRenderer.enabled;
             if (IsStealthed())
             {
-                myIcon.color = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, iconStealthAlpha);
+                myIcon.color = stealthColor;
             }
             else
             {
-                myIcon.color = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, 1);
+                myIcon.color = visibleColor;
             }
         }
         if (IsStealthed())

@@ -33,7 +33,7 @@ public class Hackable : MonoBehaviour
     {
         if (!myProgram)
         {
-            if (myTile.isExplored&&myTile.IsFinishedRevealAnimation())
+            if (myTile.IsExplored()&&myTile.IsFinishedRevealAnimation())
             {
                 myMeshRenderer.enabled = true;
                 myCollider.enabled = true;
