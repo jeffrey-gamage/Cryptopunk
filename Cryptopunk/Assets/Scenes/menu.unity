@@ -348,6 +348,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5054418474934781002, guid: cbb40ce1cff12de4cb32574270afbd2a,
+        type: 3}
+      propertyPath: schemaLibrary.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054418474934781002, guid: cbb40ce1cff12de4cb32574270afbd2a,
+        type: 3}
+      propertyPath: schemaLibrary.Array.data[5]
+      value: 
+      objectReference: {fileID: 8847390588398665581, guid: db06b7db6d7a97c4bb3ec1b6f2551669,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbb40ce1cff12de4cb32574270afbd2a, type: 3}
 --- !u!1 &783332870

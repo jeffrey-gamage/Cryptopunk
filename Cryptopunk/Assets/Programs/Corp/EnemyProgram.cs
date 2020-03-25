@@ -132,7 +132,7 @@ public class EnemyProgram : Program
         if(target)
         {
             Debug.Log("Moving to close with target");
-            NavigateTowards(DungeonManager.instance.grid.GetNearestTileInRange(this, target.myTile, range, movesLeft));
+            NavigateTowards(DungeonManager.instance.grid.GetNearestTileInRange(this, target.myTile, baseRange, movesLeft));
         }
     }
     internal override void OnMouseOver()

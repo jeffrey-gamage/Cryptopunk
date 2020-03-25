@@ -20,13 +20,14 @@ public class Program : MonoBehaviour
     private float maxRotation = 35f;
 
     public static Program selectedProgram;
-    [SerializeField] internal int maxSize;
-    [SerializeField] internal int power;
-    [SerializeField] internal int speed;
-    [SerializeField] internal int range;
-    [SerializeField] internal int sight;
-    [SerializeField] internal int breach;
-    [SerializeField] internal List<string> keywords;
+    [SerializeField] internal int baseSize;
+    [SerializeField] internal int basePower;
+    [SerializeField] internal int baseSpeed;
+    [SerializeField] internal int baseRange;
+    [SerializeField] internal int baseSight;
+    [SerializeField] internal int baseBreach;
+    [SerializeField] internal List<string> baseKeywords;
+    [SerializeField] internal List<Plugin> plugins;
     [SerializeField] GameObject myAttack;
     [SerializeField] GameObject myBreach;
     [SerializeField] AudioClip deathSound;
@@ -48,7 +49,7 @@ public class Program : MonoBehaviour
 
     private void InitializeProgram()
     {
-        size = maxSize;
+        size = GetSize();
         myIcon = GetComponentInChildren<SpriteRenderer>();
         myRenderer = GetComponent<MeshRenderer>();
         standardMaterial = myRenderer.material;
@@ -66,6 +67,71 @@ public class Program : MonoBehaviour
             animationSpeed = normalMovementSpeed;
         }
         HandleMovement();
+    }
+
+    internal int GetSize()
+    {
+        int size = baseSize;
+        foreach(Plugin plugin in plugins)
+        {
+            size += plugin.size;
+        }
+        return size;
+    }
+    internal int GetPower()
+    {
+        int power = basePower;
+        foreach (Plugin plugin in plugins)
+        {
+            power += plugin.power;
+        }
+        return power;
+    }
+    internal int GetSpeed()
+    {
+        int speed = baseSpeed;
+        foreach (Plugin plugin in plugins)
+        {
+            speed += plugin.speed;
+        }
+        return speed;
+    }
+    internal int GetSight()
+    {
+        int sight = baseSight;
+        foreach (Plugin plugin in plugins)
+        {
+            sight += plugin.sight;
+        }
+        return sight;
+    }
+    internal int GetRange()
+    {
+        int range = baseRange;
+        foreach (Plugin plugin in plugins)
+        {
+            range += plugin.range;
+        }
+        return range;
+    }
+    internal int GetBreach()
+    {
+        int breach = baseBreach;
+        foreach (Plugin plugin in plugins)
+        {
+            breach += plugin.breach;
+        }
+        return breach;
+    }
+    internal List<String> GetKeywords()
+    {
+        List<string> keywords = new List<string>();
+        keywords.AddRange(baseKeywords);
+        foreach(Plugin plugin in plugins)
+        {
+            keywords.AddRange(plugin.keywords);
+        }
+        return keywords;
     }
 
     private void AttemptCollectLoot()
@@ -224,21 +290,21 @@ public class Program : MonoBehaviour
 
     protected bool CanSee(Program program)
     {
-        if (program.IsStealthed()&&!keywords.Contains("Sensor"))
+        if (program.IsStealthed()&&!GetKeywords().Contains("Sensor"))
         {
             return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= 1;
         }
-        return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= sight&&DungeonManager.instance.grid.IsInLineOfSight(this,program.myTile);
+        return DungeonManager.instance.grid.TileDistance(myTile, program.myTile) <= GetSight()&&DungeonManager.instance.grid.IsInLineOfSight(this,program.myTile);
     }
 
     internal bool IsStealthed()
     {
-        return keywords.Contains("Stealth") && !hasAttacked &&!hasBeenSpotted;
+        return GetKeywords().Contains("Stealth") && !hasAttacked &&!hasBeenSpotted;
     }
 
     internal bool IsFlying()
     {
-        return keywords.Contains("Flying");
+        return GetKeywords().Contains("Flying");
     }
 
     internal virtual void OnStartTurn()
@@ -247,10 +313,10 @@ public class Program : MonoBehaviour
         hasAttacked = false;
         hasBeenSpotted = false;
         updateStealthVisuals = true;
-        movesLeft = speed;
-        if(keywords.Contains("Recover"))
+        movesLeft = GetSpeed();
+        if(GetKeywords().Contains("Recover"))
         {
-            size = Math.Min(maxSize, size + 1);
+            size = Math.Min(GetSize(), size + 1);
         }
     }
 
@@ -322,16 +388,16 @@ public class Program : MonoBehaviour
 
     internal void AttemptAttack(Program target)
     {
-        if(!hasAttacked&&power>0)
+        if(!hasAttacked&&GetPower()>0)
         {
-            List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, target.myTile, range, true);
+            List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, target.myTile, GetRange(), true);
             if (tempPath[tempPath.Count - 1] == target.myTile)
             {
                 Attack newAttack = Instantiate(myAttack, gameObject.transform.position, Quaternion.identity).GetComponent<Attack>();
-                newAttack.damage = power;
+                newAttack.damage = GetPower();
                 newAttack.SetCourse(tempPath,target);
                 Program.isTargetingAttack = false;
-                if (!keywords.Contains("Hit and Run"))
+                if (!GetKeywords().Contains("Hit and Run"))
                 {
                     movesLeft = 0;
                 }
@@ -346,18 +412,18 @@ public class Program : MonoBehaviour
 
     internal void AttemptBreach(Hackable toHack)
     {
-        if (!hasAttacked && breach > 0)
+        if (!hasAttacked && GetBreach() > 0)
         {
             int breachRange = 1;
-            if(keywords.Contains("Remote"))
+            if(GetKeywords().Contains("Remote"))
             {
-                breachRange = range;
+                breachRange = GetRange();
             }
             List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, toHack.myTile, breachRange, true);
             if (tempPath[tempPath.Count - 1] == toHack.myTile)
             {
                 Breach newBreach = Instantiate(myBreach, gameObject.transform.position, Quaternion.identity).GetComponent<Breach>();
-                newBreach.breach = breach;
+                newBreach.breach = GetBreach();
                 newBreach.SetCourse(tempPath, toHack);
                 Program.isTargetingBreach = false;
                 movesLeft = 0;
@@ -368,7 +434,7 @@ public class Program : MonoBehaviour
 
     internal virtual void Damage(int damageAmount)
     {
-        if(keywords.Contains("armored")&&damageAmount>0)
+        if(GetKeywords().Contains("Armored")&&damageAmount>0)
         {
             damageAmount--;
         }

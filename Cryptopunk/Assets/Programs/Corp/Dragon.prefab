@@ -189,15 +189,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAnimating: 0
   animationSpeed: 2
-  maxSize: 8
-  power: 4
-  speed: 5
-  range: 3
-  sight: 5
-  breach: 0
-  keywords:
+  baseSize: 8
+  basePower: 5
+  baseSpeed: 6
+  baseRange: 3
+  baseSight: 6
+  baseBreach: 0
+  baseKeywords:
   - Flying
   - Armored
+  plugins: []
   myAttack: {fileID: 3597810718955383176, guid: b6e10a6c41be2b84d89a236c93612e3b,
     type: 3}
   myBreach: {fileID: 0}

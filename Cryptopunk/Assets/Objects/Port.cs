@@ -34,7 +34,7 @@ public class Port : Hackable
 
     internal void Import(GameObject program)
     {
-        rebootCountdown = program.GetComponent<Program>().maxSize;
+        rebootCountdown = program.GetComponent<Program>().GetSize();
         DungeonManager.instance.DeployFromPort(myTile,program);
     }
 }

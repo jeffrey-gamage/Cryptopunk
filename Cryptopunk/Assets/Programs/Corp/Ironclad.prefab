@@ -189,14 +189,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAnimating: 0
   animationSpeed: 2
-  maxSize: 5
-  power: 2
-  speed: 3
-  range: 1
-  sight: 3
-  breach: 6
-  keywords:
+  baseSize: 5
+  basePower: 2
+  baseSpeed: 3
+  baseRange: 1
+  baseSight: 3
+  baseBreach: 0
+  baseKeywords:
   - Armored
+  plugins: []
   myAttack: {fileID: 3597810718955383176, guid: b6e10a6c41be2b84d89a236c93612e3b,
     type: 3}
   myBreach: {fileID: 0}
@@ -219,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb29b9888f002a4eac2471466eb003f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxIntegrity: 3
+  maxIntegrity: 6
   rebootTime: 3
   hackedMaterial: {fileID: 2100000, guid: 642e0b922724f5a4895df7421cadafc0, type: 2}
   inactiveMaterial: {fileID: 0}

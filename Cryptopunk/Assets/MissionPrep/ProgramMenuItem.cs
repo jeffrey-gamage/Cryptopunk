@@ -23,14 +23,14 @@ public class ProgramMenuItem : MonoBehaviour
         myProgramPrefab = programPrefab;
         Program program = myProgramPrefab.GetComponent<Program>();
         programName.text = program.name;
-        programSize.text = "Size: " + program.maxSize.ToString();
-        programSpeed.text = "Speed: " + program.speed.ToString();
-        programSight.text = "Sight: " + program.sight.ToString();
-        programRange.text = "Range: " + program.range.ToString();
-        programPower.text = "Power: " + program.power.ToString();
-        programBreach.text = "Breach: " + program.breach.ToString();
+        programSize.text = "Size: " + program.GetSize().ToString();
+        programSpeed.text = "Speed: " + program.GetSpeed().ToString();
+        programSight.text = "Sight: " + program.GetSight().ToString();
+        programRange.text = "Range: " + program.GetRange().ToString();
+        programPower.text = "Power: " + program.GetPower().ToString();
+        programBreach.text = "Breach: " + program.GetBreach().ToString();
         programKeywords.text = "Abilities: \n";
-        foreach (string keyword in program.keywords)
+        foreach (string keyword in program.GetKeywords())
         {
             programKeywords.text += "  " + keyword + "\n";
         }

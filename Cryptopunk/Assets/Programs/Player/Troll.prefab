@@ -188,14 +188,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAnimating: 0
   animationSpeed: 2
-  maxSize: 6
-  power: 4
-  speed: 4
-  range: 1
-  sight: 5
-  breach: 1
-  keywords:
-  - Recover
+  baseSize: 5
+  basePower: 4
+  baseSpeed: 4
+  baseRange: 1
+  baseSight: 4
+  baseBreach: 1
+  baseKeywords: []
+  plugins: []
   myAttack: {fileID: 3597810718955383176, guid: 6bd187128c5d7b64db0e21debd67e3a0,
     type: 3}
   myBreach: {fileID: 3597810718955383176, guid: 71cf1953440f91d4d87f06d4f071002d,

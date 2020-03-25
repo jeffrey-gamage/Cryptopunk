@@ -103,11 +103,11 @@ public class MissionStatus : MonoBehaviour
         int costIncrease = 0;
         if (selectedPrograms[selectedSlotIndex])
         {
-            costIncrease = selectedProgram.GetComponent<Program>().maxSize - selectedPrograms[selectedSlotIndex].GetComponent<Program>().maxSize;
+            costIncrease = selectedProgram.GetComponent<Program>().GetSize() - selectedPrograms[selectedSlotIndex].GetComponent<Program>().GetSize();
         }
         else
         {
-            costIncrease = selectedProgram.GetComponent<Program>().maxSize;
+            costIncrease = selectedProgram.GetComponent<Program>().GetSize();
         }
         return kbBudget >= costIncrease;
     }
@@ -133,13 +133,13 @@ public class MissionStatus : MonoBehaviour
     private void AddProgramToPackage(GameObject selectedProgram)
     {
         selectedPrograms[selectedSlotIndex] = selectedProgram;
-        kbBudget -= selectedProgram.GetComponent<Program>().maxSize;
+        kbBudget -= selectedProgram.GetComponent<Program>().GetSize();
         programSlots[selectedSlotIndex].sprite = selectedProgram.GetComponentInChildren<SpriteRenderer>().sprite;
     }
 
     private void RemoveProgramFromPackage(GameObject programToRemove)
     {
         selectedPrograms[selectedSlotIndex] = null;
-        kbBudget += programToRemove.GetComponent<Program>().maxSize;
+        kbBudget += programToRemove.GetComponent<Program>().GetSize();
     }
 }

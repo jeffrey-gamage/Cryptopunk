@@ -189,13 +189,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAnimating: 0
   animationSpeed: 2
-  maxSize: 2
-  power: 2
-  speed: 3
-  range: 1
-  sight: 3
-  breach: 3
-  keywords: []
+  baseSize: 2
+  basePower: 1
+  baseSpeed: 3
+  baseRange: 1
+  baseSight: 3
+  baseBreach: 0
+  baseKeywords: []
+  plugins: []
   myAttack: {fileID: 3597810718955383176, guid: b6e10a6c41be2b84d89a236c93612e3b,
     type: 3}
   myBreach: {fileID: 0}

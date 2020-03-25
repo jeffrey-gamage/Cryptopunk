@@ -59,14 +59,14 @@ public class InventoryItem : MonoBehaviour
         PlayerProgram program = item.GetComponent<PlayerProgram>();
         icon.sprite = item.GetComponentInChildren<SpriteRenderer>().sprite;
         programName.text = item.name;
-        size.text = "size: "+program.size.ToString();
-        speed.text = "speed: "+program.speed.ToString();
-        sight.text = "sight: "+program.sight.ToString();
-        power.text = "power: "+program.power.ToString();
-        range.text = "range: "+program.range.ToString();
-        breach.text = "breach: "+program.breach.ToString();
+        size.text = "size: "+program.GetSize().ToString();
+        speed.text = "speed: "+program.GetSpeed().ToString();
+        sight.text = "sight: "+program.GetSight().ToString();
+        power.text = "power: "+program.GetPower().ToString();
+        range.text = "range: "+program.GetRange().ToString();
+        breach.text = "breach: "+program.GetBreach().ToString();
         keywords.text = "";
-        foreach(string keyword in program.keywords)
+        foreach(string keyword in program.GetKeywords())
         {
             keywords.text += keyword + "\n";
         }

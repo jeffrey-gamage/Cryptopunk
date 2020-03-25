@@ -31,33 +31,33 @@ public class ProgramDisplay : MonoBehaviour
         if (Program.selectedProgram)
         {
             nameDisplay.text = Program.selectedProgram.name;
-            sizeDisplay.text = Program.selectedProgram.size.ToString() + " / " + Program.selectedProgram.maxSize.ToString();
-            speedDisplay.text = Program.selectedProgram.movesLeft.ToString() + " / " + Program.selectedProgram.speed.ToString();
-            powerDisplay.text = Program.selectedProgram.power.ToString();
-            rangeDisplay.text = Program.selectedProgram.range.ToString();
+            sizeDisplay.text = Program.selectedProgram.size.ToString() + " / " + Program.selectedProgram.GetSize().ToString();
+            speedDisplay.text = Program.selectedProgram.movesLeft.ToString() + " / " + Program.selectedProgram.GetSpeed().ToString();
+            powerDisplay.text = Program.selectedProgram.GetPower().ToString();
+            rangeDisplay.text = Program.selectedProgram.GetRange().ToString();
             if (DungeonManager.instance.IsPlayers(Program.selectedProgram))
             {
                 breachLabel.text = "Breach";
-                breachDisplay.text = Program.selectedProgram.breach.ToString();
+                breachDisplay.text = Program.selectedProgram.GetBreach().ToString();
             }
             else
             {
                 breachLabel.text = "Integrity";
                 breachDisplay.text = Program.selectedProgram.gameObject.GetComponent<Hackable>().currentIntegrity.ToString() + " / " + Program.selectedProgram.gameObject.GetComponent<Hackable>().maxIntegrity.ToString();
             }
-            sightDisplay.text = Program.selectedProgram.sight.ToString();
+            sightDisplay.text = Program.selectedProgram.GetSight().ToString();
             string keywords = "";
-            foreach(string keyword in Program.selectedProgram.keywords)
+            foreach(string keyword in Program.selectedProgram.GetKeywords())
             {
                 keywords += keyword + "\n";
             }
             keywordDisplay.text = keywords;
 
             attackButton.enabled = Program.selectedProgram.IsControlledByPlayer() &&
-                Program.selectedProgram.power > 0 &&
+                Program.selectedProgram.GetPower() > 0 &&
                 !Program.selectedProgram.hasAttacked;
             breachButton.enabled= Program.selectedProgram.IsControlledByPlayer() &&
-                Program.selectedProgram.breach > 0 &&
+                Program.selectedProgram.GetBreach() > 0 &&
                 !Program.selectedProgram.hasAttacked;
         }
         else

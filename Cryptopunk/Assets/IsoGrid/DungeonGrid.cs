@@ -313,15 +313,15 @@ public class DungeonGrid : MonoBehaviour
     internal List<DungeonTile> GetAllSeenTiles(Program program)
     {
         List<DungeonTile> seenTiles = new List<DungeonTile>();
-        int minX = Math.Max(0, program.myTile.xCoord - program.sight);
-        int minZ = Math.Max(0, program.myTile.zCoord - program.sight);
-        int maxX = Math.Min(tileGrid.Length-1, program.myTile.xCoord + program.sight);
-        int maxZ = Math.Min(tileGrid[0].Length-1, program.myTile.zCoord + program.sight);
+        int minX = Math.Max(0, program.myTile.xCoord - program.GetSight());
+        int minZ = Math.Max(0, program.myTile.zCoord - program.GetSight());
+        int maxX = Math.Min(tileGrid.Length-1, program.myTile.xCoord + program.GetSight());
+        int maxZ = Math.Min(tileGrid[0].Length-1, program.myTile.zCoord + program.GetSight());
         for(int i=minX;i<=maxX; i++)
         {
             for(int j=minZ; j<=maxZ;j++)
             {
-                if (TileDistance(program.myTile, tileGrid[i][j]) <= program.sight && IsInLineOfSight(program, tileGrid[i][j]))
+                if (TileDistance(program.myTile, tileGrid[i][j]) <= program.GetSight() && IsInLineOfSight(program, tileGrid[i][j]))
                 {
                     seenTiles.Add(tileGrid[i][j]);
                 }
@@ -358,7 +358,7 @@ public class DungeonGrid : MonoBehaviour
         bool isSeen = false;
         foreach(Program program in playerPrograms)
         {
-            isSeen = isSeen || (TileDistance(tile, program.myTile) <= program.sight&&IsInLineOfSight(program,tile));
+            isSeen = isSeen || (TileDistance(tile, program.myTile) <= program.GetSight()&&IsInLineOfSight(program,tile));
         }
         return isSeen;
     }
