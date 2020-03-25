@@ -69,7 +69,7 @@ public class shop : MonoBehaviour
         List<GameObject> buyableSchema = new List<GameObject>();
         foreach(GameObject schema in PersistentState.instance.schemaLibrary)
         {
-            if (!PersistentState.instance.GetOwnedPrograms().Contains(schema))
+            if (!(PersistentState.instance.GetOwnedPrograms().Contains(schema))||PersistentState.instance.GetOwnedPlugins().Contains(schema))
             {
                 buyableSchema.Add(schema);
             }

@@ -7,6 +7,7 @@ public class PersistentState : MonoBehaviour
 {
     public static PersistentState instance;
     private List<GameObject> ownedPrograms;
+    private List<GameObject> ownedPlugins;
     internal int credits;
     internal int progress;
 
@@ -63,11 +64,16 @@ public class PersistentState : MonoBehaviour
     {
         return ownedPrograms;
     }
+    public List<GameObject> GetOwnedPlugins()
+    {
+        return ownedPlugins;
+    }
 
     private void CreateStartingPackage()
     {
         credits = startingCredits;
         ownedPrograms = startingPrograms;
+        ownedPlugins = new List<GameObject>();
         progress = 0;
     }
 

@@ -12,6 +12,8 @@ public class Plugin : MonoBehaviour
     [SerializeField] internal int breach;
     [SerializeField] internal List<string> keywords;
     [SerializeField] internal string proc;
+
+    [SerializeField] internal Sprite icon;
     // Start is called before the first frame update
     void Start()
     {
