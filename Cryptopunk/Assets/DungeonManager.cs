@@ -124,11 +124,19 @@ public class DungeonManager : MonoBehaviour
     private void CreatePlayerPrograms(GameObject[] selectedPrograms)
     {
         playerPrograms = new List<Program>();
-        foreach(GameObject missionProgram in selectedPrograms)
+        for(int i=0;i<selectedPrograms.Length;i++)
         {
-            if (missionProgram != null)
+            if (selectedPrograms[i] != null)
             {
-                Program newProgram = Instantiate(missionProgram).GetComponent<Program>();
+                Program newProgram = Instantiate(selectedPrograms[i]).GetComponent<Program>();
+                if(!FindObjectOfType<TutorialInfo>())
+                {
+                    foreach(GameObject plugin in MissionStatus.instance.selectedPlugins[i])
+                    {
+                        Plugin newPlugin = Instantiate(plugin, newProgram.transform).GetComponent<Plugin>();
+                        newProgram.plugins.Add(newPlugin);
+                    }
+                }
                 playerPrograms.Add(newProgram);
             }
         }
