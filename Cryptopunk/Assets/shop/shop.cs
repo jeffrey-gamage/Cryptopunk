@@ -96,7 +96,14 @@ public class shop : MonoBehaviour
 
     internal void Buy(InventoryItem inventoryItem)
     {
-        PersistentState.instance.AddProgram(inventoryItem.item);
+        if(inventoryItem.item.GetComponent<Plugin>())
+        {
+            PersistentState.instance.AddPlugin(inventoryItem.item);
+        }
+        else
+        {
+            PersistentState.instance.AddProgram(inventoryItem.item);
+        }
         PersistentState.instance.credits -= inventoryItem.cost;
         inventory.Remove(inventoryItem.gameObject);
         RecordInventory();

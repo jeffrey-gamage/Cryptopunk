@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerProgram : Program
 {
+    [SerializeField] internal int pluginSlots;
     [SerializeField] Material stealthMaterial;
     [SerializeField] float iconStealthAlpha = 0.3f;
     private Color visibleColor;

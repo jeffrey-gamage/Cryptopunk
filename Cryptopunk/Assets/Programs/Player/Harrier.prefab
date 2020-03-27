@@ -204,5 +204,6 @@ MonoBehaviour:
     type: 3}
   deathSound: {fileID: 8300000, guid: 6a3f5cfc5a3fb25448c376f8d48f659e, type: 3}
   deathEffect: {fileID: 100004, guid: 7124e13ac9690314ea67450922b79060, type: 3}
+  pluginSlots: 1
   stealthMaterial: {fileID: 2100000, guid: ee7b9c07adc88f740ae1b0e0db377e0b, type: 2}
   iconStealthAlpha: 0.3

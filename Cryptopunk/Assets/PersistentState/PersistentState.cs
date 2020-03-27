@@ -81,6 +81,10 @@ public class PersistentState : MonoBehaviour
     {
         ownedPrograms.Add(newProgramSchema);
     }
+    internal void AddPlugin(GameObject newPluginSchema)
+    {
+        ownedPlugins.Add(newPluginSchema);
+    }
     
     internal void AddSchema(string newSchema)
     {
@@ -88,7 +92,14 @@ public class PersistentState : MonoBehaviour
         {
             if(newSchema == schema.name)
             {
-                ownedPrograms.Add(schema);
+                if (schema.GetComponent<PlayerProgram>())
+                {
+                    ownedPrograms.Add(schema);
+                }
+                else
+                {
+                    ownedPlugins.Add(schema);
+                }
             }
         }
     }
