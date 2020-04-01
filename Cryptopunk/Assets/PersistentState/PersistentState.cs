@@ -123,7 +123,7 @@ public class PersistentState : MonoBehaviour
     {
         string savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), saveGameDir);
         Directory.CreateDirectory(savePath);
-        string filePath = Path.Combine(savePath, filename + ".save");
+        string filePath = Path.Combine(savePath, filename);
         StreamWriter saveFile = new StreamWriter(filePath);
         WriteOwnedObjects(ref saveFile);
         WriteShopInventory(ref saveFile);

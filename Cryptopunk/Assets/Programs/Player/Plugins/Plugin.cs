@@ -15,17 +15,6 @@ public class Plugin : MonoBehaviour
     [SerializeField] internal string proc;
 
     [SerializeField] internal Sprite icon;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     internal void AttemptAddToPackage(int programRecievingPluginIndex)
     {
@@ -55,5 +44,11 @@ public class Plugin : MonoBehaviour
         missionPrep.selectedPlugins[programToRemoveFromIndex].Remove(gameObject);
         missionPrep.kbBudget += size;
         missionPrep.ResetPluginIcon(programToRemoveFromIndex,this.name);
+    }
+
+    internal virtual void Proc()
+    {
+        //should be overriden by plugin subclasses to create unique abilities
+        Debug.Log(proc);
     }
 }

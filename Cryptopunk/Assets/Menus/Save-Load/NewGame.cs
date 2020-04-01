@@ -11,11 +11,6 @@ public class NewGame : MonoBehaviour
     [SerializeField] Text tutorialButtonText;
     [SerializeField] InputField fileName;
 
-    private void Start()
-    {
-
-    }
-
     public void ToggleTutorial()
     {
         isPlayingTutorial = !isPlayingTutorial;
@@ -37,7 +32,7 @@ public class NewGame : MonoBehaviour
             Destroy(PersistentState.instance.gameObject);
         }
         PersistentState newState =Instantiate(persistentStatePrefab).GetComponent<PersistentState>();
-        newState.SetFileName(fileName.text);
+        newState.SetFileName(fileName.text+".save");
         if (isPlayingTutorial)
         {
             SceneManager.LoadScene("Tutorial");
