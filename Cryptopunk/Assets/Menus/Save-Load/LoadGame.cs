@@ -29,11 +29,13 @@ public class LoadGame : MonoBehaviour
     public void ScrollUp()
     {
         scrollIndex--;
+        RefreshSaves();
     }
 
     public void ScrollDown()
     {
         scrollIndex++;
+        RefreshSaves();
     }
 
     internal PersistentState InstantiateState()

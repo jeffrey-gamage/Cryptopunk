@@ -1384,8 +1384,8 @@ MonoBehaviour:
   - {fileID: 1400450118}
   - {fileID: 52758265}
   - {fileID: 1584227018}
-  scrollUpButton: {fileID: 0}
-  scrollDownButton: {fileID: 0}
+  scrollUpButton: {fileID: 629118688}
+  scrollDownButton: {fileID: 1144298373}
 --- !u!4 &1860561790
 Transform:
   m_ObjectHideFlags: 0

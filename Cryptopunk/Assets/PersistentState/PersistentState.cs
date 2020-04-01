@@ -128,10 +128,18 @@ public class PersistentState : MonoBehaviour
         WriteOwnedObjects(ref saveFile);
         WriteShopInventory(ref saveFile);
         WriteAvailableMissions(ref saveFile);
+        WriteRefreshStatus(ref saveFile);
         WriteCredits(ref saveFile);
         WriteProgress(ref saveFile);
         WriteEndfile(ref saveFile);
         saveFile.Close();
+    }
+
+    private void WriteRefreshStatus(ref StreamWriter saveFile)//Is a fixed length entry, does not require an ending marker
+    {
+        saveFile.WriteLine("++REFRESH STATUS++");
+        saveFile.WriteLine(hasInventoryBeenRefeshed.ToString());
+        saveFile.WriteLine(hasMissionListBeenRefreshed.ToString());
     }
 
     private void WriteEndfile(ref StreamWriter saveFile)
@@ -190,18 +198,21 @@ public class PersistentState : MonoBehaviour
 
     internal void LoadProgress(string fileName)
     {
-        PersistentState state = new PersistentState();
-        state.isNewGame = false;
+        ownedPrograms = new List<GameObject>();
+        ownedPlugins = new List<GameObject>();
+        availableMissions = new List<ExploitRecord>();
+        shopInventorySchema = new List<ShopInventoryRecord>();
+        isNewGame = false;
         string savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), saveGameDir);
-        string filePath = Path.Combine(savePath, fileName + ".save");
+        string filePath = Path.Combine(savePath, fileName);
         try
         {   // Open the text file using a stream reader.
             using (StreamReader saveFile = new StreamReader(filePath))
             {
                 // Read the stream to a string, and write the string to the console.
                 String fileText = saveFile.ReadToEnd();
-                fileText = ReadFromSaveFile(state,ref fileText);
-                state.filename = fileName;
+                fileText = ReadFromSaveFile(ref fileText);
+                filename = fileName;
                 saveFile.Close();
             }
         }
@@ -212,34 +223,39 @@ public class PersistentState : MonoBehaviour
         }
     }
 
-    private static string ReadFromSaveFile(PersistentState state,ref string fileText)
+    private string ReadFromSaveFile(ref string fileText)
     {
         string nextLine = GetNextLine(ref fileText);
         switch (nextLine)
         {
             case "++OWNED OBJECTS++":
                 {
-                    state.ParseOwnedObjects(ref fileText);
+                    ParseOwnedObjects(ref fileText);
                     break;
                 }
             case "++SHOP INVENTORY++":
                 {
-                    state.ParseShopInventory(ref fileText);
+                    ParseShopInventory(ref fileText);
                     break;
                 }
             case "++MISSIONS++":
                 {
-                    state.ParseAvailableMissions(ref fileText);
+                    ParseAvailableMissions(ref fileText);
+                    break;
+                }
+            case "++REFRESH STATUS++":
+                {
+                    ParseRefreshStatus(ref fileText);
                     break;
                 }
             case "++CREDITS++"://Is a single line entry, does not require an ending marker
                 {
-                    state.ParseCredits(ref fileText);
+                    ParseCredits(ref fileText);
                     break;
                 }
             case "++PROGRESS++"://Is a single line entry, does not require an ending marker
                 {
-                    state.ParseProgress(ref fileText);
+                    ParseProgress(ref fileText);
                     break;
                 }
             case "++ENDFILE++":
@@ -250,11 +266,32 @@ public class PersistentState : MonoBehaviour
         return fileText;
     }
 
-    private static string GetNextLine(ref string roomText)
+    private void ParseRefreshStatus(ref string fileText)
     {
-        int indexOfNextNewline = roomText.IndexOf("\n");
-        string nextLine = roomText.Substring(0, indexOfNextNewline - 1);
-        roomText = roomText.Substring(indexOfNextNewline + 1);
+        if(GetNextLine(ref fileText)=="False")
+        {
+            hasInventoryBeenRefeshed = false;
+        }
+        else
+        {
+            hasInventoryBeenRefeshed = true;
+        }
+        if (GetNextLine(ref fileText) == "False")
+        {
+            hasMissionListBeenRefreshed = false;
+        }
+        else
+        {
+            hasMissionListBeenRefreshed = true;
+        }
+        ReadFromSaveFile(ref fileText);
+    }
+
+    private static string GetNextLine(ref string saveText)
+    {
+        int indexOfNextNewline = saveText.IndexOf("\n");
+        string nextLine = saveText.Substring(0, indexOfNextNewline - 1);
+        saveText = saveText.Substring(indexOfNextNewline + 1);
         return nextLine;
     }
 
@@ -266,7 +303,7 @@ public class PersistentState : MonoBehaviour
             AddSchema(nextLine);
             nextLine = GetNextLine(ref fileText);
         }
-        ReadFromSaveFile(this, ref fileText);
+        ReadFromSaveFile(ref fileText);
     }
 
     protected void ParseShopInventory(ref string fileText)
@@ -278,7 +315,6 @@ public class PersistentState : MonoBehaviour
             string itemName = "";
             int cost = 0;
             bool isCost = false;
-            nextLine = GetNextLine(ref fileText);
             foreach(char nextChar in nextLine)
             {
                 if (nextChar == '-')
@@ -295,9 +331,10 @@ public class PersistentState : MonoBehaviour
             newInventoryRecord.cost = cost;
             newInventoryRecord.schemaName = itemName;
             shopInventorySchema.Add(newInventoryRecord);
+            nextLine = GetNextLine(ref fileText);
         }
         hasInventoryBeenRefeshed = true;
-        ReadFromSaveFile(this,ref fileText);
+        ReadFromSaveFile(ref fileText);
     }
 
     protected void ParseAvailableMissions(ref string fileText)
@@ -311,7 +348,6 @@ public class PersistentState : MonoBehaviour
             int vulnerability = 0;
             bool isVunerabilityRecorded = false;
             bool isCorpIDRecorded = false;
-            nextLine = GetNextLine(ref fileText);
             foreach (char nextChar in nextLine)
             {
                 if (nextChar == '-')
@@ -343,9 +379,10 @@ public class PersistentState : MonoBehaviour
             newExploitRecord.corpName = corpName;
             newExploitRecord.vulnerability = vulnerability;
             availableMissions.Add(newExploitRecord);
+            nextLine = GetNextLine(ref fileText);
         }
         hasMissionListBeenRefreshed = true;
-        ReadFromSaveFile(this, ref fileText);
+        ReadFromSaveFile(ref fileText);
     }
 
     protected void ParseCredits(ref string fileText)//Is a single line entry, does not require an ending marker
@@ -360,7 +397,7 @@ public class PersistentState : MonoBehaviour
             }
         }
         this.credits = credits;
-        ReadFromSaveFile(this, ref fileText);
+        ReadFromSaveFile(ref fileText);
     }
     protected void ParseProgress(ref string fileText)//Is a single line entry, does not require an ending marker
     {
@@ -374,6 +411,6 @@ public class PersistentState : MonoBehaviour
             }
         }
         this.progress = progress;
-        ReadFromSaveFile(this, ref fileText);
+        ReadFromSaveFile(ref fileText);
     }
 }

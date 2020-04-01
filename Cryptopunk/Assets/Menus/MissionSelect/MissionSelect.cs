@@ -36,6 +36,7 @@ public class MissionSelect : MonoBehaviour
                 PersistentState.instance.availableMissions.Add(newRecord);
             }
             PersistentState.instance.hasMissionListBeenRefreshed= true;
+            PersistentState.instance.SaveProgress();
         }
 
     }

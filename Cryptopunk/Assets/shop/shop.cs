@@ -83,6 +83,7 @@ public class shop : MonoBehaviour
             buyableSchema.Remove(schema);
         }
         RecordInventory();
+        PersistentState.instance.SaveProgress();
     }
 
     private GameObject CreateInventoryItem(GameObject schema)
