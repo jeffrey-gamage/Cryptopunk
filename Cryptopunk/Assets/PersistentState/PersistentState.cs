@@ -201,6 +201,7 @@ public class PersistentState : MonoBehaviour
                 // Read the stream to a string, and write the string to the console.
                 String fileText = saveFile.ReadToEnd();
                 fileText = ReadFromSaveFile(state,ref fileText);
+                state.filename = fileName;
                 saveFile.Close();
             }
         }

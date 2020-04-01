@@ -107,6 +107,7 @@ public class shop : MonoBehaviour
         PersistentState.instance.credits -= inventoryItem.cost;
         inventory.Remove(inventoryItem.gameObject);
         RecordInventory();
+        PersistentState.instance.SaveProgress();
         Destroy(inventoryItem.gameObject);
     }
 

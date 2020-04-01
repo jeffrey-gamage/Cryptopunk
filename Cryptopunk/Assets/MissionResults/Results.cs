@@ -19,6 +19,7 @@ public class Results : MonoBehaviour
         DetermineMissionProceeds();
         PersistentState.instance.hasInventoryBeenRefeshed = false;
         PersistentState.instance.hasMissionListBeenRefreshed = false;
+        PersistentState.instance.SaveProgress();
         Destroy(MissionStatus.instance.gameObject);
     }
 
