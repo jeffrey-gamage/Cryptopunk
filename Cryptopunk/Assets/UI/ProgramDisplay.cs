@@ -22,6 +22,8 @@ public class ProgramDisplay : MonoBehaviour
 
     [SerializeField] Button[] procButtons;
     private List<Plugin> procPlugins;
+
+    private bool hadTargetLastFrame = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,10 @@ public class ProgramDisplay : MonoBehaviour
     {
         if (Program.selectedProgram)
         {
+            if (!hadTargetLastFrame)
+            {
+                SwitchPanelVisibility(true);
+            }
             nameDisplay.text = Program.selectedProgram.name;
             sizeDisplay.text = Program.selectedProgram.size.ToString() + " / " + Program.selectedProgram.GetSize().ToString();
             speedDisplay.text = Program.selectedProgram.movesLeft.ToString() + " / " + Program.selectedProgram.GetSpeed().ToString();
@@ -68,17 +74,10 @@ public class ProgramDisplay : MonoBehaviour
         }
         else
         {
-            nameDisplay.text = "";
-            sizeDisplay.text = "";
-            speedDisplay.text = "";
-            powerDisplay.text = "";
-            rangeDisplay.text = "";
-            breachDisplay.text = "";
-            sightDisplay.text = "";
-            keywordDisplay.text = "";
-            attackButton.enabled = false;
-            breachButton.enabled = false;
-
+            if(hadTargetLastFrame)
+            {
+                SwitchPanelVisibility(false);
+            }
         }
         if(DungeonManager.instance.mode==DungeonManager.Mode.Attack)
         {
@@ -162,5 +161,22 @@ public class ProgramDisplay : MonoBehaviour
         Program.isTargetingAttack = false;
         Program.isTargetingBreach = false;
         DungeonManager.instance.mode = DungeonManager.Mode.Move;
+    }
+
+    private void SwitchPanelVisibility(bool isVisible)
+    {
+        foreach (Image image in GetComponentsInChildren<Image>())
+        {
+            image.enabled = isVisible;
+        }
+        foreach (Text text in GetComponentsInChildren<Text>())
+        {
+            text.enabled = isVisible;
+        }
+        foreach(Button button in GetComponentsInChildren<Button>())
+        {
+            button.enabled = isVisible;
+        }
+        hadTargetLastFrame = isVisible;
     }
 }
