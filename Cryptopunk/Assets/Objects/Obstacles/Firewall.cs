@@ -31,14 +31,6 @@ public class Firewall : Hackable
             gameObject.transform.position = myTile.GetOccupyingCoordinates(false,true);
         }
     }
-    //protected override void OnMouseOver()
-    //{
-    //    base.OnMouseOver();
-    //    if (!isEnabled)
-    //    {
-    //            myTile.SelectFromDisabledFirewall();
-    //    }
-    //}
     internal override void Activate()
     {
         if(!myTile.isOccupied)
@@ -47,9 +39,9 @@ public class Firewall : Hackable
             myTile.isBlocked = true;
         }
     }
-    internal override void Deactivate()
+    internal override void Deactivate(bool isBreach)
     {
-        base.Deactivate();
+        base.Deactivate(isBreach);
         myTile.isBlocked = false;
     }
 

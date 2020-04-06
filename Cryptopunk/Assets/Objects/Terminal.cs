@@ -51,12 +51,12 @@ public class Terminal : Hackable
             obj.Activate();
         }
     }
-    internal override void Deactivate()
+    internal override void Deactivate(bool isBreach)
     {
-        base.Deactivate();
+        base.Deactivate(isBreach);
         foreach(Hackable obj in controlledObjects)
         {
-            obj.Deactivate();
+            obj.Deactivate(false);
         }
     }
 

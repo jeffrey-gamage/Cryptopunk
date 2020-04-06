@@ -23,11 +23,11 @@ public class Port : Hackable
         base.Breach(breachAmount);
     }
 
-    internal override void Deactivate()
+    internal override void Deactivate(bool isBreach)
     {
         if (isOpen)
         {
-            base.Deactivate();
+            base.Deactivate(isBreach);
             isOpen = false;
         }
     }

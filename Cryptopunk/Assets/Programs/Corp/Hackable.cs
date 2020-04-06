@@ -118,7 +118,7 @@ public class Hackable : MonoBehaviour
             }
             this.isHacked = true;
             myMeshRenderer.material = hackedMaterial;
-            Deactivate();
+            Deactivate(true);
         }
     }
     internal void SetTile(DungeonTile tile)
@@ -143,10 +143,13 @@ public class Hackable : MonoBehaviour
             myMeshRenderer.material = normalMaterial;
         }
     }
-    internal virtual void Deactivate()
+    internal virtual void Deactivate(bool isBreach)
     {
         //hook for subclasses to do behaviour when switched off
-        isEnabled = false;
+        if(isBreach||!GetComponent<EnemyProgram>())
+        {
+            isEnabled = false;
+        }
         if(inactiveMaterial)
         {
             if(isHacked&&inactiveHackedMaterial)

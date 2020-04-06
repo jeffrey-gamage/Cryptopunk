@@ -70,7 +70,7 @@ public class HackPanel : MonoBehaviour
         {
             if(Hackable.selectedObject.isEnabled)
             {
-                Hackable.selectedObject.Deactivate();
+                Hackable.selectedObject.Deactivate(false);
             }
             else
             {
