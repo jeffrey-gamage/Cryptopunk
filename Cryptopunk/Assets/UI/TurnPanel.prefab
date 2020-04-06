@@ -193,7 +193,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 32ec0c30f90e0484c927d150f3dd6545, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -298,7 +298,9 @@ MonoBehaviour:
   endTurnButton: {fileID: 2330873896828390308}
   actionWarning: {fileID: 8451017498468569355}
   turnCounter: {fileID: 1234433605395937581}
-  turnCounterText: ' turns until connection is blocked'
+  reinforcementCountdownText: ' turns until security is increased'
+  lastTurnBeforeText: Last turn before security is increased
+  finalCountdownText: ' turns until connection is blocked'
   lastTurnText: Last turn before connection is blocked
 --- !u!1 &5084811832297759174
 GameObject:
@@ -364,7 +366,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 32ec0c30f90e0484c927d150f3dd6545, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -441,7 +443,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 32ec0c30f90e0484c927d150f3dd6545, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
