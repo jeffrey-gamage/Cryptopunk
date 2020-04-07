@@ -45,10 +45,4 @@ public class Plugin : MonoBehaviour
         missionPrep.kbBudget += size;
         missionPrep.ResetPluginIcon(programToRemoveFromIndex,this.name);
     }
-
-    internal virtual void Proc()
-    {
-        //should be overriden by plugin subclasses to create unique abilities
-        Debug.Log(proc);
-    }
 }

@@ -11,6 +11,7 @@ public class Program : MonoBehaviour
     public bool isAnimating = false;
     public static bool isTargetingAttack = false;
     public static bool isTargetingBreach = false;
+    internal static bool isTargetingProc = false;
     public float animationSpeed = 2f;
     public static float unseenMovementSpeed = 12f;
     public static float normalMovementSpeed = 2f;
@@ -41,6 +42,7 @@ public class Program : MonoBehaviour
     protected bool updateStealthVisuals = true;
 
     protected Material standardMaterial;
+
     // Start is called before the first frame update
     internal virtual void Start()
     {
@@ -344,6 +346,10 @@ public class Program : MonoBehaviour
             if (isTargetingAttack && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByPlayer())
             {
                 Program.selectedProgram.AttemptAttack(this);
+            }
+            else if (isTargetingProc && !DungeonManager.instance.IsPlayers(this) && Program.selectedProgram.IsControlledByPlayer())
+            {
+                DungeonManager.instance.activePlugin.Proc(this);
             }
         }
     }

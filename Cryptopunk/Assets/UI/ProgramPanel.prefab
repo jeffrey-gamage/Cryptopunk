@@ -196,7 +196,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6475541076054921978}
-        m_MethodName: ProcPlugin
+        m_MethodName: TargetProc
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -325,7 +325,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6475541076054921978}
-        m_MethodName: ProcPlugin
+        m_MethodName: TargetProc
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -533,7 +533,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6475541076054921978}
-        m_MethodName: ProcPlugin
+        m_MethodName: TargetProc
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -88,13 +88,14 @@ public class DungeonTile : MonoBehaviour
                 {
                     myMeshRenderer.material = fog;
                 }
-                hasVisibilityChanged = true;
+                if (ramp && hasVisibilityChanged)
+                {
+                    ramp.myRenderer.material = myMeshRenderer.material;
+                }
+                hasVisibilityChanged = false;
             }
         }
-        if (ramp)
-        {
-            ramp.myRenderer.material = myMeshRenderer.material;
-        }
+
     }
     internal bool IsFinishedRevealAnimation()
     {

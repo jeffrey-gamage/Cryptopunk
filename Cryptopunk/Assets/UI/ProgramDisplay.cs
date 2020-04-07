@@ -21,7 +21,7 @@ public class ProgramDisplay : MonoBehaviour
     Text breachButtonText;
 
     [SerializeField] Button[] procButtons;
-    private List<Plugin> procPlugins;
+    private List<Procable> procPlugins;
 
     private bool hadTargetLastFrame = true;
     // Start is called before the first frame update
@@ -29,7 +29,7 @@ public class ProgramDisplay : MonoBehaviour
     {
         attackButtonText = attackButton.GetComponentInChildren<Text>();
         breachButtonText = breachButton.GetComponentInChildren<Text>();
-        procPlugins = new List<Plugin>();
+        procPlugins = new List<Procable>();
     }
 
     // Update is called once per frame
@@ -106,7 +106,7 @@ public class ProgramDisplay : MonoBehaviour
         {
             if(Program.selectedProgram.plugins[pluginIndex].proc.Length>0)
             {
-                procPlugins.Add(Program.selectedProgram.plugins[pluginIndex]);
+                procPlugins.Add((Procable)Program.selectedProgram.plugins[pluginIndex]);
                 SetProcButtonTargetAndVisibility(procButtons[procButtonIndex],Program.selectedProgram.plugins[pluginIndex].proc);
                 procButtonIndex++;
             }
@@ -125,11 +125,6 @@ public class ProgramDisplay : MonoBehaviour
         button.GetComponent<Image>().enabled = proc.Length > 0;
         button.GetComponentInChildren<Text>().enabled = proc.Length > 0;
         button.GetComponentInChildren<Text>().text = proc;
-    }
-
-    public void ProcPlugin(int pluginIndex)
-    {
-        procPlugins[pluginIndex].Proc();
     }
 
     public void Target()
@@ -156,10 +151,24 @@ public class ProgramDisplay : MonoBehaviour
             DungeonManager.instance.mode = DungeonManager.Mode.Breach;
         }
     }
+    public void TargetProc(int procIndex)
+    {
+        if(DungeonManager.instance.mode == DungeonManager.Mode.Proc)
+        {
+            CancelTargeting();
+        }
+        else
+        {
+            Program.isTargetingProc = true;
+            DungeonManager.instance.mode = DungeonManager.Mode.Proc;
+            DungeonManager.instance.activePlugin = procPlugins[procIndex];
+        }
+    }
     private void CancelTargeting()
     {
         Program.isTargetingAttack = false;
         Program.isTargetingBreach = false;
+        Program.isTargetingProc = false;
         DungeonManager.instance.mode = DungeonManager.Mode.Move;
     }
 

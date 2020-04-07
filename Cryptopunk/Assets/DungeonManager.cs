@@ -13,6 +13,7 @@ public class DungeonManager : MonoBehaviour
         Move,
         Attack,
         Breach,
+        Proc,
         Wait,
     }
     internal Mode mode = Mode.Deploy;
@@ -37,6 +38,8 @@ public class DungeonManager : MonoBehaviour
     private int reinforcementIndex = 0;
 
     public bool isPlayerTurn = true;
+    internal Procable activePlugin;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -360,6 +363,13 @@ public class DungeonManager : MonoBehaviour
             if (Program.selectedProgram && Program.selectedProgram.IsControlledByPlayer())
             {
                 Program.selectedProgram.AttemptMove(dungeonTile);
+            }
+        }
+        else if(mode==Mode.Proc)
+        {
+            if (Program.selectedProgram && Program.selectedProgram.IsControlledByPlayer())
+            {
+                activePlugin.Proc(dungeonTile);
             }
         }
     }
