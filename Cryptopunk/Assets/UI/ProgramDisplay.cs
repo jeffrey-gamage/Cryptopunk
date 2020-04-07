@@ -124,7 +124,14 @@ public class ProgramDisplay : MonoBehaviour
         button.enabled = proc.Length > 0;
         button.GetComponent<Image>().enabled = proc.Length > 0;
         button.GetComponentInChildren<Text>().enabled = proc.Length > 0;
-        button.GetComponentInChildren<Text>().text = proc;
+        if (DungeonManager.instance.mode != DungeonManager.Mode.Proc)
+        {
+            button.GetComponentInChildren<Text>().text = proc;
+        }
+        else
+        {
+            button.GetComponentInChildren<Text>().text = "Cancel";
+        }
     }
 
     public void Target()
@@ -135,6 +142,8 @@ public class ProgramDisplay : MonoBehaviour
         }
         else
         {
+            Program.isTargetingBreach = false;
+            Program.isTargetingProc = false;
             Program.isTargetingAttack = true;
             DungeonManager.instance.mode = DungeonManager.Mode.Attack;
         }
@@ -148,6 +157,8 @@ public class ProgramDisplay : MonoBehaviour
         else
         {
             Program.isTargetingBreach = true;
+            Program.isTargetingAttack = false;
+            Program.isTargetingProc = false;
             DungeonManager.instance.mode = DungeonManager.Mode.Breach;
         }
     }
@@ -160,6 +171,8 @@ public class ProgramDisplay : MonoBehaviour
         else
         {
             Program.isTargetingProc = true;
+            Program.isTargetingAttack = false;
+            Program.isTargetingBreach = false;
             DungeonManager.instance.mode = DungeonManager.Mode.Proc;
             DungeonManager.instance.activePlugin = procPlugins[procIndex];
         }

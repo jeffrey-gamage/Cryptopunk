@@ -161,10 +161,10 @@ RectTransform:
   m_Father: {fileID: 1492612833267593606}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.07735918, y: 0.7082699}
-  m_AnchorMax: {x: 0.07735918, y: 0.7082699}
-  m_AnchoredPosition: {x: 96, y: -0.40000153}
-  m_SizeDelta: {x: 192, y: 32.4}
+  m_AnchorMin: {x: 0.07735918, y: 0.6}
+  m_AnchorMax: {x: 0.7563204, y: 0.8045417}
+  m_AnchoredPosition: {x: 20.5, y: 0.099998474}
+  m_SizeDelta: {x: 41, y: 15.400002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2647018910036218131
 CanvasRenderer:
@@ -194,10 +194,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 32ec0c30f90e0484c927d150f3dd6545, type: 3}
-    m_FontSize: 14
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -367,10 +367,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 32ec0c30f90e0484c927d150f3dd6545, type: 3}
-    m_FontSize: 14
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -411,10 +411,10 @@ RectTransform:
   m_Father: {fileID: 1492612833267593606}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.07735918, y: 0.24238038}
-  m_AnchorMax: {x: 0.07735918, y: 0.24238038}
-  m_AnchoredPosition: {x: 96, y: 1.7999992}
-  m_SizeDelta: {x: 192, y: 32.4}
+  m_AnchorMin: {x: 0.07735918, y: 0.083000004}
+  m_AnchorMax: {x: 0.7563204, y: 0.43770978}
+  m_AnchoredPosition: {x: 20.5, y: 0.29999924}
+  m_SizeDelta: {x: 41, y: 3.4000015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &581864440869876416
 CanvasRenderer:
@@ -444,10 +444,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 32ec0c30f90e0484c927d150f3dd6545, type: 3}
-    m_FontSize: 14
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
