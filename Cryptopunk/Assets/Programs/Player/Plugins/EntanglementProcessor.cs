@@ -21,7 +21,7 @@ public class EntanglementProcessor: Procable
                 targetTile.Occupy(Program.selectedProgram);
                 Program.selectedProgram.gameObject.transform.position = targetTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying(), false);
 
-                DungeonManager.instance.mode = DungeonManager.Mode.Move;
+                EndProc();
             }
         }
     }
@@ -48,6 +48,6 @@ public class EntanglementProcessor: Procable
         targetProgram.gameObject.transform.position = targetProgram.myTile.GetOccupyingCoordinates(targetProgram.IsFlying(), false);
         Program.selectedProgram.gameObject.transform.position = Program.selectedProgram.myTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying(), false);
 
-        DungeonManager.instance.mode = DungeonManager.Mode.Move;
+        EndProc();
     }
 }

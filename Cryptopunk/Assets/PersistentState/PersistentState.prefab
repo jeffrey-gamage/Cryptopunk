@@ -48,7 +48,6 @@ MonoBehaviour:
   - {fileID: 8847390588398665581, guid: 119aa54ab4c655b48b6fcfacf6ede377, type: 3}
   - {fileID: 8847390588398665581, guid: 55125c16779a1754992d196b9ef0102f, type: 3}
   - {fileID: 8847390588398665581, guid: 09de20a9d86bb254183bffd87c7b68f5, type: 3}
-  - {fileID: 8847390588398665581, guid: cdb395ae4a427a2458c5c656cedc6b42, type: 3}
   startingCredits: 250
   schemaLibrary:
   - {fileID: 8847390588398665581, guid: 119aa54ab4c655b48b6fcfacf6ede377, type: 3}
@@ -68,3 +67,5 @@ MonoBehaviour:
   - {fileID: 1786564664541735303, guid: c111b8548eba99147a5f8d683139177a, type: 3}
   - {fileID: 1786564664541735303, guid: 8e7317e4541e6b449b1e2cbd25ea3d02, type: 3}
   - {fileID: 1786564664541735303, guid: 6ce1b5f433747804daa0413464d38ec1, type: 3}
+  - {fileID: 970002485062838304, guid: 498cc1117b489d14a83fbdc62a137faf, type: 3}
+  - {fileID: 3425008954667693608, guid: 2843df34d3e94dc4983ac4db5f5e4899, type: 3}

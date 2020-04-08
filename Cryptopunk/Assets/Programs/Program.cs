@@ -312,13 +312,20 @@ public class Program : MonoBehaviour
     internal virtual void OnStartTurn()
     {
         hasBegunPlay = true;
-        hasAttacked = false;
         hasBeenSpotted = false;
         updateStealthVisuals = true;
-        movesLeft = GetSpeed();
         if(GetKeywords().Contains("Recover"))
         {
             size = Math.Min(GetSize(), size + 1);
+        }
+        if(GetKeywords().Contains("Stunned"))
+        {
+            baseKeywords.Remove("Stunned");
+        }
+        else
+        {
+            hasAttacked = false;
+            movesLeft = GetSpeed();
         }
     }
 
@@ -334,6 +341,7 @@ public class Program : MonoBehaviour
             {
                 isTargetingAttack = false;
                 isTargetingBreach = false;
+                isTargetingProc = false;
                 DungeonManager.instance.mode = DungeonManager.Mode.Move;
                 selectedProgram = this;
                 FindObjectOfType<PathPreview>().ClearPreview();
