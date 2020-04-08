@@ -55,3 +55,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 2e3d8d772d0f1ad45a713be90c871008, type: 3}
   teleportEffect: {fileID: 7295546316122406313, guid: c57a346522271b64690e48cff82c6e7f,
     type: 3}
+  teleportSound: {fileID: 8300000, guid: b8fcab4a0a40e40469fa673951b8afcf, type: 3}

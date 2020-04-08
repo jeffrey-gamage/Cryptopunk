@@ -5,11 +5,13 @@ using UnityEngine;
 public class EntanglementProcessor: Procable
 {
     [SerializeField] GameObject teleportEffect;
+    [SerializeField] AudioClip teleportSound;
     internal override void Proc(DungeonTile targetTile)
     {
+        AudioSource.PlayClipAtPoint(teleportSound, FindObjectOfType<Camera>().transform.position, PlayerPrefs.GetFloat(Options.sfxVolumeKey));
         if(!targetTile.isOccupied)
         {
-            if((!targetTile.isBlocked)|| Program.selectedProgram.IsFlying())
+            if(targetTile.IsVisible()&&((!targetTile.isBlocked)|| Program.selectedProgram.IsFlying()))
             {
                 Instantiate(teleportEffect, Program.selectedProgram.transform.position, Quaternion.identity);
                 Instantiate(teleportEffect, targetTile.GetOccupyingCoordinates(Program.selectedProgram.IsFlying(), false),Quaternion.identity);
@@ -27,6 +29,7 @@ public class EntanglementProcessor: Procable
     internal override void Proc(Program targetProgram)
     {
         //swap places with target
+        AudioSource.PlayClipAtPoint(teleportSound, FindObjectOfType<Camera>().transform.position, PlayerPrefs.GetFloat(Options.sfxVolumeKey));
         DungeonTile newTargetPosition = Program.selectedProgram.myTile;
         DungeonTile newSelectedPosition = targetProgram.myTile;
 
