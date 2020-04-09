@@ -41,7 +41,7 @@ public class ProgramDisplay : MonoBehaviour
             {
                 SwitchPanelVisibility(true);
             }
-            nameDisplay.text = Program.selectedProgram.name;
+            nameDisplay.text = TruncateName(Program.selectedProgram.name);
             sizeDisplay.text = Program.selectedProgram.size.ToString() + " / " + Program.selectedProgram.GetSize().ToString();
             speedDisplay.text = Program.selectedProgram.movesLeft.ToString() + " / " + Program.selectedProgram.GetSpeed().ToString();
             powerDisplay.text = Program.selectedProgram.GetPower().ToString();
@@ -95,6 +95,11 @@ public class ProgramDisplay : MonoBehaviour
         {
             breachButtonText.text = "Breach";
         }
+    }
+
+    private string TruncateName(string longName)
+    {
+        return longName.Substring(0, longName.IndexOf('('));
     }
 
     private void UpdateProcButtons()
