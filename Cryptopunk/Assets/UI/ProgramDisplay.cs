@@ -108,6 +108,7 @@ public class ProgramDisplay : MonoBehaviour
             {
                 procPlugins.Add((Procable)Program.selectedProgram.plugins[pluginIndex]);
                 SetProcButtonTargetAndVisibility(procButtons[procButtonIndex],Program.selectedProgram.plugins[pluginIndex].proc);
+                procButtons[procButtonIndex].enabled = Program.selectedProgram.IsControlledByPlayer() && !Program.selectedProgram.hasAttacked;
                 procButtonIndex++;
             }
             pluginIndex++;
