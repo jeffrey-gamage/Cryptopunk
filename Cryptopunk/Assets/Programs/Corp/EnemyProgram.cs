@@ -141,7 +141,7 @@ public class EnemyProgram : Program
         }
     }
 
-    private void GenerateLineOfSightIndicators()
+    internal void GenerateLineOfSightIndicators()
     {
         ClearSightPreview();
         if (!IsControlledByPlayer()||hackable.IsHacked())
@@ -243,7 +243,7 @@ public class EnemyProgram : Program
 
     internal void ClearSightPreview()
     {
-        if (lineOfSightIndicators.Count > 0 && Program.selectedProgram != this)
+        if (lineOfSightIndicators.Count > 0)
         {
             foreach (GameObject indicator in lineOfSightIndicators)
             {

@@ -167,6 +167,10 @@ public class Program : MonoBehaviour
                     AttemptCollectLoot();
                     movePath.Remove(myTile);
                     DungeonManager.instance.UpdateVisibility();
+                    if(Program.selectedProgram==this&&GetComponent<Hackable>())//if selected and enemy, update sight preview
+                    {
+                        ((EnemyProgram)this).GenerateLineOfSightIndicators();
+                    }
                 }
                 CheckStealth();
             }
