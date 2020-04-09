@@ -38,6 +38,25 @@ public class Room
     private int roomMaxZ;
     private int roomY;
 
+    internal struct RoomBoundaries
+    {
+        internal int minX;
+        internal int maxX;
+        internal int minZ;
+        internal int maxZ;
+    }
+
+    internal RoomBoundaries CalculateRoomBoundaries()
+    {
+        RoomBoundaries boundaries;
+        SetRoomBoundaries();
+        boundaries.minX = roomMinX;
+        boundaries.maxX = roomMaxX;
+        boundaries.minZ = roomMinZ;
+        boundaries.maxZ = roomMaxZ;
+        return boundaries;
+    }
+
     internal enum Orientation
     {
         right,forward,left,back

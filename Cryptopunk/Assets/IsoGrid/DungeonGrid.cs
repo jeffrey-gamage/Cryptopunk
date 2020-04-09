@@ -163,12 +163,22 @@ public class DungeonGrid : MonoBehaviour
         tileGrid[missionObj.x][missionObj.z].loot = newLoot;
     }
 
-    internal void AssignControl(Vector2Int[] controlAssignments)
+    internal void AssignControl(Vector3Int[] controlAssignments)
     {
-        foreach(Vector2Int controlAssignment in controlAssignments)
+        foreach(Vector3Int controlAssignment in controlAssignments)
         {
-            Debug.Log("Assigning control of " + DungeonManager.instance.hackableObjects[controlAssignment.y].name + " to " + DungeonManager.instance.terminals[controlAssignment.x]);
-            DungeonManager.instance.terminals[controlAssignment.x].controlledObjects.Add(DungeonManager.instance.hackableObjects[controlAssignment.y]);
+            if (controlAssignment.y < 0)//signal for room camera
+            {
+                Room.RoomBoundaries boundaries = DungeonManager.instance.generator.rooms[controlAssignment.z].CalculateRoomBoundaries();
+                DungeonManager.instance.terminals[controlAssignment.x].minCamX = boundaries.minX;
+                DungeonManager.instance.terminals[controlAssignment.x].minCamZ = boundaries.minZ;
+                DungeonManager.instance.terminals[controlAssignment.x].maxCamX = boundaries.maxX;
+                DungeonManager.instance.terminals[controlAssignment.x].maxCamZ = boundaries.maxZ;
+            }
+            else
+            {
+                DungeonManager.instance.terminals[controlAssignment.x].controlledObjects.Add(DungeonManager.instance.hackableObjects[controlAssignment.y]);
+            }
         }
     }
 
@@ -341,7 +351,7 @@ public class DungeonGrid : MonoBehaviour
         {
             foreach(DungeonTile tile in row)
             {
-                if(IsSeenByPlayer(tile,playerPrograms))
+                if(IsSeenByPlayer(tile,playerPrograms)||IsSeenByTerminal(tile))
                 {
                     tile.Reveal();
                 }
@@ -353,14 +363,31 @@ public class DungeonGrid : MonoBehaviour
         }
     }
 
+    private bool IsSeenByTerminal(DungeonTile tile)
+    {
+        foreach(Terminal terminal in DungeonManager.instance.terminals)
+        {
+            if(terminal.IsHacked()&&terminal.maxCamX>=0)
+            {
+                if (tile.xCoord >= terminal.minCamX && tile.xCoord <= terminal.maxCamX && tile.zCoord >= terminal.minCamZ && tile.zCoord <= terminal.maxCamZ)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     private bool IsSeenByPlayer(DungeonTile tile, Program[] playerPrograms)
     {
-        bool isSeen = false;
         foreach(Program program in playerPrograms)
         {
-            isSeen = isSeen || (TileDistance(tile, program.myTile) <= program.GetSight()&&IsInLineOfSight(program,tile));
+            if(TileDistance(tile, program.myTile) <= program.GetSight()&&IsInLineOfSight(program,tile))
+            {
+                return true;
+            }
         }
-        return isSeen;
+        return false;
     }
 
     internal int TileDistance(DungeonTile tile, DungeonTile myTile)

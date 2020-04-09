@@ -215,9 +215,9 @@ public class GridGenerator
         return rooms[0].GetCentre();//default behaviour
     }
 
-    internal Vector2Int[] GetTerminalControlledObjects()
+    internal Vector3Int[] GetTerminalControlledObjects()
     {
-        List<Vector2Int> controlAssignments = new List<Vector2Int>();
+        List<Vector3Int> controlAssignments = new List<Vector3Int>();
         List<Room> controllableRooms = new List<Room>();
         foreach(Room room in rooms)
         {
@@ -230,7 +230,7 @@ public class GridGenerator
         return controlAssignments.ToArray();
     }
 
-    private void AssignControlAll(ref List<Vector2Int> controlAssignments, List<Room> controllableRooms)
+    private void AssignControlAll(ref List<Vector3Int> controlAssignments, List<Room> controllableRooms)
     {
         if (GetTerminals().Length > 0)
         {
@@ -263,7 +263,7 @@ public class GridGenerator
         return false;
     }
 
-    private void AssignControl(ref List<Vector2Int> controlAssignments, int terminalNum, Room room)
+    private void AssignControl(ref List<Vector3Int> controlAssignments, int terminalNum, Room room)
     {
         foreach(Vector3Int firewall in room.firewalls)
         {
@@ -271,7 +271,7 @@ public class GridGenerator
             {
                 if(generatedFirewall.myTile.xCoord==firewall.x&&generatedFirewall.myTile.zCoord==firewall.z)
                 {
-                    controlAssignments.Add(new Vector2Int(terminalNum, DungeonManager.instance.hackableObjects.IndexOf(generatedFirewall)));
+                    controlAssignments.Add(new Vector3Int(terminalNum, DungeonManager.instance.hackableObjects.IndexOf(generatedFirewall),0));
                 }
             }
         }
@@ -281,10 +281,11 @@ public class GridGenerator
             {
                 if (generatedDefense.myTile.xCoord == staticDefense.x && generatedDefense.myTile.zCoord == staticDefense.z)
                 {
-                    controlAssignments.Add(new Vector2Int(terminalNum, DungeonManager.instance.hackableObjects.IndexOf(generatedDefense)));
+                    controlAssignments.Add(new Vector3Int(terminalNum, DungeonManager.instance.hackableObjects.IndexOf(generatedDefense),0));
                 }
             }
         }
+        controlAssignments.Add(new Vector3Int(terminalNum, -1, rooms.IndexOf(room)));//reference to allow setup of room cameras
     }
 
     private Room SelectRandomRoomWithUnusedExits()

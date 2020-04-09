@@ -20,6 +20,7 @@ public class DungeonManager : MonoBehaviour
     internal Mode waitingTo;
     public static DungeonManager instance;
     internal DungeonGrid grid;
+    internal GridGenerator generator;
 
     [SerializeField] Color AttackPreview;
     [SerializeField] Color BreachPreview;
@@ -48,7 +49,6 @@ public class DungeonManager : MonoBehaviour
         terminals = new List<Terminal>();
         tutorialInfo = FindObjectOfType<TutorialInfo>();
         grid = FindObjectOfType<DungeonGrid>();
-        GridGenerator generator;
         if (tutorialInfo)
         {
             generator = new GridGenerator(1, 0);

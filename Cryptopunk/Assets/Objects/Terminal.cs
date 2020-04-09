@@ -12,6 +12,11 @@ public class Terminal : Hackable
     [SerializeField] float linkOffset = 1.5f;
     public List<Hackable> controlledObjects;
 
+    [SerializeField] internal float minCamX=-1;
+    [SerializeField] internal float minCamZ=-1;
+    [SerializeField] internal float maxCamX=-1;
+    [SerializeField] internal float maxCamZ=-1;
+
     internal override void Start()
     {
         base.Start();
@@ -64,6 +69,12 @@ public class Terminal : Hackable
                 obj.Deactivate(false);
             }
         }
+    }
+
+    internal override void Breach(int breachAmount)
+    {
+        base.Breach(breachAmount);
+        DungeonManager.instance.UpdateVisibility();
     }
 
 }
