@@ -25,7 +25,7 @@ public class TurnPanel : MonoBehaviour
         actionWarning.enabled = DungeonManager.instance.isPlayerTurn && DungeonManager.instance.HasActionsLeft();
         if (DungeonManager.instance.reinforcementTurns.Count > 0)
         {
-            int turnsUntilReinforcement = DungeonManager.instance.reinforcementTurns[0] - DungeonManager.instance.currentTurn;
+            int turnsUntilReinforcement = DungeonManager.instance.reinforcementTurns[0]+1 - DungeonManager.instance.currentTurn;
             if (turnsUntilReinforcement>1)
             {
                 turnCounter.text = turnsUntilReinforcement.ToString() + reinforcementCountdownText;
@@ -37,7 +37,7 @@ public class TurnPanel : MonoBehaviour
         }
         else
         {
-            int turnsUntilShutdown = DungeonManager.instance.maxTurns - DungeonManager.instance.currentTurn;
+            int turnsUntilShutdown = DungeonManager.instance.maxTurns+1 - DungeonManager.instance.currentTurn;
             if(turnsUntilShutdown>1)
             {
                 turnCounter.text = turnsUntilShutdown.ToString() + finalCountdownText;
