@@ -48,7 +48,10 @@ public class Terminal : Hackable
         base.Activate();
         foreach (Hackable obj in controlledObjects)
         {
-            obj.Activate();
+            if (obj)
+            {
+                obj.Activate();
+            }
         }
     }
     internal override void Deactivate(bool isBreach)
@@ -56,7 +59,10 @@ public class Terminal : Hackable
         base.Deactivate(isBreach);
         foreach(Hackable obj in controlledObjects)
         {
-            obj.Deactivate(false);
+            if(obj)
+            {
+                obj.Deactivate(false);
+            }
         }
     }
 

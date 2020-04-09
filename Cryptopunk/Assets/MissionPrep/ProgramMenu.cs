@@ -72,7 +72,14 @@ public class ProgramMenu : MonoBehaviour
         Destroy(temp.gameObject);
         scrollIndex--;
         MissionPrepMenuItem newListItem = Instantiate(menuItem, programAnchors[0].transform).GetComponent<MissionPrepMenuItem>();
-        newListItem.SetProgram(PersistentState.instance.GetOwnedPrograms()[scrollIndex]);
+        if(isDisplayingPlugins)
+        {
+            newListItem.SetPlugin(PersistentState.instance.GetOwnedPlugins()[scrollIndex]);
+        }
+        else
+        {
+            newListItem.SetProgram(PersistentState.instance.GetOwnedPrograms()[scrollIndex]);
+        }
         displayedElements.Insert(0, newListItem);
         UpdateScrollEnabled();
     }
@@ -88,7 +95,14 @@ public class ProgramMenu : MonoBehaviour
         Destroy(temp.gameObject);
         scrollIndex++;
         MissionPrepMenuItem newListItem = Instantiate(menuItem, programAnchors[programAnchors.Length - 1].transform).GetComponent<MissionPrepMenuItem>();
-        newListItem.SetProgram(PersistentState.instance.GetOwnedPrograms()[scrollIndex + programAnchors.Length - 1]);
+        if(isDisplayingPlugins)
+        {
+            newListItem.SetPlugin(PersistentState.instance.GetOwnedPlugins()[scrollIndex + programAnchors.Length - 1]);
+        }
+        else
+        {
+            newListItem.SetProgram(PersistentState.instance.GetOwnedPrograms()[scrollIndex + programAnchors.Length - 1]);
+        }
         displayedElements.Add(newListItem);
         UpdateScrollEnabled();
     }

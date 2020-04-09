@@ -146,11 +146,11 @@ public class Hackable : MonoBehaviour
     internal virtual void Deactivate(bool isBreach)
     {
         //hook for subclasses to do behaviour when switched off
-        if(isBreach||!GetComponent<EnemyProgram>())
+        if((!isBreach)||!GetComponent<EnemyProgram>())
         {
             isEnabled = false;
         }
-        if(inactiveMaterial)
+        if(inactiveMaterial&&!isEnabled)
         {
             if(isHacked&&inactiveHackedMaterial)
             {
@@ -160,6 +160,10 @@ public class Hackable : MonoBehaviour
             {
                 myMeshRenderer.material = inactiveMaterial;
             }
+        }
+        else if(isHacked&&hackedMaterial)
+        {
+            myMeshRenderer.material = hackedMaterial;
         }
     }
 

@@ -101,7 +101,6 @@ public class EnemyProgram : Program
         {
             MoveIntoRange();
         }
-        Debug.Log(gameObject.name+": State= " + myState.ToString());
         hasMoved = true;
     }
 
@@ -125,13 +124,11 @@ public class EnemyProgram : Program
                 if (!target || (DungeonManager.instance.grid.TileDistance(program.myTile, myTile) < DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
                 {
                     target = program;
-                    Debug.Log("New Target selected");
                 }
             }
         }
         if(target)
         {
-            Debug.Log("Moving to close with target");
             NavigateTowards(DungeonManager.instance.grid.GetNearestTileInRange(this, target.myTile, baseRange, movesLeft));
         }
     }

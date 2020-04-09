@@ -1,0 +1,12 @@
+-shop is not updating correctly
+not registering purchased plugins?--
+
+Terminal tries to access destroyed turrets--
+hacked turrets still uisng inactive/hacked material
+disabled turrets still fire
+
+-scroll plugins in mission prep gives programs instead --
+
+-lots of text too big
+
+Bump blocking movement in labyrinth --
