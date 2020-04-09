@@ -1,1 +1,2 @@
 -subsequent loadGames can wipe out available missions
+-terminals' dedicated assignments can be overlooked/overwritten

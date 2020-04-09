@@ -25,7 +25,7 @@ public class HackPanel : MonoBehaviour
             {
                 SwitchPanelVisibility(true);
             }
-            objectName.text = Hackable.selectedObject.gameObject.name;
+            objectName.text = TruncateName(Hackable.selectedObject.gameObject.name);
             integrity.text = Hackable.selectedObject.currentIntegrity.ToString() + " / " + Hackable.selectedObject.maxIntegrity.ToString();
             if(Hackable.selectedObject.IsHacked())
             {
@@ -63,6 +63,11 @@ public class HackPanel : MonoBehaviour
                 SwitchPanelVisibility(false);
             }
         }
+    }
+
+    private string TruncateName(string longName)
+    {
+        return longName.Substring(0, longName.IndexOf('('));
     }
 
     private void SwitchPanelVisibility(bool isVisible)
