@@ -267,7 +267,7 @@ public class Program : MonoBehaviour
         List<Program> hostilePrograms;
         if(this.IsControlledByPlayer())
         {
-            hostilePrograms = DungeonManager.instance.GetAICotrolledPrograms();
+            hostilePrograms = DungeonManager.instance.GetAIControlledPrograms();
         }
         else
         {
@@ -368,7 +368,7 @@ public class Program : MonoBehaviour
 
     private void ClearSightPreviews()
     {
-        foreach(EnemyProgram enemyProgram in DungeonManager.instance.GetAICotrolledPrograms())
+        foreach(EnemyProgram enemyProgram in DungeonManager.instance.GetEnemyPrograms())
         {
             enemyProgram.ClearSightPreview();
         }

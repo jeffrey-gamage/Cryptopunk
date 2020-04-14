@@ -44,6 +44,18 @@ public class RoomDirectory : MonoBehaviour
 
     internal int GetFinalRoomIndex()
     {
-        return Random.Range(0, FINAL_ROOMS.Length);
+        if(PersistentState.instance.usedFinalRoomIndices.Count>=FINAL_ROOMS.Length)
+        {
+            PersistentState.instance.usedFinalRoomIndices.Clear();
+        }
+        while(true)
+        {
+            int finalRoomIndex = Random.Range(0, FINAL_ROOMS.Length);
+            if(!PersistentState.instance.usedFinalRoomIndices.Contains(finalRoomIndex))
+            {
+                PersistentState.instance.usedFinalRoomIndices.Add(finalRoomIndex);
+                return finalRoomIndex;
+            }
+        }
     }
 }

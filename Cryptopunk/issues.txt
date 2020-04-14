@@ -1,2 +1,3 @@
 -subsequent loadGames can wipe out available missions
 -terminals' dedicated assignments can be overlooked/overwritten
+-when not moving, flying enemies can react to their own occupation of a tile and needlessly fly higher

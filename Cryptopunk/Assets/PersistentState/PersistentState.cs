@@ -17,6 +17,7 @@ public class PersistentState : MonoBehaviour
     internal bool hasMissionListBeenRefreshed = false;
     internal bool hasInventoryBeenRefeshed = false;
     protected bool isNewGame = true;
+    internal List<int> usedFinalRoomIndices;
 
     [SerializeField] string filename;
     internal static string saveGameDir = "\\Saved_Games\\Cryptopunk";
@@ -89,6 +90,7 @@ public class PersistentState : MonoBehaviour
         ownedPlugins = new List<GameObject>();
         availableMissions = new List<ExploitRecord>();
         shopInventorySchema = new List<ShopInventoryRecord>();
+        usedFinalRoomIndices = new List<int>();
         progress = 0;
     }
 
@@ -131,6 +133,7 @@ public class PersistentState : MonoBehaviour
         WriteRefreshStatus(ref saveFile);
         WriteCredits(ref saveFile);
         WriteProgress(ref saveFile);
+        WriteUsedFinalRooms(ref saveFile);
         WriteEndfile(ref saveFile);
         saveFile.Close();
     }
@@ -182,6 +185,16 @@ public class PersistentState : MonoBehaviour
         saveFile.WriteLine("++END++");
     }
 
+    private void WriteUsedFinalRooms(ref StreamWriter saveFile)
+    {
+        saveFile.WriteLine("++USED FINAL ROOMS++");
+        foreach(int roomIndex in usedFinalRoomIndices)
+        {
+            saveFile.WriteLine(roomIndex.ToString());
+        }
+        saveFile.WriteLine("++END++");
+    }
+
     private void WriteOwnedObjects(ref StreamWriter saveFile)
     {
         saveFile.WriteLine("++OWNED OBJECTS++");
@@ -200,6 +213,7 @@ public class PersistentState : MonoBehaviour
     {
         ownedPrograms = new List<GameObject>();
         ownedPlugins = new List<GameObject>();
+        usedFinalRoomIndices = new List<int>();
         availableMissions = new List<ExploitRecord>();
         shopInventorySchema = new List<ShopInventoryRecord>();
         isNewGame = false;
@@ -251,6 +265,11 @@ public class PersistentState : MonoBehaviour
             case "++CREDITS++"://Is a single line entry, does not require an ending marker
                 {
                     ParseCredits(ref fileText);
+                    break;
+                }
+            case "++USED FINAL ROOMS++":
+                {
+                    ParseFinalRoomsUsed(ref fileText);
                     break;
                 }
             case "++PROGRESS++"://Is a single line entry, does not require an ending marker
@@ -398,6 +417,24 @@ public class PersistentState : MonoBehaviour
         }
         this.credits = credits;
         ReadFromSaveFile(ref fileText);
+    }
+
+    protected void ParseFinalRoomsUsed(ref string fileText)
+    {
+        string nextLine = GetNextLine(ref fileText);
+        while(nextLine!="++END++")
+        {
+            int roomIndex = 0;
+            foreach (char nextChar in nextLine)
+            {
+                if (char.IsDigit(nextChar))
+                {
+                    roomIndex = roomIndex * 10 + int.Parse(nextChar.ToString());
+                }
+            }
+            usedFinalRoomIndices.Add(roomIndex);
+            nextLine = GetNextLine(ref fileText);
+        }
     }
     protected void ParseProgress(ref string fileText)//Is a single line entry, does not require an ending marker
     {

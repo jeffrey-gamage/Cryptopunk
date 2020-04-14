@@ -189,8 +189,12 @@ public class DungeonManager : MonoBehaviour
         }
         return controlledPrograms;
     }
+    internal List<EnemyProgram> GetEnemyPrograms()//all enemy programs, including hacked ones
+    {
+        return enemyPrograms;
+    }
 
-    internal List<Program> GetAICotrolledPrograms()
+    internal List<Program> GetAIControlledPrograms()//only get enemy programs not currently hacked
     {
         List<Program> controlledPrograms = new List<Program>();
         foreach (Program program in enemyPrograms)
@@ -281,7 +285,7 @@ public class DungeonManager : MonoBehaviour
                     hackableObject.OnStartTurn();
                 }
             }
-            foreach(EnemyProgram program in GetAICotrolledPrograms())
+            foreach(EnemyProgram program in GetAIControlledPrograms())
             {
                 program.OnStartTurn();
             }
@@ -302,7 +306,7 @@ public class DungeonManager : MonoBehaviour
         //Does the next available AI action, or if none remain, passes turn to the player. Each AI calls this at the conclusion of each of its actions.
     {
         bool allActionsComplete = true;
-        foreach(EnemyProgram program in GetAICotrolledPrograms())
+        foreach(EnemyProgram program in GetAIControlledPrograms())
         {
             if(!program.hasMoved)
             {
