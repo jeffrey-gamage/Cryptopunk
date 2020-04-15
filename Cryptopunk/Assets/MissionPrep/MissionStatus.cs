@@ -30,6 +30,7 @@ public class MissionStatus : MonoBehaviour
     internal int selectedSlotIndex = 0;
     public Image selectedSlotHighlight;
     internal string corpName;
+    internal int corpID;
     internal GameObject[] selectedPrograms;
     internal List<GameObject>[] selectedPlugins;
     [SerializeField] Text targetCorpName;
@@ -53,6 +54,7 @@ public class MissionStatus : MonoBehaviour
                 kbBudget = targetExploit.vulnerability;
                 totalBudget = kbBudget;
                 corpName = targetExploit.corpName;
+                corpID = targetExploit.corpID;
                 Destroy(targetExploit.gameObject);
                 selectedPrograms = new GameObject[programSlots.Count];
                 selectedPlugins = new List<GameObject>[programSlots.Count];
@@ -169,7 +171,7 @@ public class MissionStatus : MonoBehaviour
     {
         gameObject.transform.parent = null;
         DontDestroyOnLoad(gameObject);
-        SceneManager.LoadScene("procDungeon");
+        FindObjectOfType<DungeonDirectory>().LoadCorpDungeon(corpID);
     }
 
     public void SelectSlot(int slotNum)

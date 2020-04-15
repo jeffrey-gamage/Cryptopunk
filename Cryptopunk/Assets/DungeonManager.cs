@@ -105,7 +105,7 @@ public class DungeonManager : MonoBehaviour
         {
             return new GridGenerator(GetDungeonSize(FindObjectOfType<MissionStatus>().GetTotalBudget()), 0);
         }
-        catch
+        catch(ClosedDungeonException e)
         {
             return TryMakeDungeonUntilSuccessful();
         }
