@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +12,9 @@ public class creditScroll : MonoBehaviour
     private Canvas canvas;
     [SerializeField] RectTransform spawnPoint;
     [SerializeField] RectTransform despawnPoint;
-    [SerializeField] string[] creditText;
 
+    [SerializeField] TextAsset creditList;
+    private List<string> creditTexts;
     private int nextCreditIndex = 0;
     private float timeSinceLastSpawn = 0f;
     private List<RectTransform> credits;
@@ -21,8 +23,37 @@ public class creditScroll : MonoBehaviour
     {
         credits = new List<RectTransform>();
         canvas = FindObjectOfType<Canvas>();
+        creditTexts = ParseCredits();
+
     }
 
+    private List<string> ParseCredits()
+    {
+        List<string> parsedCredits = new List<string>();
+        string creditListAsString = creditList.text;
+        string nextCredit = GetNextLine(ref creditListAsString);
+        while(!nextCredit.Contains("++ENDFILE++"))
+        {
+            parsedCredits.Add(nextCredit);
+            nextCredit = GetNextLine(ref creditListAsString);
+        }
+        return parsedCredits;
+    }
+    private static string GetNextLine(ref string creditsText)
+    {
+        int indexOfNextNewline = creditsText.IndexOf("\n");
+        string nextLine;
+        if (indexOfNextNewline < 0)
+        {
+            nextLine = "++ENDFILE++";
+        }
+        else
+        {
+            nextLine = creditsText.Substring(0, indexOfNextNewline-1);
+        }
+        creditsText = creditsText.Substring(indexOfNextNewline + 1);
+        return nextLine;
+    }
 
     // Update is called once per frame
     void Update()
@@ -35,11 +66,11 @@ public class creditScroll : MonoBehaviour
     {
         if (timeSinceLastSpawn <= 0f)
         {
-            if (creditText.Length > nextCreditIndex)
+            if (creditTexts.Count > nextCreditIndex)
             {
                 timeSinceLastSpawn = maxSpawnRate;
                 Text newCredit = Instantiate(creditPrefab, spawnPoint.transform).GetComponent<Text>();
-                newCredit.text = creditText[nextCreditIndex];
+                newCredit.text = creditTexts[nextCreditIndex];
                 nextCreditIndex++;
                 credits.Add(newCredit.GetComponent<RectTransform>());
             }

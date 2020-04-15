@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class creditsUI : MonoBehaviour
 {
-    // Start is called before the first frame update
 public void Back()
     {
         SceneManager.LoadScene("menu");
