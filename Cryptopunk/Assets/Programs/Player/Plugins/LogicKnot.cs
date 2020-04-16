@@ -27,6 +27,6 @@ public class LogicKnot : Procable
     {
         targetProgram.baseKeywords.Add("Stunned");
         targetProgram.movesLeft = 0;
-        targetProgram.hasAttacked = true;
+        targetProgram.hasUsedAction = true;
     }
 }

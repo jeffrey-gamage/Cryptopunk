@@ -20,6 +20,12 @@ public class Program : MonoBehaviour
     private float rotationAmount = 0f;
     private float maxRotation = 35f;
 
+
+    [SerializeField] Material stealthMaterial;
+    [SerializeField] float iconStealthAlpha = 0.3f;
+    private Color visibleColor;
+    private Color stealthColor;
+
     public static Program selectedProgram;
     [SerializeField] internal int baseSize;
     [SerializeField] internal int basePower;
@@ -36,7 +42,7 @@ public class Program : MonoBehaviour
     internal DungeonTile myTile;
     internal int size =0;
     internal int movesLeft;
-    internal bool hasAttacked;
+    internal bool hasUsedAction;
     internal bool hasBeenSpotted;
     internal List<DungeonTile> movePath;
     protected bool updateStealthVisuals = true;
@@ -55,6 +61,8 @@ public class Program : MonoBehaviour
         myIcon = GetComponentInChildren<SpriteRenderer>();
         myRenderer = GetComponent<MeshRenderer>();
         standardMaterial = myRenderer.material;
+        visibleColor = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, 1);
+        stealthColor = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, iconStealthAlpha);
     }
 
     // Update is called once per frame
@@ -69,6 +77,11 @@ public class Program : MonoBehaviour
             animationSpeed = normalMovementSpeed;
         }
         HandleMovement();
+        if (updateStealthVisuals)
+        {
+            ShowStealthVisuals();
+            updateStealthVisuals = false;
+        }
     }
 
     internal int GetSize()
@@ -141,6 +154,30 @@ public class Program : MonoBehaviour
         if(myTile&&myTile.loot&&IsControlledByPlayer()&&DungeonManager.instance.CanCollectLoot(myTile))
         {
             myTile.loot.Yield();
+        }
+    }
+
+    private void ShowStealthVisuals()
+    {
+        if (myIcon)
+        {
+            myIcon.enabled = myRenderer.enabled;
+            if (IsStealthed())
+            {
+                myIcon.color = stealthColor;
+            }
+            else
+            {
+                myIcon.color = visibleColor;
+            }
+        }
+        if (IsStealthed())
+        {
+            myRenderer.material = stealthMaterial;
+        }
+        else
+        {
+            myRenderer.material = standardMaterial;
         }
     }
 
@@ -305,7 +342,7 @@ public class Program : MonoBehaviour
 
     internal bool IsStealthed()
     {
-        return GetKeywords().Contains("Stealth") && !hasAttacked &&!hasBeenSpotted;
+        return GetKeywords().Contains("Stealth") && !hasUsedAction &&!hasBeenSpotted;
     }
 
     internal bool IsFlying()
@@ -328,7 +365,7 @@ public class Program : MonoBehaviour
         }
         else
         {
-            hasAttacked = false;
+            hasUsedAction = false;
             movesLeft = GetSpeed();
         }
     }
@@ -406,7 +443,7 @@ public class Program : MonoBehaviour
 
     internal void AttemptAttack(Program target)
     {
-        if(!hasAttacked&&GetPower()>0)
+        if(!hasUsedAction&&GetPower()>0)
         {
             List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, target.myTile, GetRange(), true);
             if (tempPath[tempPath.Count - 1] == target.myTile)
@@ -419,7 +456,7 @@ public class Program : MonoBehaviour
                 {
                     movesLeft = 0;
                 }
-                hasAttacked = true;
+                hasUsedAction = true;
             }
         }
         else
@@ -430,7 +467,7 @@ public class Program : MonoBehaviour
 
     internal void AttemptBreach(Hackable toHack)
     {
-        if (!hasAttacked && GetBreach() > 0)
+        if (!hasUsedAction && GetBreach() > 0)
         {
             int breachRange = 1;
             if(GetKeywords().Contains("Remote"))
@@ -445,7 +482,7 @@ public class Program : MonoBehaviour
                 newBreach.SetCourse(tempPath, toHack);
                 Program.isTargetingBreach = false;
                 movesLeft = 0;
-                hasAttacked = true;
+                hasUsedAction = true;
             }
         }
     }

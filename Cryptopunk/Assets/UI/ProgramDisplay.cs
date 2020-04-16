@@ -66,10 +66,10 @@ public class ProgramDisplay : MonoBehaviour
 
             attackButton.enabled = Program.selectedProgram.IsControlledByPlayer() &&
                 Program.selectedProgram.GetPower() > 0 &&
-                !Program.selectedProgram.hasAttacked;
+                !Program.selectedProgram.hasUsedAction;
             breachButton.enabled= Program.selectedProgram.IsControlledByPlayer() &&
                 Program.selectedProgram.GetBreach() > 0 &&
-                !Program.selectedProgram.hasAttacked;
+                !Program.selectedProgram.hasUsedAction;
             UpdateProcButtons();
         }
         else
@@ -113,7 +113,7 @@ public class ProgramDisplay : MonoBehaviour
             {
                 procPlugins.Add((Procable)Program.selectedProgram.plugins[pluginIndex]);
                 SetProcButtonTargetAndVisibility(procButtons[procButtonIndex],Program.selectedProgram.plugins[pluginIndex].proc);
-                procButtons[procButtonIndex].enabled = Program.selectedProgram.IsControlledByPlayer() && !Program.selectedProgram.hasAttacked;
+                procButtons[procButtonIndex].enabled = Program.selectedProgram.IsControlledByPlayer() && !Program.selectedProgram.hasUsedAction;
                 procButtonIndex++;
             }
             pluginIndex++;

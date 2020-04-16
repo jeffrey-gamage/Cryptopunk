@@ -11,7 +11,7 @@ public abstract class Procable : Plugin
     protected void EndProc()
     {
         Program.selectedProgram.movesLeft= 0;
-        Program.selectedProgram.hasAttacked = true;
+        Program.selectedProgram.hasUsedAction = true;
         DungeonManager.instance.mode = DungeonManager.Mode.Move;
     }
 }

@@ -1813,6 +1813,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8338506230625595486, guid: 4af9e2cd2cf3c254898593e66b2a7e9b,
+        type: 3}
+      propertyPath: unbuiltDungeons.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338506230625595486, guid: 4af9e2cd2cf3c254898593e66b2a7e9b,
+        type: 3}
+      propertyPath: unbuiltDungeons.Array.data[0]
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4af9e2cd2cf3c254898593e66b2a7e9b, type: 3}
 --- !u!1 &1377109621

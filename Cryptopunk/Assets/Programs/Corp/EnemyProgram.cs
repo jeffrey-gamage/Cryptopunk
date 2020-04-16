@@ -43,9 +43,9 @@ public class EnemyProgram : Program
         base.Update();
         if(myTile)
         {
-            myRenderer.enabled = myTile.IsVisible()&&myTile.IsFinishedRevealAnimation();
-            myCollider.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation();
-            myIcon.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation();
+            myRenderer.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation()&&!IsStealthed();
+            myCollider.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation()&&!IsStealthed();
+            myIcon.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation()&&!IsStealthed();
             hackable.myTile = myTile;
         }
         if (DungeonManager.instance.mode!=DungeonManager.Mode.Wait&&hasMoved&&isActiveAI&& movePath.Count == 0)
@@ -227,16 +227,16 @@ public class EnemyProgram : Program
                 AttemptAttack(target);
 
             }
-            if (!hasAttacked)
+            if (!hasUsedAction)
             {
-                hasAttacked = true;
+                hasUsedAction = true;
                 isActiveAI = false;
                 DungeonManager.instance.TakeNextAIAction();
             }
         }
         else
         {
-            hasAttacked = true;
+            hasUsedAction = true;
             DungeonManager.instance.TakeNextAIAction();
         }
     }

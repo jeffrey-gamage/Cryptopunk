@@ -197,6 +197,7 @@ MonoBehaviour:
   baseKeywords:
   - Flying
   - Stealth
+  - Sensor
   plugins: []
   myAttack: {fileID: 3597810718955383176, guid: 6bd187128c5d7b64db0e21debd67e3a0,
     type: 3}

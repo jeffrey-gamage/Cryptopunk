@@ -49,6 +49,7 @@ MonoBehaviour:
   range: 1
   sight: 2
   breach: 0
-  keywords: []
+  keywords:
+  - Sensor
   proc: 
   icon: {fileID: 21300000, guid: 2d66fb2411c3eb84fa80ae8e211f1b54, type: 3}
