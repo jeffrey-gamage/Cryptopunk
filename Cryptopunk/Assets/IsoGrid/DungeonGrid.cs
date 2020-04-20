@@ -12,6 +12,9 @@ public class DungeonGrid : MonoBehaviour
     [SerializeField] GameObject firewall;
     [SerializeField] GameObject port;
     [SerializeField] GameObject terminal;
+    [SerializeField] GameObject bridgeSwitch;
+    [SerializeField] GameObject switchTileOn;
+    [SerializeField] GameObject switchTileOff;
     [SerializeField] internal GameObject[] enemyPrefabs;
     [SerializeField] GameObject[] defencePrefabs;
     [SerializeField] GameObject hubPrefab;
@@ -60,6 +63,50 @@ public class DungeonGrid : MonoBehaviour
             else
             {
                 Debug.LogWarning("Attempeted to place firewall at invalid coordinates " + firewallLocation.ToString());
+            }
+        }
+    }
+
+    internal void GenerateSwitchTilesOff(List<Vector3Int> switchTilesOff)
+    {
+        foreach(Vector3Int switchTileCoords in switchTilesOff)
+        {
+            Destroy(tileGrid[switchTileCoords.x][switchTileCoords.z].gameObject);
+            tileGrid[switchTileCoords.x][switchTileCoords.z] = Instantiate(switchTileOff, Vector3.right * switchTileCoords.x + Vector3.forward * switchTileCoords.z, Quaternion.identity).GetComponent<SwitchTile>();
+            tileGrid[switchTileCoords.x][switchTileCoords.z].SetHeight(switchTileCoords.y);
+            tileGrid[switchTileCoords.x][switchTileCoords.z].xCoord = switchTileCoords.x;
+            tileGrid[switchTileCoords.x][switchTileCoords.z].zCoord = switchTileCoords.z;
+        }
+    }
+
+    internal void GenerateSwitchTilesOn(List<Vector3Int> switchTilesOn)
+    {
+
+        foreach (Vector3Int switchTileCoords in switchTilesOn)
+        {
+            Destroy(tileGrid[switchTileCoords.x][switchTileCoords.z].gameObject);
+            tileGrid[switchTileCoords.x][switchTileCoords.z] = Instantiate(switchTileOn, Vector3.right * switchTileCoords.x + Vector3.forward * switchTileCoords.z, Quaternion.identity).GetComponent<SwitchTile>();
+            tileGrid[switchTileCoords.x][switchTileCoords.z].SetHeight(switchTileCoords.y);
+            tileGrid[switchTileCoords.x][switchTileCoords.z].xCoord = switchTileCoords.x;
+            tileGrid[switchTileCoords.x][switchTileCoords.z].zCoord = switchTileCoords.z;
+        }
+    }
+
+    internal void GenerateSwitches(List<Vector3Int> switchLocations)
+    {
+        foreach (Vector3Int switchLocation in switchLocations)
+        {
+            if (IsValidCoordinates(switchLocation.x, switchLocation.z))
+            {
+                DungeonTile tile = tileGrid[switchLocation.x][switchLocation.z];
+                SwitchBridge newSwitch = Instantiate(bridgeSwitch, tile.GetOccupyingCoordinates(true, true), Quaternion.identity).GetComponent<SwitchBridge>();
+                DungeonManager.instance.hackableObjects.Add(newSwitch);
+                DungeonManager.instance.switchBridges.Add(newSwitch);
+                newSwitch.myTile = tile;
+            }
+            else
+            {
+                Debug.LogWarning("Attempeted to place switch at invalid coordinates " + switchLocation.ToString());
             }
         }
     }
@@ -163,7 +210,7 @@ public class DungeonGrid : MonoBehaviour
         tileGrid[missionObj.x][missionObj.z].loot = newLoot;
     }
 
-    internal void AssignControl(Vector3Int[] controlAssignments)
+    internal void AssignTerminalControl(Vector3Int[] controlAssignments)
     {
         foreach(Vector3Int controlAssignment in controlAssignments)
         {

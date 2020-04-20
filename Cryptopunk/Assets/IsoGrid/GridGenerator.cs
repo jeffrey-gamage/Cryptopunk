@@ -79,6 +79,36 @@ public class GridGenerator
         DefineGridBoundaries();
     }
 
+    internal List<Vector3Int> GetSwitchTilesOff()
+    {
+        List<Vector3Int> switchTilesOff = new List<Vector3Int>();
+        foreach (Room room in rooms)
+        {
+            switchTilesOff.AddRange(room.switchTilesOff);
+        }
+        return switchTilesOff;
+    }
+
+    internal List<Vector3Int> GetSwitchTilesOn()
+    {
+        List<Vector3Int> switchTilesOn = new List<Vector3Int>();
+        foreach (Room room in rooms)
+        {
+            switchTilesOn.AddRange(room.switchTilesOn);
+        }
+        return switchTilesOn;
+    }
+
+    internal List<Vector3Int> GetSwitches()
+    {
+        List<Vector3Int> switches = new List<Vector3Int>();
+        foreach(Room room in rooms)
+        {
+            switches.AddRange(room.switchBridges);
+        }
+        return switches;
+    }
+
     private bool OverlapsExistingRoom(Room newRoom)
     {
         foreach(Room room in rooms)

@@ -31,6 +31,7 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] internal List<SecurityNode> securityNodes;
     [SerializeField] internal List<Hackable> hackableObjects;
     [SerializeField] internal List<Terminal> terminals;
+    [SerializeField] internal List<SwitchBridge> switchBridges;
 
     public int maxTurns;
     public int currentTurn = 0;
@@ -60,10 +61,13 @@ public class DungeonManager : MonoBehaviour
         int[][] gridPlan = generator.GetGrid();
         SetUpCamera(gridPlan.Length);
         grid.GenerateGrid(gridPlan);
+        grid.GenerateSwitchTilesOn(generator.GetSwitchTilesOn());
+        grid.GenerateSwitchTilesOff(generator.GetSwitchTilesOff());
         grid.GenerateRamps(generator.GetRamps());
         grid.GenerateFirewalls(generator.GetFirewalls());
         grid.GenerateDefenses(generator.GetDefences());
         grid.GenerateTerminals(generator.GetTerminals());
+        grid.GenerateSwitches(generator.GetSwitches());
         grid.GenerateSecurityHubs(generator.GetHubs());
         if(tutorialInfo)
         {
@@ -75,14 +79,16 @@ public class DungeonManager : MonoBehaviour
             grid.AssignPatrolRoutes(ref enemiesInRoom, room.patrolRoutes);
         }
         grid.GeneratePorts(generator.GetPorts());
-        grid.AssignControl(generator.GetTerminalControlledObjects());
+        grid.AssignTerminalControl(generator.GetTerminalControlledObjects());
         foreach (Room room in generator.rooms)
         {
             if(room.isControlledByInternalTerminal)
             {
                 room.ConnectTerminal(ref terminals);
             }
+            room.ConnectSwitches();
         }
+
         grid.PlaceLoot(generator.GetLoot());
         grid.PlaceObjective(generator.getMissionObj());
         if (tutorialInfo)

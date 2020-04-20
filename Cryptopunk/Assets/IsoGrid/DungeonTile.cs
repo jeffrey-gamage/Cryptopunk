@@ -27,7 +27,7 @@ public class DungeonTile : MonoBehaviour
     private bool isVisible = false;
     private bool hasVisibilityChanged = true;
     
-    private MeshRenderer myMeshRenderer;
+    protected MeshRenderer myMeshRenderer;
 
     internal bool IsExplored()
     {
@@ -58,7 +58,7 @@ public class DungeonTile : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         HandleRevealAnimation();
         myCollider.enabled = isExplored;
@@ -95,7 +95,6 @@ public class DungeonTile : MonoBehaviour
                 hasVisibilityChanged = false;
             }
         }
-
     }
     internal bool IsFinishedRevealAnimation()
     {

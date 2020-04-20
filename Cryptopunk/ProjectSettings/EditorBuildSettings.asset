@@ -29,6 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/corpDungeons/enSolDungeon.unity
     guid: cec186e05a9b64c4894d720322c6b861
+  - enabled: 1
+    path: Assets/Scenes/corpDungeons/shadowTechDungeon.unity
+    guid: c929ce6e9c500a5459a3b1d5212c2a66
+  - enabled: 1
+    path: Assets/Scenes/corpDungeons/panInfoDungeon.unity
+    guid: 09b58eea383bb034995be49d43224c42
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

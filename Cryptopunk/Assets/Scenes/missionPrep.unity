@@ -1816,7 +1816,7 @@ PrefabInstance:
     - target: {fileID: 8338506230625595486, guid: 4af9e2cd2cf3c254898593e66b2a7e9b,
         type: 3}
       propertyPath: unbuiltDungeons.Array.size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8338506230625595486, guid: 4af9e2cd2cf3c254898593e66b2a7e9b,
         type: 3}

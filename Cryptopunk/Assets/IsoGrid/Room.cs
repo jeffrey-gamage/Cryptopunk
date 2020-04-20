@@ -10,6 +10,8 @@ public class Room
     int size;
     static readonly Vector3Int failToFind = new Vector3Int(0, -3, 0);
     internal List<Vector3Int> tiles;
+    internal List<Vector3Int> switchTilesOn;
+    internal List<Vector3Int> switchTilesOff;
     internal Room[] connections;
     internal List<RampCoordinates> rampCoordinates;
 
@@ -26,6 +28,8 @@ public class Room
     internal List<Vector3Int> enemies;
     internal List<List<Vector3Int>> patrolRoutes;
     internal List<TerminalAssignment> terminalAssignments;
+    internal List<Vector3Int> switchBridges;
+    internal List<SwitchBridge.SwitchTileAssignment> switchBridgeAssignments;
     internal bool isControlledByInternalTerminal = false;
     internal bool enemiesArePredefined = false;
     internal Vector3Int missionObj=Vector3Int.down;
@@ -74,6 +78,7 @@ public class Room
         exits = new List<Vector3Int>();
         rampCoordinates = new List<RampCoordinates>();
         tiles = new List<Vector3Int>();
+        switchTilesOn = new List<Vector3Int>();
         firewalls = new List<Vector3Int>();
         securityHubs = new List<Vector3Int>();
         enemies = new List<Vector3Int>();
@@ -81,6 +86,10 @@ public class Room
         loot = new List<Vector3Int>();
         ports = new List<Vector3Int>();
         terminals = new List<Vector3Int>();
+        switchBridges = new List<Vector3Int>();
+        switchTilesOn = new List<Vector3Int>();
+        switchTilesOff = new List<Vector3Int>();
+        switchBridgeAssignments = new List<SwitchBridge.SwitchTileAssignment>();
         patrolRoutes = new List<List<Vector3Int>>();
     }
 
@@ -96,6 +105,31 @@ public class Room
                     int enemyIndex = DungeonManager.instance.grid.SelectEnemy(difficultyBudget);
                     enemies[i] += Vector3Int.up * enemyIndex;
                     difficultyBudget -= DungeonManager.instance.grid.GetEnemyRating(enemyIndex);
+                }
+            }
+        }
+    }
+
+    internal void ConnectSwitches()
+    {
+        foreach(SwitchBridge switchBridge in DungeonManager.instance.switchBridges)
+        {
+            foreach(SwitchBridge.SwitchTileAssignment assignment in switchBridgeAssignments)
+            {
+                if(switchBridge.myTile.xCoord==assignment.terminalLocation.x &&switchBridge.myTile.zCoord==assignment.terminalLocation.z)
+                {
+                    foreach(Vector3Int tileCoords in assignment.controlLocations)
+                    {
+                        SwitchTile tile =(SwitchTile) DungeonManager.instance.grid.GetTile(tileCoords.x, tileCoords.z);
+                        if (tile.isOn)
+                        {
+                            switchBridge.controlledTilesEnabled.Add(tile);
+                        }
+                        else
+                        {
+                            switchBridge.controlledTilesDisabled.Add(tile);
+                        }
+                    }
                 }
             }
         }
@@ -296,6 +330,8 @@ public class Room
     internal void TranslateEverything(Vector3Int translationVector)
     {
         TranslateAll(ref tiles, translationVector);
+        TranslateAll(ref switchTilesOff, translationVector);
+        TranslateAll(ref switchTilesOn, translationVector);
         TranslateAll(ref exits, translationVector);
         TranslateAll(ref rampCoordinates, translationVector);
         TranslateAll(ref firewalls, translationVector);
@@ -305,16 +341,26 @@ public class Room
         TranslateAll(ref loot, translationVector);
         TranslateAll(ref ports, translationVector);
         TranslateAll(ref terminals, translationVector);
+        TranslateAll(ref switchBridges, translationVector);
         if (isControlledByInternalTerminal)
         {
             TranslateAll(ref terminalAssignments, translationVector);
         }
+        TranslateAll(ref switchBridgeAssignments, translationVector);
         TranslateAll(ref patrolRoutes, translationVector);
         entrance += translationVector;
         deploymentPoint += translationVector;
         if(missionObj!=Vector3Int.down)
         {
             missionObj += translationVector;
+        }
+    }
+
+    private void TranslateAll(ref List<SwitchBridge.SwitchTileAssignment> switchBridgeAssignments, Vector3Int translationVector)
+    {
+        foreach(SwitchBridge.SwitchTileAssignment assignment in switchBridgeAssignments)
+        {
+            assignment.Translate(translationVector);
         }
     }
 
@@ -611,7 +657,12 @@ public class Room
                 }
             case "++TERMINAL ASSIGNMENTS++":
                 {
-                    ParseAssignments(ref roomText);
+                    ParseTerminalAssignements(ref roomText);
+                    break;
+                }
+            case "++SWITCH ASSIGNMENTS++":
+                {
+                    ParseSwitchAssignments(ref roomText);
                     break;
                 }
             case "++LOOT VALUES++":
@@ -626,7 +677,44 @@ public class Room
         }
     }
 
-    private void ParseAssignments(ref string roomText)
+    private void ParseSwitchAssignments(ref string roomText)
+    {
+        switchBridgeAssignments = new List<SwitchBridge.SwitchTileAssignment>();
+        string nextLine = GetNextLine(ref roomText);
+        while (nextLine != "++END++")
+        {
+            int newVal = 0;
+            int x = 0;
+            int z = 0;
+            SwitchBridge.SwitchTileAssignment newAssignement = new SwitchBridge.SwitchTileAssignment();
+            foreach (char nextChar in nextLine)
+            {
+                if (Char.IsDigit(nextChar))
+                {
+                    newVal *= 10;
+                    newVal += int.Parse(nextChar.ToString());
+                }
+                else if (nextChar == ',')
+                {
+                    x = newVal;
+                    newVal = 0;
+                }
+                else if (nextChar == '-')
+                {
+                    z = newVal;
+                    newVal = 0;
+                    newAssignement.AddLocation(new Vector3Int(x, 0, z));
+                }
+            }
+            z = newVal;
+            newAssignement.AddLocation(new Vector3Int(x, 0, z));
+            switchBridgeAssignments.Add(newAssignement);
+            nextLine = GetNextLine(ref roomText);
+        }
+        ParseRoomFile(roomText);
+    }
+
+    private void ParseTerminalAssignements(ref string roomText)
     {
         terminalAssignments = new List<TerminalAssignment>();
         isControlledByInternalTerminal = true;
@@ -820,6 +908,11 @@ public class Room
                                 terminals.Add(new Vector3Int(x, 0, z));
                                 break;
                             }
+                        case 'W':
+                            {
+                                switchBridges.Add(new Vector3Int(x, 0, z));
+                                break;
+                            }
                         case 'P':
                             {
                                 ports.Add(new Vector3Int(x, 0, z));
@@ -904,6 +997,46 @@ public class Room
                         }
                     case '-':
                         {
+                            break;
+                        }
+                    case 'A':
+                        {
+                            switchTilesOn.Add(new Vector3Int(x, 0, z));
+                            break;
+                        }
+                    case 'a':
+                        {
+                            switchTilesOff.Add(new Vector3Int(x, 0, z));
+                            break;
+                        }
+                    case 'B':
+                        {
+                            switchTilesOn.Add(new Vector3Int(x, 1, z));
+                            break;
+                        }
+                    case 'b':
+                        {
+                            switchTilesOff.Add(new Vector3Int(x, 1, z));
+                            break;
+                        }
+                    case 'C':
+                        {
+                            switchTilesOn.Add(new Vector3Int(x, 2, z));
+                            break;
+                        }
+                    case 'c':
+                        {
+                            switchTilesOff.Add(new Vector3Int(x, 2, z));
+                            break;
+                        }
+                    case 'D':
+                        {
+                            switchTilesOn.Add(new Vector3Int(x, 3, z));
+                            break;
+                        }
+                    case 'd':
+                        {
+                            switchTilesOff.Add(new Vector3Int(x, 3, z));
                             break;
                         }
                     default:

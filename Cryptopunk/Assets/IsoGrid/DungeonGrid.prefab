@@ -50,6 +50,10 @@ MonoBehaviour:
     type: 3}
   port: {fileID: 915114725526548709, guid: 08a1536172e539f4bacc5ceb803230ed, type: 3}
   terminal: {fileID: 915114725526548709, guid: 40432318e7c8adf41a32732687675fb8, type: 3}
+  bridgeSwitch: {fileID: 915114725526548709, guid: d34551806eaea474bac397d88af12fc6,
+    type: 3}
+  switchTileOn: {fileID: 0}
+  switchTileOff: {fileID: 0}
   enemyPrefabs:
   - {fileID: 8847390588398665581, guid: 715c1b2e91eca31488223aa29a47f4fc, type: 3}
   - {fileID: 8847390588398665581, guid: c3d6744011bfb234ca68d61bed630706, type: 3}
