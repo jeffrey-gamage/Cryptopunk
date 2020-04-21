@@ -7,6 +7,8 @@ public class Program : MonoBehaviour
 {
     protected MeshRenderer myRenderer;
     protected SpriteRenderer myIcon;
+    private Collider myCollider;
+
     private bool hasBegunPlay = false;
     public bool isAnimating = false;
     public static bool isTargetingAttack = false;
@@ -45,7 +47,6 @@ public class Program : MonoBehaviour
     internal bool hasUsedAction;
     internal bool hasBeenSpotted;
     internal List<DungeonTile> movePath;
-    protected bool updateStealthVisuals = true;
 
     protected Material standardMaterial;
 
@@ -60,6 +61,7 @@ public class Program : MonoBehaviour
         size = GetSize();
         myIcon = GetComponentInChildren<SpriteRenderer>();
         myRenderer = GetComponent<MeshRenderer>();
+        myCollider = GetComponent<Collider>();
         standardMaterial = myRenderer.material;
         visibleColor = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, 1);
         stealthColor = new Color(myIcon.color.r, myIcon.color.g, myIcon.color.b, iconStealthAlpha);
@@ -77,11 +79,7 @@ public class Program : MonoBehaviour
             animationSpeed = normalMovementSpeed;
         }
         HandleMovement();
-        if (updateStealthVisuals)
-        {
-            ShowStealthVisuals();
-            updateStealthVisuals = false;
-        }
+        HandleVisibility();
     }
 
     internal int GetSize()
@@ -157,28 +155,42 @@ public class Program : MonoBehaviour
         }
     }
 
-    private void ShowStealthVisuals()
+    private void HandleVisibility()
     {
-        if (myIcon)
+        if (this.IsControlledByPlayer())
         {
-            myIcon.enabled = myRenderer.enabled;
+            if (myIcon)
+            {
+                myIcon.enabled = myRenderer.enabled;
+                if (IsStealthed())
+                {
+                    myIcon.color = stealthColor;
+                }
+                else
+                {
+                    myIcon.color = visibleColor;
+                }
+            }
             if (IsStealthed())
             {
-                myIcon.color = stealthColor;
+                myRenderer.material = stealthMaterial;
             }
             else
             {
-                myIcon.color = visibleColor;
+                ApplyAppropriateMaterial();
             }
-        }
-        if (IsStealthed())
-        {
-            myRenderer.material = stealthMaterial;
         }
         else
         {
-            myRenderer.material = standardMaterial;
+            myRenderer.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation() && !IsStealthed();
+            myCollider.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation() && !IsStealthed();
+            myIcon.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation() && !IsStealthed();
         }
+    }
+
+    protected virtual void ApplyAppropriateMaterial()
+    {
+        myRenderer.material = standardMaterial;
     }
 
     private void HandleMovement()
@@ -312,23 +324,20 @@ public class Program : MonoBehaviour
         }
         foreach(Program program in hostilePrograms)
         {
-            if(program.IsStealthed()&&this.CanSee(program))
+            if(this.CanSee(program))
             {
                 program.Spot();
             }
-            if(this.IsStealthed()&&program.CanSee(this))
+            if(program.CanSee(this))
             {
                 this.Spot();
             }
-        
         }
-
     }
 
     private void Spot()
     {
         hasBeenSpotted = true;
-        updateStealthVisuals = true;
     }
 
     protected bool CanSee(Program program)
@@ -354,7 +363,6 @@ public class Program : MonoBehaviour
     {
         hasBegunPlay = true;
         hasBeenSpotted = false;
-        updateStealthVisuals = true;
         if(GetKeywords().Contains("Recover"))
         {
             size = Math.Min(GetSize(), size + 1);

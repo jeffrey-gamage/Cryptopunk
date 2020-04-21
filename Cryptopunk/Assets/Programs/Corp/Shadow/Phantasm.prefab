@@ -189,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAnimating: 0
   animationSpeed: 2
-  stealthMaterial: {fileID: 2100000, guid: c733875d6bc6bf747b1e7dd0d9528fb7, type: 2}
+  stealthMaterial: {fileID: 2100000, guid: a6e06d253670f2240989251ed74f8d9a, type: 2}
   iconStealthAlpha: 0.3
   baseSize: 5
   basePower: 3

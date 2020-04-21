@@ -320,7 +320,7 @@ public class DungeonManager : MonoBehaviour
                 allActionsComplete = false;
                 break;
             }
-            else if(!program.hasUsedAction)
+            else if(!program.hasUsedAIAction)
             {
                 program.ExecuteAIAttack();
                 allActionsComplete = false;

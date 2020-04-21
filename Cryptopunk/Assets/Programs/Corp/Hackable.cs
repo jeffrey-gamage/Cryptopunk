@@ -54,6 +54,32 @@ public class Hackable : MonoBehaviour
         }
     }
 
+    internal void ApplyAppropriateMaterial()
+    {
+        if(isHacked)
+        {
+            if(isEnabled&&hackedMaterial)
+            {
+                myMeshRenderer.material = hackedMaterial;
+            }
+            else if(inactiveHackedMaterial)
+            {
+                myMeshRenderer.material = inactiveHackedMaterial;
+            }
+        }
+        else
+        {
+            if (isEnabled)
+            {
+                myMeshRenderer.material = normalMaterial;
+            }
+            else if (inactiveMaterial)
+            {
+                myMeshRenderer.material = inactiveMaterial;
+            }
+        }
+    }
+
     internal void OnStartTurn()
     {
         if(isHacked)
@@ -134,14 +160,7 @@ public class Hackable : MonoBehaviour
         //hook for subclasses to do behaviour when switched on
         isEnabled = true;
         myTile.isBlocked = true;
-        if(isHacked)
-        {
-            myMeshRenderer.material = hackedMaterial;
-        }
-        else
-        {
-            myMeshRenderer.material = normalMaterial;
-        }
+        ApplyAppropriateMaterial();
     }
     internal virtual void Deactivate(bool isBreach)
     {
@@ -150,21 +169,7 @@ public class Hackable : MonoBehaviour
         {
             isEnabled = false;
         }
-        if(inactiveMaterial&&!isEnabled)
-        {
-            if(isHacked&&inactiveHackedMaterial)
-            {
-                myMeshRenderer.material = inactiveHackedMaterial;
-            }
-            else
-            {
-                myMeshRenderer.material = inactiveMaterial;
-            }
-        }
-        else if(isHacked&&hackedMaterial)
-        {
-            myMeshRenderer.material = hackedMaterial;
-        }
+        ApplyAppropriateMaterial();
     }
 
     internal bool IsHacked()

@@ -18,8 +18,8 @@ public class EnemyProgram : Program
     private int nextWaypointIndex = 0;
     [SerializeField] internal List<DungeonTile> waypoints; //TODO: remove serialization once testing is finished
     private Hackable hackable;
-    private Collider myCollider;
     internal bool hasMoved = false;
+    internal bool hasUsedAIAction = false;
     private bool isActiveAI = false;
     [SerializeField]internal int difficultyRating;
 
@@ -33,7 +33,6 @@ public class EnemyProgram : Program
     override internal void Start()
     {
         base.Start();
-        myCollider = GetComponent<Collider>();
         hackable = GetComponent<Hackable>();
         lineOfSightIndicators = new List<GameObject>();
     }
@@ -43,9 +42,6 @@ public class EnemyProgram : Program
         base.Update();
         if(myTile)
         {
-            myRenderer.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation()&&!IsStealthed();
-            myCollider.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation()&&!IsStealthed();
-            myIcon.enabled = myTile.IsVisible() && myTile.IsFinishedRevealAnimation()&&!IsStealthed();
             hackable.myTile = myTile;
         }
         if (DungeonManager.instance.mode!=DungeonManager.Mode.Wait&&hasMoved&&isActiveAI&& movePath.Count == 0)
@@ -59,6 +55,14 @@ public class EnemyProgram : Program
         hasMoved = false;
         base.OnStartTurn();
         GetComponent<Hackable>().OnStartTurn();
+    }
+
+    protected override void ApplyAppropriateMaterial()
+    {
+        if(hackable)
+        {
+            hackable.ApplyAppropriateMaterial();
+        }
     }
 
     private void UpdateState()
@@ -225,18 +229,17 @@ public class EnemyProgram : Program
             if (target)
             {
                 AttemptAttack(target);
-
             }
             if (!hasUsedAction)
             {
-                hasUsedAction = true;
+                hasUsedAIAction = true;
                 isActiveAI = false;
                 DungeonManager.instance.TakeNextAIAction();
             }
         }
         else
         {
-            hasUsedAction = true;
+            hasUsedAIAction = true;
             DungeonManager.instance.TakeNextAIAction();
         }
     }
