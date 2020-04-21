@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/corpDungeons/procDungeon.unity
     guid: 8896bf916c55dda4e8e51e5c696760e0
   - enabled: 1
+    path: Assets/Scenes/roomTester.unity
+    guid: 09e671325a37c7e4e88bd3aa3bb297da
+  - enabled: 1
     path: Assets/Scenes/corpDungeons/enSolDungeon.unity
     guid: cec186e05a9b64c4894d720322c6b861
   - enabled: 1

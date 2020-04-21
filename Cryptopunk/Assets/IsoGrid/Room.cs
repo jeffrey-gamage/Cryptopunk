@@ -86,6 +86,7 @@ public class Room
         loot = new List<Vector3Int>();
         ports = new List<Vector3Int>();
         terminals = new List<Vector3Int>();
+        terminalAssignments = new List<TerminalAssignment>();
         switchBridges = new List<Vector3Int>();
         switchTilesOn = new List<Vector3Int>();
         switchTilesOff = new List<Vector3Int>();
@@ -118,7 +119,9 @@ public class Room
             {
                 if(switchBridge.myTile.xCoord==assignment.terminalLocation.x &&switchBridge.myTile.zCoord==assignment.terminalLocation.z)
                 {
-                    foreach(Vector3Int tileCoords in assignment.controlLocations)
+                    switchBridge.controlledTilesDisabled = new List<SwitchTile>();
+                    switchBridge.controlledTilesEnabled = new List<SwitchTile>();
+                    foreach (Vector3Int tileCoords in assignment.controlLocations)
                     {
                         SwitchTile tile =(SwitchTile) DungeonManager.instance.grid.GetTile(tileCoords.x, tileCoords.z);
                         if (tile.isOn)
@@ -433,6 +436,11 @@ public class Room
             FlipX(ref loot);
             FlipX(ref ports);
             FlipX(ref terminals);
+            FlipX(ref terminalAssignments);
+            FlipX(ref switchBridges);
+            FlipX(ref switchTilesOff);
+            FlipX(ref switchTilesOn);
+            FlipX(ref switchBridgeAssignments);
             FlipX(ref patrolRoutes);
             missionObj += new Vector3Int(1, 0, 0) * (roomMaxX -missionObj.x * 2);
             entrance += new Vector3Int(1, 0, 0) * (roomMaxX - entrance.x * 2);
@@ -449,6 +457,11 @@ public class Room
             FlipDiagonal(ref loot);
             FlipDiagonal(ref ports);
             FlipDiagonal(ref terminals);
+            FlipDiagonal(ref terminalAssignments);
+            FlipDiagonal(ref switchBridges);
+            FlipDiagonal(ref switchTilesOff);
+            FlipDiagonal(ref switchTilesOn);
+            FlipDiagonal(ref switchBridgeAssignments);
             FlipDiagonal(ref patrolRoutes);
             missionObj = new Vector3Int(missionObj.z, missionObj.y, missionObj.x);
             entrance = new Vector3Int(entrance.z,entrance.y,entrance.x);
@@ -465,9 +478,44 @@ public class Room
             FlipZ(ref loot);
             FlipZ(ref ports);
             FlipZ(ref terminals);
+            FlipZ(ref terminalAssignments);
+            FlipZ(ref switchBridges);
+            FlipZ(ref switchTilesOn);
+            FlipZ(ref switchTilesOff);
+            FlipZ(ref switchBridgeAssignments);
             FlipZ(ref patrolRoutes);
             missionObj += new Vector3Int(0, 0, 1) * (roomMaxZ - missionObj.z * 2);
             entrance += new Vector3Int(0, 0, 1) * (roomMaxZ - entrance.z * 2);
+        }
+    }
+
+    private void FlipZ(ref List<SwitchBridge.SwitchTileAssignment> switchBridgeAssignments)
+    {
+        foreach(SwitchBridge.SwitchTileAssignment assignment in switchBridgeAssignments)
+        {
+            assignment.terminalLocation += new Vector3Int(0, 0, 1) * (roomMaxZ - assignment.terminalLocation.z * 2);
+            if (assignment.controlLocations.Count > 0)
+            {
+                for(int i=0;i<assignment.controlLocations.Count;i++)
+                {
+                    assignment.controlLocations[i] += new Vector3Int(0, 0, 1) * (roomMaxZ - assignment.controlLocations[i].z * 2);
+                }
+            }
+        }
+    }
+
+    private void FlipZ(ref List<TerminalAssignment> terminalAssignments)
+    {
+        foreach (TerminalAssignment assignment in terminalAssignments)
+        {
+            assignment.terminalLocation += new Vector3Int(0, 0, 1) * (roomMaxZ - assignment.terminalLocation.z * 2);
+            if (assignment.controlLocations.Count > 0)
+            {
+                for (int i = 0; i < assignment.controlLocations.Count; i++)
+                {
+                    assignment.controlLocations[i] += new Vector3Int(0, 0, 1) * (roomMaxZ - assignment.controlLocations[i].z * 2);
+                }
+            }
         }
     }
 
@@ -512,6 +560,36 @@ public class Room
             }
         }
     }
+    private void FlipDiagonal(ref List<TerminalAssignment> terminalAssignments)
+    {
+        foreach (TerminalAssignment assignment in terminalAssignments)
+        {
+            assignment.terminalLocation += new Vector3Int(0, 0, 1) * (roomMaxZ - assignment.terminalLocation.z * 2);
+            if (assignment.controlLocations.Count > 0)
+            {
+                for (int i = 0; i < assignment.controlLocations.Count; i++)
+                {
+                    assignment.controlLocations[i] += new Vector3Int(0, 0, 1) * (roomMaxZ - assignment.controlLocations[i].z * 2);
+                }
+            }
+        }
+    }
+
+
+    private void FlipDiagonal(ref List<SwitchBridge.SwitchTileAssignment> switchBridgeAssignments)
+    {
+        foreach (SwitchBridge.SwitchTileAssignment assignment in switchBridgeAssignments)
+        {
+            assignment.terminalLocation = new Vector3Int(assignment.terminalLocation.z,assignment.terminalLocation.y,assignment.terminalLocation.x);
+            if (assignment.controlLocations.Count > 0)
+            {
+                for (int i = 0; i < assignment.controlLocations.Count; i++)
+                {
+                    assignment.controlLocations[i] = new Vector3Int(assignment.controlLocations[i].z,assignment.controlLocations[i].y,assignment.controlLocations[i].x);
+                }
+            }
+        }
+    }
 
     private void FlipDiagonal(ref List<List<Vector3Int>> patrolRoutes)
     {
@@ -551,6 +629,36 @@ public class Room
             for (int i = 0; i < coordinates.Count; i++)
             {
                 coordinates[i] = new Vector3Int(coordinates[i].z,coordinates[i].y,coordinates[i].x);
+            }
+        }
+    }
+
+    private void FlipX(ref List<SwitchBridge.SwitchTileAssignment> switchBridgeAssignments)
+    {
+        foreach (SwitchBridge.SwitchTileAssignment assignment in switchBridgeAssignments)
+        {
+            assignment.terminalLocation += new Vector3Int(1, 0, 0) * (roomMaxX - assignment.terminalLocation.x * 2);
+            if (assignment.controlLocations.Count > 0)
+            {
+                for (int i = 0; i < assignment.controlLocations.Count; i++)
+                {
+                    assignment.controlLocations[i] += new Vector3Int(1, 0, 0) * (roomMaxX - assignment.controlLocations[i].x * 2);
+                }
+            }
+        }
+    }
+
+    private void FlipX(ref List<TerminalAssignment> terminalAssignments)
+    {
+        foreach (TerminalAssignment assignment in terminalAssignments)
+        {
+            assignment.terminalLocation += new Vector3Int(1, 0, 0) * (roomMaxX - assignment.terminalLocation.x * 2);
+            if (assignment.controlLocations.Count > 0)
+            {
+                for (int i = 0; i < assignment.controlLocations.Count; i++)
+                {
+                    assignment.controlLocations[i] += new Vector3Int(1, 0, 0) * (roomMaxX - assignment.controlLocations[i].x * 2);
+                }
             }
         }
     }

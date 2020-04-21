@@ -109,5 +109,5 @@ MonoBehaviour:
   unexplored: {fileID: 2100000, guid: 800b9fc926e94914cbd4b7cc95f74604, type: 2}
   fog: {fileID: 2100000, guid: c2684e5112a66a84b92f8b9af7b3f15a, type: 2}
   visible: {fileID: 2100000, guid: 96e1742b35c44aa4794018bed5564d6f, type: 2}
-  fadeRate: 0.6
-  isOn: 1
+  fadeRate: 0.8
+  isOn: 0

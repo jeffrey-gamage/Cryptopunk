@@ -17,7 +17,7 @@ public class DungeonDirectory : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("procDungeon");
+            SceneManager.LoadScene("roomTester");
         }
     }
 

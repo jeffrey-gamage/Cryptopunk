@@ -7,6 +7,7 @@ public class SwitchTile : DungeonTile
     //tiles that can be toggled on and off by switchBridge. Should not have any loot or objects other than programs placed on them.
 {
     [SerializeField] float fadeRate = 0.6f;
+    private float opacity = 0f;
 
     [SerializeField] internal bool isOn;
     internal void Switch(bool on)
@@ -17,19 +18,33 @@ public class SwitchTile : DungeonTile
     protected override void Update()
     {
         base.Update();
-        if(!isOn)
+        if (!isOn)
         {
             isBlocked = true;
-            if (myMeshRenderer.material.color.a > 0f)
-                myMeshRenderer.material.color = new Color(myMeshRenderer.material.color.r, myMeshRenderer.material.color.g, myMeshRenderer.material.color.b,
-                    Mathf.Max(0f, myMeshRenderer.material.color.a - fadeRate * Time.deltaTime));
+            if (opacity > 0f)
+            {
+                opacity = Mathf.Max(0f, opacity - fadeRate * Time.deltaTime);
+            }
+            else if(IsExplored())
+            {
+                myMeshRenderer.enabled = false;
+            }
         }
         else
         {
             isBlocked = isOccupied;
-            if (myMeshRenderer.material.color.a < 1f)
-                    myMeshRenderer.material.color = new Color(myMeshRenderer.material.color.r, myMeshRenderer.material.color.g, myMeshRenderer.material.color.b,
-                        Mathf.Min(0f, myMeshRenderer.material.color.a + fadeRate * Time.deltaTime));
+            if (opacity < 1f)
+            {
+                opacity = Mathf.Min(1f, opacity + fadeRate * Time.deltaTime);
+            }
+            else if (IsExplored())
+            {
+                myMeshRenderer.enabled = true;
+            }
+        }
+        if (IsExplored())
+        {
+            myMeshRenderer.material.color = new Color(myMeshRenderer.material.color.r, myMeshRenderer.material.color.g, myMeshRenderer.material.color.b, opacity);
         }
     }
 }
