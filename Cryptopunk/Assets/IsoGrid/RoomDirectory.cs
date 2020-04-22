@@ -12,6 +12,8 @@ public class RoomDirectory : MonoBehaviour
     public TextAsset[] GENERAL_ROOMS;
     public TextAsset[] FINAL_ROOMS;
 
+    [SerializeField] int corpID;
+
     internal int GetFirstRoomIndex()
     {
         return Random.Range(0, STARTING_ROOMS.Length);
@@ -44,16 +46,27 @@ public class RoomDirectory : MonoBehaviour
 
     internal int GetFinalRoomIndex()
     {
-        if(PersistentState.instance.usedFinalRoomIndices.Count>=FINAL_ROOMS.Length)
+        List<int> myCorpUsedFinalRooms = new List<int>();
+        foreach(PersistentState.UsedFinalRoomRecord record in PersistentState.instance.usedFinalRoomRecords)
         {
-            PersistentState.instance.usedFinalRoomIndices.Clear();
+            if(record.corpID==corpID)
+            {
+                myCorpUsedFinalRooms.Add(record.roomIndex);
+            }
+        }
+        if(PersistentState.instance.usedFinalRoomRecords.Count>=FINAL_ROOMS.Length)
+        {
+            PersistentState.instance.usedFinalRoomRecords.Clear();
         }
         while(true)
         {
             int finalRoomIndex = Random.Range(0, FINAL_ROOMS.Length);
-            if(!PersistentState.instance.usedFinalRoomIndices.Contains(finalRoomIndex))
+            if(!myCorpUsedFinalRooms.Contains(finalRoomIndex))
             {
-                PersistentState.instance.usedFinalRoomIndices.Add(finalRoomIndex);
+                PersistentState.UsedFinalRoomRecord newRecord;
+                newRecord.corpID = corpID;
+                newRecord.roomIndex = finalRoomIndex;
+                PersistentState.instance.usedFinalRoomRecords.Add(newRecord);
                 return finalRoomIndex;
             }
         }

@@ -327,6 +327,7 @@ MonoBehaviour:
   securityNodes: []
   hackableObjects: []
   terminals: []
+  switchBridges: []
   maxTurns: 25
   currentTurn: 0
   reinforcementTurns: 070000000d0000001200000016000000
@@ -492,6 +493,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: bd2ffb9675757c24daea88e3fa908a14, type: 3}
   - {fileID: 4900000, guid: d926dac3afd3bab4d9544cfff3288306, type: 3}
   - {fileID: 4900000, guid: defb704822631e848ae5838405adaa69, type: 3}
+  corpID: 4
 --- !u!4 &1228498249
 Transform:
   m_ObjectHideFlags: 0

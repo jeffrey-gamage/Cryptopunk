@@ -17,13 +17,24 @@ public class PersistentState : MonoBehaviour
     internal bool hasMissionListBeenRefreshed = false;
     internal bool hasInventoryBeenRefeshed = false;
     protected bool isNewGame = true;
-    internal List<int> usedFinalRoomIndices;
+    internal List<UsedFinalRoomRecord> usedFinalRoomRecords;
 
     [SerializeField] string filename;
     internal static string saveGameDir = "\\Saved_Games\\Cryptopunk";
     [SerializeField] List<GameObject> startingPrograms;
     [SerializeField] int startingCredits = 250;
     [SerializeField] public GameObject[] schemaLibrary;
+
+    internal void SetFileName(string newName)
+    {
+        filename = newName;
+    }
+
+    public struct UsedFinalRoomRecord
+    {
+        public int corpID;
+        public int roomIndex;
+    }
 
     public struct ExploitRecord
     {
@@ -32,17 +43,11 @@ public class PersistentState : MonoBehaviour
         public string corpName;
     }
 
-    internal void SetFileName(string newName)
-    {
-        filename = newName;
-    }
-
     public struct ShopInventoryRecord
     {
         public string schemaName;
         public int cost;
     }
-    // Start is called before the first frame update
     void Start()
     {
         //singleton
@@ -90,7 +95,7 @@ public class PersistentState : MonoBehaviour
         ownedPlugins = new List<GameObject>();
         availableMissions = new List<ExploitRecord>();
         shopInventorySchema = new List<ShopInventoryRecord>();
-        usedFinalRoomIndices = new List<int>();
+        usedFinalRoomRecords = new List<UsedFinalRoomRecord>();
         progress = 0;
     }
 
@@ -188,9 +193,9 @@ public class PersistentState : MonoBehaviour
     private void WriteUsedFinalRooms(ref StreamWriter saveFile)
     {
         saveFile.WriteLine("++USED FINAL ROOMS++");
-        foreach(int roomIndex in usedFinalRoomIndices)
+        foreach(UsedFinalRoomRecord record in usedFinalRoomRecords)
         {
-            saveFile.WriteLine(roomIndex.ToString());
+            saveFile.WriteLine(record.corpID.ToString()+"-"+record.roomIndex.ToString());
         }
         saveFile.WriteLine("++END++");
     }
@@ -213,7 +218,7 @@ public class PersistentState : MonoBehaviour
     {
         ownedPrograms = new List<GameObject>();
         ownedPlugins = new List<GameObject>();
-        usedFinalRoomIndices = new List<int>();
+        usedFinalRoomRecords = new List<UsedFinalRoomRecord>();
         availableMissions = new List<ExploitRecord>();
         shopInventorySchema = new List<ShopInventoryRecord>();
         isNewGame = false;
@@ -424,15 +429,31 @@ public class PersistentState : MonoBehaviour
         string nextLine = GetNextLine(ref fileText);
         while(nextLine!="++END++")
         {
+            UsedFinalRoomRecord record;
+            int corpID = 0;
             int roomIndex = 0;
+            bool hasReadCorpId=false;
             foreach (char nextChar in nextLine)
             {
                 if (char.IsDigit(nextChar))
                 {
-                    roomIndex = roomIndex * 10 + int.Parse(nextChar.ToString());
+                    if (hasReadCorpId)
+                    {
+                        roomIndex = roomIndex * 10 + int.Parse(nextChar.ToString());
+                    }
+                    else
+                    {
+                        corpID = corpID * 10 + int.Parse(nextChar.ToString());
+                    }
+                }
+                else if(nextChar=='-')
+                {
+                    hasReadCorpId = true;
                 }
             }
-            usedFinalRoomIndices.Add(roomIndex);
+            record.corpID = corpID;
+            record.roomIndex = roomIndex;
+            usedFinalRoomRecords.Add(record);
             nextLine = GetNextLine(ref fileText);
         }
     }
