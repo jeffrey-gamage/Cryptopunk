@@ -774,6 +774,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2579497685136971877, guid: 3927df66cabfcb841af96a6d440a5d83,
         type: 3}
+      propertyPath: enemyPrefabs.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2579497685136971877, guid: 3927df66cabfcb841af96a6d440a5d83,
+        type: 3}
       propertyPath: switchTileOn
       value: 
       objectReference: {fileID: 4291032839040103493, guid: 0d205298c659cfa409df3ea43eaf3df4,
@@ -783,6 +788,48 @@ PrefabInstance:
       propertyPath: switchTileOff
       value: 
       objectReference: {fileID: 4291032839040103493, guid: 9c9f8c8e6173bd44ca91c7e53281ba00,
+        type: 3}
+    - target: {fileID: 2579497685136971877, guid: 3927df66cabfcb841af96a6d440a5d83,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[8]
+      value: 
+      objectReference: {fileID: 8847390588398665581, guid: 34f52ea0fc95b144dbad564b70a53327,
+        type: 3}
+    - target: {fileID: 2579497685136971877, guid: 3927df66cabfcb841af96a6d440a5d83,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[9]
+      value: 
+      objectReference: {fileID: 8847390588398665581, guid: 6986424ccdc35da43acf071787577f13,
+        type: 3}
+    - target: {fileID: 2579497685136971877, guid: 3927df66cabfcb841af96a6d440a5d83,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[7]
+      value: 
+      objectReference: {fileID: 8847390588398665581, guid: bf7cbd2372962824893514d92accb62f,
+        type: 3}
+    - target: {fileID: 2579497685136971877, guid: 3927df66cabfcb841af96a6d440a5d83,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 8847390588398665581, guid: 7cb0a3d326ec0464da93b4596c877d3e,
+        type: 3}
+    - target: {fileID: 2579497685136971877, guid: 3927df66cabfcb841af96a6d440a5d83,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 8847390588398665581, guid: 1189fd7a28d86ee4cab85fc9c37c57e3,
+        type: 3}
+    - target: {fileID: 2579497685136971877, guid: 3927df66cabfcb841af96a6d440a5d83,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 8847390588398665581, guid: 5327aabc8fd5ca643b7aae59e00fb9d1,
+        type: 3}
+    - target: {fileID: 2579497685136971877, guid: 3927df66cabfcb841af96a6d440a5d83,
+        type: 3}
+      propertyPath: enemyPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 8847390588398665581, guid: b397c985c27cac841b60382fdcd8a882,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3927df66cabfcb841af96a6d440a5d83, type: 3}
