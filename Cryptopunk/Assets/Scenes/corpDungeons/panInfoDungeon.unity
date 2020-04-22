@@ -327,6 +327,7 @@ MonoBehaviour:
   securityNodes: []
   hackableObjects: []
   terminals: []
+  switchBridges: []
   maxTurns: 25
   currentTurn: 0
   reinforcementTurns: 070000000d0000001200000016000000
@@ -475,6 +476,8 @@ MonoBehaviour:
   - {fileID: 4900000, guid: f6bb991ac876a744eba31ce26298beaf, type: 3}
   - {fileID: 4900000, guid: 2a9c40321bd96434baf0a997711f83d9, type: 3}
   - {fileID: 4900000, guid: 9f6d0527692be6b42bba415381eb1935, type: 3}
+  - {fileID: 4900000, guid: 2acb3b48e3f985a439c203760a3808c4, type: 3}
+  - {fileID: 4900000, guid: e418b797ea73dde4c84b8ccd99f23eac, type: 3}
   FINAL_ROOMS:
   - {fileID: 4900000, guid: 522e7f64753ea9441889cebc9e3fb2eb, type: 3}
   - {fileID: 4900000, guid: 2e8134d3edcf7014484331afd902d061, type: 3}
@@ -486,6 +489,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 2653664faf6f2a844a98083af8b2d7d3, type: 3}
   - {fileID: 4900000, guid: 19ca5d88af668ae44b8866da4302fdb8, type: 3}
   - {fileID: 4900000, guid: bd2ffb9675757c24daea88e3fa908a14, type: 3}
+  - {fileID: 4900000, guid: 74b6cb0658c4aa84b8f8683e64bc271b, type: 3}
 --- !u!4 &1228498249
 Transform:
   m_ObjectHideFlags: 0

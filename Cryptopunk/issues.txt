@@ -1,7 +1,2 @@
--subsequent loadGames can wipe out available missions - could not reproduce
 -terminals' dedicated assignments can be overlooked/overwritten
 -when not moving, flying enemies can react to their own occupation of a tile and needlessly fly higher
--terminal assignment in labyrinth 2 room failed
--stealth units are mishandling friend or foe recognition
--hack meshes are not displaying correctly
--switch bridges are being placed incorrectly, rendering on/off incorrectly
