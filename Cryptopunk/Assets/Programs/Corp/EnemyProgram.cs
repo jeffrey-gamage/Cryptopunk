@@ -54,6 +54,10 @@ public class EnemyProgram : Program
     {
         hasMoved = false;
         base.OnStartTurn();
+        if(!hasUsedAction)
+        {
+            hasUsedAIAction = false;
+        }
         GetComponent<Hackable>().OnStartTurn();
     }
 
@@ -230,7 +234,7 @@ public class EnemyProgram : Program
             {
                 AttemptAttack(target);
             }
-            if (!hasUsedAction)
+            if (!hasUsedAIAction)
             {
                 hasUsedAIAction = true;
                 isActiveAI = false;
