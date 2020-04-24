@@ -20,7 +20,6 @@ public class EnemyProgram : Program
     [SerializeField] internal List<DungeonTile> waypoints; //TODO: remove serialization once testing is finished
     private Hackable hackable;
     internal bool hasUsedAIAction = false;
-    private bool isActiveAI = false;
     [SerializeField]internal int difficultyRating;
 
     internal void InitializeReinforcement()
@@ -43,24 +42,6 @@ public class EnemyProgram : Program
         if(myTile)
         {
             hackable.myTile = myTile;
-        }
-        if(isActiveAI&&movePath.Count==0)
-        {
-            PassTurn(myTile.IsVisible());
-        }
-    }
-
-    private void PassTurn(bool shouldWaitForAnimationCompletion)
-    {
-        hasUsedAIAction = true;
-        isActiveAI = false;
-        if (shouldWaitForAnimationCompletion)
-        {
-            DungeonManager.instance.Invoke("TakeNextAIAction", turnDelay);
-        }
-        else
-        {
-            DungeonManager.instance.TakeNextAIAction();
         }
     }
 
@@ -86,10 +67,7 @@ public class EnemyProgram : Program
     {
         if (myState == State.Attack)
         {
-            myState = State.Search;
-            nextWaypointIndex = 0;
-            waypoints.Clear();
-            waypoints.Add(myTile);
+            BeginSearch();
         }
         foreach (Program program in DungeonManager.instance.GetPlayerControlledPrograms())
         {
@@ -98,6 +76,14 @@ public class EnemyProgram : Program
                 myState = State.Attack;
             }
         }
+    }
+
+    internal void BeginSearch()
+    {
+        myState = State.Search;
+        nextWaypointIndex = 0;
+        waypoints.Clear();
+        waypoints.Add(myTile);
     }
 
     override internal void Damage(int damageAmount)
@@ -109,17 +95,19 @@ public class EnemyProgram : Program
     internal void ExecuteAIMovement()
     {
         UpdateState();
-        isActiveAI = true;
         if(myState==State.Patrol)
         {
+            Debug.Log(this.name + " following patrol route");
             Patrol();
         }
         else if(myState==State.Search)
         {
+            Debug.Log(this.name + " searching for targets");
             Search();
         }
         else if(myState==State.Attack)
         {
+            Debug.Log(this.name + " closing with target");
             MoveIntoRange();
         }
     }
@@ -226,15 +214,11 @@ public class EnemyProgram : Program
 
     internal void ExecuteAIAttack()
     {
-        if (DungeonManager.instance.mode == DungeonManager.Mode.Wait)
         {
-            Invoke("ExecuteAIAttack", 0.5f);
-        }
-        else
-        {
+            Debug.Log(this.name + " executing AI Attack procedure");
+            hasUsedAIAction = true;
             if (hackable.isEnabled)
             {
-                isActiveAI = true;
                 List<Program> hostilePrograms = DungeonManager.instance.GetPlayerControlledPrograms();
                 Program target = null;
                 foreach (Program program in hostilePrograms)
@@ -250,13 +234,9 @@ public class EnemyProgram : Program
                 }
                 if (target)
                 {
+                    Debug.Log(this.name + " attempting attack");
                     AttemptAttack(target);
                 }
-                PassTurn(true);
-            }
-            else
-            {
-                PassTurn(false);
             }
         }
     }

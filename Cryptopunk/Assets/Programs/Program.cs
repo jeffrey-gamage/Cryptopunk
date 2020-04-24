@@ -438,14 +438,14 @@ public class Program : MonoBehaviour
         }
         else
         {
-            foreach(DungeonTile tile in tempPath)
-            {
-                Debug.Log(gameObject.name+" "+tile.xCoord.ToString() + " " + tile.zCoord.ToString());
-            }
             movePath = new List<DungeonTile>();
             movePath.Add(myTile); 
             DungeonManager.instance.Wait();
             isAnimating = true;
+            if(GetComponent<EnemyProgram>())
+            {
+                GetComponent<EnemyProgram>().BeginSearch();
+            }
         }
     }
 
@@ -458,13 +458,17 @@ public class Program : MonoBehaviour
             {
                 Attack newAttack = Instantiate(myAttack, gameObject.transform.position, Quaternion.identity).GetComponent<Attack>();
                 newAttack.damage = GetPower();
-                newAttack.SetCourse(tempPath,target);
+                newAttack.SetCourse(tempPath, target);
                 Program.isTargetingAttack = false;
                 if (!GetKeywords().Contains("Hit and Run"))
                 {
                     movesLeft = 0;
                 }
                 hasUsedAction = true;
+            }
+            else
+            {
+                Debug.Log("Target out of range");
             }
         }
         else

@@ -105,6 +105,18 @@ public class DungeonManager : MonoBehaviour
         PrepareNextDeployment();
     }
 
+    private void Update()
+    {
+        if(!isPlayerTurn&&mode!=Mode.Wait)
+        {
+            TakeNextAIAction();
+        }
+        if (Input.GetKeyDown("space"))
+        {
+            Debug.Log(mode.ToString());
+        }
+    }
+
     private GridGenerator TryMakeDungeonUntilSuccessful()
     {
         try
@@ -295,7 +307,6 @@ public class DungeonManager : MonoBehaviour
             {
                 program.OnStartTurn();
             }
-            TakeNextAIAction();
         }
     }
 
