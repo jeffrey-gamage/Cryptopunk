@@ -231,6 +231,10 @@ public class DungeonGrid : MonoBehaviour
 
     internal DungeonTile GetTile(int x, int z)
     {
+        if(x<0||x>=tileGrid.Length||z<0||z>=tileGrid[x].Length)
+        {
+            Debug.LogError("Tried to get tile out of bounds at " + x.ToString() + " " + z.ToString());
+        }
         return tileGrid[x][z];
     }
 

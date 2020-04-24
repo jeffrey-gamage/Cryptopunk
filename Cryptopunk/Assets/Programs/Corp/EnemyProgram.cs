@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyProgram : Program
 {
     private static readonly int maxPath = 16;
+    private static readonly float turnDelay = 1f;
     private enum State{
         Patrol,
         Search,
@@ -18,7 +19,6 @@ public class EnemyProgram : Program
     private int nextWaypointIndex = 0;
     [SerializeField] internal List<DungeonTile> waypoints; //TODO: remove serialization once testing is finished
     private Hackable hackable;
-    internal bool hasMoved = false;
     internal bool hasUsedAIAction = false;
     private bool isActiveAI = false;
     [SerializeField]internal int difficultyRating;
@@ -44,15 +44,28 @@ public class EnemyProgram : Program
         {
             hackable.myTile = myTile;
         }
-        if (DungeonManager.instance.mode!=DungeonManager.Mode.Wait&&hasMoved&&isActiveAI&& movePath.Count == 0)
+        if(isActiveAI&&movePath.Count==0)
         {
-            isActiveAI = false;
+            PassTurn(myTile.IsVisible());
+        }
+    }
+
+    private void PassTurn(bool shouldWaitForAnimationCompletion)
+    {
+        hasUsedAIAction = true;
+        isActiveAI = false;
+        if (shouldWaitForAnimationCompletion)
+        {
+            DungeonManager.instance.Invoke("TakeNextAIAction", turnDelay);
+        }
+        else
+        {
             DungeonManager.instance.TakeNextAIAction();
         }
     }
+
     internal override void OnStartTurn()
     {
-        hasMoved = false;
         base.OnStartTurn();
         if(!hasUsedAction)
         {
@@ -109,7 +122,6 @@ public class EnemyProgram : Program
         {
             MoveIntoRange();
         }
-        hasMoved = true;
     }
 
     internal void SetWaypoints(Vector3Int[] waypointCoords)
@@ -214,37 +226,38 @@ public class EnemyProgram : Program
 
     internal void ExecuteAIAttack()
     {
-        if (hackable.isEnabled)
+        if (DungeonManager.instance.mode == DungeonManager.Mode.Wait)
         {
-            isActiveAI = true;
-            List<Program> hostilePrograms = DungeonManager.instance.GetPlayerControlledPrograms();
-            Program target = null;
-            foreach (Program program in hostilePrograms)
-            {
-                if (CanSee(program))
-                {
-                    if (!target || (DungeonManager.instance.grid.TileDistance(program.myTile, myTile) < DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
-                    {
-                        target = program;
-                        Debug.Log("New Target selected");
-                    }
-                }
-            }
-            if (target)
-            {
-                AttemptAttack(target);
-            }
-            if (!hasUsedAIAction)
-            {
-                hasUsedAIAction = true;
-                isActiveAI = false;
-                DungeonManager.instance.TakeNextAIAction();
-            }
+            Invoke("ExecuteAIAttack", 0.5f);
         }
         else
         {
-            hasUsedAIAction = true;
-            DungeonManager.instance.TakeNextAIAction();
+            if (hackable.isEnabled)
+            {
+                isActiveAI = true;
+                List<Program> hostilePrograms = DungeonManager.instance.GetPlayerControlledPrograms();
+                Program target = null;
+                foreach (Program program in hostilePrograms)
+                {
+                    if (CanSee(program))
+                    {
+                        if (!target || (DungeonManager.instance.grid.TileDistance(program.myTile, myTile) < DungeonManager.instance.grid.TileDistance(target.myTile, myTile)))
+                        {
+                            target = program;
+                            Debug.Log("New Target selected");
+                        }
+                    }
+                }
+                if (target)
+                {
+                    AttemptAttack(target);
+                }
+                PassTurn(true);
+            }
+            else
+            {
+                PassTurn(false);
+            }
         }
     }
 
@@ -271,5 +284,17 @@ public class EnemyProgram : Program
         myTile = dungeonTile;
         hackable = GetComponent<Hackable>();
         hackable.myTile = dungeonTile;
+    }
+
+    internal bool HasTarget()
+    {
+        foreach(Program program in DungeonManager.instance.GetPlayerControlledPrograms())
+        {
+            if(this.CanSee(program)&&DungeonManager.instance.grid.TileDistance(myTile,program.myTile)<=GetRange())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

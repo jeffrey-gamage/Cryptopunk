@@ -26,7 +26,7 @@ public class MissionStatus : MonoBehaviour
     [SerializeField] Vector3 firstPluginSlotOffset;
     [SerializeField] Vector3 subsequentPluginSlotOffset;
     internal int kbBudget;
-    private int totalBudget;
+    [SerializeField] private int totalBudget;
     internal int selectedSlotIndex = 0;
     public Image selectedSlotHighlight;
     internal string corpName;

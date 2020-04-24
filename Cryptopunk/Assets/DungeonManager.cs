@@ -314,17 +314,20 @@ public class DungeonManager : MonoBehaviour
         bool allActionsComplete = true;
         foreach(EnemyProgram program in GetAIControlledPrograms())
         {
-            if(!program.hasMoved)
+            if (!program.hasUsedAIAction)
             {
-                program.ExecuteAIMovement();
-                allActionsComplete = false;
-                break;
-            }
-            else if(!program.hasUsedAIAction)
-            {
-                program.ExecuteAIAttack();
-                allActionsComplete = false;
-                break;
+                if (program.HasTarget())
+                {
+                    program.ExecuteAIAttack();
+                    allActionsComplete = false;
+                    break;
+                }
+                else if (program.movesLeft > 0)
+                {
+                    program.ExecuteAIMovement();
+                    allActionsComplete = false;
+                    break;
+                }
             }
         }
         if(allActionsComplete)
@@ -456,18 +459,21 @@ public class DungeonManager : MonoBehaviour
 
     internal void RemoveProgram(Program program)
     {
-        if (playerPrograms.Contains(program))
+        if (program)
         {
-            playerPrograms.Remove(program);
-            if(playerPrograms.Count==0)
+            if (playerPrograms.Contains(program))
             {
-                MissionStatus.instance.outcome = MissionStatus.MissionOutcome.eliminated;
-                SceneManager.LoadScene("results");
+                playerPrograms.Remove(program);
+                if (playerPrograms.Count == 0)
+                {
+                    MissionStatus.instance.outcome = MissionStatus.MissionOutcome.eliminated;
+                    SceneManager.LoadScene("results");
+                }
             }
-        }
-        else 
-        {
-            enemyPrograms.Remove((EnemyProgram)program);
+            else
+            {
+                enemyPrograms.Remove((EnemyProgram)program);
+            }
         }
     }
 }

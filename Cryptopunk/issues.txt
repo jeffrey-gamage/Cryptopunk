@@ -1,2 +1,4 @@
 -terminals' dedicated assignments can be overlooked/overwritten
 -when not moving, flying enemies can react to their own occupation of a tile and needlessly fly higher
+Enemy AI control loop is broken, enemies need to end movement if they can attack
+-maybe check if can attack first, only do movement if there are no attacks to make

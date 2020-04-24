@@ -216,7 +216,7 @@ public class Program : MonoBehaviour
                     AttemptCollectLoot();
                     movePath.Remove(myTile);
                     DungeonManager.instance.UpdateVisibility();
-                    if(Program.selectedProgram==this&&GetComponent<Hackable>())//if selected and enemy, update sight preview
+                    if(Program.selectedProgram==this&&GetComponent<Hackable>()&&!IsControlledByPlayer())//if selected and enemy, update sight preview
                     {
                         ((EnemyProgram)this).GenerateLineOfSightIndicators();
                     }
@@ -517,11 +517,14 @@ public class Program : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(deathSound, FindObjectOfType<Camera>().transform.position,PlayerPrefs.GetFloat(Options.sfxVolumeKey));
         }
-        if(deathEffect)
+        if(this&&deathEffect)
         {
             Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity);
         }
-        Destroy(gameObject);
+        if (this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     internal void BeginPlay()
