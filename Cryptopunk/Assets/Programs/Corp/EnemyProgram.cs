@@ -6,7 +6,6 @@ using UnityEngine;
 public class EnemyProgram : Program
 {
     private static readonly int maxPath = 16;
-    private static readonly float turnDelay = 1f;
     private enum State{
         Patrol,
         Search,
@@ -17,7 +16,7 @@ public class EnemyProgram : Program
     [SerializeField] GameObject sightIndicator;
     [SerializeField] float sightPreviewOffset = 0.11f;
     private int nextWaypointIndex = 0;
-    [SerializeField] internal List<DungeonTile> waypoints; //TODO: remove serialization once testing is finished
+    internal List<DungeonTile> waypoints = new List<DungeonTile>();
     private Hackable hackable;
     internal bool hasUsedAIAction = false;
     [SerializeField]internal int difficultyRating;

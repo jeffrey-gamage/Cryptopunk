@@ -320,7 +320,7 @@ public class DungeonManager : MonoBehaviour
     }
 
     internal void TakeNextAIAction()
-        //Does the next available AI action, or if none remain, passes turn to the player. Each AI calls this at the conclusion of each of its actions.
+        //Does the next available AI action, or if none remain, passes turn to the player. This is called every time the game is idle during the AI turn
     {
         bool allActionsComplete = true;
         foreach(EnemyProgram program in GetAIControlledPrograms())
