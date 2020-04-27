@@ -23,7 +23,6 @@ public class MissionStatus : MonoBehaviour
     private Sprite programSlotEmptyImage;
     internal List<GameObject>[] pluginSlots;
     [SerializeField] Button[] removeProgramButtons;
-    private Image[] removeProgramButtonImages;
     [SerializeField] GameObject pluginSlotPrefab;
     [SerializeField] Vector3 firstPluginSlotOffset;
     [SerializeField] Vector3 subsequentPluginSlotOffset;
@@ -74,14 +73,7 @@ public class MissionStatus : MonoBehaviour
         {
             programSlotEmptyImage = programSlots[0].sprite;
         }
-        if(removeProgramButtons[0])
-        {
-            removeProgramButtonImages = new Image[removeProgramButtons.Length];
-            for(int i=0;i<removeProgramButtons.Length;i++)
-            {
-                removeProgramButtonImages[i] = removeProgramButtons[i].GetComponent<Image>();
-            }
-        }
+        ManageRemoveButtons();
     }
 
     internal void ResetPluginIcon(int programToRemoveFromIndex,string pluginName)
@@ -132,10 +124,6 @@ public class MissionStatus : MonoBehaviour
         {
             budgetAvailableDisplay.text = "available space: " + kbBudget + " kb";
         }
-        if(removeProgramButtons[0])
-        {
-            ManageRemoveButtons();
-        }
     }
 
     private void ManageRemoveButtons()
@@ -143,7 +131,10 @@ public class MissionStatus : MonoBehaviour
         for(int i=0;i<removeProgramButtons.Length;i++)
         {
             removeProgramButtons[i].enabled = selectedPrograms[i];
-            removeProgramButtonImages[i].enabled = selectedPrograms[i];
+            foreach(Image image in removeProgramButtons[i].GetComponentsInChildren<Image>())
+            {
+                image.enabled = selectedPrograms[i];
+            }
         }
     }
 
@@ -213,6 +204,7 @@ public class MissionStatus : MonoBehaviour
         kbBudget -= selectedProgram.GetComponent<Program>().GetSize();
         programSlots[selectedSlotIndex].sprite = selectedProgram.GetComponentInChildren<SpriteRenderer>().sprite;
         CreatePluginSlots();
+        ManageRemoveButtons();
     }
 
     private void CreatePluginSlots()
@@ -244,5 +236,6 @@ public class MissionStatus : MonoBehaviour
             }
             selectedPlugins[indexToRemove].Clear();
         }
+        ManageRemoveButtons();
     }
 }
