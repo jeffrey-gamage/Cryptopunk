@@ -28,47 +28,30 @@ public class CameraContol : MonoBehaviour
 
     private void Rotate()
     {
-        if(Input.GetKey(KeyCode.Q))
+        if (Mathf.Abs(Input.GetAxis("CameraRotate")) > 0f)
         {
-            gameObject.transform.Rotate(new Vector3(0f,-1*rotateSpeed*Time.deltaTime,0f));
-        }
-        else if(Input.GetKey(KeyCode.E))
-        {
-            gameObject.transform.Rotate(new Vector3(0f,rotateSpeed * Time.deltaTime, 0f));
+            gameObject.transform.Rotate(new Vector3(0f, Input.GetAxis("CameraRotate") * rotateSpeed * Time.deltaTime, 0f));
         }
     }
 
     private void Zoom()
     {
-        if (Input.GetKey(KeyCode.Z))
+        if(Mathf.Abs(Input.GetAxis("Zoom"))>0f)
         {
-            float zoom = Mathf.Clamp(gameObject.transform.localScale.x - zoomSpeed*Time.deltaTime, zoomMin, zoomMax);
-            gameObject.transform.localScale = new Vector3(zoom, zoom, zoom);
-        }
-        else if (Input.GetKey(KeyCode.X))
-        {
-            float zoom = Mathf.Clamp(gameObject.transform.localScale.x + zoomSpeed*Time.deltaTime, zoomMin, zoomMax);
+            float zoom = Mathf.Clamp(gameObject.transform.localScale.x +Input.GetAxis("Zoom")*zoomSpeed * Time.deltaTime, zoomMin, zoomMax);
             gameObject.transform.localScale = new Vector3(zoom, zoom, zoom);
         }
     }
 
     private void Pan()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Mathf.Abs(Input.GetAxis("Horizontal"))>0f)
         {
-            gameObject.transform.position += gameObject.transform.rotation * Vector3.forward * panSpeed * Time.deltaTime;
+            gameObject.transform.position += gameObject.transform.rotation * Vector3.right*Input.GetAxis("Horizontal") * panSpeed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.S))
+        if(Mathf.Abs(Input.GetAxis("Vertical"))>0f)
         {
-            gameObject.transform.position += gameObject.transform.rotation * Vector3.back * panSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            gameObject.transform.position += gameObject.transform.rotation * Vector3.left * panSpeed * Time.deltaTime;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            gameObject.transform.position += gameObject.transform.rotation * Vector3.right * panSpeed * Time.deltaTime;
+            gameObject.transform.position += gameObject.transform.rotation * Vector3.forward *Input.GetAxis("Vertical")* panSpeed * Time.deltaTime;
         }
         if ((gameObject.transform.position-center).magnitude > maxPan)
         {
@@ -80,6 +63,6 @@ public class CameraContol : MonoBehaviour
     {
         gameObject.transform.position = FindObjectOfType<DeploymentZone>().transform.position;
         center = DungeonManager.instance.grid.GetCentrePoint();
-        maxPan = Math.Max(DungeonManager.instance.grid.GetHeight(), DungeonManager.instance.grid.GetWidth())/1.7f;
+        maxPan = Math.Max(DungeonManager.instance.grid.GetHeight(), DungeonManager.instance.grid.GetWidth())/1.75f;
     }
 }
