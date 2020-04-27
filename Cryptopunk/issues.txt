@@ -1,4 +1,3 @@
 -terminals' dedicated assignments can be overlooked/overwritten
 -when not moving, flying enemies can react to their own occupation of a tile and needlessly fly higher
--Enemy AI control loop is broken, enemies need to wait turns to attack, move to attack when possible
 -Some process in level generator occasionally creates patrol routes extending outside of level bounds

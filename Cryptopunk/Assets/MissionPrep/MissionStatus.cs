@@ -20,8 +20,10 @@ public class MissionStatus : MonoBehaviour
 
     internal static MissionStatus instance;
     [SerializeField] List<Image> programSlots;
+    private Sprite programSlotEmptyImage;
     internal List<GameObject>[] pluginSlots;
-
+    [SerializeField] Button[] removeProgramButtons;
+    private Image[] removeProgramButtonImages;
     [SerializeField] GameObject pluginSlotPrefab;
     [SerializeField] Vector3 firstPluginSlotOffset;
     [SerializeField] Vector3 subsequentPluginSlotOffset;
@@ -66,6 +68,18 @@ public class MissionStatus : MonoBehaviour
                 }
                 targetCorpName.text = "target: " + corpName;
                 budgetDisplay.text = "maximum package size: " + totalBudget + " kb";
+            }
+        }
+        if(programSlots[0])
+        {
+            programSlotEmptyImage = programSlots[0].sprite;
+        }
+        if(removeProgramButtons[0])
+        {
+            removeProgramButtonImages = new Image[removeProgramButtons.Length];
+            for(int i=0;i<removeProgramButtons.Length;i++)
+            {
+                removeProgramButtonImages[i] = removeProgramButtons[i].GetComponent<Image>();
             }
         }
     }
@@ -118,6 +132,19 @@ public class MissionStatus : MonoBehaviour
         {
             budgetAvailableDisplay.text = "available space: " + kbBudget + " kb";
         }
+        if(removeProgramButtons[0])
+        {
+            ManageRemoveButtons();
+        }
+    }
+
+    private void ManageRemoveButtons()
+    {
+        for(int i=0;i<removeProgramButtons.Length;i++)
+        {
+            removeProgramButtons[i].enabled = selectedPrograms[i];
+            removeProgramButtonImages[i].enabled = selectedPrograms[i];
+        }
     }
 
     internal int GetTotalBudget()
@@ -130,7 +157,7 @@ public class MissionStatus : MonoBehaviour
         {
             if (selectedPrograms[selectedSlotIndex])
             {
-                RemoveProgramFromPackage(selectedPrograms[selectedSlotIndex]);
+                RemoveProgramFromPackage(selectedSlotIndex);
             }
             AddProgramToPackage(selectedProgram);
             SelectSlot((selectedSlotIndex + 1) % programSlots.Count);
@@ -199,22 +226,23 @@ public class MissionStatus : MonoBehaviour
         }
     }
 
-    private void RemoveProgramFromPackage(GameObject programToRemove)
+    public void RemoveProgramFromPackage(int indexToRemove)
     {
-        selectedPrograms[selectedSlotIndex] = null;
-        if (pluginSlots[selectedSlotIndex].Count > 0)
+        kbBudget += selectedPrograms[indexToRemove].GetComponent<Program>().GetSize();
+        selectedPrograms[indexToRemove] = null;
+        programSlots[indexToRemove].sprite = programSlotEmptyImage;
+        if (pluginSlots[indexToRemove].Count > 0)
         {
-            for (int i = 0; i < pluginSlots[selectedSlotIndex].Count; i++)
+            for (int i = 0; i < pluginSlots[indexToRemove].Count; i++)
             {
-                Destroy(pluginSlots[selectedSlotIndex][i]);
+                Destroy(pluginSlots[indexToRemove][i]);
             }
-            pluginSlots[selectedSlotIndex].Clear();
-            foreach(GameObject plugin in selectedPlugins[selectedSlotIndex])
+            pluginSlots[indexToRemove].Clear();
+            foreach(GameObject plugin in selectedPlugins[indexToRemove])
             {
-                plugin.GetComponent<Plugin>().RemoveFromPackage(selectedSlotIndex);
+                plugin.GetComponent<Plugin>().RemoveFromPackage(indexToRemove);
             }
-            selectedPlugins[selectedSlotIndex].Clear();
+            selectedPlugins[indexToRemove].Clear();
         }
-        kbBudget += programToRemove.GetComponent<Program>().GetSize();
     }
 }
