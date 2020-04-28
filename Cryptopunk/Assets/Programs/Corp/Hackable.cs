@@ -103,6 +103,10 @@ public class Hackable : MonoBehaviour
 
     protected virtual void OnMouseOver()
     {
+        if(DungeonManager.instance.mode!=DungeonManager.Mode.Move||(Program.selectedProgram&&Program.selectedProgram.IsFlying())||!myTile.isBlocked)
+        {
+            myTile.OnMouseOver();
+        }
         if(Input.GetMouseButtonDown(0))
         {
             if (DungeonManager.instance.mode != DungeonManager.Mode.Deploy)

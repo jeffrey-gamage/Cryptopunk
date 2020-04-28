@@ -195,7 +195,7 @@ public class DungeonTile : MonoBehaviour
         OnMouseOver();
     }
     
-    private void OnMouseOver()
+    internal void OnMouseOver()
     {
         if (DungeonManager.instance.mode == DungeonManager.Mode.Move)
         {

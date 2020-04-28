@@ -1,2 +1,3 @@
 -terminals' dedicated assignments can be overlooked/overwritten
 -when not moving, flying enemies can react to their own occupation of a tile and needlessly fly higher
+-some firewalls do not block movement -seems to only happen if scripts crash, keep an eye out but don't worry
