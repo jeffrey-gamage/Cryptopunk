@@ -69,7 +69,7 @@ public class MissionStatus : MonoBehaviour
                 budgetDisplay.text = "maximum package size: " + totalBudget + " kb";
             }
         }
-        if(programSlots[0])
+        if(programSlots.Count>0&&programSlots[0])
         {
             programSlotEmptyImage = programSlots[0].sprite;
         }

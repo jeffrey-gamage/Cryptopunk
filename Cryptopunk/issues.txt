@@ -1,5 +1,2 @@
 -terminals' dedicated assignments can be overlooked/overwritten
 -when not moving, flying enemies can react to their own occupation of a tile and needlessly fly higher
--Some process in level generator occasionally creates patrol routes extending outside of level bounds
--plugin titles don't have enough space
--final room selector can cause infinite loop - seems fixed!

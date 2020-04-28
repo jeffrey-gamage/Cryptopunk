@@ -470,11 +470,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: ac2ccd017772bb540bee2fc746686038, type: 3}
   GENERAL_ROOMS: []
   FINAL_ROOMS: []
-  terminalControlAssignments:
-  - {x: 0, y: 0}
-  - {x: 0, y: 1}
-  - {x: 0, y: 2}
-  - {x: 1, y: 3}
+  corpID: 0
   enemyInfo:
   - {x: 0, y: 2, z: 4}
   - {x: 6, y: 0, z: 5}
@@ -558,6 +554,7 @@ MonoBehaviour:
   securityNodes: []
   hackableObjects: []
   terminals: []
+  switchBridges: []
   maxTurns: 25
   currentTurn: 0
   reinforcementTurns: 070000000d0000001200000016000000
@@ -848,9 +845,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   programSlots: []
+  removeProgramButtons: []
   pluginSlotPrefab: {fileID: 0}
   firstPluginSlotOffset: {x: 0, y: 0, z: 0}
   subsequentPluginSlotOffset: {x: 0, y: 0, z: 0}
+  totalBudget: 0
   selectedSlotHighlight: {fileID: 0}
   targetCorpName: {fileID: 0}
   budgetDisplay: {fileID: 0}
@@ -985,6 +984,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729194590169216691, guid: bacecb57145da66429a5649372cdce9c,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Welcome,operator.
+
+        use your attack programs to navigate the system and access vauable data. Left
+        click within the red access area to deploy your programs.
+
+        You can use the wasd keys to pan the camera, q and e to rotate, and z and
+        x to zoom.'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bacecb57145da66429a5649372cdce9c, type: 3}

@@ -24,6 +24,7 @@ public class Firewall : Hackable
         {
             gameObject.transform.localScale = activeScale;
             gameObject.transform.position = myTile.GetOccupyingCoordinates(true,true);
+            myTile.isBlocked = true;
         }
         else
         {
