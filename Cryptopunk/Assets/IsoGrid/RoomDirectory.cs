@@ -57,6 +57,7 @@ public class RoomDirectory : MonoBehaviour
         if(PersistentState.instance.usedFinalRoomRecords.Count>=FINAL_ROOMS.Length)
         {
             PersistentState.instance.usedFinalRoomRecords.Clear();
+            myCorpUsedFinalRooms.Clear();
         }
         while(true)
         {
@@ -67,6 +68,7 @@ public class RoomDirectory : MonoBehaviour
                 newRecord.corpID = corpID;
                 newRecord.roomIndex = finalRoomIndex;
                 PersistentState.instance.usedFinalRoomRecords.Add(newRecord);
+                PersistentState.instance.SaveProgress();
                 return finalRoomIndex;
             }
         }

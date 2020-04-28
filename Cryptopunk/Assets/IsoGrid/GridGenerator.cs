@@ -52,6 +52,7 @@ public class GridGenerator
                     newRoom = Room.LoadGeneralRoom(genRoomIndices[i - 1], previousRoomExit, roomOrientation, directory);
                 }
                 while (OverlapsExistingRoom(newRoom));
+                Debug.Log("Adding general room:" + genRoomIndices[i - 1]);
                 rooms.Add(newRoom);
             }
         }
@@ -70,8 +71,9 @@ public class GridGenerator
                 newRoom = Room.LoadFinalRoom(finalRoomIndex, previousRoomExit, roomOrientation, directory);
             }
             while (OverlapsExistingRoom(newRoom));
-                rooms.Add(newRoom);
-            }
+            Debug.Log("Adding final room:" + finalRoomIndex);
+            rooms.Add(newRoom);
+        }
         foreach(Room room in rooms)
         {
             room.ChooseEnemies();

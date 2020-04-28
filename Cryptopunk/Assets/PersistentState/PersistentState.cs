@@ -153,7 +153,6 @@ public class PersistentState : MonoBehaviour
     private void WriteEndfile(ref StreamWriter saveFile)
     {
         saveFile.WriteLine("++ENDFILE++");
-        Debug.Log("++ENDFILE");
     }
 
     private void WriteProgress(ref StreamWriter saveFile)
@@ -165,9 +164,7 @@ public class PersistentState : MonoBehaviour
     private void WriteCredits(ref StreamWriter saveFile)
     {
         saveFile.WriteLine("++CREDITS++");
-        Debug.Log("++CREDITS++");
         saveFile.WriteLine(credits.ToString());
-        Debug.Log(credits.ToString());
     }
 
     private void WriteAvailableMissions(ref StreamWriter saveFile)

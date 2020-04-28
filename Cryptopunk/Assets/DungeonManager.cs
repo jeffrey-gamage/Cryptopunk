@@ -111,10 +111,12 @@ public class DungeonManager : MonoBehaviour
         {
             TakeNextAIAction();
         }
-        if (Input.GetKeyDown("space"))
-        {
-            Debug.Log(mode.ToString());
-        }
+        //Debug feature: spam level loads to identify errors
+        //if(Input.GetKeyDown(KeyCode.R))
+        //{
+        //    Debug.Log("Reloading level");
+        //    SceneManager.LoadScene("procDungeon");
+        //}
     }
 
     private GridGenerator TryMakeDungeonUntilSuccessful()

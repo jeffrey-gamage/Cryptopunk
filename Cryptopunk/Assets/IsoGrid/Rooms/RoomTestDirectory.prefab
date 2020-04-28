@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6527262101604369927}
   - component: {fileID: 6527262101604369924}
   m_Layer: 0
-  m_Name: RoomDirectory
+  m_Name: RoomTestDirectory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,13 +46,13 @@ MonoBehaviour:
   STARTING_ROOMS:
   - {fileID: 4900000, guid: 86580a264ea3e7f40bbdedc1bfb85073, type: 3}
   GENERAL_ROOMS:
-  - {fileID: 4900000, guid: 33fbe96f0110922458f27ec07f1d260c, type: 3}
-  - {fileID: 4900000, guid: 33fbe96f0110922458f27ec07f1d260c, type: 3}
-  - {fileID: 4900000, guid: 33fbe96f0110922458f27ec07f1d260c, type: 3}
-  - {fileID: 4900000, guid: 33fbe96f0110922458f27ec07f1d260c, type: 3}
-  - {fileID: 4900000, guid: 33fbe96f0110922458f27ec07f1d260c, type: 3}
-  - {fileID: 4900000, guid: 33fbe96f0110922458f27ec07f1d260c, type: 3}
-  - {fileID: 4900000, guid: 33fbe96f0110922458f27ec07f1d260c, type: 3}
+  - {fileID: 4900000, guid: 790a6117fad98744fb5ef8ae513edbb4, type: 3}
+  - {fileID: 4900000, guid: 790a6117fad98744fb5ef8ae513edbb4, type: 3}
+  - {fileID: 4900000, guid: 790a6117fad98744fb5ef8ae513edbb4, type: 3}
+  - {fileID: 4900000, guid: 790a6117fad98744fb5ef8ae513edbb4, type: 3}
+  - {fileID: 4900000, guid: 790a6117fad98744fb5ef8ae513edbb4, type: 3}
+  - {fileID: 4900000, guid: 790a6117fad98744fb5ef8ae513edbb4, type: 3}
+  - {fileID: 4900000, guid: 790a6117fad98744fb5ef8ae513edbb4, type: 3}
   FINAL_ROOMS:
   - {fileID: 4900000, guid: 11ee3367f4f75414dbe1b7dbd9a863c6, type: 3}
   corpID: 0
