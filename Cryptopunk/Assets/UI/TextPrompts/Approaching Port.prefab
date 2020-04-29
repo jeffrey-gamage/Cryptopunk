@@ -166,8 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TriggerPoints:
-  - {x: 8, y: 0, z: 3}
-  - {x: 8, y: 0, z: 4}
+  - {x: 11, y: 0, z: 1}
 --- !u!1 &4704724773357669289
 GameObject:
   m_ObjectHideFlags: 0

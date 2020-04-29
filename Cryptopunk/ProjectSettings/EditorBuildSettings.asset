@@ -42,6 +42,9 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
+    path: Assets/Scenes/demoOver.unity
+    guid: 062c87202be8f724a9c3f2b968568307
+  - enabled: 1
     path: Assets/Scenes/credits.unity
     guid: ee20dc265e0adaf409163d70915ce5e9
   - enabled: 1

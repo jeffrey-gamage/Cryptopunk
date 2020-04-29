@@ -12,6 +12,8 @@ public class Results : MonoBehaviour
     [SerializeField] string disengageText = "attack package retrieved";
     [SerializeField] Text missionOutcome;
     [SerializeField] Text proceeds;
+
+    [SerializeField] int maxProgress = 6;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +71,13 @@ public class Results : MonoBehaviour
 
     public void Exit()
     {
-        SceneManager.LoadScene("desktop");
+        if(PersistentState.instance.progress>=6)
+        {
+            SceneManager.LoadScene("demoOver");
+        }
+        else
+        {
+            SceneManager.LoadScene("desktop");
+        }
     }
 }

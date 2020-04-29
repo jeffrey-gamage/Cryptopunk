@@ -25,16 +25,13 @@ public class TextPromptManager : MonoBehaviour
         TextPrompt toDisplay = null;
         if (DeploymentComplete.IsDeploymentComplete())
         {
-            foreach (Program program in DungeonManager.instance.GetPlayerControlledPrograms())
+            foreach (TextPrompt prompt in textPrompts)
             {
-                foreach (TextPrompt prompt in textPrompts)
+                foreach (Vector3Int triggerPoint in prompt.TriggerPoints)
                 {
-                    foreach (Vector3Int triggerPoint in prompt.TriggerPoints)
+                    if (DungeonManager.instance.grid.GetTile(triggerPoint.x, triggerPoint.z).IsVisible())
                     {
-                        if (triggerPoint.x == program.myTile.xCoord && triggerPoint.z == program.myTile.zCoord)
-                        {
-                            toDisplay = prompt;
-                        }
+                        toDisplay = prompt;
                     }
                 }
             }

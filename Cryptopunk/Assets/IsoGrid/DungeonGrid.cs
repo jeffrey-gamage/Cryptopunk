@@ -345,7 +345,7 @@ public class DungeonGrid : MonoBehaviour
         return newSearchLocation;
     }
 
-    internal DungeonTile GetNearestTileInRange(Program attacker, DungeonTile targetTile, int range, int movesLeft)
+    internal DungeonTile GetNearestTileInRange(Program attacker, DungeonTile targetTile, int movesLeft)
     {
         int[][] distances = new int[tileGrid.Length][];
         for (int i = 0; i < distances.Length; i++)
@@ -362,7 +362,7 @@ public class DungeonGrid : MonoBehaviour
         {
             for(int j=0;j<distances[i].Length;j++)
             {
-                if(TileDistance(tileGrid[i][j],targetTile)<=range&&(!destination||distances[i][j]<distances[destination.xCoord][destination.zCoord]))
+                if(TileDistance(tileGrid[i][j],targetTile)<=attacker.GetRange()&&((!destination)||distances[i][j]<distances[destination.xCoord][destination.zCoord]))
                 {
                     destination = tileGrid[i][j];
                 }

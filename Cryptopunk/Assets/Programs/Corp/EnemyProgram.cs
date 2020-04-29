@@ -72,6 +72,7 @@ public class EnemyProgram : Program
         {
             if (CanSee(program))
             {
+                Debug.Log(name + " spotted " + program.name);
                 myState = State.Attack;
             }
         }
@@ -136,7 +137,12 @@ public class EnemyProgram : Program
         }
         if(target)
         {
-            NavigateTowards(DungeonManager.instance.grid.GetNearestTileInRange(this, target.myTile, baseRange, movesLeft));
+            NavigateTowards(DungeonManager.instance.grid.GetNearestTileInRange(this, target.myTile, movesLeft));
+        }
+        else
+        {
+            myState = State.Search;
+            Search();
         }
     }
     internal override void OnMouseOver()
