@@ -386,7 +386,7 @@ public class Program : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))//select
         {
-            if (DungeonManager.instance.mode != DungeonManager.Mode.Deploy || !hasBegunPlay)//prevent port deployment from moving your programs
+            if ((DungeonManager.instance.mode != DungeonManager.Mode.Deploy || !hasBegunPlay)&&DungeonManager.instance.isPlayerTurn)//prevent port deployment from moving your programs
             {
                 isTargetingAttack = false;
                 isTargetingBreach = false;
@@ -440,7 +440,6 @@ public class Program : MonoBehaviour
         {
             movePath = new List<DungeonTile>();
             movePath.Add(myTile); 
-            DungeonManager.instance.Wait();
             isAnimating = true;
             if(GetComponent<EnemyProgram>())
             {

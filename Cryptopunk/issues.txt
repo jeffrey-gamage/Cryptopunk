@@ -1,4 +1,13 @@
 -terminals' dedicated assignments can be overlooked/overwritten
 -when not moving, flying enemies can react to their own occupation of a tile and needlessly fly higher
 -some firewalls do not block movement -seems to only happen if scripts crash, keep an eye out but don't worry
--AI turn still infinite loops sometimes
+-AI turn still chokes when the place it wants to go is unreachable - fixed
+-A pause menu would be nice
+-only allow selection/inspection during player turn - done
+
+revisit gen6, gen1 for layout errors
+
+check gen3, gen7, final5 for patrol routes
+-flip zoom axis
+-increase terminal reset time
+-check loot assignments in open labyrinth
