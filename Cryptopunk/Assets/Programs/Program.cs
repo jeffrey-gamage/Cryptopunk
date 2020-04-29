@@ -426,6 +426,7 @@ public class Program : MonoBehaviour
 
     internal void AttemptMove(DungeonTile target)
     {
+        DungeonManager.instance.Wait();
         List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, target, movesLeft, IsFlying());
         if(tempPath[tempPath.Count-1]==target&&!target.isOccupied)
         {
@@ -433,7 +434,6 @@ public class Program : MonoBehaviour
             target.Occupy(this);
             movePath = tempPath;
             movesLeft -= (movePath.Count-1);
-            DungeonManager.instance.Wait();
             isAnimating = true;
         }
         else

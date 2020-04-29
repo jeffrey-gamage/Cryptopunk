@@ -212,6 +212,7 @@ public class EnemyProgram : Program
         }
         else
         {
+            Debug.Log(name + " " + myState.ToString() + " navigation failed");
             myState = State.Search;
             waypoints[0] = myTile;
         }

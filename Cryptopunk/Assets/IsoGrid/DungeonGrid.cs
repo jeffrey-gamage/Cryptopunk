@@ -362,12 +362,17 @@ public class DungeonGrid : MonoBehaviour
         {
             for(int j=0;j<distances[i].Length;j++)
             {
-                if(TileDistance(tileGrid[i][j],targetTile)<=attacker.GetRange()&&((!destination)||distances[i][j]<distances[destination.xCoord][destination.zCoord]))
+                if((attacker.IsFlying()||(tileGrid[i][j].GetHeight()>=0&&!tileGrid[i][j].isBlocked))&&
+                    (!tileGrid[i][j].isOccupied)&&
+                    TileDistance(tileGrid[i][j],targetTile)<=attacker.GetRange()&&
+                    ((!destination)||distances[i][j]<distances[destination.xCoord][destination.zCoord]))
                 {
                     destination = tileGrid[i][j];
                 }
             }
         }
+        Debug.Log("position: " + attacker.myTile.xCoord.ToString() + "," + attacker.myTile.zCoord.ToString());
+        Debug.Log("destination: " + destination.xCoord.ToString() + "," + destination.zCoord.ToString());
         return destination;
     }
 
