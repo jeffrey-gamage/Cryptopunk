@@ -112,8 +112,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxIntegrity: 0
-  rebootTime: 3
+  rebootTime: 5
   hackedMaterial: {fileID: 2100000, guid: 69531ecac0765334994a79ca8db5e97f, type: 2}
+  inactiveMaterial: {fileID: 0}
+  inactiveHackedMaterial: {fileID: 0}
   linkStart: {fileID: 4575602693479132322}
   linkLR: {fileID: 3754775926120273340}
   linkFB: {fileID: 1741324944350866326}
@@ -121,6 +123,10 @@ MonoBehaviour:
   linkEnd: {fileID: 8758081611711729146}
   linkOffset: 1.5
   controlledObjects: []
+  minCamX: -1
+  minCamZ: -1
+  maxCamX: -1
+  maxCamZ: -1
 --- !u!1 &1741324944350866326
 GameObject:
   m_ObjectHideFlags: 0

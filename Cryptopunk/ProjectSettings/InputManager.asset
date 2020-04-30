@@ -41,8 +41,8 @@ InputManager:
     m_Name: Zoom
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: x
-    positiveButton: z
+    negativeButton: z
+    positiveButton: x
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
