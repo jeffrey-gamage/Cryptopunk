@@ -361,6 +361,14 @@ public class Program : MonoBehaviour
 
     internal virtual void OnStartTurn()
     {
+        if (!IsFlying())
+        {
+            SwitchTile switchTile = myTile.GetComponent<SwitchTile>();
+            if (switchTile && !switchTile.isOn)
+            {
+                Die();
+            }
+        }
         hasBegunPlay = true;
         hasBeenSpotted = false;
         if(GetKeywords().Contains("Recover"))

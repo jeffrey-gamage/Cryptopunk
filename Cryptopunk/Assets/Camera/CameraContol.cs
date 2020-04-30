@@ -12,10 +12,13 @@ public class CameraContol : MonoBehaviour
     [SerializeField] float zoomSpeed = 1f;
     [SerializeField] float zoomMax = 12f;
     [SerializeField] float zoomMin = 3f;
+
+    private InfiniteScrollBackground backgroundController;
     
     // Start is called before the first frame update
     void Start()
     {
+        backgroundController = GetComponent<InfiniteScrollBackground>();
     }
 
     // Update is called once per frame
@@ -31,6 +34,7 @@ public class CameraContol : MonoBehaviour
         if (Mathf.Abs(Input.GetAxis("CameraRotate")) > 0f)
         {
             gameObject.transform.Rotate(new Vector3(0f, Input.GetAxis("CameraRotate") * rotateSpeed * Time.deltaTime, 0f));
+            backgroundController.Scroll(Input.GetAxis("CameraRotate") * rotateSpeed * Time.deltaTime);
         }
     }
 
