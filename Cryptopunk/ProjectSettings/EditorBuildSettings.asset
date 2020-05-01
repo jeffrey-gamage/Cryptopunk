@@ -59,4 +59,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/results.unity
     guid: a829531e086b5b34ba0e9e97a7e610cd
+  - enabled: 1
+    path: Assets/Scenes/omnipedia.unity
+    guid: b4db71c9b94d48d42b3f20fc505808fc
   m_configObjects: {}

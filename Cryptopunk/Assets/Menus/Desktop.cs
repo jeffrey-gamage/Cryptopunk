@@ -14,9 +14,9 @@ public class Desktop : MonoBehaviour
     {
         SceneManager.LoadScene("shop");
     }
-    public void Customize()
+    public void Omnipedia()
     {
-        SceneManager.LoadScene("customize");
+        SceneManager.LoadScene("omnipedia");
     }
     public void News()
     {

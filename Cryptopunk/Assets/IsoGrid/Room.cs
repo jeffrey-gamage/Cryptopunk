@@ -745,7 +745,7 @@ public class Room
 
     private void ParseRoomFile(string roomText)
     {
-        string nextLine = GetNextLine(ref roomText);
+        string nextLine = FileReaderUtils.GetNextLine(ref roomText);
         switch (nextLine)
         {
             case "++LAYOUT++":
@@ -788,7 +788,7 @@ public class Room
     private void ParseSwitchAssignments(ref string roomText)
     {
         switchBridgeAssignments = new List<SwitchBridge.SwitchTileAssignment>();
-        string nextLine = GetNextLine(ref roomText);
+        string nextLine = FileReaderUtils.GetNextLine(ref roomText);
         while (nextLine != "++END++")
         {
             int newVal = 0;
@@ -817,7 +817,7 @@ public class Room
             z = newVal;
             newAssignement.AddLocation(new Vector3Int(x, 0, z));
             switchBridgeAssignments.Add(newAssignement);
-            nextLine = GetNextLine(ref roomText);
+            nextLine = FileReaderUtils.GetNextLine(ref roomText);
         }
         ParseRoomFile(roomText);
     }
@@ -826,7 +826,7 @@ public class Room
     {
         terminalAssignments = new List<TerminalAssignment>();
         isControlledByInternalTerminal = true;
-        string nextLine = GetNextLine(ref roomText);
+        string nextLine = FileReaderUtils.GetNextLine(ref roomText);
         while (nextLine!="++END++")
         {
             int newVal = 0;
@@ -855,14 +855,14 @@ public class Room
             z = newVal;
             newAssignement.AddLocation(new Vector3Int(x, 0, z));
             terminalAssignments.Add(newAssignement);
-            nextLine = GetNextLine(ref roomText);
+            nextLine = FileReaderUtils.GetNextLine(ref roomText);
         }
         ParseRoomFile(roomText);
     }
 
     private void ParseLootValues(ref string roomText)
     {
-        string nextLine = GetNextLine(ref roomText);
+        string nextLine = FileReaderUtils.GetNextLine(ref roomText);
         while (nextLine!="++END++")
         {
             int newVal = 0;
@@ -899,14 +899,14 @@ public class Room
                     loot[i]+= Vector3Int.up*lootValue;
                 }
             }
-            nextLine = GetNextLine(ref roomText);
+            nextLine = FileReaderUtils.GetNextLine(ref roomText);
         }
         ParseRoomFile(roomText);
     }
 
     private void ParseRoutes(ref string roomText)
     {
-        string nextLine = GetNextLine(ref roomText);
+        string nextLine = FileReaderUtils.GetNextLine(ref roomText);
         while (nextLine != "++END++")
         {
             List<Vector3Int> patrolPoints = new List<Vector3Int>();
@@ -939,14 +939,14 @@ public class Room
             newPoint = new Vector3Int(x, 0, z);
             patrolPoints.Add(newPoint);
             patrolRoutes.Add(patrolPoints);
-            nextLine = GetNextLine(ref roomText);
+            nextLine = FileReaderUtils.GetNextLine(ref roomText);
         }
         ParseRoomFile(roomText);
     }
 
     private void ParsePlacements(ref string roomText)
     {
-        string nextLine = GetNextLine(ref roomText);
+        string nextLine = FileReaderUtils.GetNextLine(ref roomText);
         while (nextLine != "++END++")
         {
             int x = 0;
@@ -1054,7 +1054,7 @@ public class Room
                 }
                 z++;
                 x = 0;
-                nextLine = GetNextLine(ref roomText);
+                nextLine = FileReaderUtils.GetNextLine(ref roomText);
             }
         }
         ParseRoomFile(roomText);
@@ -1089,7 +1089,7 @@ public class Room
 
     private void ParseLayout(ref string roomText)
     {
-        string nextLine = GetNextLine(ref roomText);
+        string nextLine = FileReaderUtils.GetNextLine(ref roomText);
         int x = 0;
         int z = 0;
         while (nextLine != "++END++")
@@ -1159,17 +1159,9 @@ public class Room
             }
             x = 0;
             z++;
-            nextLine = GetNextLine(ref roomText);
+            nextLine = FileReaderUtils.GetNextLine(ref roomText);
         }
         ParseRoomFile(roomText);
-    }
-
-    private static string GetNextLine(ref string roomText)
-    {
-        int indexOfNextNewline = roomText.IndexOf("\n");
-        string nextLine = roomText.Substring(0, indexOfNextNewline-1);
-        roomText = roomText.Substring(indexOfNextNewline + 1);
-        return nextLine;
     }
 
     internal void AdjustCoordinatesToMinimizedGrid(int minX,int minZ)

@@ -392,7 +392,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: news feed
+  m_Text: News feed
 --- !u!222 &384897023
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1128,7 +1128,7 @@ GameObject:
   - component: {fileID: 1716599143}
   - component: {fileID: 1716599146}
   m_Layer: 5
-  m_Name: Customize
+  m_Name: Omnipedia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1197,7 +1197,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1063911315}
-        m_MethodName: Customize
+        m_MethodName: Omnipedia
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1238,7 +1238,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: customize
+  m_Text: Omnipedia
 --- !u!222 &1716599145
 CanvasRenderer:
   m_ObjectHideFlags: 0

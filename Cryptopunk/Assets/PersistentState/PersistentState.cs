@@ -241,7 +241,7 @@ public class PersistentState : MonoBehaviour
 
     private string ReadFromSaveFile(ref string fileText)
     {
-        string nextLine = GetNextLine(ref fileText);
+        string nextLine = FileReaderUtils.GetNextLine(ref fileText);
         switch (nextLine)
         {
             case "++OWNED OBJECTS++":
@@ -289,7 +289,7 @@ public class PersistentState : MonoBehaviour
 
     private void ParseRefreshStatus(ref string fileText)
     {
-        if(GetNextLine(ref fileText)=="False")
+        if(FileReaderUtils.GetNextLine(ref fileText)=="False")
         {
             hasInventoryBeenRefeshed = false;
         }
@@ -297,7 +297,7 @@ public class PersistentState : MonoBehaviour
         {
             hasInventoryBeenRefeshed = true;
         }
-        if (GetNextLine(ref fileText) == "False")
+        if (FileReaderUtils.GetNextLine(ref fileText) == "False")
         {
             hasMissionListBeenRefreshed = false;
         }
@@ -308,21 +308,13 @@ public class PersistentState : MonoBehaviour
         ReadFromSaveFile(ref fileText);
     }
 
-    private static string GetNextLine(ref string saveText)
-    {
-        int indexOfNextNewline = saveText.IndexOf("\n");
-        string nextLine = saveText.Substring(0, indexOfNextNewline - 1);
-        saveText = saveText.Substring(indexOfNextNewline + 1);
-        return nextLine;
-    }
-
     protected void ParseOwnedObjects(ref string fileText)
     {
-        string nextLine = GetNextLine(ref fileText);
+        string nextLine = FileReaderUtils.GetNextLine(ref fileText);
         while (nextLine != "++END++")
         {
             AddSchema(nextLine);
-            nextLine = GetNextLine(ref fileText);
+            nextLine = FileReaderUtils.GetNextLine(ref fileText);
         }
         ReadFromSaveFile(ref fileText);
     }
@@ -330,7 +322,7 @@ public class PersistentState : MonoBehaviour
     protected void ParseShopInventory(ref string fileText)
     {
         shopInventorySchema = new List<ShopInventoryRecord>();
-        string nextLine = GetNextLine(ref fileText);
+        string nextLine = FileReaderUtils.GetNextLine(ref fileText);
         while (nextLine != "++END++")
         {
             string itemName = "";
@@ -352,7 +344,7 @@ public class PersistentState : MonoBehaviour
             newInventoryRecord.cost = cost;
             newInventoryRecord.schemaName = itemName;
             shopInventorySchema.Add(newInventoryRecord);
-            nextLine = GetNextLine(ref fileText);
+            nextLine = FileReaderUtils.GetNextLine(ref fileText);
         }
         hasInventoryBeenRefeshed = true;
         ReadFromSaveFile(ref fileText);
@@ -361,7 +353,7 @@ public class PersistentState : MonoBehaviour
     protected void ParseAvailableMissions(ref string fileText)
     {
         availableMissions = new List<ExploitRecord>();
-        string nextLine = GetNextLine(ref fileText);
+        string nextLine = FileReaderUtils.GetNextLine(ref fileText);
         while (nextLine != "++END++")
         {
             string corpName = "";
@@ -400,7 +392,7 @@ public class PersistentState : MonoBehaviour
             newExploitRecord.corpName = corpName;
             newExploitRecord.vulnerability = vulnerability;
             availableMissions.Add(newExploitRecord);
-            nextLine = GetNextLine(ref fileText);
+            nextLine = FileReaderUtils.GetNextLine(ref fileText);
         }
         hasMissionListBeenRefreshed = true;
         ReadFromSaveFile(ref fileText);
@@ -408,7 +400,7 @@ public class PersistentState : MonoBehaviour
 
     protected void ParseCredits(ref string fileText)//Is a single line entry, does not require an ending marker
     {
-        string nextLine = GetNextLine(ref fileText);
+        string nextLine = FileReaderUtils.GetNextLine(ref fileText);
         int credits = 0;
         foreach (char nextChar in nextLine)
         {
@@ -423,7 +415,7 @@ public class PersistentState : MonoBehaviour
 
     protected void ParseFinalRoomsUsed(ref string fileText)
     {
-        string nextLine = GetNextLine(ref fileText);
+        string nextLine = FileReaderUtils.GetNextLine(ref fileText);
         while(nextLine!="++END++")
         {
             UsedFinalRoomRecord record;
@@ -451,12 +443,12 @@ public class PersistentState : MonoBehaviour
             record.corpID = corpID;
             record.roomIndex = roomIndex;
             usedFinalRoomRecords.Add(record);
-            nextLine = GetNextLine(ref fileText);
+            nextLine = FileReaderUtils.GetNextLine(ref fileText);
         }
     }
     protected void ParseProgress(ref string fileText)//Is a single line entry, does not require an ending marker
     {
-        string nextLine = GetNextLine(ref fileText);
+        string nextLine = FileReaderUtils.GetNextLine(ref fileText);
         int progress = 0;
         foreach (char nextChar in nextLine)
         {

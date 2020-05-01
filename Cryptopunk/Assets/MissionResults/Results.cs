@@ -71,7 +71,7 @@ public class Results : MonoBehaviour
 
     public void Exit()
     {
-        if(PersistentState.instance.progress>=6)
+        if(PersistentState.instance.progress>=maxProgress)
         {
             SceneManager.LoadScene("demoOver");
         }

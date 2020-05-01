@@ -1,0 +1,19 @@
+PROGRAMS
+When you attack a system, you select a number of programs to import into the system. Once you own a program, you can create as many instances of it as can fit into your attack package
+FIREWALLS
+Firewalls are a basic measure the corps use to protect against illicit access to their systems. Firewalls obstruct movement, but can be hacked; allowing you to turn them on and off at will until they reboot.
+TERMINALS
+Terminals are control points the corps use to manage their security systems. Once you are in the system they can be hacked. Once a terminal is hacked it allows all objects linked to it to remotely switched on and off at will until the terminal reboots.
+PORTS
+Ports are points where a corp's system connects to the wider internet. Ports can be hacked, allowing an intruder to either import a new program into the system or retrieve any data they have already accessed.
+SIZE
+A program's size is the amount of damage required to destroy it. When choosing which programs to deploy on a mission, you must work within a limit on total size determined by the mission
+BREACH
+Breach measures how effective a program is at gaining illicit access to systems. Terminals, firewalls, turrets, and enemy programs can be breached. When you attempt to breach an object, its encryption is reduced by the your breach score. If it is reduced to zero, you gain control of it until it reboots.
+DISRUPT
+When you attack a program, you reduce its resistance to breach attempts as well as its health. However, a direct attack can never reduce a program's encryption below one and therefore can never allow you to gain control.
+ENCRYPTION
+Every object that can be breached has an encryption score, which must be reduced to zero in order to hack the object.
+PLUGINS
+Plugins are enhancements which can be attached to programs in order to make them more powerful and grant additional abilities. Each plugin also increases the size of the program it is attached to. Like programs, once you own a plugin you can use as many copies of it as you wish. However, you cannot apply the same plugin to a program instance more than once.
+++ENDFILE++
