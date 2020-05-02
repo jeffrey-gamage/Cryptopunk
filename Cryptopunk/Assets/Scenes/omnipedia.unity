@@ -648,7 +648,7 @@ MonoBehaviour:
   searchIcon: {fileID: 17441672}
   inputTextDisplay: {fileID: 799877660}
   placeholderDisplay: {fileID: 1139006575}
-  maxCharsPerLine: 0
+  maxLinks: 8
 --- !u!4 &844611571
 Transform:
   m_ObjectHideFlags: 0
@@ -1596,6 +1596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   references:
   - {fileID: 4900000, guid: fc004a5f6ab30cb459135b8e8558c435, type: 3}
+  - {fileID: 4900000, guid: 14048184b714a1542bdabf7865381419, type: 3}
 --- !u!4 &2056257618
 Transform:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class Omnipedia : MonoBehaviour
     [SerializeField] Image searchIcon;
     [SerializeField] Text inputTextDisplay;
     [SerializeField] Text placeholderDisplay;
-    [SerializeField] int maxCharsPerLine;
+    [SerializeField] int maxLinks =7;
     private bool isDisplayingArticle= false;
     private List<OmniDataEntry> articleLinks;
 
@@ -42,7 +42,7 @@ public class Omnipedia : MonoBehaviour
         {
             if (searchBar.text.Length > 0)
             {
-                if (article.title.Contains(searchBar.text.ToUpper())||searchBar.text.ToUpper().Contains(article.title))
+                if (articleCount<maxLinks&&(article.title.Contains(searchBar.text.ToUpper())||searchBar.text.ToUpper().Contains(article.title)))
                 {
                     OmniDataEntry newLink = Instantiate(linkPrefab, linkParent.position + linkOffest * articleCount, Quaternion.identity,linkParent).GetComponent<OmniDataEntry>();
                     Debug.Log("found relevant article: " + article.title);

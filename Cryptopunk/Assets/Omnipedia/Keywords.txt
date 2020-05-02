@@ -1,0 +1,27 @@
+ACTIVE ABILITY
+Active keywords grant a particular ability that a program can choose to use. When a program is selected, a button will appear for each of its active abilites, allowing you to choose targets. After using an active ability, a program cannot move or take actions until its next turn.
+PASSIVE ABILITY
+Passive abilities grant an ongoing benefit to a program. You cannot turn a passive ability on or off.
+FLYING
+Flying is a passive ability which allows a program to move freely across gaps between dungeon tiles, between tiles of different heights, and over obstacles and other programs. A flying program cannot stop its movement in a space occupied by another program. The Matrix decoupler plugin grants flying.
+STEALTH
+Stealth is a passive ability which makes a program invisible to enemies which do not have the sensor ability. If it is seen by an enemy with sensor or it is adjacent to an enemy, its stealth will be deactivated until the start of its next turn.
+SENSOR
+Sensor is a passive ability which allows a program to spot stealth programs as though they did not have stealth. The Netscope partition grants Sensor.
+ARMORED
+Armored is a passive ability. Whenever an armored program would take damage, it instead takes one less damage.
+REMOTE
+Remote is a passive ability which allows a program to breach hackable objects at a distance of up to its attack range, instead of having to be adjacent.
+HIT AND RUN
+Hit and run is a passive ability which allows a program to continue moving up to its speed after attacking. A program with Hit and Run still cannot continue moving after attempting a breach or using an active ability. The Overclock plugin grants Hit and Run.
+RECOVER
+Recover is a passive ability which causes a damaged program to regain 1 size at the start of each of its turns. The Backup Partition plugin grants Recover.
+TELEPORT
+Teleport is an active ability which allows a program to move immediately to any visible tile. If you teleport to a tile which contains another program, you switch places with that program. The Entanglement Processor plugin grants Teleport.
+DEADLOCK
+Deadlock is an active ability that stuns both the user and the target program, preventing them from acting on their turn. The Paradox Device plugin grants Deadlock.
+STUN
+A stunned program will be prevented from moving or taking any actions on its next turn.
+HEAL
+Heal is an active ability that causes a friendly program to regain 2 size, up to its maximum size. The Patch Kit plugin grants Heal.
+++ENDFILE++
