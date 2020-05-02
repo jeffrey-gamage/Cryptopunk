@@ -480,6 +480,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 89032cf8f50bd9e4c9b92ea552e7f80f, type: 3}
   - {fileID: 4900000, guid: 5f6f6b3220b513447b4531bf9cf788c3, type: 3}
   - {fileID: 4900000, guid: 15cfb1997e2c2454798241beab572b63, type: 3}
+  - {fileID: 4900000, guid: 8e9b845cd7954524ba5cd09b6a857e39, type: 3}
   FINAL_ROOMS:
   - {fileID: 4900000, guid: 522e7f64753ea9441889cebc9e3fb2eb, type: 3}
   - {fileID: 4900000, guid: 2e8134d3edcf7014484331afd902d061, type: 3}
@@ -493,6 +494,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: bd2ffb9675757c24daea88e3fa908a14, type: 3}
   - {fileID: 4900000, guid: d926dac3afd3bab4d9544cfff3288306, type: 3}
   - {fileID: 4900000, guid: defb704822631e848ae5838405adaa69, type: 3}
+  - {fileID: 4900000, guid: 6475674a00964ab44beb8131d5f89e82, type: 3}
   corpID: 4
 --- !u!4 &1228498249
 Transform:
