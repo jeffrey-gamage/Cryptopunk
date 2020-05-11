@@ -463,15 +463,7 @@ public class Program : MonoBehaviour
             List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, target.myTile, GetRange(), true);
             if (tempPath[tempPath.Count - 1] == target.myTile)
             {
-                Attack newAttack = Instantiate(myAttack, gameObject.transform.position, Quaternion.identity).GetComponent<Attack>();
-                newAttack.damage = GetPower();
-                newAttack.SetCourse(tempPath, target);
-                Program.isTargetingAttack = false;
-                if (!GetKeywords().Contains("Hit and Run"))
-                {
-                    movesLeft = 0;
-                }
-                hasUsedAction = true;
+                ExecuteAttack(target, tempPath);
             }
             else
             {
@@ -482,6 +474,23 @@ public class Program : MonoBehaviour
         {
             Debug.Log(gameObject.name + " should not be able to attack");
         }
+    }
+
+    protected virtual void ExecuteAttack(Program target, List<DungeonTile> tempPath)
+    {
+        Attack newAttack = Instantiate(myAttack, gameObject.transform.position, Quaternion.identity).GetComponent<Attack>();
+        newAttack.damage = GetPower();
+        newAttack.SetCourse(tempPath, target);
+        Program.isTargetingAttack = false;
+        if(GetKeywords().Contains("Transfix"))
+        {
+            target.baseKeywords.Add("Stunned");
+        }
+        if (!GetKeywords().Contains("Hit and Run"))
+        {
+            movesLeft = 0;
+        }
+        hasUsedAction = true;
     }
 
     internal void AttemptBreach(Hackable toHack)

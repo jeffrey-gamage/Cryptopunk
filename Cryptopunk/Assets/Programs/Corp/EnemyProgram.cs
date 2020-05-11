@@ -218,7 +218,7 @@ public class EnemyProgram : Program
         }
     }
 
-    internal void ExecuteAIAttack()
+    internal void HandleAIAttack()
     {
         {
             Debug.Log(this.name + " executing AI Attack procedure");

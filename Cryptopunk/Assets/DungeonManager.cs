@@ -331,7 +331,7 @@ public class DungeonManager : MonoBehaviour
             {
                 if (program.HasTarget())
                 {
-                    program.ExecuteAIAttack();
+                    program.HandleAIAttack();
                     allActionsComplete = false;
                     break;
                 }
