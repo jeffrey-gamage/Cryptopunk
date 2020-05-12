@@ -374,7 +374,7 @@ public class DungeonManager : MonoBehaviour
         if(isPlayerTurn)
         {
             EndTurn();
-            if(Program.selectedProgram.GetComponent<EnemyProgram>())
+            if(Program.selectedProgram&&Program.selectedProgram.GetComponent<EnemyProgram>())
             {
                 Program.selectedProgram.GetComponent<EnemyProgram>().ClearSightPreview();
             }

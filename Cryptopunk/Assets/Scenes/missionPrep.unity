@@ -2506,12 +2506,22 @@ PrefabInstance:
     - target: {fileID: 8338506230625595486, guid: 4af9e2cd2cf3c254898593e66b2a7e9b,
         type: 3}
       propertyPath: unbuiltDungeons.Array.size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8338506230625595486, guid: 4af9e2cd2cf3c254898593e66b2a7e9b,
         type: 3}
       propertyPath: unbuiltDungeons.Array.data[0]
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338506230625595486, guid: 4af9e2cd2cf3c254898593e66b2a7e9b,
+        type: 3}
+      propertyPath: unbuiltDungeons.Array.data[2]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8338506230625595486, guid: 4af9e2cd2cf3c254898593e66b2a7e9b,
+        type: 3}
+      propertyPath: corpDungeonNames.Array.data[2]
+      value: globalFinDungeon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4af9e2cd2cf3c254898593e66b2a7e9b, type: 3}
