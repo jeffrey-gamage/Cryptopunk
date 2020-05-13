@@ -1,0 +1,57 @@
+GLOBAL FINANCE
+Global Finance corporation controls the world's monetary system, determining which projects and which people have access to capital, and which don't. Global Finance does not engage in the rivalries and conflicts of the other corps, and there is speculation that the corporation encourages those rivalries in order to further enrich itself. Global Finance's security programs have a unique feature which causes them to ramp up in power every time they engage an attacker. Security assets: Sentry, Grubber, Haunt, Overseer, Gargoyle, Supervisor, Golem, Networker, Profiteer, Tycoon, Dragon
+PANOPTICON INFORMATION SYSTEMS
+Panopticon Information Systems oversees the production of hardware and software for the modern world, from sourcing raw materials to delivering finished products. Panopticon's information security relies on creating digital environments that are difficult to traverse, and developing security programs that are unaffected by such obstacles. Panopticon's systems incorporate switch bridges, which can be used to connect or isolate areas of their network. Security Assets: Sentry, Stinger, Haunt, Overseer, Bot, Gargoyle, Drake, Daemon, Golem, Dragon
+SHADOW TECHNOLOGIES
+Shadow Technologies provides the corporate ecosystem with surveillance and data analysis tools. Shadow Technologies' advanced monitoring systems provide their clients with early warnings of subversive activity, allowing them to intervene before their profits are threatened. They excel at operating without the knowledge of their rivals, and often supplement their income by selling sensitive information. While the other corps may resent Shadow's covert surveillance, they are willing to endure in order to gain knowledge they cannot get anywhere else. Shadow Technologies' digital security is built around security programs that can conceal themselves from attackers and attack from ambush. Security assets: Sentry, Watchdog, Mite, Haunt, Overseer, Gargoyle, Operative, Phantasm, Dragon
+ENFORCEMENT SOLUTIONS
+Each major corporation has their own private security force, but Enforcement Solutions makes their armed division their primary business. EnSol contracts their large and well-equipped military to the other corps for contract enforcement, resource acquisition, and facility security. Enforcement Solutions tactical assets are rarely deployed against other corporations, as when one corp hires them to target a rival, the rival will often match their price in order to keep EnSol out of the conflice. Enforcement Solutions' digital security relies on enhanced area control turrets and powerful combat programs to destroy attackers. Security assets: Sentry, Warhound, Haunt, Overseer, Gargoyle, Enforcer, Golem, Ironclad, Suppressor, Commander, Dragon
+SENTRY
+A basic security program intended to identify threats and delay them until a more powerful response can be deployed.
+WATCHDOG
+A simple security program designed to pursue and attack interlopers
+HAUNT
+A simple security program designed to attack trespassers from a safe distance
+OVERSEER
+A sophisticated security program designed to detect and destroy stealthy enemies
+GARGOYLE
+A sophisticated security program designed to hunt down and destroy flying enemies
+GOLEM
+A slow but powerful security program designed to keep an area secure by destroying all interlopers
+IRONCLAD
+A powerful security program designed to protect more vulnerable security systems. The ironclad is made to resist attacks from hostile programs
+DRAGON
+An extremely powerful security program, the dragon is very resilient, flies, and has a powerful ranged attack. As they are extremely expensive to maintain, the corps only employ dragons to protect their most valuable and dangerous secrets.
+GRUBBER
+A simple security system employed by Global Finance. Grubbers are weak but fast, and can grow stronger by attacking enemies.
+SUPERVISOR
+An enhanced version of the overseer design employed by Global Finance. Supervisors are effective at sweeping for stealth attacks and ramping up their own power when they engage a threat.
+NETWORKER
+A deadly security program developed by Global Finance. The networker can detect stealthed enemies, immobilize enemies it catches, and increase its own power with every attack.
+PROFITEER
+A powerful security program used by Global Finance to protect its flagship operations. Once it engages a threat, the profiteer rapidly grows in power to overcome it.
+TYCOON
+The most powerful security program employed by Global Finance, the Tycoon is extremely effective at direct combat. Engaging it directly is near suicidal, and creative tactics are neccesary to accomplish a mission when up against a Tycoon.
+STINGER
+A quick and inexpensive security program employed by Panopticon Information Systems. It is engineered to fly through Panopticon's labyrinthine data architecture unimpeded by obstacles.
+BOT
+This resilient and powerful combat program is the mainstay of Panopticon Information Systems' security.
+DRAKE
+A sturdy combat program used by Panopticon Information Systems. Like many of Panopticon's security systems, it is able to fly to move freely through data architecture.
+DAEMON
+The strongest combat program posessed by Panopticon Information Systems, the Daemon combines flight capabilities with a powerful ranged attack.
+MITE
+The mite is a small attack program employed by Shadow Technologies. It is equipped with stealth technology
+OPERATIVE
+The operative is a sophisticated attack program developed by Shadow technologies. It combines stealth capability with a dangerous ranged attack.
+PHANTASM
+A deadly security program employed by Shadow Technologies, the Phantasm has both stealth capability and a long-range attack.
+WARHOUND
+The warhound is an upgraded version of the watchdog design developed by Enforcement Solutions.
+ENFORCER
+The enforcer is a heavy combat program used by Enforcement Solutions' data security division.
+SUPPRESSOR
+The Suppressor is a ranged combat program engineered by Enforcement Solutions.
+COMMANDER
+The commander is Enforcement Solutions' most powerful security program. It is extremely resilient and can detect stealthed enemies.
+++ENDFILE++

@@ -189,6 +189,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAnimating: 0
   animationSpeed: 2
+  stealthMaterial: {fileID: 0}
+  iconStealthAlpha: 0.3
   baseSize: 7
   basePower: 5
   baseSpeed: 5
@@ -197,6 +199,7 @@ MonoBehaviour:
   baseBreach: 0
   baseKeywords:
   - Armored
+  - Sensor
   plugins: []
   myAttack: {fileID: 3597810718955383176, guid: b6e10a6c41be2b84d89a236c93612e3b,
     type: 3}
@@ -206,7 +209,6 @@ MonoBehaviour:
   sightIndicator: {fileID: 6032789004985220605, guid: 7ac049fa422918b4aa803986a38c31bd,
     type: 3}
   sightPreviewOffset: 0.11
-  waypoints: []
   difficultyRating: 7
 --- !u!114 &8181304386263870204
 MonoBehaviour:
