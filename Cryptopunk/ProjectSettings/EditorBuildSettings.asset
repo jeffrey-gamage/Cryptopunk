@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/corpDungeons/panInfoDungeon.unity
     guid: 09b58eea383bb034995be49d43224c42
+  - enabled: 1
+    path: Assets/Scenes/corpDungeons/globalFinDungeon.unity
+    guid: b33a37bd377a2af45800713ea4d69c67
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
