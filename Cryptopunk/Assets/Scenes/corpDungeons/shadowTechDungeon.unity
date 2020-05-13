@@ -617,6 +617,8 @@ MonoBehaviour:
   - {fileID: 4900000, guid: c96eb410493ad2440a288255b03d9232, type: 3}
   - {fileID: 4900000, guid: 59a8d5a7f93881d4ba1e06dcfcef157f, type: 3}
   - {fileID: 4900000, guid: bc0c1583001c19a4cbd8b90c9f24c06c, type: 3}
+  - {fileID: 4900000, guid: 759a7be796c6f234a9e4bea93c743603, type: 3}
+  - {fileID: 4900000, guid: 4eddb0808060b0b4cb3cdc2cc11b605f, type: 3}
   corpID: 0
 --- !u!4 &1228498249
 Transform:

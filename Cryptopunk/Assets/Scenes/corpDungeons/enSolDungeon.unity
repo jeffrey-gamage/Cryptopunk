@@ -495,6 +495,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: d926dac3afd3bab4d9544cfff3288306, type: 3}
   - {fileID: 4900000, guid: defb704822631e848ae5838405adaa69, type: 3}
   - {fileID: 4900000, guid: 6475674a00964ab44beb8131d5f89e82, type: 3}
+  - {fileID: 4900000, guid: d10cc568de411fb4eaf65c0aee22d054, type: 3}
   corpID: 4
 --- !u!4 &1228498249
 Transform:
