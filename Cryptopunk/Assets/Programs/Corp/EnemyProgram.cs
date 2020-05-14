@@ -6,12 +6,12 @@ using UnityEngine;
 public class EnemyProgram : Program
 {
     private static readonly int maxPath = 16;
-    protected enum State{
+    internal enum State{
         Patrol,
         Search,
         Attack
     }
-    protected State myState;
+    private State myState;
     private List<GameObject> lineOfSightIndicators;
     [SerializeField] GameObject sightIndicator;
     [SerializeField] float sightPreviewOffset = 0.11f;
@@ -20,6 +20,11 @@ public class EnemyProgram : Program
     protected Hackable hackable;
     internal bool hasUsedAIAction = false;
     [SerializeField]internal int difficultyRating;
+
+    internal State GetState()
+    {
+        return myState;
+    }
 
     internal void InitializeReinforcement()
     {

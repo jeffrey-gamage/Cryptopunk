@@ -341,6 +341,12 @@ public class DungeonManager : MonoBehaviour
                     allActionsComplete = false;
                     break;
                 }
+                Consumer consumer = program.GetComponent<Consumer>();
+                if (consumer && program.GetState() == EnemyProgram.State.Attack)
+                {
+                    consumer.SelectConsumeTarget();
+                    consumer.AttemptConsume();
+                }
             }
         }
         if(allActionsComplete)

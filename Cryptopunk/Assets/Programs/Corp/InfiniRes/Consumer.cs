@@ -11,38 +11,13 @@ public class Consumer : EnemyProgram
     
     [SerializeField] float consumeIntervalTime = 0.25f;
     private EnemyProgram consumeTarget;
-
-    internal override void AttemptAttack(Program target)
-    {
-        if (!hasUsedAction && GetPower() > 0)
-        {
-            List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(myTile, target.myTile, GetRange(), true);
-            if (tempPath[tempPath.Count - 1] == target.myTile)
-            {
-                ExecuteAttack(target, tempPath);
-            }
-            else
-            {
-                Debug.Log("Target out of range");
-                if(myState==State.Attack)
-                {
-                    SelectConsumeTarget();
-                    AttemptConsume();
-                }
-            }
-        }
-        else
-        {
-            Debug.Log(gameObject.name + " should not be able to attack");
-        }
-    }
-
-    private void AttemptConsume()
+    internal void AttemptConsume()
     {
         if(consumeTarget)
         {
+            hasUsedAIAction = true;
             List<DungeonTile> tempPath = DungeonManager.instance.grid.FindPath(consumeTarget.myTile,myTile, GetSight(), true);
-            if (tempPath[tempPath.Count - 1] == consumeTarget.myTile)
+            if (tempPath[tempPath.Count - 1] == myTile)
             {
                 Consume(consumeTarget, tempPath);
             }
@@ -60,20 +35,20 @@ public class Consumer : EnemyProgram
     private void Consume(EnemyProgram consumeTarget, List<DungeonTile> tempPath)
     {
         DungeonManager.instance.Wait();
-        consumeTarget.Damage(1);
-        Essence newEssence = Instantiate(myEssence, gameObject.transform.position, Quaternion.identity).GetComponent<Essence>();
+        Essence newEssence = Instantiate(myEssence, consumeTarget.transform.position, Quaternion.identity).GetComponent<Essence>();
+        newEssence.Harvest(consumeTarget);
         newEssence.SetCourse(tempPath, this);
         Invoke("AttemptConsume", consumeIntervalTime);
     }
 
-    private void SelectConsumeTarget()
+    internal void SelectConsumeTarget()
     {
         consumeTarget = null;
         foreach (EnemyProgram program in DungeonManager.instance.GetAIControlledPrograms())
         {
             if (CanSee(program))
             {
-                if (!consumeTarget || (DungeonManager.instance.grid.TileDistance(program.myTile, myTile) < DungeonManager.instance.grid.TileDistance(consumeTarget.myTile, myTile)))
+                if (program!=this&&(!consumeTarget || (DungeonManager.instance.grid.TileDistance(program.myTile, myTile) < DungeonManager.instance.grid.TileDistance(consumeTarget.myTile, myTile))))
                 {
                     consumeTarget = program;
                     Debug.Log("Consume Target selected");
