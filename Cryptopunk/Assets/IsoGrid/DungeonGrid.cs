@@ -356,7 +356,10 @@ public class DungeonGrid : MonoBehaviour
                 distances[i][j] = 63;
             }
         }
+        //need attacker's tile to be unblocked for navigation to work
+        attacker.myTile.Vacate(attacker);
         SetDistanceRecursive(ref distances, 0, attacker.myTile, searchSize*2, attacker.IsFlying());
+        attacker.myTile.Occupy(attacker);
         DungeonTile destination= null;
         for(int i=0;i<distances.Length;i++)
         {
@@ -368,11 +371,17 @@ public class DungeonGrid : MonoBehaviour
                     ((!destination)||distances[i][j]<distances[destination.xCoord][destination.zCoord]))
                 {
                     destination = tileGrid[i][j];
+                    Debug.Log("new destination: " + i.ToString() + "," + j.ToString());
+                    Debug.Log("distance to destination: " + distances[i][j]);
                 }
             }
         }
         Debug.Log("position: " + attacker.myTile.xCoord.ToString() + "," + attacker.myTile.zCoord.ToString());
         Debug.Log("destination: " + destination.xCoord.ToString() + "," + destination.zCoord.ToString());
+        if(distances[destination.xCoord][destination.zCoord]>=63)
+        {
+            return null;
+        }
         return destination;
     }
 

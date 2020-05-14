@@ -7,11 +7,10 @@ using UnityEngine.SceneManagement;
 public class DungeonDirectory : MonoBehaviour
 {
     [SerializeField] string[] corpDungeonNames;
-    [SerializeField] int[] unbuiltDungeons;
 
     internal void LoadCorpDungeon(int corpID)
     {
-        if(corpID>=0&&corpID<corpDungeonNames.Length&&IsBuilt(corpID))
+        if(corpID>=0&&corpID<corpDungeonNames.Length)
         {
             SceneManager.LoadScene(corpDungeonNames[corpID]);
         }
@@ -19,17 +18,5 @@ public class DungeonDirectory : MonoBehaviour
         {
             SceneManager.LoadScene("procDungeon");
         }
-    }
-
-    private bool IsBuilt(int corpID)
-    {
-        foreach(int dungeonID in unbuiltDungeons)
-        {
-            if (dungeonID==corpID)
-            {
-                return false;
-            }
-        }
-        return true;
     }
 }

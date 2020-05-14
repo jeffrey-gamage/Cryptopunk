@@ -455,8 +455,11 @@ public class DungeonManager : MonoBehaviour
 
     internal void Wait()
     {
-        waitingTo = mode;
-        mode = Mode.Wait;
+        if (mode != Mode.Wait)
+        {
+            waitingTo = mode;
+            mode = Mode.Wait;
+        }
     }
     internal void Resume()
     {

@@ -45,12 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   corpDungeonNames:
   - shadowTechDungeon
-  - extIndDungeon
+  - infiniResDungeon
   - globalFinDungeon
-  - unbEnerDungeon
-  - enSolDungeon
-  - nileDungeon
-  - worldNetDungeon
   - panInfoDungeon
-  - massMarkDungeon
-  unbuiltDungeons: 0800000001000000060000000300000005000000
+  - enSolDungeon

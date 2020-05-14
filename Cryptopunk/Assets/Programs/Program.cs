@@ -456,7 +456,7 @@ public class Program : MonoBehaviour
         }
     }
 
-    internal void AttemptAttack(Program target)
+    internal virtual void AttemptAttack(Program target)
     {
         if(!hasUsedAction&&GetPower()>0)
         {

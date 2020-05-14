@@ -65,4 +65,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/omnipedia.unity
     guid: b4db71c9b94d48d42b3f20fc505808fc
+  - enabled: 1
+    path: Assets/Scenes/corpDungeons/infiniResDungeon.unity
+    guid: 564b5c67d506a684cb4f5e1e2f1fd8a8
   m_configObjects: {}
