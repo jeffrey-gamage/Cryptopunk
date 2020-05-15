@@ -485,6 +485,9 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 7985ee16510229248ad4ec24678a3524, type: 3}
   - {fileID: 4900000, guid: f6bb991ac876a744eba31ce26298beaf, type: 3}
   - {fileID: 4900000, guid: 2a9c40321bd96434baf0a997711f83d9, type: 3}
+  - {fileID: 4900000, guid: 01844739e6da8294ca78b962ef4efdf5, type: 3}
+  - {fileID: 4900000, guid: cfff5b27e4321ba4a9855d66b403e62d, type: 3}
+  - {fileID: 4900000, guid: 76ec5fea95ee24a43846fd0b5c7c0474, type: 3}
   FINAL_ROOMS:
   - {fileID: 4900000, guid: 522e7f64753ea9441889cebc9e3fb2eb, type: 3}
   - {fileID: 4900000, guid: 2e8134d3edcf7014484331afd902d061, type: 3}
@@ -496,6 +499,9 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 2653664faf6f2a844a98083af8b2d7d3, type: 3}
   - {fileID: 4900000, guid: 19ca5d88af668ae44b8866da4302fdb8, type: 3}
   - {fileID: 4900000, guid: bd2ffb9675757c24daea88e3fa908a14, type: 3}
+  - {fileID: 4900000, guid: f0e7a0060840e7948951fb8e64d70a8b, type: 3}
+  - {fileID: 4900000, guid: cfff5b27e4321ba4a9855d66b403e62d, type: 3}
+  - {fileID: 4900000, guid: 76ec5fea95ee24a43846fd0b5c7c0474, type: 3}
   corpID: 1
 --- !u!4 &1228498249
 Transform:
