@@ -1,4 +1,4 @@
-GLOBAL FINANCE
+GLOBAL FINANCE MANAGEMENT
 Global Finance corporation controls the world's monetary system, determining which projects and which people have access to capital, and which don't. Global Finance does not engage in the rivalries and conflicts of the other corps, and there is speculation that the corporation encourages those rivalries in order to further enrich itself. Global Finance's security programs have a unique feature which causes them to ramp up in power every time they engage an attacker. Security assets: Sentry, Grubber, Haunt, Overseer, Gargoyle, Supervisor, Golem, Networker, Profiteer, Tycoon, Dragon
 PANOPTICON INFORMATION SYSTEMS
 Panopticon Information Systems oversees the production of hardware and software for the modern world, from sourcing raw materials to delivering finished products. Panopticon's information security relies on creating digital environments that are difficult to traverse, and developing security programs that are unaffected by such obstacles. Panopticon's systems incorporate switch bridges, which can be used to connect or isolate areas of their network. Security Assets: Sentry, Stinger, Haunt, Overseer, Bot, Gargoyle, Drake, Daemon, Golem, Dragon
@@ -6,6 +6,8 @@ SHADOW TECHNOLOGIES
 Shadow Technologies provides the corporate ecosystem with surveillance and data analysis tools. Shadow Technologies' advanced monitoring systems provide their clients with early warnings of subversive activity, allowing them to intervene before their profits are threatened. They excel at operating without the knowledge of their rivals, and often supplement their income by selling sensitive information. While the other corps may resent Shadow's covert surveillance, they are willing to endure in order to gain knowledge they cannot get anywhere else. Shadow Technologies' digital security is built around security programs that can conceal themselves from attackers and attack from ambush. Security assets: Sentry, Watchdog, Mite, Haunt, Overseer, Gargoyle, Operative, Phantasm, Dragon
 ENFORCEMENT SOLUTIONS
 Each major corporation has their own private security force, but Enforcement Solutions makes their armed division their primary business. EnSol contracts their large and well-equipped military to the other corps for contract enforcement, resource acquisition, and facility security. Enforcement Solutions tactical assets are rarely deployed against other corporations, as when one corp hires them to target a rival, the rival will often match their price in order to keep EnSol out of the conflice. Enforcement Solutions' digital security relies on enhanced area control turrets and powerful combat programs to destroy attackers. Security assets: Sentry, Warhound, Haunt, Overseer, Gargoyle, Enforcer, Golem, Ironclad, Suppressor, Commander, Dragon
+INFINITY RESOURCE ACQUISITION
+Infinity controls global mining, forestry and agriculture. It is deeply in debt to Global Finance Management and Enforcement Solutions, but as these corporations depend on its operations it is not allowed to fail. Infinity's data security relies on large numbers of weak security programs combined with proprietary technologies which cannabilize other security programs to upgrade themselves. Security assets: Sentry, Watchdog, Collector, Haunt Overseer, Gargoyle, Extractor, Harvester, Reaper, Devourer, Dragon
 SENTRY
 A basic security program intended to identify threats and delay them until a more powerful response can be deployed.
 WATCHDOG
@@ -17,7 +19,7 @@ A sophisticated security program designed to detect and destroy stealthy enemies
 GARGOYLE
 A sophisticated security program designed to hunt down and destroy flying enemies
 GOLEM
-A slow but powerful security program designed to keep an area secure by destroying all interlopers
+A slow but powerful security program designed to destroy trespassers
 IRONCLAD
 A powerful security program designed to protect more vulnerable security systems. The ironclad is made to resist attacks from hostile programs
 DRAGON
@@ -54,4 +56,14 @@ SUPPRESSOR
 The Suppressor is a ranged combat program engineered by Enforcement Solutions.
 COMMANDER
 The commander is Enforcement Solutions' most powerful security program. It is extremely resilient and can detect stealthed enemies.
+COLLECTOR
+A weak program that can consume other security programs to grow stronger. Developed by Infinity Resource Acquisition
+DEVOURER
+A very powerful security program developed by Infinity Resource Acquisition. It can fly and consume other security programs to grow even stronger.
+EXTRACTOR
+A medium combat program which uses Infinity Resource Acquistion's proprietary technology to grow more powerful by consuming other defense programs
+REAPER
+Infinity Resource Acquisition's heavy combat program. It can withstand a great deal of damage and can consume other security programs to upgrade itself.
+HARVESTER
+A ranged attack program employed by Inifinity Resource Acquisition. It can consume other security programs to upgrade itself.
 ++ENDFILE++
