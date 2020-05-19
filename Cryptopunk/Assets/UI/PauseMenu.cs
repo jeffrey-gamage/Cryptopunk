@@ -36,6 +36,11 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    internal bool isPaused()
+    {
+        return GetComponent<Image>().enabled;
+    } 
+
     public void QuitGame()
     {
         Application.Quit();
