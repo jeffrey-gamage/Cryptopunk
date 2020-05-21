@@ -199,6 +199,7 @@ MonoBehaviour:
   baseBreach: 0
   baseKeywords:
   - Recover
+  - Accrue
   plugins: []
   myAttack: {fileID: 3597810718955383176, guid: b6e10a6c41be2b84d89a236c93612e3b,
     type: 3}

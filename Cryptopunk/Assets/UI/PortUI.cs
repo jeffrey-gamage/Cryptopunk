@@ -20,6 +20,12 @@ public class PortUI : MonoBehaviour
         loadButton.gameObject.SetActive(false);
     }
 
+    public void HideProgramList()
+    {
+        programList.SetActive(false);
+        disengageButton.gameObject.SetActive(true);
+        loadButton.gameObject.SetActive(true);
+    }
     public void Disengage()
     {
         MissionStatus.instance.outcome = MissionStatus.MissionOutcome.retrieved;

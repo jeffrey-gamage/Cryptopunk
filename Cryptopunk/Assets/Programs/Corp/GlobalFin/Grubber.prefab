@@ -197,7 +197,8 @@ MonoBehaviour:
   baseRange: 1
   baseSight: 5
   baseBreach: 0
-  baseKeywords: []
+  baseKeywords:
+  - Accrue
   plugins: []
   myAttack: {fileID: 3597810718955383176, guid: b6e10a6c41be2b84d89a236c93612e3b,
     type: 3}
