@@ -11,6 +11,7 @@ public class PortUI : MonoBehaviour
     [SerializeField] GameObject programList;
     [SerializeField] Button disengageButton;
     [SerializeField] Button loadButton;
+    [SerializeField] Button cancelButton;
     // Start is called before the first frame update
 
     public void DisplayProgramList()
@@ -18,6 +19,7 @@ public class PortUI : MonoBehaviour
         programList.SetActive(true);
         disengageButton.gameObject.SetActive(false);
         loadButton.gameObject.SetActive(false);
+        cancelButton.gameObject.SetActive(false);
     }
 
     public void HideProgramList()
@@ -25,7 +27,15 @@ public class PortUI : MonoBehaviour
         programList.SetActive(false);
         disengageButton.gameObject.SetActive(true);
         loadButton.gameObject.SetActive(true);
+        cancelButton.gameObject.SetActive(true);
     }
+
+    public void Cancel()
+    {
+        port.isEnabled = false;
+        Destroy(gameObject);
+    }
+
     public void Disengage()
     {
         MissionStatus.instance.outcome = MissionStatus.MissionOutcome.retrieved;
