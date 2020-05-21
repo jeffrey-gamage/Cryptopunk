@@ -30,11 +30,11 @@ public class Terminal : Hackable
             linkStart.transform.position = gameObject.transform.position + Vector3.up * linkOffset;
             linkEnd.transform.position = controlledObjects[0].transform.position + Vector3.up * linkOffset;
             linkLR.transform.position = new Vector3((controlledObjects[0].transform.position.x + gameObject.transform.position.x) / 2f, gameObject.transform.position.y+linkOffset, gameObject.transform.position.z);
-            linkLR.transform.localScale = new Vector3(Mathf.Abs(controlledObjects[0].transform.position.x - gameObject.transform.position.x), 1, 1)*1.25f;
+            linkLR.transform.localScale = new Vector3(Mathf.Abs(controlledObjects[0].transform.position.x - gameObject.transform.position.x), 0.02f, 0.04f)*1.25f;
             linkVert.transform.position = new Vector3(controlledObjects[0].transform.position.x, (controlledObjects[0].transform.position.y + gameObject.transform.position.y) / 2f+linkOffset, gameObject.transform.position.z);
-            linkVert.transform.localScale = new Vector3(Mathf.Abs(controlledObjects[0].transform.position.y - gameObject.transform.position.y), 1, 1) * 2.5f;
+            linkVert.transform.localScale = new Vector3(Mathf.Abs(controlledObjects[0].transform.position.y - gameObject.transform.position.y), 0.02f, 0.02f) * 2.5f;
             linkFB.transform.position = new Vector3(controlledObjects[0].transform.position.x, controlledObjects[0].transform.position.y+linkOffset, (controlledObjects[0].transform.position.z + gameObject.transform.position.z) / 2f);
-            linkFB.transform.localScale = new Vector3(Mathf.Abs(controlledObjects[0].transform.position.z - gameObject.transform.position.z), 1, 1)*1.25f;
+            linkFB.transform.localScale = new Vector3(Mathf.Abs(controlledObjects[0].transform.position.z - gameObject.transform.position.z), 0.02f, 0.04f) *1.25f;
         }
         else
         {

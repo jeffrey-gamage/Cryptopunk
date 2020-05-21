@@ -54,15 +54,15 @@ public class Loot : MonoBehaviour
         string message = "";
         if(isMissionObjective)
         {
-            message += "\nsecured mission objective";
+            message += "\n acquired mission objective";
         }
         if(credits>0)
         {
-            message += "\nsecured " + credits.ToString() + " credits";
+            message += "\n acquired " + credits.ToString() + " credits";
         }
         if(schema.Length>0)
         {
-            message += "\nlocated schematic: " + schema;
+            message += "\n acquired schematic: " + schema;
         }
         return message;
     }

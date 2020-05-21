@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb29b9888f002a4eac2471466eb003f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxIntegrity: 6
+  maxIntegrity: 4
   rebootTime: 3
   hackedMaterial: {fileID: 2100000, guid: 642e0b922724f5a4895df7421cadafc0, type: 2}
   inactiveMaterial: {fileID: 0}

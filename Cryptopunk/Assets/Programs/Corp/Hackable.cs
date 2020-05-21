@@ -33,23 +33,11 @@ public class Hackable : MonoBehaviour
     {
         if (!myProgram)
         {
-            if (myTile.IsExplored()&&myTile.IsFinishedRevealAnimation())
+            bool objectIsVisible = myTile.IsExplored() && myTile.IsFinishedRevealAnimation();
+            myCollider.enabled = objectIsVisible;
+            foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
             {
-                myMeshRenderer.enabled = true;
-                myCollider.enabled = true;
-                foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
-                {
-                    renderer.enabled = true;
-                }
-            }
-            else
-            {
-                myMeshRenderer.enabled = false;
-                myCollider.enabled = false;
-                foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
-                {
-                    renderer.enabled = false;
-                }
+                renderer.enabled = objectIsVisible;
             }
         }
     }

@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Port : Hackable
 {
+    [SerializeField] Sprite normalSprite;
+    [SerializeField] Sprite hackedSprite;
+    [SerializeField] SpriteRenderer face;
+
     [SerializeField] GameObject portUI;
     private bool isOpen = false;
     internal override void Activate()
@@ -13,6 +17,7 @@ public class Port : Hackable
         {
             PortUI newPortUI =Instantiate(portUI, FindObjectOfType<Canvas>().transform).GetComponent<PortUI>();
             newPortUI.SetPort(this);
+            face.sprite = normalSprite;
         }
         base.Activate();
     }
@@ -21,6 +26,7 @@ public class Port : Hackable
     {
         isOpen = true;
         base.Breach(breachAmount);
+        face.sprite = hackedSprite;
     }
 
     internal override void Deactivate(bool isBreach)

@@ -22,7 +22,7 @@ public class MenuButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        AudioSource.PlayClipAtPoint(selectSound, Vector3.zero);
+        AudioSource.PlayClipAtPoint(selectSound, Vector3.zero,PlayerPrefs.GetFloat(Options.sfxVolumeKey));
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -30,7 +30,7 @@ public class MenuButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (this != selectedOption)
         {
             selectedOption = this;
-            AudioSource.PlayClipAtPoint(mouseOverSound, Vector3.zero);
+            AudioSource.PlayClipAtPoint(mouseOverSound, Vector3.zero, PlayerPrefs.GetFloat(Options.sfxVolumeKey));
         }
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 628397507089418460}
   - component: {fileID: 8932667461323411725}
   m_Layer: 5
-  m_Name: SearchAndDestroy
+  m_Name: SecurityProtocolWarning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Unauthorized access detected --  commencing security scan
+  m_Text: Unauthorized access detected --  commencing security protocol
 --- !u!114 &8932667461323411725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,4 +91,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minOpacity: 0.3
-  opacityDelta: 0.5
+  opacityDelta: 0.7

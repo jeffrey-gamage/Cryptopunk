@@ -247,8 +247,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: These enemy programs can be destroyed by attacking them and reducing their
     size to zero, or breached by reducing their integrity to zero. Damaging a program
-    will reduce its integrity, making it less resistant to breach attempts. You can
-    control breached programs until they reboot
+    will reduce its integrity, making it more vulnerable to future breach attempts.
+    Once you successfully breach a program, you gain control of it until it reboots.
 --- !u!1 &5651975461860370351
 GameObject:
   m_ObjectHideFlags: 0

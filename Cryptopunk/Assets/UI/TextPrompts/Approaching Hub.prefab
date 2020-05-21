@@ -114,7 +114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.27684495, y: 0.186}
   m_AnchorMax: {x: 0.77800006, y: 0.7267471}
-  m_AnchoredPosition: {x: -1, y: 1.3999996}
+  m_AnchoredPosition: {x: -1, y: 1.4000015}
   m_SizeDelta: {x: 0, y: -0.8999996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4230147079844570321
@@ -243,9 +243,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Security nodes will load new defence programs periodically when an attack
-    is underway. The longer you stay connected, the stronger the security response
-    will become. Securiy nodes cannot be hacked.
+  m_Text: Security nodes will load new defence programs periodically during an attack.
+    The longer you stay connected, the stronger the security response will become.
+    Securiy nodes cannot be hacked.
 --- !u!1 &5651975461860370351
 GameObject:
   m_ObjectHideFlags: 0

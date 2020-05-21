@@ -694,7 +694,7 @@ PrefabInstance:
     - target: {fileID: 628397507089418460, guid: b477ed84c05b24842af3c960bf4c2219,
         type: 3}
       propertyPath: m_Text
-      value: Unauthorized access detected -- commencing security scan
+      value: Unauthorized access detected -- commencing security protocol
       objectReference: {fileID: 0}
     - target: {fileID: 628397507089418460, guid: b477ed84c05b24842af3c960bf4c2219,
         type: 3}

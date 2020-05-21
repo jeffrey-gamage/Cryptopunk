@@ -88,6 +88,7 @@ public class DungeonManager : MonoBehaviour
             }
             room.ConnectSwitches();
         }
+        RemoveUnusedTerminals();
 
         grid.PlaceLoot(generator.GetLoot());
         grid.PlaceObjective(generator.getMissionObj());
@@ -103,6 +104,25 @@ public class DungeonManager : MonoBehaviour
         FindObjectOfType<CameraContol>().Configure();
         grid.ExploreStartingArea(generator.GetDeploymentArea());
         PrepareNextDeployment();
+    }
+
+    private void RemoveUnusedTerminals()
+    {
+        bool allUnusedTerminalsRemoved = false;
+        while (!allUnusedTerminalsRemoved)
+        {
+            allUnusedTerminalsRemoved = true;
+            for (int i = 0; i < terminals.Count; i++)
+            {
+                if (terminals[i].controlledObjects.Count == 0)
+                {
+                    Destroy(terminals[i].gameObject);
+                    terminals.RemoveAt(i);
+                    allUnusedTerminalsRemoved = false;
+                    break;
+                }
+            }
+        }
     }
 
     private void Update()

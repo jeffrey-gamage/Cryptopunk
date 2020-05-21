@@ -109,6 +109,11 @@ MonoBehaviour:
   maxIntegrity: 1
   rebootTime: 3
   hackedMaterial: {fileID: 2100000, guid: 69531ecac0765334994a79ca8db5e97f, type: 2}
+  inactiveMaterial: {fileID: 0}
+  inactiveHackedMaterial: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 64d971c68330183478c3e3f309288a98, type: 3}
+  hackedSprite: {fileID: 21300000, guid: 52fa0e4aa1f1261458d43945a374f2e0, type: 3}
+  face: {fileID: 8490983628045502247}
   portUI: {fileID: 8719980140497699984, guid: a590f60013b23904cb5ecad82dd7634f, type: 3}
 --- !u!1 &6515475754625557088
 GameObject:

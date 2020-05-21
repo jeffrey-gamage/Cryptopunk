@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ProgramListItem : MonoBehaviour
 {
+    [SerializeField] Image programIcon;
     [SerializeField] Text programName;
     [SerializeField] Text programSize;
     [SerializeField] Text programSpeed;
@@ -24,6 +25,7 @@ public class ProgramListItem : MonoBehaviour
     {
         myProgram = newProgram;
         Program program = myProgram.GetComponent<Program>();
+        programIcon.sprite = newProgram.GetComponentInChildren<SpriteRenderer>().sprite;
         programName.text = program.name;
         programSize.text = "Size: "+program.GetSize().ToString();
         programSpeed.text = "Speed: " + program.GetSpeed().ToString();

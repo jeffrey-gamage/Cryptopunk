@@ -18,7 +18,7 @@ public class Program : MonoBehaviour
     public static float unseenMovementSpeed = 12f;
     public static float normalMovementSpeed = 2f;
 
-    private static float rotationRate = 80f;
+    private static float rotationRate = 40f;
     private float rotationAmount = 0f;
     private float maxRotation = 35f;
 
@@ -235,11 +235,11 @@ public class Program : MonoBehaviour
         Vector3 rotationAxis = GetRotationAxis(motion);
         if (myTile.ramp && rotationAmount<maxRotation)
         {
-            rotationAmount = Mathf.Clamp(rotationAmount+rotationRate * Time.deltaTime,0f,maxRotation);
+            rotationAmount = Mathf.Clamp(rotationAmount+rotationRate*animationSpeed * Time.deltaTime,0f,maxRotation);
         }
         else if(!myTile.ramp&&rotationAmount>0f)
         {
-            rotationAmount = Mathf.Clamp(rotationAmount - rotationRate * Time.deltaTime, 0f, maxRotation);
+            rotationAmount = Mathf.Clamp(rotationAmount - rotationRate*animationSpeed * Time.deltaTime, 0f, maxRotation);
         }
         gameObject.transform.rotation = Quaternion.AngleAxis(rotationAmount, rotationAxis);
     }
@@ -326,6 +326,7 @@ public class Program : MonoBehaviour
         {
             if(this.CanSee(program))
             {
+                if(this.IsControlledByPlayer()||GetComponent<Hackable>().isEnabled)
                 program.Spot();
             }
             if(program.CanSee(this))

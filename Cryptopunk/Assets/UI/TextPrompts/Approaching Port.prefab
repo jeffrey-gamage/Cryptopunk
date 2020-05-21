@@ -245,7 +245,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: Ports like this one can be used to load new programs into the system, or
     to retrieve your attack package along with all the files you have accessed. Breach
-    it to take control.
+    it to gain access.
 --- !u!1 &5651975461860370351
 GameObject:
   m_ObjectHideFlags: 0
