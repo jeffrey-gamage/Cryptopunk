@@ -496,7 +496,7 @@ public class Program : MonoBehaviour
 
     internal void AttemptBreach(Hackable toHack)
     {
-        if (!hasUsedAction && GetBreach() > 0)
+        if (!hasUsedAction && GetBreach() > 0&& !toHack.IsHacked())
         {
             int breachRange = 1;
             if(GetKeywords().Contains("Remote"))
